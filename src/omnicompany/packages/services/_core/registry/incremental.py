@@ -26,7 +26,6 @@ from __future__ import annotations
 import logging
 import subprocess
 from pathlib import Path
-from typing import Any
 
 log = logging.getLogger(__name__)
 
@@ -127,7 +126,6 @@ def _classify_changed_files(
         router_targets: [{"router_class": str, "source_file": str, "entity_id": str}]
         format_ids:     [format_id_str, ...]  (e.g. "demogame.table_schema")
     """
-    from .instance import InstanceRegistry
     from .scanner import scan_file
     from . import get_registry
 
@@ -219,7 +217,8 @@ def _already_diagnosed(entity_id: str, commit_hash: str, archive_dir: Path,
     """
     if not commit_hash:
         return False
-    import json, re
+    import json
+    import re
     safe = re.sub(r"[:/\\]", "_", entity_id) + ".jsonl"
     etype = entity_id.split(":")[0]
     path = archive_dir / etype / safe

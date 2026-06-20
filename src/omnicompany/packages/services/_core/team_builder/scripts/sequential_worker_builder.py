@@ -30,7 +30,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Any, ClassVar
+from typing import ClassVar
 
 # ──────────────────────────────────────────────────────────────────────────
 # §1 · 工人代码生成 Agent (用 omnicompany AgentNodeLoop · 5 工具)

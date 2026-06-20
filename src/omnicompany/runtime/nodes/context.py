@@ -337,8 +337,6 @@ class TraceAccumulateRouter(Router):
 
     async def run(self, input_data: Any) -> Verdict:
         """积累路由图并进行痛觉后处理。"""
-        import asyncio
-        import sqlite3
 
         if not isinstance(input_data, dict):
             return Verdict(kind=VerdictKind.PASS, output=input_data)

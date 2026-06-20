@@ -115,7 +115,7 @@ class RecordHypothesisResolutionTool(SingleToolRouter):
             raise ToolExecutionError(f"读 yaml 失败: {e}")
 
         if not isinstance(hyp_dict, dict):
-            raise ToolExecutionError(f"yaml 顶层非 dict")
+            raise ToolExecutionError("yaml 顶层非 dict")
 
         recorder = HypothesisResolutionRecorder()
         result = recorder.record(

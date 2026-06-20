@@ -16,7 +16,6 @@ from __future__ import annotations
 
 import json
 import logging
-import os
 import re
 import subprocess
 from pathlib import Path
@@ -94,15 +93,15 @@ class DiffCollectorRouter(Router):
 
         # 截断
         if len(ctx["diff"]) > 60000:
-            ctx["diff"] = ctx["diff"][:60000] + f"\n... (truncated)"
+            ctx["diff"] = ctx["diff"][:60000] + "\n... (truncated)"
 
         # 解析变更文件列表
         changed = []
         for match in re.finditer(r'^diff --git a/(.*?) b/', ctx["diff"], re.MULTILINE):
             fpath = match.group(1)
             if fpath not in [c["path"] for c in changed]:
-                added = len(re.findall(rf'^\+(?!\+\+)', ctx["diff"][match.start():], re.MULTILINE))
-                removed = len(re.findall(rf'^-(?!--)', ctx["diff"][match.start():], re.MULTILINE))
+                added = len(re.findall(r'^\+(?!\+\+)', ctx["diff"][match.start():], re.MULTILINE))
+                removed = len(re.findall(r'^-(?!--)', ctx["diff"][match.start():], re.MULTILINE))
                 changed.append({"path": fpath, "added": added, "removed": removed})
         ctx["changed_files"] = changed
 
@@ -457,16 +456,16 @@ class ReportFormatterRouter(Router):
 
         lines = [
             f"{'═' * 55}",
-            f"📝 CODE REVIEW REPORT",
+            "📝 CODE REVIEW REPORT",
             f"{'═' * 55}",
-            f"",
+            "",
             f"变更: {description}",
             f"文件: {len(ctx.get('changed_files', []))}",
             f"测试: {len(ctx.get('test_files', {}))} 找到, {len(ctx.get('coverage_gaps', []))} 缺口",
-            f"",
-            f"── 摘要 ──",
+            "",
+            "── 摘要 ──",
             review.get("summary", "N/A"),
-            f"",
+            "",
         ]
 
         if critical:
@@ -493,7 +492,7 @@ class ReportFormatterRouter(Router):
             lines.append("")
 
         lines.extend([
-            f"── 结论 ──",
+            "── 结论 ──",
             f"{'✅' if conclusion == 'APPROVE' else '❌' if conclusion == 'REQUEST_CHANGES' else '💬'} {conclusion}",
             f"{'═' * 55}",
         ])

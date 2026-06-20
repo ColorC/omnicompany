@@ -18,7 +18,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-from typing import Any, ClassVar
+from typing import ClassVar
 
 from omnicompany.packages.services._core.agent.routers.single_tool import (
     SingleToolRouter,

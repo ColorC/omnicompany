@@ -526,7 +526,7 @@ class ReportFormatterRouter(Router):
         ]
 
         if ctx.get("review_summary"):
-            lines.append(f"── 摘要 ──")
+            lines.append("── 摘要 ──")
             lines.append(ctx["review_summary"])
             lines.append("")
 
@@ -544,7 +544,7 @@ class ReportFormatterRouter(Router):
                     lines.append(f"    → {f['suggestion']}")
             lines.append("")
 
-        lines.append(f"── 结论 ──")
+        lines.append("── 结论 ──")
         conclusion_icons = {"APPROVE": "✅", "NEEDS_REVISION": "💬", "REJECT": "❌"}
         lines.append(f"{conclusion_icons.get(conclusion, '❓')} {conclusion}")
         lines.append("═" * 55)

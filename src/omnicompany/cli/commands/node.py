@@ -2,7 +2,7 @@
 # [OMNI] material_id="material:cli.semantic_nodes.browser.implementation.py"
 """omni node [node_id] - 节点详情或列表。"""
 import click
-from ..db import open_db, resolve_db, fmt_time, fmt_bool, truncate, type_ids
+from ..db import open_db, resolve_db, fmt_bool, truncate, type_ids
 
 
 @click.command("node")
@@ -41,7 +41,7 @@ def _show_node(conn, node_id: str, traces: bool):
     click.echo(f"  in_types  : {type_ids(n['input_types'])}")
     click.echo(f"  out_types : {type_ids(n['output_types'])}")
     if n['processing_prompt']:
-        click.echo(f"\n  --- processing_prompt ---")
+        click.echo("\n  --- processing_prompt ---")
         click.echo(truncate(n['processing_prompt'], 500))
 
     if traces:
@@ -54,7 +54,7 @@ def _show_node(conn, node_id: str, traces: bool):
                 (n['node_id'],)
             ).fetchall()
             if spans:
-                click.echo(f"\n  --- recent spans ---")
+                click.echo("\n  --- recent spans ---")
                 for sp in spans:
                     status = "ok" if sp["success"] else "FAIL"
                     lat = f"{sp['latency_ms']:.0f}ms" if sp["latency_ms"] else "?"

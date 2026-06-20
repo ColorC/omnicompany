@@ -329,7 +329,7 @@ class ReqWriterRouter(Router):
             )
 
         # 从 sop dict 重建 SOP 对象
-        from omnifactory.packages.services._learning.trace_induction.sop_extractor import SOP, SOPStep, SOPErrorHandler, _build_sop_from_json
+        from omnifactory.packages.services._learning.trace_induction.sop_extractor import _build_sop_from_json
         sop_obj = _build_sop_from_json(sop_dict, derived_from, sop_dict.get("extraction_method", ""))
 
         # 生成需求文档

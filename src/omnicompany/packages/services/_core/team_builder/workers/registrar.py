@@ -26,7 +26,6 @@ from __future__ import annotations
 
 import hashlib
 import py_compile
-import shutil
 import tempfile
 from pathlib import Path
 from typing import Any

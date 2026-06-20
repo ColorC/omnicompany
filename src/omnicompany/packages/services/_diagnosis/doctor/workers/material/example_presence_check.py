@@ -67,7 +67,7 @@ class MaterialExamplePresenceWorker(Worker):
         has_type_info = has_examples or has_schema
         sub_checks.append(("examples 或 json_schema 非空", has_type_info,
                            f"共 {len(examples)} 个示例" if has_examples
-                           else f"json_schema 存在" if has_schema
+                           else "json_schema 存在" if has_schema
                            else "examples 和 json_schema 均为空"))
 
         # 2. 若有 examples, 至少一个示例是含字段的 dict
@@ -84,7 +84,7 @@ class MaterialExamplePresenceWorker(Worker):
         detail_str = (
             f"示例存在 ({len(examples)} 个, 最大字段数={max_fields})"
             if has_examples else
-            f"json_schema 定义存在 (替代示例)"
+            "json_schema 定义存在 (替代示例)"
             if has_schema else
             "示例质量不足 (examples 和 json_schema 均为空)"
         )

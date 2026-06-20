@@ -30,7 +30,6 @@ from omnifactory.protocol.anchor import Verdict, VerdictKind
 from omnifactory.runtime.routing.router import Router
 
 from .standards_loader import (
-    StandardsIndex,
     load_standards_index,
     infer_kind,
     match_standards,

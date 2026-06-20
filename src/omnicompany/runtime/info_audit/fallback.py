@@ -48,7 +48,6 @@ from pathlib import Path
 from typing import Any, ClassVar
 
 from omnicompany.core.config import _project_root, resolve_runtime_data_dir
-from omnicompany.protocol.anchor import Verdict, VerdictKind
 from omnicompany.runtime.agent.agent_loop_config import LoopConfig, PRESET_STANDARD
 from omnicompany.packages.services._core.agent import AgentNodeLoop
 from omnicompany.packages.services._core.agent import GrepRouter, ReadFileRouter, ListDirRouter, GlobRouter
@@ -57,7 +56,6 @@ from omnicompany.packages.services._core.agent.routers.single_tool import (
     ToolContext,
     ToolExecutionError,
 )
-from omnicompany.packages.services._core.agent.routers.extract_result import ExtractResultRouter
 from omnicompany.packages.services._core.agent.routers.dev_bash import _matches_danger
 from omnicompany.runtime.info_audit.guarded_write import (
     GuardedWriteResult,

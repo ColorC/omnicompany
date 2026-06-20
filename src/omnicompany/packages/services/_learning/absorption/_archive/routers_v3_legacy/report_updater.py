@@ -20,10 +20,7 @@ FORMAT_OUT: absorption.report.v3
 """
 from __future__ import annotations
 
-import json
-import re
 from datetime import datetime
-from pathlib import Path
 from typing import Any
 
 from omnicompany.core.config import resolve_domain_data_dir

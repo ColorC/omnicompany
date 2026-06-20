@@ -515,7 +515,7 @@ def render_body(
         if body:
             parts.append(body.strip())
         else:
-            parts.append(f"_(LLM 未返回此段)_")
+            parts.append("_(LLM 未返回此段)_")
         parts.append("")
 
     parts.append("## Change log")
@@ -808,7 +808,7 @@ def main() -> int:
             resume=args.resume,
         )
         ok = sum(1 for r in results if r.success)
-        print(f"\n=== Deep Read Batch Summary ===")
+        print("\n=== Deep Read Batch Summary ===")
         for r in results:
             status = "OK" if r.success else "FAIL"
             print(f"  [{status}] {r.kb_id}: sections={r.sections_count} chars={r.body_chars} {r.error}")

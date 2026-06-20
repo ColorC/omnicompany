@@ -21,7 +21,6 @@ from typing import Any
 from omnicompany.bus.sqlite import SQLiteBus
 from omnicompany.packages.services._core.evolution.workflow.hypothesis import Hypothesis, HypothesisBoard
 from omnicompany.packages.services._core.evolution.workflow.hypothesis_store import HypothesisBoardStore
-from omnicompany.packages.services._core.evolution.workflow.pain_signal import QualityPainSignal
 from omnicompany.protocol.anchor import ValidatorKind
 from omnicompany.protocol.events import FactoryEvent
 from omnicompany.protocol.team import NodeKind, TeamSpec

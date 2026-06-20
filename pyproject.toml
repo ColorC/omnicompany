@@ -56,8 +56,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/ColorC/omnicompany"
-Repository = "https://github.com/ColorC/omnicompany"
+Homepage = "https://github.com/ColorC/make-ai-slop-more-efficiently"
+Repository = "https://github.com/ColorC/make-ai-slop-more-efficiently"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/omnicompany"]

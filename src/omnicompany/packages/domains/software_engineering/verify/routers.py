@@ -437,13 +437,13 @@ class ReportEmitterRouter(Router):
 
         report_lines = [
             f"{'═' * 55}",
-            f"🔍 VERIFICATION REPORT",
+            "🔍 VERIFICATION REPORT",
             f"{'═' * 55}",
-            f"",
+            "",
             f"声称 (Claim): {claim}",
             f"验证命令: {verify_cmd}",
             f"验证轮次: {len(executions)}",
-            f"",
+            "",
         ]
 
         for i, (exec_rec, analysis) in enumerate(zip(executions, analyses)):
@@ -453,18 +453,18 @@ class ReportEmitterRouter(Router):
                 f"Exit Code: {exec_rec.get('exit_code', '?')} ({'✅' if exec_rec.get('exit_code') == 0 else '❌'})",
                 f"Pattern Match: {'✅' if analysis.get('pattern_match') else '❌'}",
                 f"判定: {analysis.get('verdict', '?')}",
-                f"",
+                "",
             ])
 
         report_lines.extend([
-            f"── 最终结论 ──",
+            "── 最终结论 ──",
             f"{'✅' if verified else '❌'} {final_verdict}: \"{claim}\"",
         ])
 
         if verified:
-            report_lines.append(f"   声称得到 evidence-based 证实")
+            report_lines.append("   声称得到 evidence-based 证实")
         else:
-            report_lines.append(f"   声称未通过验证")
+            report_lines.append("   声称未通过验证")
             for a in analyses:
                 if a.get("verdict") != "CONFIRMED":
                     report_lines.append(f"   理由: exit_code={a.get('exit_code')}, pattern={a.get('pattern_match')}")
@@ -475,8 +475,8 @@ class ReportEmitterRouter(Router):
         output_preview = (latest_exec.get("stdout", "") + "\n" + latest_exec.get("stderr", "")).strip()
         if output_preview:
             report_lines.extend([
-                f"",
-                f"── 最后输出摘要 ──",
+                "",
+                "── 最后输出摘要 ──",
                 output_preview[:2000],
             ])
 

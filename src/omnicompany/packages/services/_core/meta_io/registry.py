@@ -12,7 +12,6 @@ type=meta_io).
 """
 from __future__ import annotations
 
-from typing import Any
 
 from omnicompany.packages.services._core.meta_io.definitions import MetaIO
 

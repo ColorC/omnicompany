@@ -12,7 +12,6 @@ class McpDevelopmentAnchorRouter(Router):
     def run(self, input_data):
         from omnicompany.runtime.agent.agent_loop import run_agent
         from omnicompany.runtime.exec.tools import ALL_TOOLS
-        import os
         
         
         # Load local tool requirements
@@ -44,7 +43,6 @@ class StudyMcpProtocolRouter(Router):
     def run(self, input_data):
         from omnicompany.runtime.agent.agent_loop import run_agent
         from omnicompany.runtime.exec.tools import ALL_TOOLS
-        import os
         
         
         # Load local tool requirements
@@ -74,7 +72,6 @@ class StudyFrameworkDocsRouter(Router):
     def run(self, input_data):
         from omnicompany.runtime.agent.agent_loop import run_agent
         from omnicompany.runtime.exec.tools import ALL_TOOLS
-        import os
         
         
         # Load local tool requirements
@@ -104,7 +101,6 @@ class PlanImplementationRouter(Router):
     def run(self, input_data):
         from omnicompany.runtime.agent.agent_loop import run_agent
         from omnicompany.runtime.exec.tools import ALL_TOOLS
-        import os
         
         
         # Load local tool requirements
@@ -134,7 +130,6 @@ class ImplementMcpServerRouter(Router):
     def run(self, input_data):
         from omnicompany.runtime.agent.agent_loop import run_agent
         from omnicompany.runtime.exec.tools import ALL_TOOLS
-        import os
         
         
         # Load local tool requirements
@@ -164,7 +159,6 @@ class CreateEvaluationRouter(Router):
     def run(self, input_data):
         from omnicompany.runtime.agent.agent_loop import run_agent
         from omnicompany.runtime.exec.tools import ALL_TOOLS
-        import os
         
         
         # Load local tool requirements
@@ -210,7 +204,6 @@ class RunEvaluationRouter(Router):
                 return f"Execution failed:\n{e.stderr}\n{e.stdout}"
 
         from omnicompany.protocol.tool import tool
-        import subprocess
         @tool
         def scripts_connections_py(args_str: str = "") -> str:
             """Execute scripts/connections.py with args."""

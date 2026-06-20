@@ -29,7 +29,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from omnicompany.core.config import resolve_db_dir
 
 
 @dataclass

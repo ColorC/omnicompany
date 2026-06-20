@@ -281,7 +281,7 @@ class GuardianCheckRouter(Router):
         """
         if not self._db_path:
             return
-        import json as _json, time as _time
+        import time as _time
         try:
             conn = open_db_rw(self._db_path)
             _severity = (

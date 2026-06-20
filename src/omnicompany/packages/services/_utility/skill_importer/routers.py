@@ -9,8 +9,6 @@ from __future__ import annotations
 from .workers import (
     SkillParserWorker as SkillParserRouter,
     StructureAnalysisWorker as StructureAnalysisRouter,
-    MaterialInferenceWorker as MaterialInferenceRouter,
-    MaterialInferenceWorker as FormatInferenceRouter,  # legacy alias
     RequirementDraftWorker as RequirementDraftRouter,
     VerifyAgainstSkillWorker as VerifyAgainstSkillRouter,
 )

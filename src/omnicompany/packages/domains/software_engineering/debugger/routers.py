@@ -14,7 +14,6 @@ import json
 import logging
 import subprocess
 from pathlib import Path
-from typing import Any
 
 from omnicompany.protocol.anchor import Verdict, VerdictKind
 from omnicompany.runtime.routing.router import Router
@@ -405,7 +404,7 @@ class ProbeExecutorRouter(Router):
         if not any_success:
             return Verdict(
                 kind=VerdictKind.FAIL, output=ctx,
-                diagnosis=f"所有试探执行失败",
+                diagnosis="所有试探执行失败",
                 confidence=1.0,
             )
 

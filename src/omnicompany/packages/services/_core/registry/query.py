@@ -9,7 +9,6 @@ Registry Query — 统一查询接口
 from __future__ import annotations
 
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Any, Callable, Optional
 
 from .instance import InstanceEntry, InstanceRegistry

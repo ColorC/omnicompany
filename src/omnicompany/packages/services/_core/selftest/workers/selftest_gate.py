@@ -35,7 +35,7 @@ class SelftestGateWorker(Worker):
         failed_pipelines = input_data.get("failed_pipelines", 0)
 
         print(f"\n{'='*62}")
-        print(f"  OmniCompany Selftest Report")
+        print("  OmniCompany Selftest Report")
         print(f"{'='*62}")
         print(f"  Registered pipelines : {total_pipelines}  "
               f"({failed_pipelines} failed to load)")

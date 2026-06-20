@@ -22,7 +22,6 @@ import json
 import logging
 import os
 import threading
-from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
 
@@ -32,7 +31,6 @@ from pydantic import BaseModel, Field
 
 from ..entity_registry import normalize_comment_target
 from .store import (
-    AnnotationKind,
     COMMENT_FEEDBACK_STATUSES,
     MaterialKind,
     MaterialStatus,

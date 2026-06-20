@@ -161,7 +161,7 @@ class ProposalFeedbackGateRouter(Router):
         feedback_path = repo_dir / "proposal_feedback.md"
 
         if not feedback_path.exists():
-            print(f"[ProposalFeedbackGate] 未发现 proposal_feedback.md，本轮完成（auto-pass）")
+            print("[ProposalFeedbackGate] 未发现 proposal_feedback.md，本轮完成（auto-pass）")
             return Verdict(
                 kind=VerdictKind.PASS,
                 output={
@@ -214,7 +214,7 @@ class ProposalFeedbackGateRouter(Router):
             diagnosis=(
                 f"ProposalFeedbackGate: {len(directions)} 方向 (iteration={iteration})"
                 if has_feedback else
-                f"ProposalFeedbackGate: 空反馈，本轮完成"
+                "ProposalFeedbackGate: 空反馈，本轮完成"
             ),
         )
 

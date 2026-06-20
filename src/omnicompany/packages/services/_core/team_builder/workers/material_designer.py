@@ -352,8 +352,8 @@ def _skeleton_patch_material_detail(d: dict) -> dict:
     if not isinstance(d5, dict): d5 = {}
     defaults = {
         "content_semantic": f"{mid} · 单份 material · 内容由 producer Worker 产出并交 consumer Worker 消费",
-        "field_meaning": f"字段按 json_schema.properties 定义 · 每字段对应业务语义单元",
-        "upstream_promise": f"producer Worker 保证输出符合 json_schema · 非空字段不为 null",
+        "field_meaning": "字段按 json_schema.properties 定义 · 每字段对应业务语义单元",
+        "upstream_promise": "producer Worker 保证输出符合 json_schema · 非空字段不为 null",
         "downstream_use": f"consumer Worker 按 FORMAT_IN 读取 material_id={mid!r} 并按 schema 解析",
         "minimal_sample": '{"_placeholder": "example"}',
     }

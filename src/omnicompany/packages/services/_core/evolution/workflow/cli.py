@@ -37,9 +37,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-import json
 import sys
-from pathlib import Path
 
 from omnicompany.packages.services._core.evolution.workflow.hypothesis_store import HypothesisBoardStore
 from omnicompany.packages.services._core.evolution.workflow.orchestrator import EvolutionOrchestrator

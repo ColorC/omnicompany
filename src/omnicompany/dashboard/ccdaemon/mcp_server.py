@@ -21,7 +21,6 @@ import os
 import sqlite3
 import sys
 from pathlib import Path
-from typing import Any
 
 import mcp.types as mt
 from mcp.server import Server
@@ -117,7 +116,6 @@ def tool_get_plan(id: str) -> dict:
             files.append(str(f.relative_to(folder)).replace(os.sep, "/"))
     except OSError:
         pass
-    from re import match as re_match
     m = plans_api.DATE_RE.match(folder.name)
     return {
         "id": id,

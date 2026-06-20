@@ -27,7 +27,6 @@ import argparse
 import json
 import logging
 import sys
-from dataclasses import asdict
 from pathlib import Path
 
 # 入口 load .env
@@ -330,7 +329,7 @@ def main() -> int:
     out_path = root / ".omni" / "kb_reading_order.md"
     if out_path.exists() and not args.rebuild:
         print(f"reading_order.md exists at {out_path}")
-        print(f"  use --rebuild to regenerate, or --show to print")
+        print("  use --rebuild to regenerate, or --show to print")
         return 0
 
     # 确保 facts 是新的

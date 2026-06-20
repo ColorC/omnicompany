@@ -238,7 +238,6 @@ async def exec_nodes(
     from omnicompany.core.registry import get_or_raise
     from omnicompany.core.config import resolve_db_path
     from omnicompany.bus.sqlite import SQLiteBus
-    from omnicompany.protocol.anchor import Verdict
     from omnicompany.protocol.events import FactoryEvent
 
     entry = get_or_raise(pipeline_name)

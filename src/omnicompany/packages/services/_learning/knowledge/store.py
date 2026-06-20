@@ -31,7 +31,6 @@ from typing import Iterator
 
 from omnicompany.packages.services._learning.knowledge.schema import (
     KnowledgeEntry,
-    entry_class_for,
     parse_kb_document,
 )
 

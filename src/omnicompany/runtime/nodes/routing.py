@@ -458,7 +458,7 @@ class SemanticTypeClassifierRouter(Router):
             "semantic_type_guidance": "",
             "soft_node_path": None,
             "path_reliability": 0.0,
-        }, diagnosis=f"No semantic type matched — falling back to agent_loop probe")
+        }, diagnosis="No semantic type matched — falling back to agent_loop probe")
 
     def _select_route_with_exploration(
         self, routes: list[tuple],
@@ -668,11 +668,11 @@ class SemanticTypeClassifierRouter(Router):
             f"evaluate how well each type matches the input.\n\n"
             f"## Input Context:\n{context[:1500]}\n\n"
             f"## Candidate Types:\n" + "\n".join(type_details) + "\n\n"
-            f"For EACH candidate, assess: Does this input belong to this semantic type?\n"
-            f"Consider the type's description, keywords, AND examples.\n"
-            f"A type matches if the input could be an instance of that semantic region.\n\n"
-            f"Respond in JSON array, sorted by match quality:\n"
-            f'[{{"type_id": "...", "score": 0.0-1.0, "reason": "brief reason"}}]'
+            "For EACH candidate, assess: Does this input belong to this semantic type?\n"
+            "Consider the type's description, keywords, AND examples.\n"
+            "A type matches if the input could be an instance of that semantic region.\n\n"
+            "Respond in JSON array, sorted by match quality:\n"
+            '[{"type_id": "...", "score": 0.0-1.0, "reason": "brief reason"}]'
         )
 
         try:
@@ -767,7 +767,6 @@ class SemanticTypeClassifierRouter(Router):
 
     def _llm_classify_db(self, context: str, types: list[dict]) -> dict | None:
         """LLM classification against DB-stored types."""
-        import json as _json
         type_desc = "\n".join(
             f"- {t['type_id']}: {t.get('description', '')}" for t in types[:30]
         )

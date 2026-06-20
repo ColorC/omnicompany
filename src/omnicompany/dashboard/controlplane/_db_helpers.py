@@ -21,7 +21,6 @@ import json
 import os
 import sqlite3
 from pathlib import Path
-from typing import Any
 
 
 def resolve_db_dir() -> Path:

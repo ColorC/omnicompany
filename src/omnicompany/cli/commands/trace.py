@@ -56,7 +56,6 @@ def cmd_trace(trace_id: str, db: str | None, verbose: bool, as_json: bool):
     if not spans:
         click.echo("\n  [no signal_spans - run migration then restart to collect data]")
         if re and re["path_nodes"]:
-            import json as _j
             click.echo(f"\n  path_nodes (legacy): {re['path_nodes']}")
         return
 

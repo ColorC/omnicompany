@@ -10,7 +10,6 @@ import sys
 import tempfile
 from datetime import datetime
 from pathlib import Path
-from typing import Any
 
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[5]

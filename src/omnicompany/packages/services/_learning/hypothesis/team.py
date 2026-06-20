@@ -23,7 +23,6 @@ import asyncio
 import logging
 import pathlib
 import uuid
-from datetime import datetime, timezone
 
 from omnicompany.packages.services._learning.hypothesis.routers import ExperimenterRouter, ReflectorRouter
 from omnicompany.packages.services._learning.knowledge.store import KBStore
@@ -603,7 +602,7 @@ from omnicompany.protocol.team import (
 )
 from omnicompany.protocol.anchor import (
     TransformerSpec, TransformMethod,
-    Route, RouteAction, VerdictKind,
+    VerdictKind,
 )
 
 

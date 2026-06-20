@@ -84,7 +84,7 @@ def inquiry_answer(inquiry_id: str, answer_text: str, db: str | None):
             return
     ok = store.answer(inquiry_id, answer_text)
     if ok:
-        click.echo(f"回答已记录。可使用以下命令继续进化工作流：")
+        click.echo("回答已记录。可使用以下命令继续进化工作流：")
         click.echo(f"    omnicompany evo continue --board {inq.board_id}")
     else:
         click.echo("记录失败，请检查 inquiry_id 是否正确。")

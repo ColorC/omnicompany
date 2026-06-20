@@ -30,7 +30,6 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from omnicompany.runtime.routing.router import Router
 from omnicompany.packages.services._core.omnicompany import Worker
 
 
@@ -433,7 +432,7 @@ async def _run_pipeline_lineage_async(
     from omnicompany.core.config import resolve_db_dir
     from omnicompany.runtime.exec.runner import TeamRunner
     from omnicompany.protocol.team import (
-        TeamSpec, TeamNode, TeamEdge, NodeKind, NodeMaturity,
+        TeamSpec, TeamNode, NodeKind, NodeMaturity,
     )
     from omnicompany.protocol.anchor import TransformerSpec, TransformMethod
     from omnicompany.packages.services._diagnosis.doctor.workers.team import TeamLineageExtractor

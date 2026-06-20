@@ -33,7 +33,7 @@ from pathlib import Path
 from typing import Any
 
 from omnicompany.protocol.events import FactoryEvent
-from omnicompany.runtime.storage.db_access import open_db, open_db_rw
+from omnicompany.runtime.storage.db_access import open_db_rw
 
 logger = logging.getLogger(__name__)
 

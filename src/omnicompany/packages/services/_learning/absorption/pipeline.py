@@ -1,11 +1,7 @@
 # [OMNI] DEPRECATED 2026-04-21 -- migrated to team.py
 # [OMNI] material_id="material:learning.absorption.pipeline_deprecated_shim.py"
 from .team import (
-    PIPELINES,
     build_survey_pipeline,
-    build_v2_pipeline,
-    build_v3_pipeline,
-    build_v3_stage3_pipeline,
 )
 
 

@@ -24,7 +24,6 @@ from omnicompany.runtime.routing.router import Router
 from omnicompany.packages.domains.software_engineering._shared.common_formats import (
     truncate_file_content,
     needs_agent_loop,
-    MAX_FILE_CONTENT_BYTES,
     MAX_TREE_BYTES,
 )
 

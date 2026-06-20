@@ -241,8 +241,8 @@ class TeamNarrativeChecker(Worker):
             f"## 管线 ID: {spec.id}\n\n"
             f"## Purpose (业务目标)\n{purpose or '(未声明)'}\n\n"
             + (f"## Design Rationale (设计理由)\n{design_rationale}\n\n" if design_rationale else "")
-            + f"## Format 链 (边级别)\n" + "\n".join(format_chain_lines) + "\n\n"
-            + f"## 节点 DESCRIPTION (执行顺序)\n" + "\n".join(node_descs) + "\n"
+            + "## Format 链 (边级别)\n" + "\n".join(format_chain_lines) + "\n\n"
+            + "## 节点 DESCRIPTION (执行顺序)\n" + "\n".join(node_descs) + "\n"
         )
 
         try:

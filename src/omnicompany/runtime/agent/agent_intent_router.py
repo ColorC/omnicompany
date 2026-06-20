@@ -22,7 +22,6 @@ import asyncio
 import logging
 from typing import TYPE_CHECKING, Any
 
-from omnicompany.runtime.storage.db_access import open_db_rw
 from omnicompany.runtime.agent.agent_constants import DEFAULT_SYSTEM_PROMPT
 
 if TYPE_CHECKING:

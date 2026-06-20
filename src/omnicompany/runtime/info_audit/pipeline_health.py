@@ -24,7 +24,6 @@ from pathlib import Path
 from typing import Any
 
 from omnicompany.core.config import resolve_domain_data_dir
-from omnicompany.core.guarded_write import write_file as _guarded_write
 
 logger = logging.getLogger(__name__)
 

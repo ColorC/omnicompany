@@ -4,10 +4,8 @@
 
 from __future__ import annotations
 
-from typing import Any
 
 from omnicompany.packages.services._core.pattern_discovery.formats import register_formats
-from omnicompany.packages.services._core.pattern_discovery.pipeline import build_pipeline
 from omnicompany.packages.services._core.pattern_discovery.routers import (
     InductionDispatcherRouter,
     PatternClustererRouter,

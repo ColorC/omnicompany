@@ -73,9 +73,9 @@ def cmd_lock_enable(watched: tuple[str, ...]) -> None:
     if watched:
         policy["watched_paths"] = list(watched)
     save_policy(policy)
-    click.echo(f"OK 锁已开启")
+    click.echo("OK 锁已开启")
     click.echo(f"  watched_paths: {policy['watched_paths']}")
-    click.echo(f"  下一步: omni lock scan 看有没有现存违规")
+    click.echo("  下一步: omni lock scan 看有没有现存违规")
 
 
 @cmd_lock.command("disable")
@@ -408,7 +408,7 @@ def cmd_lock_mode(set_mode: str | None) -> None:
         click.echo("  enforce - 违规 stderr + exit 2 阻断 claude 工具调用")
         click.echo("  off     - 实时拦截关闭 (离线 scan / handle 仍可用)")
         click.echo()
-        click.echo(f"切换: omni lock mode --set=warn|enforce|off")
+        click.echo("切换: omni lock mode --set=warn|enforce|off")
         return
     policy["runtime_mode"] = set_mode
     save_policy(policy)
@@ -440,7 +440,7 @@ def cmd_lock_baseline(show: bool, snapshot: bool, clear: bool) -> None:
     if snapshot:
         n = snapshot_current_as_baseline()
         click.echo(f"OK baseline 写入 {n} 条历史路径 (grandfathered)")
-        click.echo(f"  之后 scan 只查 baseline 之外的新写入. 旧文件 promote 到注册中心后从 baseline 消失.")
+        click.echo("  之后 scan 只查 baseline 之外的新写入. 旧文件 promote 到注册中心后从 baseline 消失.")
         return
     # 默认 show
     bl = load_baseline()
@@ -449,7 +449,7 @@ def cmd_lock_baseline(show: bool, snapshot: bool, clear: bool) -> None:
         for p in sorted(bl):
             click.echo(f"  {p}")
     elif bl:
-        click.echo(f"  (前 5 条预览)")
+        click.echo("  (前 5 条预览)")
         for p in sorted(bl)[:5]:
             click.echo(f"  {p}")
-        click.echo(f"  ...")
+        click.echo("  ...")

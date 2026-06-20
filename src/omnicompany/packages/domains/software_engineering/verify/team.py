@@ -15,8 +15,7 @@ from omnicompany.protocol.team import (
     TeamSpec, TeamNode, NodeKind, NodeMaturity,
 )
 from omnicompany.protocol.anchor import (
-    AnchorSpec, TransformerSpec, TransformMethod,
-    ValidatorSpec, ValidatorKind,
+    AnchorSpec, ValidatorSpec, ValidatorKind,
     Route, RouteAction, VerdictKind,
 )
 

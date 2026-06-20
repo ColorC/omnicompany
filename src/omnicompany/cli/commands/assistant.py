@@ -119,7 +119,6 @@ def cmd_chat(instruction: str | None, from_stdin: bool, cwd: str | None,
     async def _run():
         # 2026-05-02: 切到 NativeIdeAgent (新 router 化架构, ConfigurableAgent 子类)
         # 旧 IDEAgentLoop 继承的旧 AgentNodeLoop 已 deprecate
-        import os as _os
         from omnicompany.dashboard.native_agent import NativeIdeAgent
         from omnicompany.bus.sqlite import SQLiteBus
         import uuid
@@ -591,7 +590,7 @@ def cmd_policy_set(policy_name):
     try:
         r.set_active_policy(policy_name)
         _safe_echo(f"Policy set to: {policy_name}")
-        _safe_echo(f"(process-local; set OMNI_MODEL_POLICY env var for persistence)")
+        _safe_echo("(process-local; set OMNI_MODEL_POLICY env var for persistence)")
     except ValueError as e:
         raise click.ClickException(str(e))
 
@@ -646,7 +645,6 @@ def cmd_history(limit, json_out):
 @click.option("-n", "--limit", default=20, type=int)
 def cmd_tail(event_type, limit):
     """Tail recent events from ide_events.db (cross-check agent activity)."""
-    import os
     import sqlite3
 
     from omnicompany.core.config import resolve_unified_db_path

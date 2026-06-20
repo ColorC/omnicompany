@@ -23,7 +23,6 @@ import logging
 import os
 import re
 import subprocess
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -420,7 +419,7 @@ class ReportEmitterRouter(Router):
             lines.append("")
 
         conclusion = "PASS" if test_result.get("exit_code") == 0 else "FAIL"
-        lines.append(f"── 结论 ──")
+        lines.append("── 结论 ──")
         lines.append(f"{'✅' if conclusion == 'PASS' else '❌'} {conclusion}")
         lines.append("═" * 55)
 

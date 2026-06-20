@@ -58,9 +58,8 @@ from pydantic import BaseModel, Field
 from omnicompany.core.caller_identity import CALLER_ENV, CALLER_SUBAGENT
 from .pty import _read_meta_store, _write_meta_store
 from .providers.base import BaseProvider, ProviderOptions
-from .normalized_protocol import NormalizedMessage
 from .hooks._shared import emit_event as _emit_ide_event
-from .write_scope import planned_write_denial, planned_write_denial_with_scope
+from .write_scope import planned_write_denial_with_scope
 
 logger = logging.getLogger(__name__)
 

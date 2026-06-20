@@ -21,7 +21,6 @@ from omnicompany.packages.services._core.agent.routers.single_tool import (
     ListDirRouter,
     ReadFileRouter,
     SingleToolRouter,
-    ToolContext,
 )
 from omnicompany.protocol.anchor import Verdict, VerdictKind
 

@@ -311,6 +311,31 @@ def _progress_ts_all(ref_ids: set[str]) -> list[str]:
 _SKIP_DIRS = {"node_modules", ".git", "__pycache__", ".venv", "venv", "dist", "build",
               ".pytest_cache", ".mypy_cache", "caches", "snapshots"}
 _ACTIVITY_CACHE: dict[str, tuple[float, list[str]]] = {}
+# serve-stale-while-revalidate: 活跃度遍历(os.walk + git, 44 个项目冷算可达 ~7s)绝不阻塞请求。
+# 过期/未命中时立刻返回旧值(没有就空), 后台线程刷新写回缓存。_ACTIVITY_REFRESHING 防同项目并发重刷。
+_ACTIVITY_REFRESHING: set[str] = set()
+_ACTIVITY_REFRESH_LOCK = threading.Lock()
+
+
+def _refresh_activity_async(item: dict[str, Any], pid: str) -> None:
+    import time
+    with _ACTIVITY_REFRESH_LOCK:
+        if pid in _ACTIVITY_REFRESHING:
+            return
+        _ACTIVITY_REFRESHING.add(pid)
+
+    def _work() -> None:
+        try:
+            roots = _project_roots(item)
+            ts = _recent_file_ts(roots) + _git_commit_ts(roots)
+            _ACTIVITY_CACHE[pid] = (time.time() + 90.0, ts)
+        except Exception:  # noqa: BLE001 — 后台刷新失败不该影响请求; 下轮再试
+            pass
+        finally:
+            with _ACTIVITY_REFRESH_LOCK:
+                _ACTIVITY_REFRESHING.discard(pid)
+
+    threading.Thread(target=_work, name=f"activity-refresh-{pid}", daemon=True).start()
 
 
 def _project_roots(item: dict[str, Any]) -> list[Path]:
@@ -390,17 +415,16 @@ def _git_commit_ts(roots: list[Path], days: int = 8) -> list[str]:
 
 
 def _activity_signals(item: dict[str, Any]) -> list[str]:
-    """文件改动 + git 记录信号(90s 缓存, 看板高频加载不重复遍历)。"""
+    """文件改动 + git 记录信号。serve-stale-while-revalidate: 请求永不阻塞在遍历上。
+    新鲜命中直接返回; 过期/未命中返回旧值(没有就空)并后台刷新 —— 首屏(冷)秒开, 活跃度几秒内补齐。"""
     import time
     pid = str(item.get("id") or "")
     now = time.time()
     cached = _ACTIVITY_CACHE.get(pid)
     if cached and cached[0] > now:
         return cached[1]
-    roots = _project_roots(item)
-    ts = _recent_file_ts(roots) + _git_commit_ts(roots)
-    _ACTIVITY_CACHE[pid] = (now + 90.0, ts)
-    return ts
+    _refresh_activity_async(item, pid)
+    return cached[1] if cached else []
 
 
 def _activity_7d(ts_list: list[str]) -> list[bool]:

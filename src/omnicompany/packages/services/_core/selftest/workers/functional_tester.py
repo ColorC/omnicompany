@@ -116,7 +116,8 @@ def _test_pipeline_checker() -> dict:
 def _test_cli_health() -> dict:
     name = "cli_health"
     try:
-        import subprocess, shutil
+        import subprocess
+        import shutil
         omni_path = shutil.which("omni")
         if not omni_path:
             return {"name": name, "ok": False, "error": "omni 命令不在 PATH 中"}

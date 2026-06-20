@@ -297,8 +297,8 @@ class BaselineCheckRouter(Router):
         ts_stem = Path(ts_path).stem if ts_path else "module"
 
         # 生成一个空 stub TS 测试——只 import 并输出空 results
-        stub_code = f"""// Baseline stub — 应该失败（红灯）
-const results: Record<string, any> = {{}};
+        stub_code = """// Baseline stub — 应该失败（红灯）
+const results: Record<string, any> = {};
 console.log(JSON.stringify(results));
 """
         stub_result = _run_typescript(stub_code, ts_dir)

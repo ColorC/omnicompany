@@ -18,10 +18,6 @@ from ._archive.routers_legacy import (
     WriteFileRouter,
     FindSimilarFormatsRouter,
     ValidateHypothesisDocRouter,
-    _ExperimenterPromptBuilder,
-    _ExperimenterExtractResult,
-    _ReflectorPromptBuilder,
-    _ReflectorExtractResult,
 )
 
 __all__ = [

@@ -471,10 +471,10 @@ class _ExperimenterPromptBuilder(PromptBuilderRouter):
         entries = store.get("entries", [])
 
         lines = [
-            f"## 探索目标",
+            "## 探索目标",
             goal,
             "",
-            f"## 建议工具（参考）",
+            "## 建议工具（参考）",
             f"{tools_hint}",
             "",
             f"## 当前假设库（第 {iteration} 轮，共 {len(entries)} 条）",
@@ -828,12 +828,12 @@ class _ReflectorPromptBuilder(PromptBuilderRouter):
         session_id = input_data.get("session_id", "")
 
         lines = [
-            f"## 主题文档位置",
+            "## 主题文档位置",
             f"`{doc_path}`",
             "",
             f"## 当前 session: {session_id[:8]} 第 {iteration} 轮",
             "",
-            f"## Experimenter 本轮行为轨迹",
+            "## Experimenter 本轮行为轨迹",
         ]
         if trace:
             for i, t in enumerate(trace):
@@ -987,7 +987,7 @@ class ReflectorRouter(AgentNodeLoop):
                 ])
             else:
                 lines = [
-                    f"### 🔎 系统反哺 awareness（针对你刚写的新 format 描述）",
+                    "### 🔎 系统反哺 awareness（针对你刚写的新 format 描述）",
                     "",
                     f"**你刚写的描述（前 200 字）**: {desc[:200]}",
                     "",

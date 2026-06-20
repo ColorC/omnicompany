@@ -13,7 +13,7 @@ protocol 层 BaseTool / AsyncBaseTool 是基类, 这层加配置驱动外包装.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, ClassVar, Mapping, Sequence
+from typing import Any, ClassVar, Mapping
 
 from omnicompany.protocol.tool import BaseTool, AsyncBaseTool
 

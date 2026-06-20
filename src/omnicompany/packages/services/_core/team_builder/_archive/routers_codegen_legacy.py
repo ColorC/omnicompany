@@ -31,7 +31,7 @@ from pathlib import Path
 from typing import Any, ClassVar
 
 from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.runtime.agent.agent_loop_config import LoopConfig, PRESET_STANDARD
+from omnicompany.runtime.agent.agent_loop_config import LoopConfig
 from omnicompany.runtime.agent.agent_loop_tools import ToolContext
 from omnicompany.packages.services._core.agent import (
     AgentNodeLoop,

@@ -37,7 +37,6 @@ import subprocess
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any
 
 
 @dataclass

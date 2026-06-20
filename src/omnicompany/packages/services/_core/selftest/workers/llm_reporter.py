@@ -49,7 +49,7 @@ class LLMReporterWorker(Worker):
         output = {**input_data, "llm_ok": llm_ok, "llm_summary": llm_summary}
 
         print(f"\n{'='*62}")
-        print(f"  LLM Reporter")
+        print("  LLM Reporter")
         print(f"{'='*62}")
         print(f"  LLM available: {'YES' if llm_ok else 'NO'}")
         if llm_ok:

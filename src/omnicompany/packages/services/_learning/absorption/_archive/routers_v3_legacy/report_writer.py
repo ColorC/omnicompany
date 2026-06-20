@@ -507,7 +507,7 @@ class HumanFeedbackGateV3Router(Router):
 
         if not feedback_path.exists():
             # auto-pass
-            print(f"[HumanFeedbackGate] 未发现 feedback.md，本轮完成（auto-pass）")
+            print("[HumanFeedbackGate] 未发现 feedback.md，本轮完成（auto-pass）")
             return Verdict(
                 kind=VerdictKind.PASS,
                 output={
@@ -550,7 +550,7 @@ class HumanFeedbackGateV3Router(Router):
             diagnosis=(
                 f"HumanFeedbackGate: {len(directions)} 方向 (iteration={iteration})"
                 if has_feedback else
-                f"HumanFeedbackGate: 空反馈，本轮完成"
+                "HumanFeedbackGate: 空反馈，本轮完成"
             ),
         )
 

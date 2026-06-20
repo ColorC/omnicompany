@@ -12,9 +12,7 @@
 
 from __future__ import annotations
 
-import importlib
 import logging
-import traceback
 from pathlib import Path
 from typing import Any
 
@@ -269,7 +267,8 @@ def _test_pipeline_checker() -> dict:
 def _test_cli_health() -> dict:
     name = "cli_health"
     try:
-        import subprocess, shutil
+        import subprocess
+        import shutil
         omni_path = shutil.which("omni")
         if not omni_path:
             return {"name": name, "ok": False, "error": "omni 命令不在 PATH 中"}
@@ -309,7 +308,7 @@ class SelftestGateRouter(Router):
         failed_pipelines = input_data.get("failed_pipelines", 0)
 
         print(f"\n{'='*62}")
-        print(f"  OmniCompany Selftest Report")
+        print("  OmniCompany Selftest Report")
         print(f"{'='*62}")
         print(f"  Registered pipelines : {total_pipelines}  "
               f"({failed_pipelines} failed to load)")
@@ -391,7 +390,7 @@ class LLMReporterRouter(Router):
         output = {**input_data, "llm_ok": llm_ok, "llm_summary": llm_summary}
 
         print(f"\n{'='*62}")
-        print(f"  LLM Reporter")
+        print("  LLM Reporter")
         print(f"{'='*62}")
         print(f"  LLM available: {'YES' if llm_ok else 'NO'}")
         if llm_ok:

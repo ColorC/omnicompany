@@ -16,10 +16,8 @@ from __future__ import annotations
 
 import importlib
 import importlib.util
-import json
 import logging
 import os
-import sys
 import tempfile
 import uuid
 from dataclasses import dataclass, field
@@ -440,7 +438,7 @@ def _load_patched_module(patched_class_code: str, node_id: str, original_source:
     if original_module_path:
         shim_lines = [
             "# Experiment shim — imports from original + overrides patched class",
-            f"from __future__ import annotations",
+            "from __future__ import annotations",
             f"from {original_module_path} import *",
             "",
             "# === PATCHED CLASS ===",

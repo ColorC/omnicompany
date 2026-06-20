@@ -29,7 +29,7 @@ class CIGateWorker(Worker):
         warnings = input_data.get("warning_count", 0)
 
         print(f"\n{'='*60}")
-        print(f"  Pipeline CI Report")
+        print("  Pipeline CI Report")
         print(f"{'='*60}")
         print(f"  Total domains : {total}")
         print(f"  Passed        : {passed}")

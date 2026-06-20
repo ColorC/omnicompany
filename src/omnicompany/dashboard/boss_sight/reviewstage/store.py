@@ -33,7 +33,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
-from typing import Any, Callable, ClassVar, Iterable
+from typing import Any, Callable, ClassVar
 
 from omnicompany.packages.services._core.omnicompany.formats import REVIEW_MATERIAL
 from omnicompany.packages.services._core.omnicompany.material_events import publish_material_event

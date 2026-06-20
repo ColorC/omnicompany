@@ -186,7 +186,7 @@ def handle_external_write(violation: Violation, *, dry_run: bool = False) -> dic
         "**步骤 3 · 验证** (注册成功后):",
         "",
         "```bash",
-        f"omni lookup --kind=<kind> --id=<entity_id>",
+        "omni lookup --kind=<kind> --id=<entity_id>",
         "```",
         "",
         "## 如果原文件内容很重要不想丢",

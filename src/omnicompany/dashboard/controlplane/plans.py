@@ -22,9 +22,7 @@ from omnicompany.core.plans_catalogue import (
     _project_root,
     _scan,
     _scan_cached,
-    find_project_for_plan,
     parse_plan_frontmatter,
-    parse_project_meta,
 )
 
 plans_router = APIRouter()

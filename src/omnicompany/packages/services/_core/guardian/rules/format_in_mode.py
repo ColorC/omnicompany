@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import re
-from pathlib import Path
 
 from ._base import FileContext, GuardianRule, _has_content, _is_external, _is_python
 

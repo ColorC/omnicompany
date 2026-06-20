@@ -218,7 +218,6 @@ def cmd_run(pipeline_name: str, inputs: tuple, json_input: str | None,
 
 def _write_output_to_file(payload, output_path: str) -> None:
     """写完整 sink 到文件 · str 直写 · dict 转 JSON. 黑盒测试 / batch 用."""
-    from pathlib import Path
     p = Path(output_path)
     p.parent.mkdir(parents=True, exist_ok=True)
     if isinstance(payload, str):
@@ -593,7 +592,6 @@ def cmd_nodes(grep_query: str | None, format_query: str | None,
         return
 
     # Group by pipeline for display
-    from itertools import groupby
     click.echo(click.style(f"Nodes ({len(all_nodes)}):", bold=True))
     click.echo(
         f"  {'Pipeline':<18} {'Node ID':<26} {'Format':<45} {'Router':<30} {'Dec'}"
@@ -907,7 +905,7 @@ def cmd_errors(domain: str, limit: int):
         )
 
     click.echo(click.style(
-        f"\n  提示: omni diagnose <trace_id> 查看完整诊断", fg="bright_black",
+        "\n  提示: omni diagnose <trace_id> 查看完整诊断", fg="bright_black",
     ))
 
 
@@ -965,7 +963,7 @@ def cmd_diagnose(trace_id: str, domain: str):
     click.echo(click.style(
         f"\nTrace: {trace_id}  ({len(all_events)} events)", bold=True,
     ))
-    click.echo(f"  Status: " + click.style(status_text, fg=status_color, bold=True))
+    click.echo("  Status: " + click.style(status_text, fg=status_color, bold=True))
 
     if not error_events:
         click.echo("  无错误事件")

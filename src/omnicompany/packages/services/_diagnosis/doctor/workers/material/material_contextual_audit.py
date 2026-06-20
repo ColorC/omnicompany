@@ -283,7 +283,7 @@ class MaterialContextualAuditWorker(Worker):
 
         if upstreams:
             for u in upstreams:
-                parts.append(f"\n# 上游 Router (产出此 Format)")
+                parts.append("\n# 上游 Router (产出此 Format)")
                 parts.append(f"**文件**: {u['file']}  **类**: {u['class']}")
                 parts.append(f"```python\n{u['source']}\n```")
         else:
@@ -291,7 +291,7 @@ class MaterialContextualAuditWorker(Worker):
 
         if downstreams:
             for d in downstreams:
-                parts.append(f"\n# 下游 Router (消费此 Format)")
+                parts.append("\n# 下游 Router (消费此 Format)")
                 parts.append(f"**文件**: {d['file']}  **类**: {d['class']}")
                 parts.append(f"```python\n{d['source']}\n```")
         else:
@@ -363,9 +363,9 @@ class MaterialContextualAuditWorker(Worker):
             detailed = audit_data.get("detailed_report", raw_report)
             report_lines = [
                 f"# Format 审计报告: {material_id}",
-                f"",
+                "",
                 f"**Commit**: `{git_hash}`  **Grade**: {audit_data.get('overall_grade', '?')}",
-                f"",
+                "",
                 detailed,
             ]
             report_path = audit_dir / f"{git_hash}.md"

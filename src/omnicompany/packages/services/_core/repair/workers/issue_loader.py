@@ -10,7 +10,6 @@ Worker 协议:
 """
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
 
 from omnicompany.packages.services._core.omnicompany import Worker

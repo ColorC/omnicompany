@@ -10,7 +10,6 @@
 
 from __future__ import annotations
 
-import ast
 import importlib
 import json
 import os
@@ -182,7 +181,6 @@ class CompileCheckerRouter(Router):
         pipeline_py = files.get("pipeline.py", "")
         if pipeline_py and report["l1_syntax"]["passed"]:
             try:
-                from omnicompany.protocol.pipeline import PipelineChecker
                 # 简单的静态分析：检查 pipeline.py 中是否有 PipelineSpec 构造
                 if "PipelineSpec(" not in pipeline_py:
                     report["l3_pipeline"]["warnings"].append(
@@ -2207,13 +2205,13 @@ class LAPVerifierRouter(Router):
                             if not has_id:
                                 critical_issues.append({
                                     "dimension": "format_spec",
-                                    "message": f"Format 定义缺少 id 字段",
+                                    "message": "Format 定义缺少 id 字段",
                                 })
                                 score -= 15
                             if not has_desc:
                                 critical_issues.append({
                                     "dimension": "format_spec",
-                                    "message": f"Format 定义缺少 description 字段 (F-02 MUST)",
+                                    "message": "Format 定义缺少 description 字段 (F-02 MUST)",
                                 })
                                 score -= 10
                             else:

@@ -25,7 +25,6 @@ from typing import Iterator
 from omnicompany.packages.services._core.protection.policy import (
     is_watched,
     is_whitelisted,
-    is_in_baseline,
     load_policy,
     load_baseline,
     _project_root,

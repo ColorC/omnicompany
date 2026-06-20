@@ -12,7 +12,6 @@ from pathlib import Path
 from typing import Any
 
 from omnicompany.packages.services._learning.knowledge import (
-    KBIndex,
     KnowledgeEntry,
     load_or_rebuild,
 )

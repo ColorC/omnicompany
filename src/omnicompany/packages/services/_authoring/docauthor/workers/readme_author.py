@@ -35,7 +35,6 @@ from .manifest_author import (
 )
 from .design_author import (
     _scan_src,
-    _list_sibling_designs,
     _format_docstrings,
 )
 

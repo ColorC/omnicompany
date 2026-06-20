@@ -1082,6 +1082,30 @@ def register_all() -> None:
     except Exception as e:
         logger.debug("skip publish pipelines: %s", e)
 
+    # ── personal_site 作品集生产管线（2026-06-20 内化）──
+    _psite_pkg = "omnicompany.packages.domains.personal_site"
+    try:
+        register(PipelineEntry(
+            name="personal_site.run",
+            description=(
+                "colorc.cc 作品集/dev-log 生产 — 入题→生成(起 claude-code 工人深读真源)→改造"
+                "(本质意译去术语+加结构+真demo)→对抗门→落地建索引→脱敏门发布。默认 --dry_run 短路工人。"
+            ),
+            domain="personal_site",
+            build_team=_lazy(f"{_psite_pkg}.team", "build_personal_site_pipeline"),
+            build_bindings=_lazy_fn(f"{_psite_pkg}.run", "build_personal_site_bindings"),
+            default_db_dir="data/domains/personal_site",
+            default_max_steps=12,
+            cli_args=[
+                CliArg(name="targets", help="目标 JSON 数组 [{kind:work|devlog,slug,report,repo,focus,company?,tags?}]", default=""),
+                CliArg(name="stages", help="要跑的阶段(逗号分隔)", default="generate,restyle,verify,place,publish"),
+                CliArg(name="dry_run", help="短路工人,只走确定性节点(冒烟/查拓扑)", is_flag=True),
+                CliArg(name="deploy", help="发布节点脱敏门过后提示部署命令(管线不直接 ssh,留人工闸)", is_flag=True),
+            ],
+        ))
+    except Exception as e:
+        logger.debug("skip personal_site pipelines: %s", e)
+
     # ── narrative 叙事管线 ──
     _narrative_pkg = "omnicompany.packages.domains.narrative"
     try:

@@ -25,7 +25,6 @@ Worker 对应关系:
 from __future__ import annotations
 
 import datetime as _dt
-import json
 import re
 from typing import Any, ClassVar
 
@@ -362,7 +361,7 @@ class TeamFileGenerator(Worker):
             raw_desc = pt.get("system", "") if impl_type != "HARD" else d.get("rule_spec", "")
             desc = str(raw_desc or f"{wid} ({impl_type})")[:300]
 
-            lines.append(f'    nodes.append(_anchor(')
+            lines.append('    nodes.append(_anchor(')
             lines.append(f'        {wid!r}, {fmt_in_repr}, {fmt_out_repr},')
             lines.append(f"        vkind=ValidatorKind.{vkind},")
             lines.append(f"        desc={desc!r},")
@@ -387,7 +386,7 @@ class TeamFileGenerator(Worker):
                     vk = {"PASS": "PASS", "FAIL": "FAIL", "PARTIAL": "PARTIAL"}.get(branch, "PASS")
                     lines.append(f'    edges.append(TeamEdge(source="{wid}", target="{target}", condition=VerdictKind.{vk}))')
 
-        lines.append(f'    return TeamSpec(')
+        lines.append('    return TeamSpec(')
         lines.append(f"        id={team_name!r},")
         lines.append(f"        name={team_name!r},")
         lines.append(f"        description={purpose[:300]!r},")

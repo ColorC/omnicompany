@@ -682,7 +682,7 @@ class ExamplePresenceCheckRouter(Router):
         has_type_info = has_examples or has_schema
         sub_checks.append(("examples 或 json_schema 非空", has_type_info,
                            f"共 {len(examples)} 个示例" if has_examples
-                           else f"json_schema 存在" if has_schema
+                           else "json_schema 存在" if has_schema
                            else "examples 和 json_schema 均为空"))
 
         # 2. 若有 examples，至少一个示例是含字段的 dict
@@ -699,7 +699,7 @@ class ExamplePresenceCheckRouter(Router):
         detail_str = (
             f"示例存在（{len(examples)} 个，最大字段数={max_fields}）"
             if has_examples else
-            f"json_schema 定义存在（替代示例）"
+            "json_schema 定义存在（替代示例）"
             if has_schema else
             "示例质量不足（examples 和 json_schema 均为空）"
         )
@@ -984,7 +984,7 @@ class FormatContextualAuditRouter(Router):
 
         if upstreams:
             for u in upstreams:
-                parts.append(f"\n# 上游 Router（产出此 Format）")
+                parts.append("\n# 上游 Router（产出此 Format）")
                 parts.append(f"**文件**: {u['file']}  **类**: {u['class']}")
                 parts.append(f"```python\n{u['source']}\n```")
         else:
@@ -992,7 +992,7 @@ class FormatContextualAuditRouter(Router):
 
         if downstreams:
             for d in downstreams:
-                parts.append(f"\n# 下游 Router（消费此 Format）")
+                parts.append("\n# 下游 Router（消费此 Format）")
                 parts.append(f"**文件**: {d['file']}  **类**: {d['class']}")
                 parts.append(f"```python\n{d['source']}\n```")
         else:
@@ -1066,9 +1066,9 @@ class FormatContextualAuditRouter(Router):
             detailed = audit_data.get("detailed_report", raw_report)
             report_lines = [
                 f"# Format 审计报告: {format_id}",
-                f"",
+                "",
                 f"**Commit**: `{git_hash}`  **Grade**: {audit_data.get('overall_grade', '?')}",
-                f"",
+                "",
                 detailed,
             ]
             report_path = audit_dir / f"{git_hash}.md"
@@ -2630,7 +2630,7 @@ class RouterDeterministicCheckRouter(Router):
                     "passed": True,
                     "observation": (
                         f"required 字段全部被访问（{len(_fmt_required)} 项）"
-                        + (f"，无未声明访问 ✓" if not undeclared_accesses else "")
+                        + ("，无未声明访问 ✓" if not undeclared_accesses else "")
                     ),
                     "detail": None,
                 })
@@ -3210,15 +3210,15 @@ class RouterContextualAuditRouter(Router):
 
             report_lines = [
                 f"# Router 审计报告: {router_class}",
-                f"",
+                "",
                 f"**Commit**: `{git_hash}`  **Grade**: {grade}  **Kind**: {router_kind}",
-                f"",
+                "",
                 "## 关键发现",
                 *[f"- {f}" for f in findings],
-                f"",
+                "",
                 "## 改进建议",
                 *[f"- {s}" for s in suggestions],
-                f"",
+                "",
                 detailed,
             ]
             report_path = audit_dir / f"{git_hash}.md"
@@ -3884,8 +3884,8 @@ class PipelineNarrativeCheckerRouter(Router):
             f"## 管线 ID: {spec.id}\n\n"
             f"## Purpose（业务目标）\n{purpose or '（未声明）'}\n\n"
             + (f"## Design Rationale（设计理由）\n{design_rationale}\n\n" if design_rationale else "")
-            + f"## Format 链（边级别）\n" + "\n".join(format_chain_lines) + "\n\n"
-            + f"## 节点 DESCRIPTION（执行顺序）\n" + "\n".join(node_descs) + "\n"
+            + "## Format 链（边级别）\n" + "\n".join(format_chain_lines) + "\n\n"
+            + "## 节点 DESCRIPTION（执行顺序）\n" + "\n".join(node_descs) + "\n"
         )
 
         try:

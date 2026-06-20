@@ -20,7 +20,6 @@ MetaTypeRegistry 是开放可扩展的：
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Callable
 
 
 @dataclass

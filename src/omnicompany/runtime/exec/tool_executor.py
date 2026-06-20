@@ -12,7 +12,6 @@ import logging
 import os
 import re
 import subprocess
-import platform
 import time
 from pathlib import Path
 from typing import Any
@@ -285,9 +284,9 @@ class ToolExecutor:
         if risk == "critical":
             logger.warning("CRITICAL command blocked: %s", command[:80])
             return (
-                f"[returncode: -1]\n"
-                f"BLOCKED: Critical-risk command detected. "
-                f"This command could cause irreversible damage and is permanently forbidden."
+                "[returncode: -1]\n"
+                "BLOCKED: Critical-risk command detected. "
+                "This command could cause irreversible damage and is permanently forbidden."
             )
         risk_prefix = ""
         if risk == "high":

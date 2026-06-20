@@ -32,7 +32,7 @@ import threading
 import time
 import weakref
 from pathlib import Path
-from typing import Any, Union
+from typing import Union
 
 from omnicompany.core.config import omni_workspace_root
 from omnicompany.runtime.buses.base import ServiceBus

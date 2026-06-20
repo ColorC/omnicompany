@@ -18,12 +18,10 @@ from __future__ import annotations
 import importlib
 import inspect
 import logging
-import pkgutil
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
-from omnicompany.protocol.anchor import ValidatorKind, VerdictKind
-from omnicompany.protocol.team import GraphSpec, NodeKind
+from omnicompany.protocol.team import GraphSpec
 from omnicompany.runtime.routing.router import Router
 
 logger = logging.getLogger(__name__)
@@ -289,7 +287,7 @@ def format_dag_table(snap: DAGSnapshot, *, verbose: bool = False) -> str:
 
     # 路由表
     lines.append("")
-    lines.append(f"  Routes:")
+    lines.append("  Routes:")
     for nb in snap.nodes:
         if nb.routes:
             route_strs = [f"{k}→{v}" for k, v in nb.routes.items()]
@@ -298,7 +296,7 @@ def format_dag_table(snap: DAGSnapshot, *, verbose: bool = False) -> str:
     # 边
     if verbose:
         lines.append("")
-        lines.append(f"  Edges:")
+        lines.append("  Edges:")
         for e in snap.edges:
             cond = f" [{e['condition']}]" if e["condition"] != "always" else ""
             lines.append(f"    {e['source']} → {e['target']}{cond}  {e['label']}")
@@ -311,7 +309,7 @@ def format_system_snapshot(snapshot: SystemSnapshot, *, verbose: bool = False) -
     parts: list[str] = []
 
     parts.append(f"╔{'═'*78}╗")
-    parts.append(f"║  OMNICOMPANY SYSTEM DAG REGISTRY")
+    parts.append("║  OMNICOMPANY SYSTEM DAG REGISTRY")
     parts.append(f"║  Total: {snapshot.total_nodes} nodes, "
                  f"{snapshot.total_routers} unique Router classes bound")
     parts.append(f"║  All discovered Router subclasses: {len(snapshot.all_router_classes)}")

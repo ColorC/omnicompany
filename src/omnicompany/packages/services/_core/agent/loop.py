@@ -29,7 +29,7 @@ import threading
 import uuid
 from typing import Any, ClassVar
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
+from omnicompany.protocol.anchor import Verdict
 from omnicompany.runtime.routing.router import Router
 from omnicompany.runtime.agent.agent_loop_config import LoopConfig, PRESET_STANDARD
 from omnicompany.packages.services._core.agent._bus import emit_agent_signal

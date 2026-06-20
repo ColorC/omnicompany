@@ -27,7 +27,7 @@ from omnicompany.packages.services._core.evolution.workflow.diagnosis import (
     _load_pipeline_spec,
 )
 from omnicompany.packages.services._core.evolution.workflow.hypothesis import HypothesisBoard
-from omnicompany.protocol.anchor import Verdict, VerdictKind
+from omnicompany.protocol.anchor import Verdict
 from omnicompany.protocol.events import FactoryEvent
 from omnicompany.protocol.team import NodeKind, TeamSpec
 from omnicompany.runtime.llm.llm import LLMClient

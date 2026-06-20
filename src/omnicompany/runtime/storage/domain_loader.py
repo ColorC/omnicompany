@@ -31,7 +31,6 @@ def _parse_yaml(path: Path) -> dict:
     if _HAS_YAML:
         return yaml.safe_load(path.read_text(encoding="utf-8"))
     # 极简 YAML 回退：只支持 key: value 和列表（够用于节点定义）
-    import re
     result: dict = {}
     current_key = None
     current_list: list | None = None

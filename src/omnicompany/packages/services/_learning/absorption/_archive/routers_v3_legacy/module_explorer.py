@@ -162,7 +162,8 @@ def _make_explorer_tools(sess_id: str) -> list:
                           encoding="utf-8", errors="replace", timeout=30)
             lines = res.stdout.splitlines()[:max_r]
         except FileNotFoundError:
-            import re as _re, fnmatch as _fn
+            import re as _re
+            import fnmatch as _fn
             lines = []
             try:
                 rx = _re.compile(pattern)

@@ -15,7 +15,7 @@ auto_register_singletool_subclasses() 扫). SPEC.tools 写工具字符串名引�
 
 from __future__ import annotations
 
-from typing import Any, ClassVar
+from typing import ClassVar
 
 from omnicompany.runtime.agent.agent_loop_tools import ToolContext
 from omnicompany.packages.services._core.agent.routers.single_tool import (

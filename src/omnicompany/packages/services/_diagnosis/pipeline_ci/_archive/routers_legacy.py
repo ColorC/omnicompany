@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import importlib
 import logging
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -249,7 +248,7 @@ class CIGateRouter(Router):
 
         # 打印人类可读摘要
         print(f"\n{'='*60}")
-        print(f"  Pipeline CI Report")
+        print("  Pipeline CI Report")
         print(f"{'='*60}")
         print(f"  Total domains : {total}")
         print(f"  Passed        : {passed}")

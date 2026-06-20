@@ -70,10 +70,10 @@ def cmd_meta_io_describe(meta_io_id: str, as_json: bool) -> None:
     click.echo(f"side_effect_scope  : {m.side_effect_scope}")
     click.echo(f"is_atomic_semantic : {m.is_atomic_semantic}")
     click.echo(f"tags               : {list(m.tags)}")
-    click.echo(f"description        :")
+    click.echo("description        :")
     click.echo(f"  {m.description}")
     if m.state_check.precondition or m.state_check.postcondition or m.state_check.invariant:
-        click.echo(f"state_check:")
+        click.echo("state_check:")
         if m.state_check.precondition:
             click.echo(f"  precondition  : {m.state_check.precondition}")
         if m.state_check.postcondition:

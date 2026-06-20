@@ -156,7 +156,7 @@ def cmd_run(kind: str, target: str, max_refine: int, dry_run: bool, repo_root: s
     root = Path(repo_root).resolve()
     click.echo(click.style(f"\n> docauthor run {kind} {target}", fg="cyan", bold=True))
     click.echo(f"  max_refine={max_refine} · dry_run={dry_run}")
-    click.echo(f"  bus: data/events.db (SQLiteBus 默认)\n")
+    click.echo("  bus: data/events.db (SQLiteBus 默认)\n")
 
     events = asyncio.run(run_job(
         kind=kind, target=target,

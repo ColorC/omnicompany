@@ -40,7 +40,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable
 
-from omnicompany.protocol.pipeline import PipelineSpec, PipelineNode, PipelineEdge
+from omnicompany.protocol.pipeline import PipelineSpec, PipelineNode
 from omnicompany.runtime.routing.router import Router
 
 

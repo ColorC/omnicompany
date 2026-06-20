@@ -6,7 +6,6 @@ from typing import List
 import asyncio
 
 import httpx
-from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 

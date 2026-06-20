@@ -18,7 +18,7 @@ from pathlib import Path
 from typing import Optional
 
 # NOTE: 已归档 (2026-04-20), 不再被活代码 import。相对 import 改为 `.patrol_legacy`。
-from .patrol_legacy import FileContext, RuleEngine, Violation, parse_omnimark, RULES
+from .patrol_legacy import FileContext, RuleEngine, parse_omnimark
 
 logger = logging.getLogger(__name__)
 

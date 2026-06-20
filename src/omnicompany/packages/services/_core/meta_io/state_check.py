@@ -15,7 +15,6 @@
 """
 from __future__ import annotations
 
-from typing import Any
 
 from omnicompany.protocol.hook import PeriodicHook
 from omnicompany.protocol.signal import Signal

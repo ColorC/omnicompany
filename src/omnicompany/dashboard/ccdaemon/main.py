@@ -22,7 +22,6 @@ import logging
 import os
 import time
 from contextlib import asynccontextmanager
-from pathlib import Path
 
 # 必须在 import claude_agent_sdk / chat / pty_routes 之前 install — patch anyio.open_process
 # 让 Windows 下 SDK spawn claude.cmd 子进程不弹空 console 窗口

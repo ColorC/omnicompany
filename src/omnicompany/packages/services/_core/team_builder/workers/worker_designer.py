@@ -456,8 +456,8 @@ def _skeleton_patch_worker_detail(d: dict) -> dict:
         rs = d.get("rule_spec")
         if not isinstance(rs, str) or len(rs.strip()) < 20:
             d["rule_spec"] = (
-                f"HARD 规则 (骨架占位 · LLM 未填): "
-                f"1. 读 input_data · 2. 按契约处理 · 3. return Verdict(PASS/FAIL)"
+                "HARD 规则 (骨架占位 · LLM 未填): "
+                "1. 读 input_data · 2. 按契约处理 · 3. return Verdict(PASS/FAIL)"
             )
     # routes (3 分支必填)
     routes = d.get("routes")

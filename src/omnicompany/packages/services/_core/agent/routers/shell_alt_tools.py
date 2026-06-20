@@ -203,7 +203,6 @@ class REPLRouter(SingleToolRouter):
             ctx.repl_globals = {"__name__": "__omni_repl__", "__builtins__": __builtins__}  # type: ignore[attr-defined]
 
         # 重定向 stdout 捕获
-        import sys
         from contextlib import redirect_stdout, redirect_stderr
         out_buf = StringIO()
         err_buf = StringIO()

@@ -21,11 +21,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from omnicompany.packages.services._learning.knowledge.index import KBIndex, load_or_rebuild
+from omnicompany.packages.services._learning.knowledge.index import load_or_rebuild
 from omnicompany.packages.services._learning.knowledge.schema import (
-    KArchitectureEntry,
     KFormatEntry,
-    KRouterEntry,
 )
 
 logger = logging.getLogger(__name__)

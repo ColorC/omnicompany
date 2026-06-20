@@ -99,7 +99,7 @@ class FormatEdgeInferrer:
                 crystallizer=self.name,
                 target_router=facts.get("router_class", "?") or "?",
                 patch_type="format_components_add",
-                title=f"建议 FORMAT_IN 升级为 composite",
+                title="建议 FORMAT_IN 升级为 composite",
                 rationale=(
                     f"Agent 在运行中反复访问了 {external_nodes} 的输出, "
                     f"说明当前 FORMAT_IN ({fmt_in or '空'}) 结构性缺失这些依赖. "

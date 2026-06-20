@@ -35,12 +35,6 @@ from omnicompany.protocol.team import (
     EdgeCheckResult,
     InfoAuditMode,
     NodeKind,
-    TeamChecker,
-    TeamCheckResult,
-    TeamEdge,
-    TeamExecutionMode,
-    TeamNode,
-    TeamSpec,
     describe_agent_loop,
     # 过渡期别名 — 旧消费者可继续用，新代码用上面的 Team* 名
     TeamChecker,

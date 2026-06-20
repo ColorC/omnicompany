@@ -17,11 +17,11 @@ import re
 import threading
 import time
 from dataclasses import dataclass, field
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
-import anthropic
+if TYPE_CHECKING:  # anthropic SDK 导入约 436ms, 仅类型检查需要; 运行时在各用到处懒导入(对齐下方 openai)
+    import anthropic
 
-from omnicompany.runtime.exec.tools import ALL_TOOLS
 
 logger = logging.getLogger(__name__)
 
@@ -1102,6 +1102,7 @@ class LLMClient:
                 max_retries=0,
             )
         else:
+            import anthropic
             self.client = anthropic.Anthropic(
                 base_url=resolved_base,
                 api_key=resolved_key or os.environ.get("ANTHROPIC_AUTH_TOKEN"),
@@ -1236,6 +1237,7 @@ class LLMClient:
                     response_format=response_format, tool_choice=tool_choice,
                 )
             else:
+                import anthropic
                 anth_client = anthropic.Anthropic(base_url=base_url, api_key=api_key, timeout=120.0)
                 result = self._call_anthropic_with(
                     anth_client, model, messages, effective_system,
@@ -1863,7 +1865,7 @@ class LLMClient:
         system: str,
         tool_choice: dict[str, Any] | None = None,
         response_format: dict[str, Any] | None = None,
-    ) -> anthropic.types.Message:
+    ) -> "anthropic.types.Message":
         """Anthropic 协议调用（可指定 client 和 model，供 fallback 链使用）。
 
         2026-04-09 改为流式: 对齐 OpenAI 路径的 _STREAM_WALL_CLOCK_DEADLINE +
@@ -1878,6 +1880,7 @@ class LLMClient:
           模型必须 call 这个 tool, tool input 就是结构化输出.
           上层从 message.content 找该 tool_use block 的 input 字段拿结构化结果.
         """
+        import anthropic  # 懒导入(SDK ~436ms); 下方 except 子句需 anthropic.BadRequestError 等
         kwargs: dict[str, Any] = {
             "model": model,
             "max_tokens": self.max_tokens,

@@ -1141,9 +1141,7 @@ def _make_recon_tools(sess_id: str) -> list:
     from omnicompany.runtime.agent.agent_loop_tools import (
         FinishTool,
         ThinkTool,
-        ToolContext,
         ToolDefinition,
-        ToolExecutor,
     )
 
     def _state() -> dict:
@@ -2148,7 +2146,8 @@ def _make_directed_tools(sess_id: str) -> list:
             )
             lines = result.stdout.splitlines()
         except FileNotFoundError:
-            import re as _re, fnmatch as _fn
+            import re as _re
+            import fnmatch as _fn
             lines = []
             try:
                 rx = _re.compile(pattern)

@@ -16,7 +16,6 @@ dashboard's Trace DAG / Timeline / Tree views (round 13).
 from __future__ import annotations
 
 import json
-import os
 import sys
 import uuid
 
@@ -43,7 +42,7 @@ def _summarize_args(args: dict) -> dict:
         elif isinstance(v, (list, dict)):
             j = json.dumps(v, ensure_ascii=False, default=str)
             if len(j) > 1500:
-                out[k] = j[:1500] + f"... [truncated]"
+                out[k] = j[:1500] + "... [truncated]"
             else:
                 out[k] = v
         else:

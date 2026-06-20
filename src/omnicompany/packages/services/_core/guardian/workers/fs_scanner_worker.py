@@ -120,7 +120,7 @@ class FsScannerWorker(Worker):
                     "severity": severity,
                     "path": str(entry.relative_to(root)),
                     "detail": f"项目根目录出现非法{kind}: {name}",
-                    "suggestion": f"移动到 data/ 或 tmp/ 下，或添加到 .gitignore",
+                    "suggestion": "移动到 data/ 或 tmp/ 下，或添加到 .gitignore",
                 })
         except Exception as e:
             logger.warning("FsScanner: 无法扫描根目录 %s: %s", root, e)

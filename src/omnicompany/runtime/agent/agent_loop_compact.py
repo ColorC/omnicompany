@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import Any
 
 from omnicompany.runtime.agent.agent_loop_config import CompactConfig
 

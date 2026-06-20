@@ -33,7 +33,7 @@ from omnicompany.protocol.team import (
     NodeKind,
 )
 from omnicompany.runtime.routing.router import Router
-from omnicompany.runtime.storage.db_access import open_db, open_db_rw
+from omnicompany.runtime.storage.db_access import open_db_rw
 
 
 RUNTIME_OPERATOR_SPECS: dict[str, OperatorSpec] = {
@@ -454,7 +454,6 @@ def apply_topology_mutations(
     if not active_topos:
         return graph, {}
 
-    import copy
     import logging
     _logger = logging.getLogger(__name__)
 
@@ -1175,7 +1174,6 @@ class _RouteAccumulateAdapter(Router):
     ) -> bool:
         """从 IntentTracer 读取 intent，计算 embedding，写入 route_graph。"""
         import json as _json
-        import sqlite3
         import hashlib
         import logging
         from datetime import datetime, timezone
@@ -1320,7 +1318,6 @@ class _RouteAccumulateAdapter(Router):
         成熟度阈值使用绝对成功次数（success_count>=5），避免迁移节点的初始
         hit_count 拉低 SR 导致永远无法升阶。
         """
-        import sqlite3
         import logging
         import time
         from pathlib import Path
@@ -1578,7 +1575,6 @@ Use the declare_node_tags tool.
         tool_name: str = "",
     ) -> None:
         """为新的路由模式创建 semantic_node，附带 LLM tag 声明。"""
-        import sqlite3
         import json
         import hashlib
         from datetime import datetime, timezone

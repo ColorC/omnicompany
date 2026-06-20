@@ -117,7 +117,8 @@ def _issue_write_credential(
     凭据是 lock 组 (PHASE3 第四段) 的写入门禁前提. 本段先把凭据机制建起来,
     锁组打开时按 credential 校验"该 trace_id 是否曾合法注册过这条 path".
     """
-    import time as _time, hashlib as _hashlib
+    import time as _time
+    import hashlib as _hashlib
     cred_dir = proj / "data" / "services" / "registry" / "credentials"
     cred_dir.mkdir(parents=True, exist_ok=True)
     cred_id = _hashlib.sha256(f"{entity_id}|{trace_id}".encode("utf-8")).hexdigest()[:16]
@@ -626,7 +627,7 @@ def cmd_register_identity(role, display_name, token, active_plan, as_json):
         click.echo(f"  display_name : {display_name or chosen_token}")
         if active_plan:
             click.echo(f"  active_plan  : {active_plan}")
-        click.echo(f"  → omni whoami / omni who 可查")
+        click.echo("  → omni whoami / omni who 可查")
 
 
 @cmd_register.command("batch")
@@ -716,7 +717,7 @@ def cmd_register_batch(manifest, continue_on_error, as_json):
     if as_json:
         click.echo(json.dumps(summary, ensure_ascii=False, indent=2))
     else:
-        click.echo(f"\n=== 批量注册收尾 ===")
+        click.echo("\n=== 批量注册收尾 ===")
         click.echo(f"  total: {summary['total']}")
         click.echo(f"  ok   : {ok}")
         click.echo(f"  fail : {fail}")

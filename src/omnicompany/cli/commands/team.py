@@ -48,7 +48,7 @@ def cmd_team_validate(from_yaml: str, as_json: bool) -> None:
             "entry": team.entry, "nodes": len(team.nodes), "edges": len(team.edges),
         }, ensure_ascii=False, indent=2))
     else:
-        click.echo(f"PASS · yaml 合法")
+        click.echo("PASS · yaml 合法")
         click.echo(f"  id={team.id} name={team.name}")
         click.echo(f"  entry={team.entry}  nodes={len(team.nodes)}  edges={len(team.edges)}")
 
@@ -206,7 +206,8 @@ def cmd_team_load(from_yaml: str, name: str | None, package: str | None) -> None
       omni lookup --kind=team --id=<id>
       omni team show --from-yaml=<path>
     """
-    import subprocess, sys
+    import subprocess
+    import sys
     cmd = [sys.executable, "-m", "omnicompany.cli.main", "register",
            "--kind", "team", "--content", from_yaml]
     if name:

@@ -37,7 +37,6 @@ import shutil
 import subprocess
 import threading
 import uuid
-from pathlib import Path
 from typing import Any
 
 from omnicompany.runtime.buses.bash_bus import (

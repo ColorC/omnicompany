@@ -349,7 +349,7 @@ class ContextScoutRouter(Router):
                 sigs = d.get("py_signatures", [])
                 parts.append(f"模块 {m}, 引用名字: {d['names']}")
                 if sigs:
-                    parts.append(f"  Python 签名:\n" + "\n".join(f"    {s}" for s in sigs))
+                    parts.append("  Python 签名:\n" + "\n".join(f"    {s}" for s in sigs))
             missing_info = "\n".join(parts)
 
         pattern_samples = "\n\n".join(existing_ts_samples) if existing_ts_samples else "(无已有 TS 文件)"
@@ -661,7 +661,7 @@ def _extract_type_context(name: str, py_source: str, ts_source: str) -> str | No
                     capturing = False
 
         if relevant_ts:
-            parts.append(f"**已翻译的 TS 声明 (直接 import 使用):**\n```typescript\n" + "\n".join(relevant_ts) + "\n```")
+            parts.append("**已翻译的 TS 声明 (直接 import 使用):**\n```typescript\n" + "\n".join(relevant_ts) + "\n```")
 
     # ── 设计原理（从 docstring 或注释提取）──
     # 已包含在 py_def 的 docstring 中
@@ -1435,7 +1435,7 @@ print(json.dumps(results, default=str, sort_keys=True))
             if not py_test_match or not ts_test_match:
                 # fallback: 尝试普通代码块
                 py_test_match = py_test_match or re.search(r"```python\n(.*?)```", content, re.DOTALL)
-                ts_test_match = ts_test_match or re.search(rf"```(?:typescript|ts)\n(.*?)```", content, re.DOTALL)
+                ts_test_match = ts_test_match or re.search(r"```(?:typescript|ts)\n(.*?)```", content, re.DOTALL)
 
             if not py_test_match or not ts_test_match:
                 return Verdict(
@@ -2223,7 +2223,7 @@ class BehavioralTesterRouter(Router):
                         "behavioral_test_result": btest,
                         "_feedback": f"BehavioralTest 失败:\n{errors[:500]}",
                     },
-                    diagnosis=f"BehavioralTester FAIL: 接口导入/类型检查失败",
+                    diagnosis="BehavioralTester FAIL: 接口导入/类型检查失败",
                     confidence=0.9,
                 )
         finally:

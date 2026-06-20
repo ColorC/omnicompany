@@ -108,7 +108,7 @@ class HypothesisV1Upgrader:
         # source_authority 派生
         if source_kind == "code":
             authority = "code-derived"
-            notes.append(f"source_kind=code → code-derived (V1 2026-05-07 新类别)")
+            notes.append("source_kind=code → code-derived (V1 2026-05-07 新类别)")
         else:
             authority = self._lookup_authority(source_path)
             notes.append(f"source_path '{source_path}' 在 authority_map → {authority}")
@@ -287,7 +287,7 @@ def main(argv: list[str] | None = None) -> int:
                 get_finding_archive,
             )
             finding_archive = get_finding_archive()
-            print(f"FindingArchive 接通 (data/registry/findings/)")
+            print("FindingArchive 接通 (data/registry/findings/)")
         except Exception as e:  # noqa: BLE001 — archive 加载失败不阻塞 CLI 主路径
             print(f"WARNING: FindingArchive 加载失败 (跳过反向链接): {type(e).__name__}: {e}",
                   file=sys.stderr)

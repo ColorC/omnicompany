@@ -21,8 +21,6 @@ import json
 import logging
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from pathlib import Path
-from typing import Any
 
 from omnicompany.runtime.storage.db_access import open_db
 

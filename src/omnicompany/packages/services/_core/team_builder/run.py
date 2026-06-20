@@ -9,7 +9,6 @@ from __future__ import annotations
 
 from omnicompany.packages.services._core.omnicompany import Worker
 from omnicompany.packages.services._core.team_builder.formats import register_formats
-from omnicompany.packages.services._core.team_builder.pipeline import build_pipeline
 from omnicompany.packages.services._core.team_builder.workers import (
     AutoFixerWorker,
     CompileCheckerWorker,
@@ -126,7 +125,6 @@ def build_bindings_agent_first(input_dict: dict | None = None) -> dict[str, Work
         WorkerDesignerWorker,
         WorkspaceDesignerWorker,
         # V3
-        CodeGeneratorLoopWorker,  # legacy V3 单体 · 保留备用不 wire
         RegistrarWorker,
         # V3.2 · CodeGenerator 子 team (2026-04-24 · 9 新 worker)
         FormatsFileGenerator,

@@ -44,7 +44,7 @@ def cmd_vilo_status() -> None:
     click.echo(f"  产物根      : {DATA_ROOT}")
     click.echo(f"  runs        : {_count(runs)}  (最新: {latest or '-'})")
     click.echo(f"  reports     : {_count(DATA_ROOT / 'reports')}")
-    click.echo(f"  内容真源    : 外部 故事/vilo-wants-to-know (omnicompany 不接管内容)")
+    click.echo("  内容真源    : 外部 故事/vilo-wants-to-know (omnicompany 不接管内容)")
     click.echo("  跑管线      : omni run vilo.<id>  ——  `omni vilo list` 查看")
 
 

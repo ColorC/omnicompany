@@ -22,7 +22,13 @@
 """
 from __future__ import annotations
 
-import argparse, asyncio, importlib, json, shutil, sys, tempfile, traceback
+import argparse
+import asyncio
+import importlib
+import json
+import shutil
+import sys
+import traceback
 from pathlib import Path
 
 _ANCHOR = '    logger.debug("register_all: done")'
@@ -113,7 +119,8 @@ def _run_acceptance_tests(team_name: str) -> tuple[bool, str]:
     test_dir = Path(f"tests/teams/{team_name}")
     if not test_dir.exists():
         return True, f"skip · 无 tests/teams/{team_name}/ (requirement 未建档的 team 不作硬 gate)"
-    import subprocess, os
+    import subprocess
+    import os
     cmd = [sys.executable, "-m", "pytest", str(test_dir), "--team-mode=subprocess", "-v", "--tb=short"]
     env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
     try:
@@ -138,7 +145,7 @@ def _rollback(pkg_root: Path | None, pipelines_original: str | None):
         print(f"[rollback] 删除 {pkg_root}")
     if pipelines_original is not None:
         DiskBus().write(Path("src/omnicompany/core/pipelines.py"), pipelines_original, atomic=True)
-        print(f"[rollback] 恢复 pipelines.py 原文本")
+        print("[rollback] 恢复 pipelines.py 原文本")
 
 
 async def main(text: str):
@@ -197,7 +204,7 @@ async def main(text: str):
                             tmp = {m.group(1).strip(): m.group(2) for m in _FILE_RE.finditer(r)}
                             if tmp: files_dict = tmp
         if not files_dict:
-            print(f"[FAIL] 既未从 reg_plan['files'] 也未从 audit 找到 files_dict")
+            print("[FAIL] 既未从 reg_plan['files'] 也未从 audit 找到 files_dict")
             return 4
     print(f"[captured] {len(files_dict)} files from reg_plan['files']")
 

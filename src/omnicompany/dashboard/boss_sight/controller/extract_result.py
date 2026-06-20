@@ -9,7 +9,6 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from omnicompany.packages.services._core.agent.routers.extract_result import ExtractResultRouter
 from omnicompany.protocol.anchor import Verdict, VerdictKind

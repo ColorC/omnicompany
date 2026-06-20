@@ -16,7 +16,6 @@ from omnicompany.packages.services._core.agent.routers.extract_result import Ext
 from omnicompany.packages.services._core.agent.routers.prompt_builder import PromptBuilderRouter
 from omnicompany.packages.services._core.agent.routers.single_tool import (
     SingleToolRouter,
-    ToolContext,
 )
 from omnicompany.packages.services._learning.hypothesis_library import (
     UNIVERSAL_HYPOTHESES,

@@ -12,12 +12,10 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, field
-from typing import Any
 
 from omnicompany.bus.sqlite import SQLiteBus
 from omnicompany.packages.services._core.evolution.workflow.experiment_runner import ExperimentResult
 from omnicompany.packages.services._core.evolution.workflow.shallow_tracer import _extract_node_traces, NodeTraceResult
-from omnicompany.protocol.events import FactoryEvent
 
 logger = logging.getLogger(__name__)
 

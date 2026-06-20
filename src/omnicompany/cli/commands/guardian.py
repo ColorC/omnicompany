@@ -187,7 +187,7 @@ def cmd_guardian_report(out_path: str | None, with_llm_prose: bool, quiet: bool)
             click.echo(f"自定义输出: {out_path}")
     if not quiet:
         click.echo(f"默认报告: {default_path}")
-        click.echo(f"latest:   data/services/guardian/reports/latest.md")
+        click.echo("latest:   data/services/guardian/reports/latest.md")
         click.echo()
         click.echo(click.style("数据源计数:", fg="cyan"))
         for k, v in (payload.get("source_counts") or {}).items():

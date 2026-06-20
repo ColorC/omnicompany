@@ -15,7 +15,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, ClassVar, Mapping, Sequence
 
-from omnicompany.protocol.hook import BaseHook, PeriodicHook, EventHook
+from omnicompany.protocol.hook import PeriodicHook, EventHook
 from omnicompany.protocol.signal import Signal
 
 

@@ -14,7 +14,6 @@ from __future__ import annotations
 import json
 import logging
 from datetime import datetime, timezone
-from pathlib import Path
 
 from omnicompany.runtime.storage.db_access import open_db
 

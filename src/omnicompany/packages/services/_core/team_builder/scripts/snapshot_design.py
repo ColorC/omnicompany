@@ -169,7 +169,7 @@ def main():
             (out_dir / "sink_registration_plan.json").write_text(
                 json.dumps(sink_obj, ensure_ascii=False, indent=2, default=str), encoding="utf-8"
             )
-            print(f"  [OK] sink → sink_registration_plan.json")
+            print("  [OK] sink → sink_registration_plan.json")
 
     # 落 _meta
     meta = {

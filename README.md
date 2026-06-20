@@ -1,12 +1,14 @@
 <!-- [OMNI] origin=ai-ide domain=root type=doc status=active -->
 
-# omnicompany
+# Make AI Slop More Efficiently
 
-[![CI](https://github.com/ColorC/omnicompany/actions/workflows/ci.yml/badge.svg)](https://github.com/ColorC/omnicompany/actions/workflows/ci.yml)
+[![CI](https://github.com/ColorC/make-ai-slop-more-efficiently/actions/workflows/ci.yml/badge.svg)](https://github.com/ColorC/make-ai-slop-more-efficiently/actions/workflows/ci.yml)
 ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
 > AI 原生的软件工厂：让 AI agent 在一个"严密声明、明文可读"的环境里持续工作、协作、自我诊断与修复。
+>
+> 包名 `omnicompany`，命令行 `omni`。仓库名是句自嘲——我们主要拿它**更高效地批量生产 AI slop**。
 
 ## 这是什么
 
@@ -24,8 +26,8 @@ omnicompany 把"AI agent 怎么工作 / 怎么协作 / 怎么自我修复"这套
 ## 快速开始
 
 ```bash
-git clone https://github.com/ColorC/omnicompany.git
-cd omnicompany
+git clone https://github.com/ColorC/make-ai-slop-more-efficiently.git
+cd make-ai-slop-more-efficiently
 pip install -e .
 ```
 

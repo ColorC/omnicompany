@@ -29,8 +29,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from omnicompany.packages.services._learning.knowledge.index import KBIndex
-    from omnicompany.packages.services._learning.knowledge.schema import KHypothesisEntry
-    from omnicompany.packages.services._learning.knowledge.store import KBStore
 
 logger = logging.getLogger(__name__)
 

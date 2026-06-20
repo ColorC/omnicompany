@@ -14,9 +14,8 @@ CC 对齐 (build-src/src/commands/...): /compact /clear /cost /help /status /mod
 """
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Callable
 
 
 # Handler 签名: (arg_string: str, context: dict) -> reply_string

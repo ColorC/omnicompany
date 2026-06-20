@@ -15,7 +15,6 @@ from omnicompany.packages.services._core.agent.routers.prompt_builder import Pro
 from omnicompany.packages.services._core.agent.routers.single_tool import (
     ReadFileRouter,
     SingleToolRouter,
-    ToolContext,
 )
 from omnicompany.protocol.anchor import Verdict, VerdictKind
 

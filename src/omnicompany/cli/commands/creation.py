@@ -233,7 +233,7 @@ def cmd_sandbox_check(content: str, strict: bool) -> None:
     proj = _project_root()
     click.echo(f"检查 {len(files_to_check)} 个文件:")
     if not all_issues:
-        click.echo(f"  PASS · 全部通过")
+        click.echo("  PASS · 全部通过")
         return
 
     click.echo(f"  FAIL · {len(all_issues)} 处问题")
@@ -366,7 +366,8 @@ def cmd_sandbox_promote(
 
     用户铁律: 不擅自新建目录. 新 bucket 永远拦, 新 service 默认拦, 加 --allow-new-service 才放行.
     """
-    import subprocess, sys
+    import subprocess
+    import sys
     proj = _project_root()
     content_path = Path(content).resolve()
     target_path = (proj / target).resolve() if not Path(target).is_absolute() else Path(target).resolve()
@@ -379,7 +380,7 @@ def cmd_sandbox_promote(
         r = subprocess.run(check_cmd, capture_output=True, text=True)
         click.echo(r.stdout)
         if r.returncode != 0:
-            click.echo(f"FAIL · 预检不通过, 拒绝转正. 修完后重跑.", err=True)
+            click.echo("FAIL · 预检不通过, 拒绝转正. 修完后重跑.", err=True)
             raise SystemExit(1)
 
     # ── 步骤 2: target 合规验证 (新规, 不合规立即拦不等 mkdir) ──
@@ -682,11 +683,11 @@ def cmd_new(
         except ValueError:
             click.echo(f"    {f}")
     click.echo()
-    click.echo(f"下一步:")
+    click.echo("下一步:")
     click.echo(f"  1. 读填写指引:  omni sandbox guide --kind={kind}")
     click.echo(f"     (或直接看: {guide_path.relative_to(proj)})")
-    click.echo(f"  2. 按指引填字段, 替换里面的 <placeholder>")
-    click.echo(f"  3. 检查跟转正:  omni sandbox check --content=<file>  (CLI G6 实装中)")
+    click.echo("  2. 按指引填字段, 替换里面的 <placeholder>")
+    click.echo("  3. 检查跟转正:  omni sandbox check --content=<file>  (CLI G6 实装中)")
 
 
 def _inject_header(

@@ -1240,7 +1240,7 @@ class HypothesisVerifierDispatcherWorker(Worker):
                             results.append({
                                 "hypothesis_id": hyp_id,
                                 "status": "pending_manual",
-                                "evidence_excerpt": f"扫 formats.py 没抽到 Material id (可能写法非标)",
+                                "evidence_excerpt": "扫 formats.py 没抽到 Material id (可能写法非标)",
                                 "signals": [f"formats.py: {formats_path}"],
                                 "executed_via": pretty + " (skipped, no Material ids)",
                             })

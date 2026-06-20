@@ -48,8 +48,8 @@ def build_audit_pipeline() -> TeamSpec:
             anchor=AnchorSpec(
                 id=f"{DOMAIN}-audit-all",
                 name="OmniKBAuditAll",
-                format_in=f"kb.audit_request",
-                format_out=f"kb.audit_report",
+                format_in="kb.audit_request",
+                format_out="kb.audit_report",
                 validator=ValidatorSpec(
                     id=f"{DOMAIN}-audit-v",
                     kind=ValidatorKind.HARD,

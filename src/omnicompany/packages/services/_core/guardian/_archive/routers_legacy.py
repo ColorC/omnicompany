@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from omnifactory.protocol.anchor import Verdict, VerdictKind
-from omnifactory.runtime.agent.agent_loop_config import LoopConfig, CompactConfig, PermissionConfig, PRESET_LIGHTWEIGHT
+from omnifactory.runtime.agent.agent_loop_config import LoopConfig, CompactConfig, PermissionConfig
 from omnifactory.runtime.agent.agent_loop_tools import ReadFileTool, GrepTool, GlobTool, ListDirTool, ThinkTool
 from omnifactory.runtime.agent.agent_node_loop import AgentNodeLoop
 from omnifactory.runtime.routing.router import Router
@@ -119,7 +119,7 @@ class FsScannerRouter(Router):
                     "severity": severity,
                     "path": str(entry.relative_to(root)),
                     "detail": f"项目根目录出现非法{kind}: {name}",
-                    "suggestion": f"移动到 data/ 或 tmp/ 下，或添加到 .gitignore",
+                    "suggestion": "移动到 data/ 或 tmp/ 下，或添加到 .gitignore",
                 })
         except Exception as e:
             logger.warning("FsScanner: 无法扫描根目录 %s: %s", root, e)
