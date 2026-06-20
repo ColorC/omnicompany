@@ -27,7 +27,7 @@ disable-model-invocation: false
 
 **不用我**:
 - 跨 Team 协作 → 走 [omnicompany MaterialDispatcher](../omnicompany/SKILL.md), 不在单 agent loop 内
-- 业务逻辑实现 → 各业务 Team 自己 (例 hypothesis / docauthor / demogame_kb_storywiki)
+- 业务逻辑实现 → 各业务 Team 自己 (例 hypothesis / [docauthor](../../_authoring/docauthor/) / demogame_kb_storywiki)
 - 旧 `runtime/agent` 直接用 → 已 deprecated, 用本包的新接口
 
 ## 前置条件

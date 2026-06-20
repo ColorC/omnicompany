@@ -35,4 +35,4 @@ team_loader 是 omnicompany 的**yaml Team 加载 service**. 含 [yaml_loader.py
 
 - [DESIGN.md](DESIGN.md) / [SKILL.md](SKILL.md)
 - omni team CLI → 项目根 README cli 段
-- 跟 docauthor 结合 → ../../_authoring/docauthor/
+- 跟 docauthor 结合 → [../../_authoring/docauthor/](../../_authoring/docauthor/)
