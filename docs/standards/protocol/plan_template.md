@@ -8,7 +8,7 @@
 
 > **权威**: [`concepts/plan.md`](../concepts/plan.md)（2026-06-13 起 plan 唯一权威规范, 用户裁决"冲突以新为准"）——本文件是其 protocol 层**模板细则**（plan.md 章节硬下限），冲突时以 concepts/plan.md 为准
 > **头部字段**: 按 concepts/plan.md §三 — 文件顶部唯一 yaml frontmatter（平铺字段 + binding 块同居一块），之后才是 OmniMark 头注释. 改本文件前必同步看 concepts/plan.md 是否一致 (元规范第 1 条违例自查)
-> **相关**: `distributed-docs.md` (位置), [`design_md_template.md`](design_md_template.md) (DESIGN 模板), [doctor 计划型诊断](../../../src/omnicompany/packages/services/_diagnosis/doctor/DESIGN.md), `standards_meta.md` (立规范的元规范)
+> **相关**: `distributed-docs.md` (位置), `design_md_template.md` (DESIGN 模板), [doctor 计划型诊断](../../../src/omnicompany/packages/services/_diagnosis/doctor/DESIGN.md), `standards_meta.md` (立规范的元规范)
 > **位置**: `docs/plans/<topic>/[YYYY-MM-DD]<plan-name>/plan.md`
 > **设施统一计划**: 若计划目标是消灭二重权威/统一核心设施, 必须补 `authority-confirmation.md` 与 `autonomous-execution-rules.md` 两个同目录文件; 当前样例见 authority-confirmation.md / autonomous-execution-rules.md。
 
@@ -117,7 +117,7 @@ expected_completion: <YYYY-MM-DD>
 - [ ] 全部产物清单 (二节) 文件存在
 - [ ] 关键 class / 函数 / Material 常量按描述存在
 - [ ] OMNI 头齐 (按 `omni-header.md` 规范)
-- [ ] 文档章节齐 (按 [`design_md_template.md`](design_md_template.md) 等模板)
+- [ ] 文档章节齐 (按 `design_md_template.md` 等模板)
 
 ### 3.2 动态验收 (能跑 / 能复现)
 

@@ -109,7 +109,7 @@ omni docauthor issues --target=packages/services/_core/registry
 | `omni docauthor observe` | 看历史产出 | `--target` `--n` `--json-output` |
 | `omni docauthor issues` | 看 issue 清单 | `--target` |
 
-详细 CLI 规范: [docs/standards/cli/omnicompany_cli.md](../../../../../../docs/standards/cli/omnicompany_cli.md)
+详细 CLI 规范: docs/standards/cli/omnicompany_cli.md
 
 ## 故障排查
 

@@ -90,7 +90,7 @@ result = runner.run({"format_id": "...", "source_root": "."})
 | `build_pipeline()` (Python) | Format 修复 Team | 见 [pipeline.py](pipeline.py) |
 | 单 Worker 调用 (测试用) | 跑某段 | 见 [workers/](workers/) |
 
-详细 CLI 规范: [docs/standards/cli/omnicompany_cli.md](../../../../../../docs/standards/cli/omnicompany_cli.md)
+详细 CLI 规范: docs/standards/cli/omnicompany_cli.md
 
 ## 故障排查
 

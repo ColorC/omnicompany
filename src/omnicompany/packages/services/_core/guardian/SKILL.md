@@ -33,7 +33,7 @@ disable-model-invocation: false
 **不用我**:
 - 想做运行时诊断 (Format/Worker/Team 健康) → 找 [doctor service](../../_diagnosis/doctor/)
 - 想自动修代码 → 找 [services/repair/](../../) (guardian 主要 warn, 修是 repair 的事)
-- 想注册新实体 → 找 register CLI, 不是 guardian
+- 想注册新实体 → 找 [register CLI](../../../../../../docs/standards/cli/registration.md), 不是 guardian
 
 ## 前置条件
 
@@ -153,7 +153,7 @@ omni guardian patrol --json-out
 | `omni guardian report` | 生成报告 | `--out` `--quiet` |
 | `omni guardian prompt-scan` | 扫 prompt 反模式 | `--scope` `--rule-filter` |
 
-详细 CLI 规范: [docs/standards/cli/omnicompany_cli.md](../../../../../../docs/standards/cli/omnicompany_cli.md)
+详细 CLI 规范: docs/standards/cli/omnicompany_cli.md
 
 ## 故障排查
 

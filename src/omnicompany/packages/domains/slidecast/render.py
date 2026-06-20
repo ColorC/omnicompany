@@ -27,7 +27,7 @@ def _front(meta: dict) -> str:
     info = _s(meta.get("info")) or "由 slidecast 自动生成"
     return (
         "---\n"
-        "theme: seriph\n"
+        "theme: neversink\n"
         f"title: {title}\n"
         f"info: {info}\n"
         "class: text-center\n"

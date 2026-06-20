@@ -114,7 +114,7 @@ ALL_WORKERS = [MyWorker1, MyWorker2]
 __all__ = ["MyWorker1", "MyWorker2", "ALL_WORKERS"]
 ```
 
-### DESIGN.md 必填项（[design_md_template.md](../../../../../../docs/standards/protocol/design_md_template.md)）
+### DESIGN.md 必填项（design_md_template.md）
 
 - 状态（active / design / skeleton）
 - 核心目的（解决 / 不解决）

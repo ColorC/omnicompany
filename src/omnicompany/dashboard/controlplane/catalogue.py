@@ -16170,28 +16170,28 @@ def _team_builder_high_standard_audit_report() -> dict[str, Any]:
 
 
 @catalogue_router.get("/teams")
-async def list_teams() -> dict[str, Any]:
+def list_teams() -> dict[str, Any]:
     items = _scan_teams_cached(_root_token())
     return {"items": items, "total": len(items)}
 
 
 @catalogue_router.get("/teams/{team_id:path}")
-async def get_team(team_id: str) -> dict[str, Any]:
+def get_team(team_id: str) -> dict[str, Any]:
     return _get_one(_scan_teams_cached, "team", team_id)
 
 
 @catalogue_router.get("/team-graph/{team_id:path}")
-async def get_team_graph(team_id: str, builder: str | None = None) -> dict[str, Any]:
+def get_team_graph(team_id: str, builder: str | None = None) -> dict[str, Any]:
     return _load_team_graph_data(team_id, builder)
 
 
 @catalogue_router.get("/team-doctor/{team_id:path}")
-async def get_team_doctor(team_id: str, builder: str | None = None) -> dict[str, Any]:
+def get_team_doctor(team_id: str, builder: str | None = None) -> dict[str, Any]:
     return _build_team_doctor_health(team_id, builder)
 
 
 @catalogue_router.get("/team-runs/{team_id:path}")
-async def get_team_runs(
+def get_team_runs(
     team_id: str,
     builder: str | None = None,
     limit: int = Query(20, ge=1, le=100),
@@ -16209,7 +16209,7 @@ async def get_team_runs(
 
 
 @catalogue_router.get("/team-run-detail/{team_id:path}")
-async def get_team_run_detail(
+def get_team_run_detail(
     team_id: str,
     trace_id: str = Query(..., min_length=1),
     builder: str | None = None,
@@ -16261,7 +16261,7 @@ async def get_team_run_detail(
 
 
 @catalogue_router.get("/team-builder-materialization/latest")
-async def get_latest_team_builder_materialization(
+def get_latest_team_builder_materialization(
     worker: str | None = None,
     material: str | None = None,
     target: str | None = None,
@@ -16270,7 +16270,7 @@ async def get_latest_team_builder_materialization(
 
 
 @catalogue_router.get("/team-builder-materialization/report/latest")
-async def get_latest_team_builder_materialization_report(
+def get_latest_team_builder_materialization_report(
     worker: str | None = None,
     material: str | None = None,
     target: str | None = None,
@@ -16279,287 +16279,287 @@ async def get_latest_team_builder_materialization_report(
 
 
 @catalogue_router.get("/team-builder-materialization/test-report/latest")
-async def get_latest_team_builder_test_report() -> dict[str, Any]:
+def get_latest_team_builder_test_report() -> dict[str, Any]:
     return _team_builder_test_report()
 
 
 @catalogue_router.get("/team-builder-materialization/contract-execution/latest")
-async def get_latest_team_builder_contract_execution() -> dict[str, Any]:
+def get_latest_team_builder_contract_execution() -> dict[str, Any]:
     return _team_builder_latest_contract_execution_report()
 
 
 @catalogue_router.post("/team-builder-materialization/contract-execution/execute")
-async def execute_latest_team_builder_contracts() -> dict[str, Any]:
+def execute_latest_team_builder_contracts() -> dict[str, Any]:
     return _team_builder_execute_contracts_report()
 
 
 @catalogue_router.get("/team-builder-materialization/doctor-findings/latest")
-async def get_latest_team_builder_doctor_findings() -> dict[str, Any]:
+def get_latest_team_builder_doctor_findings() -> dict[str, Any]:
     return _team_builder_latest_doctor_findings_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-plan/latest")
-async def get_latest_team_builder_repair_plan() -> dict[str, Any]:
+def get_latest_team_builder_repair_plan() -> dict[str, Any]:
     return _team_builder_latest_repair_plan()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-probe/latest")
-async def get_latest_team_builder_repair_probe() -> dict[str, Any]:
+def get_latest_team_builder_repair_probe() -> dict[str, Any]:
     return _team_builder_repair_probe_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-dry-run/latest")
-async def get_latest_team_builder_repair_dry_run() -> dict[str, Any]:
+def get_latest_team_builder_repair_dry_run() -> dict[str, Any]:
     return _team_builder_repair_dry_run_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-patch-candidates/latest")
-async def get_latest_team_builder_repair_patch_candidates() -> dict[str, Any]:
+def get_latest_team_builder_repair_patch_candidates() -> dict[str, Any]:
     return _team_builder_repair_patch_candidates_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-patch-diff-proposal/latest")
-async def get_latest_team_builder_repair_patch_diff_proposal() -> dict[str, Any]:
+def get_latest_team_builder_repair_patch_diff_proposal() -> dict[str, Any]:
     return _team_builder_repair_patch_diff_proposal_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-approval/latest")
-async def get_latest_team_builder_repair_approval() -> dict[str, Any]:
+def get_latest_team_builder_repair_approval() -> dict[str, Any]:
     return _team_builder_repair_approval_report()
 
 
 @catalogue_router.post("/team-builder-materialization/repair-approval/record")
-async def record_team_builder_repair_approval(payload: dict[str, Any]) -> dict[str, Any]:
+def record_team_builder_repair_approval(payload: dict[str, Any]) -> dict[str, Any]:
     return _team_builder_record_repair_approval(payload)
 
 
 @catalogue_router.get("/team-builder-materialization/repair-apply-gate/latest")
-async def get_latest_team_builder_repair_apply_gate() -> dict[str, Any]:
+def get_latest_team_builder_repair_apply_gate() -> dict[str, Any]:
     return _team_builder_repair_apply_gate_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-execution-readiness/latest")
-async def get_latest_team_builder_repair_execution_readiness() -> dict[str, Any]:
+def get_latest_team_builder_repair_execution_readiness() -> dict[str, Any]:
     return _team_builder_repair_execution_readiness_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-apply-preview/latest")
-async def get_latest_team_builder_repair_apply_preview() -> dict[str, Any]:
+def get_latest_team_builder_repair_apply_preview() -> dict[str, Any]:
     return _team_builder_repair_apply_preview_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-apply-execution/latest")
-async def get_latest_team_builder_repair_apply_execution() -> dict[str, Any]:
+def get_latest_team_builder_repair_apply_execution() -> dict[str, Any]:
     return _team_builder_repair_apply_execution_report()
 
 
 @catalogue_router.post("/team-builder-materialization/repair-apply-execution/execute")
-async def execute_team_builder_repair_apply(payload: dict[str, Any]) -> dict[str, Any]:
+def execute_team_builder_repair_apply(payload: dict[str, Any]) -> dict[str, Any]:
     return _team_builder_execute_repair_apply(payload)
 
 
 @catalogue_router.get("/team-builder-materialization/repair-post-apply-verification/latest")
-async def get_latest_team_builder_repair_post_apply_verification() -> dict[str, Any]:
+def get_latest_team_builder_repair_post_apply_verification() -> dict[str, Any]:
     return _team_builder_repair_post_apply_verification_report()
 
 
 @catalogue_router.post("/team-builder-materialization/repair-post-apply-verification/execute")
-async def execute_team_builder_repair_post_apply_verification(payload: dict[str, Any]) -> dict[str, Any]:
+def execute_team_builder_repair_post_apply_verification(payload: dict[str, Any]) -> dict[str, Any]:
     return _team_builder_execute_repair_post_apply_verification(payload)
 
 
 @catalogue_router.get("/team-builder-materialization/repair-outcome-reconciliation/latest")
-async def get_latest_team_builder_repair_outcome_reconciliation() -> dict[str, Any]:
+def get_latest_team_builder_repair_outcome_reconciliation() -> dict[str, Any]:
     return _team_builder_repair_outcome_reconciliation_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-rollback-readiness/latest")
-async def get_latest_team_builder_repair_rollback_readiness() -> dict[str, Any]:
+def get_latest_team_builder_repair_rollback_readiness() -> dict[str, Any]:
     return _team_builder_repair_rollback_readiness_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-rollback-execution/latest")
-async def get_latest_team_builder_repair_rollback_execution() -> dict[str, Any]:
+def get_latest_team_builder_repair_rollback_execution() -> dict[str, Any]:
     return _team_builder_repair_rollback_execution_report()
 
 
 @catalogue_router.post("/team-builder-materialization/repair-rollback-execution/execute")
-async def execute_team_builder_repair_rollback(payload: dict[str, Any]) -> dict[str, Any]:
+def execute_team_builder_repair_rollback(payload: dict[str, Any]) -> dict[str, Any]:
     return _team_builder_execute_repair_rollback(payload)
 
 
 @catalogue_router.get("/team-builder-materialization/repair-rollback-post-verification/latest")
-async def get_latest_team_builder_repair_rollback_post_verification() -> dict[str, Any]:
+def get_latest_team_builder_repair_rollback_post_verification() -> dict[str, Any]:
     return _team_builder_repair_rollback_post_verification_report()
 
 
 @catalogue_router.post("/team-builder-materialization/repair-rollback-post-verification/execute")
-async def execute_team_builder_repair_rollback_post_verification(payload: dict[str, Any]) -> dict[str, Any]:
+def execute_team_builder_repair_rollback_post_verification(payload: dict[str, Any]) -> dict[str, Any]:
     return _team_builder_execute_repair_rollback_post_verification(payload)
 
 
 @catalogue_router.get("/team-builder-materialization/repair-closure-rollup/latest")
-async def get_latest_team_builder_repair_closure_rollup() -> dict[str, Any]:
+def get_latest_team_builder_repair_closure_rollup() -> dict[str, Any]:
     return _team_builder_repair_closure_rollup_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-generalization-trial/latest")
-async def get_latest_team_builder_repair_generalization_trial() -> dict[str, Any]:
+def get_latest_team_builder_repair_generalization_trial() -> dict[str, Any]:
     return _team_builder_repair_generalization_trial_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-generated-file-set-trial/latest")
-async def get_latest_team_builder_repair_real_generated_file_set_trial() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_generated_file_set_trial() -> dict[str, Any]:
     return _team_builder_real_generated_file_set_trial_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-candidate-scan/latest")
-async def get_latest_team_builder_repair_real_run_candidate_scan() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_candidate_scan() -> dict[str, Any]:
     return _team_builder_repair_real_run_candidate_scan_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-replay-plan/latest")
-async def get_latest_team_builder_repair_real_run_replay_plan() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_replay_plan() -> dict[str, Any]:
     return _team_builder_repair_real_run_replay_plan_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-diff-preview/latest")
-async def get_latest_team_builder_repair_real_run_diff_preview() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_diff_preview() -> dict[str, Any]:
     return _team_builder_repair_real_run_diff_preview_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-diff-review/latest")
-async def get_latest_team_builder_repair_real_run_diff_review() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_diff_review() -> dict[str, Any]:
     return _team_builder_repair_real_run_diff_review_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-apply-gate/latest")
-async def get_latest_team_builder_repair_real_run_apply_gate() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_apply_gate() -> dict[str, Any]:
     return _team_builder_repair_real_run_apply_gate_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-apply-preview/latest")
-async def get_latest_team_builder_repair_real_run_apply_preview() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_apply_preview() -> dict[str, Any]:
     return _team_builder_repair_real_run_apply_preview_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-apply-execution/latest")
-async def get_latest_team_builder_repair_real_run_apply_execution() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_apply_execution() -> dict[str, Any]:
     return _team_builder_real_run_apply_execution_report()
 
 
 @catalogue_router.post("/team-builder-materialization/repair-real-run-apply-execution/execute")
-async def execute_team_builder_repair_real_run_apply_execution(payload: dict[str, Any]) -> dict[str, Any]:
+def execute_team_builder_repair_real_run_apply_execution(payload: dict[str, Any]) -> dict[str, Any]:
     return _team_builder_execute_real_run_apply(payload)
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-apply-rehearsal/latest")
-async def get_latest_team_builder_repair_real_run_apply_rehearsal() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_apply_rehearsal() -> dict[str, Any]:
     return _team_builder_real_run_apply_rehearsal_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-auto-apply-policy/latest")
-async def get_latest_team_builder_repair_real_run_auto_apply_policy() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_auto_apply_policy() -> dict[str, Any]:
     return _team_builder_real_run_auto_apply_policy_report()
 
 
 @catalogue_router.post("/team-builder-materialization/repair-real-run-auto-apply-execution/execute")
-async def execute_team_builder_repair_real_run_auto_apply_execution(payload: dict[str, Any]) -> dict[str, Any]:
+def execute_team_builder_repair_real_run_auto_apply_execution(payload: dict[str, Any]) -> dict[str, Any]:
     return _team_builder_execute_real_run_auto_apply(payload)
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-post-apply-verification/latest")
-async def get_latest_team_builder_repair_real_run_post_apply_verification() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_post_apply_verification() -> dict[str, Any]:
     return _team_builder_real_run_post_apply_verification_report()
 
 
 @catalogue_router.post("/team-builder-materialization/repair-real-run-post-apply-verification/execute")
-async def execute_team_builder_repair_real_run_post_apply_verification(payload: dict[str, Any]) -> dict[str, Any]:
+def execute_team_builder_repair_real_run_post_apply_verification(payload: dict[str, Any]) -> dict[str, Any]:
     return _team_builder_execute_real_run_post_apply_verification(payload)
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-outcome-reconciliation/latest")
-async def get_latest_team_builder_repair_real_run_outcome_reconciliation() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_outcome_reconciliation() -> dict[str, Any]:
     return _team_builder_real_run_outcome_reconciliation_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-rollback-readiness/latest")
-async def get_latest_team_builder_repair_real_run_rollback_readiness() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_rollback_readiness() -> dict[str, Any]:
     return _team_builder_real_run_rollback_readiness_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-rollback-execution/latest")
-async def get_latest_team_builder_repair_real_run_rollback_execution() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_rollback_execution() -> dict[str, Any]:
     return _team_builder_real_run_rollback_execution_report()
 
 
 @catalogue_router.post("/team-builder-materialization/repair-real-run-rollback-execution/execute")
-async def execute_team_builder_repair_real_run_rollback_execution(payload: dict[str, Any]) -> dict[str, Any]:
+def execute_team_builder_repair_real_run_rollback_execution(payload: dict[str, Any]) -> dict[str, Any]:
     return _team_builder_execute_real_run_rollback(payload)
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-rollback-post-verification/latest")
-async def get_latest_team_builder_repair_real_run_rollback_post_verification() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_rollback_post_verification() -> dict[str, Any]:
     return _team_builder_real_run_rollback_post_verification_report()
 
 
 @catalogue_router.post("/team-builder-materialization/repair-real-run-rollback-post-verification/execute")
-async def execute_team_builder_repair_real_run_rollback_post_verification(payload: dict[str, Any]) -> dict[str, Any]:
+def execute_team_builder_repair_real_run_rollback_post_verification(payload: dict[str, Any]) -> dict[str, Any]:
     return _team_builder_execute_real_run_rollback_post_verification(payload)
 
 
 @catalogue_router.get("/team-builder-materialization/repair-real-run-closure-rollup/latest")
-async def get_latest_team_builder_repair_real_run_closure_rollup() -> dict[str, Any]:
+def get_latest_team_builder_repair_real_run_closure_rollup() -> dict[str, Any]:
     return _team_builder_real_run_closure_rollup_report()
 
 
 @catalogue_router.get("/team-builder-materialization/repair-safety-policy/latest")
-async def get_latest_team_builder_repair_safety_policy() -> dict[str, Any]:
+def get_latest_team_builder_repair_safety_policy() -> dict[str, Any]:
     return _team_builder_latest_repair_safety_policy()
 
 
 @catalogue_router.get("/team-builder-materialization/material-gap-validation/latest")
-async def get_latest_team_builder_material_gap_validation() -> dict[str, Any]:
+def get_latest_team_builder_material_gap_validation() -> dict[str, Any]:
     return _team_builder_material_gap_validation_report()
 
 
 @catalogue_router.get("/team-builder-materialization/read-clue-resolution/latest")
-async def get_latest_team_builder_read_clue_resolution() -> dict[str, Any]:
+def get_latest_team_builder_read_clue_resolution() -> dict[str, Any]:
     return _team_builder_latest_read_clue_resolution_plan()
 
 
 @catalogue_router.get("/team-builder-materialization/llm-replay-plan/latest")
-async def get_latest_team_builder_llm_replay_plan() -> dict[str, Any]:
+def get_latest_team_builder_llm_replay_plan() -> dict[str, Any]:
     return _team_builder_latest_llm_replay_plan()
 
 
 @catalogue_router.get("/team-builder-materialization/llm-replay-result/latest")
-async def get_latest_team_builder_llm_replay_result() -> dict[str, Any]:
+def get_latest_team_builder_llm_replay_result() -> dict[str, Any]:
     return _team_builder_latest_llm_replay_result()
 
 
 @catalogue_router.post("/team-builder-materialization/llm-replay/execute")
-async def execute_team_builder_llm_replay() -> dict[str, Any]:
+def execute_team_builder_llm_replay() -> dict[str, Any]:
     return _team_builder_execute_llm_replay()
 
 
 @catalogue_router.get("/team-builder-materialization/closure/latest")
-async def get_latest_team_builder_closure_status() -> dict[str, Any]:
+def get_latest_team_builder_closure_status() -> dict[str, Any]:
     return _team_builder_latest_closure_status()
 
 
 @catalogue_router.get("/team-builder-materialization/high-standard-audit/latest")
-async def get_latest_team_builder_high_standard_audit() -> dict[str, Any]:
+def get_latest_team_builder_high_standard_audit() -> dict[str, Any]:
     return _team_builder_high_standard_audit_report()
 
 
 @catalogue_router.get("/team-builder-materialization/provider-coverage/latest")
-async def get_latest_team_builder_provider_coverage_audit() -> dict[str, Any]:
+def get_latest_team_builder_provider_coverage_audit() -> dict[str, Any]:
     return _team_builder_provider_coverage_audit_report()
 
 
 @catalogue_router.get("/team-builder-materialization/provider-same-input-trial/latest")
-async def get_latest_team_builder_provider_same_input_trial_plan() -> dict[str, Any]:
+def get_latest_team_builder_provider_same_input_trial_plan() -> dict[str, Any]:
     return _team_builder_provider_same_input_trial_plan_report()
 
 
@@ -16567,11 +16567,11 @@ async def get_latest_team_builder_provider_same_input_trial_plan() -> dict[str, 
 
 
 @catalogue_router.get("/materials")
-async def list_materials() -> dict[str, Any]:
+def list_materials() -> dict[str, Any]:
     items = _scan_materials_cached(_root_token())
     return {"items": items, "total": len(items)}
 
 
 @catalogue_router.get("/materials/{material_id:path}")
-async def get_material(material_id: str) -> dict[str, Any]:
+def get_material(material_id: str) -> dict[str, Any]:
     return _get_one(_scan_materials_cached, "material", material_id)

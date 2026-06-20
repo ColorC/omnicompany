@@ -93,7 +93,7 @@ final_board = orchestrator.run(pain_signal=..., max_cycles=5)
 | `EvolutionOrchestrator.run()` (Python) | 库调用 | 见 [workflow/orchestrator.py](workflow/orchestrator.py) |
 | `HypothesisBoardStore.load(board_id)` (Python) | 直接读 board | 见 [workflow/hypothesis_store.py](workflow/hypothesis_store.py) |
 
-详细 CLI 规范: [docs/standards/cli/omnicompany_cli.md](../../../../../../docs/standards/cli/omnicompany_cli.md)
+详细 CLI 规范: docs/standards/cli/omnicompany_cli.md
 
 ## 故障排查
 

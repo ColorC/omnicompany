@@ -6,7 +6,7 @@
 
 # 自我叙事三件套规范 · README + DESIGN + SKILL
 
-> 立 2026-05-04. 取代旧 [design_md_template.md](design_md_template.md) 的总叙事职能.
+> 立 2026-05-04. 取代旧 design_md_template.md 的总叙事职能.
 > **2026-06-13 起为 DESIGN/README/SKILL 的现行唯一权威**（用户裁决"规范冲突以新的为准"）:
 > DESIGN 必需节为六节（核心目的归 README）, Guardian OMNI-034c / docauthor / distributed-docs
 > / design_md_template.md（降为本规范的模板细则）已全部对齐。
@@ -230,7 +230,7 @@ demogame domain 提供赛季手册 / 装饰抽奖 / 商店等 13 张表的自动
 
 ### 5.1 跟现行七节模板的关系
 
-现行 [design_md_template.md](design_md_template.md) 七节: 状态 / 核心目的 / 核心接口 / 架构决策 / 数据流-拓扑 / 已知局限 / 参考资料 + 可选第 8 节 接收意愿.
+现行 design_md_template.md 七节: 状态 / 核心目的 / 核心接口 / 架构决策 / 数据流-拓扑 / 已知局限 / 参考资料 + 可选第 8 节 接收意愿.
 
 新规范下 DESIGN 范围收窄:
 - "核心目的" 段 → **抽到 README** (这是设计目的, 不是构成)
@@ -297,7 +297,7 @@ demogame domain 提供赛季手册 / 装饰抽奖 / 商店等 13 张表的自动
 
 ## 接收意愿 (可选, 基础设施模块建议填)
 
-<格式参考 [现行规范 §九](design_md_template.md). welcome_themes / hard_constraints / soft_preferences / maturity_preference>
+<格式参考 现行规范 §九. welcome_themes / hard_constraints / soft_preferences / maturity_preference>
 
 ## 参考资料
 

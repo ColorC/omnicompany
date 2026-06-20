@@ -132,7 +132,7 @@ omni trace-view <trace_id>          # 看具体 trace
 | `from ... import BashRouter` (基类) | 业务 bash 工具 | 见 [routers/bash.py](routers/bash.py) |
 | `omni traces` / `omni trace-view <id>` | 看 trace | (顶层命令) |
 
-详细 CLI 规范: [docs/standards/cli/omnicompany_cli.md](../../../../../../docs/standards/cli/omnicompany_cli.md)
+详细 CLI 规范: docs/standards/cli/omnicompany_cli.md
 
 ## 故障排查
 

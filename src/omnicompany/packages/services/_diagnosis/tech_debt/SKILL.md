@@ -108,7 +108,7 @@ omni debt add 文档漂移 --fields '{"kind": "design_md_drift", "target": "src/
 | `run_drift_audit` (Python) | 跑漂移检查 | 见 [drift_checker.py](drift_checker.py) |
 | `append_event` / `read_events` (Python) | ARCH-CHANGES 读写 | 见 [events.py](events.py) |
 
-详细 CLI 规范: [docs/standards/cli/omnicompany_cli.md](../../../../../../docs/standards/cli/omnicompany_cli.md)
+详细 CLI 规范: docs/standards/cli/omnicompany_cli.md
 
 ## 故障排查
 

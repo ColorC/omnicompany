@@ -46,7 +46,7 @@ disable-model-invocation: false
 1. **建目录** `src/omnicompany/packages/services/<team_name>/` (或 `domains/<area>/<team_name>/`)
 2. **加 7 个文件**:
    - `__init__.py` (re-export 主 API + 兼容 shim)
-   - `DESIGN.md` (七节, 见 [design_md_template.md](../../../../../../docs/standards/protocol/design_md_template.md))
+   - `DESIGN.md` (七节, 见 design_md_template.md)
    - `README.md` (语境 / 目的 / 规划, 见 [self_narrative_three_files.md §四](../../../../../../docs/standards/protocol/self_narrative_three_files.md))
    - `SKILL.md` (操作手册, 见 [self_narrative_three_files.md §六](../../../../../../docs/standards/protocol/self_narrative_three_files.md))
    - `formats.py` (Material 定义, 含 kind.* tag)
@@ -129,7 +129,7 @@ from omnicompany.packages.services._core.omnicompany import agent_team_demo
 | `dispatcher.unconsumed_materials(events)` | Q4 诊断 | 列有 producer 但无 consumer 且非 sink 的 Material |
 | [agent_team_demo.py](agent_team_demo.py) | 金标范本 | Agent Team 4 Worker 参考实现 |
 
-详细 CLI 规范: [docs/standards/cli/omnicompany_cli.md](../../../../../../docs/standards/cli/omnicompany_cli.md)
+详细 CLI 规范: docs/standards/cli/omnicompany_cli.md
 
 ## 故障排查
 

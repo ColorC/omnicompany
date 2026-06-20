@@ -121,7 +121,7 @@ from omnicompany.packages.services._diagnosis.doctor.pipeline import (
 | `omni diagnose` | trace 级诊断 | `--trace-id` `--domain` |
 | `build_pipeline` 等 (Python) | 库调用 | 见 `pipeline.py` 三个 build_*_pipeline 函数 |
 
-详细 CLI 规范: [docs/standards/cli/omnicompany_cli.md](../../../../../../docs/standards/cli/omnicompany_cli.md)
+详细 CLI 规范: docs/standards/cli/omnicompany_cli.md
 
 ## 故障排查
 
