@@ -1,0 +1,260 @@
+# [OMNI] origin=ai-ide domain=omnicompany/templates/template ts=2026-05-02T10:00:00Z type=template status=active agent=ai-ide-current
+# [OMNI] summary="元模板 CLI 注册件 v1.5 - 加 v2 配套段引用三层分类 (template 是层三元模板)"
+# [OMNI] why="template 是元层 (层三), 立其他 9 种 kind 实例的样板. v2 配套段说明它的特殊位置 + 不开放给业务 omni new"
+# [OMNI] tags=template,meta-template,registry-config,foundation,v2-aware
+# [OMNI] material_id="material:template.meta_template.registry_config.yaml"
+
+# ════════════════════════════════════════════════════════════════════════
+# v2 配套 (2026-05-02 加): template 是元层概念
+#   - 落点: omnicompany/templates/<kind>/ 目录, 9 种 kind 各一份四件套 (范本 + 骨架 + 向导 + 注册件)
+#   - 不开放给业务用户走 omni new 创建 (元模板由项目维护者维护)
+#   - 不在注册中心 type 列表里 (元层不注册自己, registry/meta.py 9 种不含 template)
+# 三层分类: docs/standards/_global/concepts_three_layers.md (template 在层三 元模板, 唯一)
+# 单源 + 薄包装: docs/standards/_global/single_source_thin_wrap.md (template 是 docs/ 的样板形态对应)
+# ════════════════════════════════════════════════════════════════════════
+
+kind: template
+
+instance_naming:
+  pattern: "<fixed_per_file>"
+  description: |
+    模板实例化产出的不是单个文件, 是四件套 (范本.md / 骨架.md / 向导.md / 注册件.yaml).
+    每个文件名固定不可变. CLI 实例化时按这四个固定名建文件.
+
+instance_location:
+  pattern: "omnicompany/templates/<target_kind>/[<variant>/](范本|骨架|向导|注册件).{md,yaml,py}"
+  description: |
+    模板实例落到 omnicompany/templates/<目标 kind>/ 下面.
+    如果有子变体, 多一层 <variant>/ 子目录.
+    范本和骨架的扩展跟目标 kind 实例的扩展一致 (例如 worker 是 .py, plan 是 .md).
+    向导.md 和注册件.yaml 扩展固定.
+  variables:
+    target_kind: |
+      新 kind 的英文单数名, 跟 omnicompany 八种基础概念体系对齐
+      (worker / material / team / agent / hook / tool / data / plan / template / 或将来扩展的新 kind).
+    variant: |
+      可选. 如果新 kind 有子变体 (例如 worker 的 simple_llm / non_llm / agent 三档), 用变体名作子目录.
+      没有子变体时这一段不出现.
+
+required_fields:
+  omnimark_header:
+    - origin
+    - ts
+    - type        # 元模板和实例化产出的所有四个文件, type 都必须 == "template"
+    - summary
+    - why
+    - tags        # 必须含 "template" 和目标 kind 名
+  required_files:
+    - "范本.md"     # 或 范本.<目标扩展>
+    - "骨架.md"     # 或 骨架.<目标扩展>
+    - "向导.md"
+    - "注册件.yaml"
+
+checks:
+  - id: "template-001"
+    description: "四个文件都存在, 缺一不可"
+    rule: "all(exists(dir + '/' + f) for f in ['范本.md', '骨架.md', '向导.md', '注册件.yaml'])"
+
+  - id: "template-002"
+    description: "每个文件 OmniMark v3 头合规 (五字段齐 + type=template)"
+    rule: "all(parse_omnimark(dir + '/' + f).is_canonical_v3() and parse_omnimark(dir + '/' + f).type == 'template' for f in required_files)"
+
+  - id: "template-003"
+    description: "范本字段顺序跟骨架字段顺序一致"
+    rule: "extract_field_order(dir + '/范本.md') == extract_field_order(dir + '/骨架.md')"
+
+  - id: "template-004"
+    description: "骨架的 placeholder 是语义提示不是类型描述 (启发式扫描 <string>/<int>/<bool>/<list> 这种类型词)"
+    rule: "no_type_placeholder(dir + '/骨架.md', forbidden=['<string>', '<int>', '<bool>', '<list>', '<dict>', '<float>'])"
+
+  - id: "template-005"
+    description: "向导.md 字段节数量跟骨架字段数量一致 (一字段一节)"
+    rule: "count_field_sections(dir + '/向导.md') == count_skeleton_fields(dir + '/骨架.md')"
+
+  - id: "template-006"
+    description: "向导每节回答四问题 (干嘛/怎么填/漏填后果/检查项)"
+    rule: "all_sections_answer_four_questions(dir + '/向导.md')"
+
+  - id: "template-007"
+    description: "注册件.yaml 的 kind 字段跟目录名一致"
+    rule: "yaml_load(dir + '/注册件.yaml').kind == basename(dir)"
+
+  - id: "template-008"
+    description: "对应规范 docs/standards/<目标_kind>.md 必须先立, 模板不许跑在规范前面"
+    rule: "exists('docs/standards/' + target_kind + '.md')"
+
+  - id: "template-009"
+    description: "注册件.yaml 的 checks 数量 ≥ 5 (覆盖头/位置/必填/规范关键约束)"
+    rule: "len(yaml_load(dir + '/注册件.yaml').checks) >= 5"
+
+  - id: "template-010"
+    description: "注册件.yaml 的 reference_anti_patterns 至少 2 条"
+    rule: "len(yaml_load(dir + '/注册件.yaml').reference_anti_patterns) >= 2"
+
+  - id: "template-011"
+    description: "注册件.yaml 必有 counterexample_ledger 字段且 required_for_implementations 是 true"
+    rule: "yaml_load(dir + '/注册件.yaml').counterexample_ledger.required_for_implementations == True"
+
+  - id: "template-012"
+    description: "注册件.yaml 的 counterexample_ledger.rule_trace_required_fields 含 5 项 (rule_id / rule_version / trigger_context / rule_output / timestamp)"
+    rule: "set(yaml_load(dir + '/注册件.yaml').counterexample_ledger.rule_trace_required_fields) >= {'rule_id', 'rule_version', 'trigger_context', 'rule_output', 'timestamp'}"
+
+  - id: "template-013"
+    description: "注册件.yaml 必有 invariants 字段且至少 1 条不变量"
+    rule: "len(yaml_load(dir + '/注册件.yaml').invariants) >= 1"
+
+  - id: "template-014"
+    description: "每条 invariant 都有 red_check / green_check / gradient / verify_method / severity_if_fail 五项"
+    rule: "all({'red_check', 'green_check', 'gradient', 'verify_method', 'severity_if_fail'} <= set(inv.keys()) for inv in yaml_load(dir + '/注册件.yaml').invariants)"
+
+  - id: "template-015"
+    description: "注册件.yaml 必有 standards_index_path_match 字段, 至少 1 条 path_match"
+    rule: "len(yaml_load(dir + '/注册件.yaml').standards_index_path_match) >= 1"
+
+  - id: "template-016"
+    description: "声明的 standards_index_path_match 已经同步到 docs/standards/_meta/standards-index.yaml 的对应 STANDARD-<kind> 项 path_match 里"
+    rule: "set(yaml_load(dir + '/注册件.yaml').standards_index_path_match) <= set(find_standard_in_index(yaml_load(dir + '/注册件.yaml').kind).path_match)"
+
+  - id: "template-017"
+    description: "概念定义那一节必须显式声明在三层对应里的位置 (用户层概念 / 协议层原语 / SKILL 步骤), 不允许只写概念定义不挂三层对应"
+    rule: "has_three_layer_correspondence(dir + '/范本.md') and has_three_layer_correspondence(dir + '/向导.md')"
+
+header_defaults:
+  origin: "ai-ide"          # 实例化时 CLI 自动填, 显式传 human 等可覆盖
+  type: "template"           # 不可覆盖, 模板四件套都是 template 类型
+  status: "active"
+  agent: "<auto-from-session>"   # 实例化时 CLI 调 current_writer_identity() 拿当前 session 关联
+
+related_standards:
+  - "omnicompany/docs/standards/concepts/template.md"      # 模板系统的根规范, 描述模板的字段/生命周期/反模式
+
+reference_anti_patterns:
+  - "在文件名挂版本号 (范本_v2.md / 骨架_新版.md): 违反 omnicompany 命名铁律, 版本通过 OmniMark ts + git history 管, 不进文件名"
+  - "把模板放在 docs/templates/ 下面: 模板含可执行代码 (例如 worker 范本是真 Python), docs/ 是文档区不放代码, 应当在 omnicompany/templates/ 顶层"
+  - "范本用 foo / bar 占位词: 范本必须是真实例子, 不是抽象示意, 否则使用者不知道字段语义"
+  - "骨架的 placeholder 写 <string> / <int> 这种类型: placeholder 应当是语义提示 (这个字段在你的 kind 里要装什么), 类型由规范规定"
+  - "向导展开成手册: 向导是填空指引, 单字段说明不超过 200 字, 详细背景去规范里查"
+  - "模板自身没有 OmniMark 头: 模板自己也是材料, 也要合规, 头不能少"
+  - "改模板时不改对应规范: 模板和规范必须保持一致, 修订必须先改规范后改模板, 反过来不允许"
+  - "一份模板想覆盖所有可能的子变体: 应当按对外行为差异拆变体, 每变体独立一份, 不堆超级模板"
+  - "概念定义那一节没声明在三层对应里的位置: 用户层概念跟协议层 6 元原语跟 SKILL 11 步必须显式对应, 否则模板跟协议层脱钩"
+  - "注册件.yaml 没 counterexample_ledger 字段: 死规则没反例账本就是裸奔, 这是裸奔的同义词"
+  - "test_baseline 只列样本路径不带 invariants 不变量: 验证基线浅层化, 失去判别力, 修订前后退化检测不出"
+  - "注册件.yaml 改了 path_match 但 docs/standards/_meta/standards-index.yaml 没同步: 索引文件跟模板漂移, SemanticAuditor 路由失效"
+  - "把模板当成 plan 用 (例如在模板范本里写'本次推进了什么 / 下一步即将做什么'): 模板是永久概念约束, plan 是过程记录, 不要混"
+  - "起手不调研已有实现就直接立新模板: 系统里出现重复实现 / 概念别名漂移, 守护扫描不知道哪份是权威"
+
+instance_runtime:
+  description: |
+    模板实例化产出的实例如果会引发后续运行 (例如新建一个工人, 后续会跑这个工人产数据),
+    调用方在跑实例时应当走工作区隔离 — git worktree / cp -r / 容器, 禁硬编码路径常量,
+    避免跨 run 污染.
+    这条按 docs/standards/_global/workspace_isolation_and_test_discrimination.md 第一条铁律.
+  workspace_isolation_required: true
+  banned_practices:
+    - "硬编码 ./run/ ./data/ ./tmp/ 这种路径常量 (会跨 run 重叠)"
+    - "playerdata / cache 目录不进隔离边界 (会跨 run 互相污染)"
+
+instantiation_protocol:
+  description: |
+    omni new template --variant=<target_kind> 命令的执行流程.
+    跟 docs/standards/concepts/template.md 第六节"实例化协议"对齐.
+  steps:
+    - "选定目标 kind (--variant=<kind>) 和子变体 (--sub-variant=<sub>, 可选)"
+    - "CLI 检查 docs/standards/<target_kind>.md 是否存在, 不存在拒"
+    - "CLI 把元模板四个文件复制到 omnicompany/templates/<target_kind>/[<variant>/]"
+    - "CLI 在每个新文件顶部插入 OmniMark v3 头 (按 header_defaults 生成)"
+    - "CLI 把向导.md 内容显示给调用方 (或者打开编辑器同时显示骨架.md 和向导.md)"
+    - "调用方按向导填四个文件的 placeholder"
+    - "调用方填完跑 omni template lint --kind=<target_kind> 自检"
+    - "通过校验后调 omni register material --kind=template --path=omnicompany/templates/<target_kind>/ 注册到中心"
+    - "注册中心登记: 这一份 template kind 的实例, 用了元模板的哪个 ts 版本, 关联哪个 session"
+
+# ════════════════════════════════════════════════════════════════════
+# 反例账本 (元模板自身也守同样规矩)
+# ════════════════════════════════════════════════════════════════════
+
+counterexample_ledger:
+  required_for_implementations: true
+  describe: |
+    元模板实例化产出的具体 kind 模板里, 任何死规则触发都要走反例账本.
+    元模板的 checks (template-001 到 template-017) 自身就是死规则, 自己也走反例账本 —
+    例如 template-011 (注册件含 counterexample_ledger 字段) 触发 fail 时落账.
+  ledger_path_pattern: "data/services/<service>/counterexamples/<rule_id>.jsonl"
+  reflect_on_count: 1
+  degrade_on_count: 3
+  rule_trace_required_fields:
+    - rule_id
+    - rule_version
+    - trigger_context
+    - rule_output
+    - timestamp
+  applies_to:
+    - "元模板的 17 条 checks 触发 fail 时落账 (反查检查规则是否拒错了真合规模板)"
+    - "实例化产出的具体 kind 模板里的死规则触发时各自落账"
+
+# ════════════════════════════════════════════════════════════════════
+# 验证不变量 (元模板自身的 test_baseline)
+# ════════════════════════════════════════════════════════════════════
+
+invariants:
+  - invariant_id: "template-INV-001"
+    describe: "元模板四件套都存在 + 每份 OmniMark v3 合规 + type=template"
+    red_check: "缺范本.md 或骨架.md 任一文件 → 不通过"
+    green_check: "四件套齐全 + v3 头 + type=template"
+    gradient:
+      A: "四件套齐 + 每份 v3 + 字段顺序范本跟骨架一致 + 向导一字段一节"
+      B: "四件套齐 + v3 + 部分字段顺序略有出入"
+      C: "四件套齐但 v3 检查 1 项不过 (例如缺 summary)"
+      F: "缺文件或 v3 多项不过"
+    verify_method: "exists() + parse_omnimark + is_canonical_v3"
+    severity_if_fail: "blocker"
+
+  - invariant_id: "template-INV-002"
+    describe: "实例化产出的具体 kind 模板含 counterexample_ledger / invariants / standards_index_path_match / three_layer_correspondence / instance_runtime 五个新字段"
+    red_check: "实例化产出缺 invariants 字段 → 不通过"
+    green_check: "五个新字段齐 + 每个有合理值"
+    gradient:
+      A: "五字段齐 + invariants ≥ 3 条 + standards_index_path_match 跟 instance_location 一致"
+      B: "五字段齐 + invariants 1-2 条"
+      C: "缺 1-2 个新字段"
+      F: "缺 ≥ 3 个新字段"
+    verify_method: "yaml 解析 + 字段存在检查"
+    severity_if_fail: "major"
+
+# ════════════════════════════════════════════════════════════════════
+# standards-index 同步
+# ════════════════════════════════════════════════════════════════════
+
+standards_index_path_match:
+  - "omnicompany/templates/**/范本.*"
+  - "omnicompany/templates/**/骨架.*"
+  - "omnicompany/templates/**/向导.md"
+  - "omnicompany/templates/**/注册件.yaml"
+
+# ════════════════════════════════════════════════════════════════════
+# 三层对应 (元模板自身的位置)
+# ════════════════════════════════════════════════════════════════════
+
+three_layer_correspondence:
+  user_layer_concept: "模板 (Template — 元概念)"
+  protocol_layer_primitive: "Format (markdown / python / yaml 类纯数据材料)"
+  skill_step: "§0 调研已有实现 (立模板前先调研) + §11 落档 (跟所有具体 kind 模板配套)"
+  describe: |
+    元模板是模板系统自洽的根. 它本身是 Format 原语 (纯数据), 但它的"内容"是给将来新建
+    具体 kind 模板时复制用的骨架. 三层对应里, 元模板既是用户层的"模板"概念实例, 又是
+    协议层的 Format 落盘形态, 也是 SKILL 实施层 §0 跟 §11 的具体落地.
+
+# ════════════════════════════════════════════════════════════════════
+# 实例运行时工作区隔离
+# ════════════════════════════════════════════════════════════════════
+
+instance_runtime:
+  workspace_isolation_required: false   # 模板自身是文档不引发运行时
+  describe: |
+    元模板跟具体 kind 模板都是文档 (markdown / python 配置 / yaml 配置), 不直接引发运行时.
+    模板实例化产出的实例 (例如按 worker 模板产出的具体 worker.py) 跑步时按 worker / agent
+    / tool 等具体 kind 的工作区隔离规则走. 模板自身不施加工作区隔离要求.
+  banned_practices:
+    - "模板里硬编码项目根绝对路径 (跨项目复用失败)"
+    - "模板里塞具体业务字段名 (gameplay_system / voxel_engine 等), 锁死跨业务复用"

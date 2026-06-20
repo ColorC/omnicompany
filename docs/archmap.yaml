@@ -1,0 +1,317 @@
+# [OMNI] origin=claude-code ts=2026-04-08T08:57:37Z
+# [OMNI] material_id="material:docs.guardian.archmap_configuration.registry.yaml"
+# ============================================================
+# OmniGuardian 架构地图（唯一权威）
+# ============================================================
+#
+# 本文件是 OmniGuardian 的唯一权威 drawer 定义来源。
+# OMNI-014 (非法 drawer) 和 OMNI-015 (根目录禁区) 都从这里读取。
+# src/omnicompany/core/archmap.py 是 loader + checker。
+#
+# 修改本文件需要 human 直接审阅批准；agent 不能自动改。
+# 新增或删除 drawer 必须更新 last_reviewed / reviewed_by 并 git commit。
+#
+# 结构速览:
+#   repo_root:              仓库根下合法 drawer
+#   forbidden_at_repo_root: 仓库根禁区（glob 模式）
+#   src_omnicompany:        src/omnicompany/ 下合法 drawer
+#   writer_identities:      允许的写入来源枚举
+#   enforce_mode:           false = 观察期只警告，true = 硬拦截
+#
+# 校验: omni guardian archmap validate
+# 查看: omni guardian archmap show
+# 试写: omni guardian archmap check <path> --writer <identity>
+
+version: 12
+last_reviewed: "2026-04-10"
+reviewed_by: human
+enforce_mode: true    # S3d.8 切到硬模式：archmap audit log 历史无真实生产警告,激进切
+# v12 (2026-04-10, L2/claude-code):
+#   补 .txt 缺口 - 增加 pipeline_*.txt / *_run_log*.txt / *_run.txt 三个模式
+#   起因: 本轮 patrol 空档期发现 10 个 .log/.txt 散落根层, 其中
+#          pipeline_run_log5.txt 因 glob 只含 *.log 没有 *.txt 漏网;
+#          9 个 .log 已被 auto_comment 就地处置, 1 个 .txt 被 L2 代为 mv.
+#   参考: omnicompany/docs/plans/[2026-04-10]GUARDIAN-SENTINEL-ACTIVITY-GATED/plan.md
+# v11 (2026-04-08, S3e.2): 攻击 A/C/F/H 修复
+#   - protected_key_files: archmap.yaml 自保护(claude-code 改不了)
+#   - guarded_write 路径 resolve 修复(攻击 F 绕过门禁)
+#   - FormatRegistry 重复 id 拦截(攻击 H Format 劫持)
+#   - data.allowed_subdirs 加 "domains/" 作为业务 domain artifact 通用层
+#     (与 packages/domains/<name>/ 对称;经人类会话批准)
+# v10 (2026-04-08, S3e.1): 补根层 junk 目录禁区(__pycache__/.pytest_cache 等)
+#                           + 承认 data/absorption/ 活着 + *.pyc 纳入禁区 glob
+# v9 (2026-04-08, S3d.8): enforce_mode 从 false 切到 true（硬拦截软违规）
+# v8 (2026-04-08, S3c.1): 加 auto_comment_pilot_rules（备注化软修复试点规则）
+# v7 (2026-04-08, S3b.4): 删除 data.legacy_live_exceptions（domain 子目录全归档）
+# v6 (2026-04-08, S3b.3): packages 分三层 (domains/services/vendors)，
+#                          新增 forbid_direct_children + required_subdirs
+# v5 (2026-04-08, S3b.2): 删除 domains deprecated 条目（已搬到 config/domains/）
+# v4 (2026-04-08, S3b.1): 删除 proto/tools/knowledge deprecated 条目（已物理清理）
+
+# ─────────────────────────────────────────────────────────────
+# auto_comment 软修复试点规则
+# ─────────────────────────────────────────────────────────────
+#
+# patrol 发现这些规则的违规时,会触发 packages/services/guardian/auto_comment.py:
+#   - 来源是 internal-pipeline → 写入 .omni/fix-queue/<date>/<ticket>.json
+#                                  (等 omni guardian apply-fixes --confirm)
+#   - 来源是 external-agent / unknown → 立即原地备注化文件 + 贴 [OMNI-DISABLED]
+#                                        告示牌(原文件备份到 .omni/quarantine/)
+#   - 来源是 human → 只警告,不动文件
+#
+# 只在零误报的"位置硬错"类规则上启用,不动语义判定类规则:
+auto_comment_pilot_rules:
+  - OMNI-014   # illegal-drawer (src/omnicompany/ 下非合法 drawer)
+  - OMNI-015   # forbidden-root-file (仓库根禁区文件)
+  - OMNI-016   # packages-direct-child (packages/ 下非 layer 子目录)
+
+# ─────────────────────────────────────────────────────────────
+# 元配置 key files — S3e.2 (2026-04-08), S3e.3 重设计
+# ─────────────────────────────────────────────────────────────
+#
+# 这些是 OmniGuardian 的元配置文件,改动会影响整个门禁体系。
+# 不像普通 drawer, 这里压倒 drawer 级 writable_by 做 file-level 控制。
+#
+# 字段:
+#   writable_by:     允许的 writer identity 列表
+#   require_purpose: true 时 write_file 必须传非空 purpose 否则 deny
+#                    (强制留下"为什么改"的审计痕迹)
+#   audit_label:     audit log 这条记录的额外标签, sentinel/trace-violation
+#                    会特殊渲染, human 一眼能看到 meta config 变更
+#
+# claude-code 改 archmap.yaml 是允许的(否则 human 永远不能让 agent 协助
+# 调整架构地图,死锁)。但每次改都会:
+#   - 出现在 .omni/shield_audit.jsonl 带 audit_label
+#   - 在 sentinel report 的 'recent_meta_changes' 段被高亮
+#   - origin/purpose/trace 全部入档,可一键溯源
+protected_key_files:
+  "docs/archmap.yaml":
+    writable_by: [human, claude-code]
+    require_purpose: true
+    audit_label: "META_CONFIG_CHANGE"
+  ".omni/DISABLE_BYPASS":
+    writable_by: [human]      # 紧急逃生口 sentinel, 真 human-only
+    require_purpose: true
+    audit_label: "BYPASS_SENTINEL_TOGGLE"
+
+# ─────────────────────────────────────────────────────────────
+# 仓库根层 drawer
+# ─────────────────────────────────────────────────────────────
+repo_root:
+
+  src:
+    purpose: "源代码（唯一的 Python 包 omnicompany）"
+    writable_by: [human, claude-code, internal-pipeline]
+    allowed_children: [omnicompany]   # src/ 下只允许一个子目录
+
+  tests:
+    purpose: "pytest 测试代码"
+    writable_by: [human, claude-code]
+    file_types: [".py", ".md", ".yaml", ".json", ".txt", ".csv"]
+    agent_free_fire: true   # 在此目录内 agent 不受限
+
+  docs:
+    purpose: "文档、设计、架构地图、变更登记"
+    writable_by: [human, claude-code]
+    file_types: [".md", ".jsonl", ".yaml", ".json", ".png", ".svg", ".txt", ".log"]
+    key_files:
+      "archmap.yaml": "本文件 — drawer 权威定义"
+      "ARCHITECTURE.md": "人类可读的架构合约说明"
+      "ARCH-CHANGES.jsonl": "架构变更登记"
+      "plans/": "设计方案存档"
+      "reports/": "各类报告输出落地区"
+
+  scripts:
+    purpose: "开发辅助 + 批处理脚本"
+    writable_by: [human, claude-code]
+    file_types: [".py", ".sh", ".md"]
+    required_subdirs:
+      "setup/": "安装钩子 / 初始化"
+      "migrate/": "一次性迁移脚本"
+      "probe/": "探针 / 诊断"
+      "_archive/": "已归档"
+    allow_root_files: true   # 暂允许根层平铺 .py；Session 3b 内部重组
+
+  data:
+    purpose: "运行时数据（Move 8 后唯一权威事件库）"
+    writable_by: [internal-engine, internal-guardian]
+    required_files:
+      - events.db
+      - ide_events.db
+    allowed_subdirs:
+      "_archive/": "历史归档 (B3 2026-04-21 后 4 前缀 _archive/_archive_*/_archived* 统一归此)"
+      "_runtime/": "运行时临时/日志/审计数据 (llm_audit, scratch, db sidecar 等 agent 可写但不进 git 的 runtime 产物)"
+      "absorption/": "services/absorption 服务的 landmark_pool + reports 产物(S3e.1 承认)"
+      "domains/": "业务 domain artifact 通用层 (data/domains/<name>/ 与 packages/domains/<name>/ 对称, S3e.2+)"
+      "services/": "2026-04-21 B4 后新增: services/<svc>/ artifact (与 packages/services/<name>/ 对称, 对所有 service 统一)"
+    allowed_files:    # S3b.4 (2026-04-08) 起 data/ 根层允许的额外文件
+      - "type_embeddings_cache.json"   # 嵌入缓存
+      - "private_domain_nodes.db"      # domain_loader 写入的节点 schema
+      - "intent_traces.db"             # agent_intent_router 轨迹库 (2026-04-21 B4 承认)
+    allowed_file_patterns:   # 2026-04-21 B4: SQLite WAL sidecar 文件自动生成
+      - "*.db-shm"
+      - "*.db-wal"
+    forbid_new_subdirs: true   # 禁止再建 data/<domain>/（OMNI-021 强制扫描）
+
+  config:
+    purpose: "项目级配置 YAML"
+    writable_by: [human]
+    file_types: [".yaml", ".yml", ".toml", ".json"]
+
+  ".claude":
+    purpose: "Claude Code skills + commands + settings"
+    writable_by: [human, claude-code]
+    file_types: [".md", ".yaml", ".json", ".ts"]
+
+  ".omni":
+    purpose: "OmniGuardian 运行时（quarantine / audit / evolution / fix-queue）"
+    writable_by: [internal-guardian]
+
+  "logs":
+    purpose: "运行时日志（git-ignored）"
+    writable_by: [internal-engine, internal-guardian, human, claude-code]
+    file_types: [".log", ".json", ".jsonl", ".txt"]
+
+# ─────────────────────────────────────────────────────────────
+# 仓库根禁区
+# ─────────────────────────────────────────────────────────────
+#
+# 这些 glob 匹配仓库根层的直接子文件（不递归进 drawer 内部）。
+# OMNI-015 forbidden-root-file 会检测它们。
+#
+forbidden_at_repo_root:
+  glob_patterns:
+    - "*.log"
+    - "*.pyc"
+    - "*_report.*"
+    - "report_*.txt"
+    - "*_review_*.txt"
+    - "safe_files.txt"
+    - "sync_review_report.txt"
+    - "scratch_*"
+    - "tmp_*"
+    - "debug_*"
+    - "test_output_*"
+    # v12 (2026-04-10): runtime log txt leak prevention — shell redirect patterns
+    - "pipeline_*.txt"
+    - "*_run_log*.txt"
+    - "*_run.txt"
+  # S3e.1 (2026-04-08): 增补 junk 目录名(按目录名整串匹配,不走 glob)
+  # OMNI-015 会把 glob_patterns + forbidden_root_dirs 都扫一遍
+  forbidden_root_dirs:
+    - "__pycache__"
+    - ".pytest_cache"
+    - ".mypy_cache"
+    - ".ruff_cache"
+    - "node_modules"
+    - "dist"
+    - "build"
+  message: |
+    报告 / 日志 / 临时 / 测试输出 / 工具缓存 等禁止出现在仓库根。
+    合法位置:
+      - 报告: docs/reports/<category>/
+      - 日志: logs/
+      - 临时文件: .omni/tmp/
+      - 测试产物: tests/_output/ 或 data/_archive_test_runs/
+      - Python 缓存: 子包内 __pycache__/ 正常(已 gitignore),
+                     但仓库根不应有 __pycache__/ 残留
+
+# ─────────────────────────────────────────────────────────────
+# src/omnicompany/ 层 drawer
+# ─────────────────────────────────────────────────────────────
+src_omnicompany:
+
+  core:
+    purpose: "框架 glue（registry/dispatch/config/observe/omnimark/omni_shield/guarded_write/archmap）"
+    writable_by: [human, claude-code]
+    file_types: [".py"]
+    always_green: true
+
+  bus:
+    purpose: "SQLiteBus / MemoryBus / EventBus 基类"
+    writable_by: [human, claude-code]
+    file_types: [".py"]
+    always_green: true
+
+  protocol:
+    purpose: "Format / Router / PipelineSpec / Anchor 稳定线形类型"
+    writable_by: [human]   # agent 不能自改协议层
+    file_types: [".py"]
+    always_green: true
+
+  primitives:
+    purpose: "Hook / Intent / Node / Signal / Tool 抽象接口（零实现）"
+    writable_by: [human]
+    file_types: [".py"]
+    forbid_impl: true
+
+  runtime:
+    purpose: "PipelineRunner / Agent loops / LLMClient / ToolExecutor 等"
+    writable_by: [human, claude-code]
+    file_types: [".py"]
+    always_green: true
+    required_subdirs: [agent, llm, exec, routing, signals, storage, nodes]
+
+  tracing:
+    purpose: "IntentTracer"
+    writable_by: [human, claude-code]
+    file_types: [".py"]
+
+  cli:
+    purpose: "Click 命令组（omni 顶层入口）"
+    writable_by: [human, claude-code]
+    file_types: [".py"]
+
+  dashboard:
+    purpose: "FastAPI backend + Vite frontend"
+    writable_by: [human, claude-code]
+    file_types: [".py", ".ts", ".tsx", ".vue", ".html", ".css", ".scss", ".json", ".md"]
+    special:
+      "frontend/": "vite 源代码"
+      "static/": "vite build 产物"
+
+  packages:
+    purpose: "业务域实现（每个 domain 一个子目录）"
+    writable_by: [human, claude-code, internal-pipeline]
+    file_types: [".py", ".yaml", ".json", ".md", ".sql", ".csv"]
+    pattern: "packages/{domains|services|vendors}/<name>/{formats.py,routers.py,pipeline.py,run.py,...}"
+    agent_free_fire: true
+    # S3b.3 (2026-04-08) 起：packages/ 直接子目录必须是下面三个之一，不允许
+    # 在 packages/ 正下方再放业务域。新增 domain → packages/domains/<name>/。
+    # 新增系统服务 → packages/services/<name>/。新增 vendored → packages/vendors/<name>/。
+    required_subdirs:
+      "domains/": "真正的业务域实现 (gameplay_system, voxel_engine, creative_content, software_engineering, ...)"
+      "services/": "系统服务 / 工具型 package (guardian, evolution, workflow_factory, ...)"
+      "vendors/": "第三方 vendored code (mcp_builder, ...)"
+    forbid_direct_children: true   # OMNI-016 拦截 packages/<X>/ 直接子目录
+
+  _graveyard:
+    purpose: "已退役代码归档"
+    writable_by: []   # 只读
+    forbid_live_import: true
+
+# ─────────────────────────────────────────────────────────────
+# 写入来源（writer identity）
+# ─────────────────────────────────────────────────────────────
+#
+# 每次 guarded_write.write_file 调用都必须传 origin 参数，
+# 对应下面的枚举值之一。不在枚举里的 origin 一律视为 "unknown"，
+# 只能写到 agent_free_fire=true 的 drawer。
+#
+writer_identities:
+  human: "人类直接编辑（IDE / editor / CLI）"
+  claude-code: "Claude Code agent tool 写入（默认）"
+  internal-pipeline: "OmniCompany 内部业务管线（sw-implement / workflow-factory / lang-rewrite / sw-tdd / skill-import / omnicompany）"
+  internal-engine: "框架引擎层（SQLiteBus / Dispatch 等）"
+  internal-guardian: "OmniGuardian 自己（patrol / tow / sentinel / stamp）"
+  external-agent: "外部 agent（非 claude-code 也非内部管线）"
+  unknown: "未知来源（默认兜底值）"
+
+# 管线 origin → internal-pipeline 身份映射
+internal_pipeline_origins:
+  - workflow-factory
+  - sw-implement
+  - sw-tdd
+  - lang-rewrite
+  - skill-import
+  - omnicompany

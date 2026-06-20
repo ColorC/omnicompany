@@ -1,0 +1,532 @@
+# [OMNI] origin=ai-ide domain=omnicompany/templates/plan ts=2026-05-02T10:00:00Z type=template status=active agent=ai-ide-current
+# [OMNI] summary="plan 模板 CLI 注册件 v1.5 - 加 v2 配套段引用 binding 块解析 + G2 注册中心联动"
+# [OMNI] why="plan 是 doc 子类型 (层二文档体系), 跟 G2 注册中心 + plan 规范 v1 binding 块联动. v2 配套段写清这层"
+# [OMNI] tags=template,plan,registry-config,foundation,v2-aware
+# [OMNI] material_id="material:template.plan.registry_config.yaml"
+
+# ════════════════════════════════════════════════════════════════════════
+# v2 配套 (2026-05-02 加): plan 用法
+#   - 落点: docs/plans/<topic>/[YYYY-MM-DD]<NAME>/plan.md 主文件 + 同目录附属
+#   - binding 块: 走 plan 规范 v1 (workspace/packages/targets/applicable_standards/expected_completion/ttl_days)
+#                  必填 workspace + ttl_days, 注册时由 omni register 自动解析进 attrs.plan_binding
+#   - 注册中心 type: plan (registry/meta.py 第 8 种)
+#   - 用法: omni new --kind=plan + omni sandbox check + omni sandbox promote
+# 三层分类: docs/standards/_global/concepts_three_layers.md (plan 在层二 文档体系 doc 子类)
+# 单源 + 薄包装: docs/standards/_global/single_source_thin_wrap.md
+# ════════════════════════════════════════════════════════════════════════
+
+# ════════════════════════════════════════════════════════════════════════
+# 重要 — checks 实装状态:
+# 下面 checks 是契约层骨架, rule 字段是未实现的代码. 阶段三 omnicompany CLI
+# 实装时按这份骨架补真函数 + 红绿测试基线 (通过/不通过两侧都各有"些"实例).
+# 测试基线骨架建在 tests/templates/plan/ 下面.
+# ════════════════════════════════════════════════════════════════════════
+
+kind: plan
+
+instance_naming:
+  pattern: "plan.md"
+  description: |
+    plan 实例文件名固定 plan.md, 跟父目录的日期+主题代号组合作完整标识.
+    一份 plan 一个目录, 不是多份 plan 平铺一份 markdown.
+
+instance_location:
+  pattern: "docs/plans/<package_path>/[<start_date>]<topic_code>/plan.md"
+  description: |
+    按 plan 规范 (docs/standards/_global/distributed-docs.md §5.3) 定义的主题区单轴结构.
+    topic_area 按 binding.packages 主导 + 工作性质决定:
+    - 改具体代码模块 (例 core:cli, service:guardian): <代码模块名> (例 cli, guardian, agent-framework)
+    - 服务具体业务域 (例 domain:voxel_engine): <业务域名> (例 voxel_engine, gameplay_system)
+    - 跨切面方法论/元能力 (不绑代码): omnicompany-<能力中文名> (例 omnicompany-计划跟进)
+    判定不出时优先级: 代码模块 > 业务域 > 行政层.
+    完成 + 冷静期 (2-4 周) 过后, 移到本主题区的 _archive/.
+    废弃路径: _infra/ / _cross/ / service/<x> / domain/<x> / _projects/ / _capabilities/ / 平铺 docs/plans/[date]TOPIC/.
+  variables:
+    topic_area: "按 binding.packages + 工作性质决定 (代码模块名 / 业务域名 / omnicompany-<能力名>)"
+    start_date: "计划起始日期, 跟 plan.md binding.expected_completion 字段以及正文 §2 起止段一致"
+    topic_code: "计划主题代号, 大写蛇形, 跟 plan.md 主题段语义一致"
+
+required_fields:
+  omnimark_header:
+    - origin
+    - ts
+    - type   # 必须 == "plan"
+    - summary
+    - why
+    - tags   # 必须含 "plan"
+  binding_block:                              # OmniMark 头之后, §1 之前的 yaml-style 块
+    workspace:
+      required: true
+      type: string
+      description: "项目相对路径或绝对路径, 单值不可数组"
+    packages:
+      required: false                          # 0-N 个, 但纯思考类 plan 之外推荐有
+      type: list_of_string
+      element_format: "<type>:<name>, type 取 service / domain / core / protocol"
+    targets:
+      required: false                          # 0-N 个, 推荐有
+      type: list_of_string
+      element_format: "<entity_type>:<id>, entity_type 用 dashboard wikilink 已支持的"
+    applicable_standards:
+      required: true
+      type: list_of_string
+      min_items: 2                              # 至少含 _global/code.md + _global/llm_first.md
+      auto_includes:
+        - "standards/_global/code.md"
+        - "standards/_global/llm_first.md"
+    expected_completion:
+      required: true
+      type: iso8601_date
+    ttl_days:
+      required: true
+      type: integer
+      min: 1
+      max: 90                                   # 超过 90 天的拆 plan
+  body_sections:
+    - "起源 (主标题之后, §1 之前的 quote 引用块)"
+    - "§1 主题"
+    - "§2 起止日期"
+    - "§3 参与方"
+    - "§4 关联材料"
+    - "§5 阶段拆分"
+    - "§6 收尾条件"
+    - "§7 风险"
+    - "§8 收尾归档位置"
+  body_sections_compact_summary_only:    # 只在 compact summary 时机必有 (普通 plan 编辑时可省)
+    - "§9 工作性假设"
+    - "§10 验证情况 + 验证背后的假设"
+    - "§11 假设树"
+    - "§12 假设验证情况 + 一句话总览"
+    - "§13 实施情况"
+  body_sections_completion_required:    # status 改 completed 之前必填
+    - "§14 债务清单"
+
+checks:
+  - id: "plan-001"
+    description: "OmniMark 头 type 必须 plan"
+    rule: "header.type == 'plan'"
+
+  - id: "plan-002"
+    description: "tags 必须含 'plan'"
+    rule: "'plan' in header.tags"
+
+  - id: "plan-003"
+    description: "主题段非空且超过 30 字符"
+    rule: "len(body['§1 主题'].strip()) > 30"
+
+  - id: "plan-004"
+    description: "起止日期段含 ISO 8601 格式起始日"
+    rule: "regex_match(body['§2 起止日期'], r'\\d{4}-\\d{2}-\\d{2}')"
+
+  - id: "plan-005"
+    description: "起止日期跟目录名前缀一致"
+    rule: "extract_iso_date(body['§2 起止日期']) == extract_dir_date_prefix(file_path)"
+
+  - id: "plan-006"
+    description: "关联材料段至少 1 项上游 + 1 项输出"
+    rule: "count_lines_starting_with(body['§4 关联材料'], '上游') >= 1 and count_lines_starting_with(body['§4 关联材料'], '输出') >= 1"
+
+  - id: "plan-007"
+    description: "阶段拆分段至少 3 个阶段, 不超过 8 个"
+    rule: "3 <= count_numbered_items(body['§5 阶段拆分']) <= 8"
+
+  - id: "plan-008"
+    description: "阶段总天数加起来跟起止日期估计天数一致 (允许 ±10% 误差)"
+    rule: "abs(sum_estimated_days(body['§5 阶段拆分']) - extract_estimated_days(body['§2 起止日期'])) <= max(1, 0.1 * sum_estimated_days(body['§5 阶段拆分']))"
+
+  - id: "plan-009"
+    description: "风险段 2-5 条"
+    rule: "2 <= count_risk_items(body['§7 风险']) <= 5"
+
+  - id: "plan-010"
+    description: "文件位置匹配 docs/plans/[YYYY-MM-DD]TOPIC-CODE/plan.md 模式"
+    rule: "regex_match(file_path, r'docs/plans/\\[\\d{4}-\\d{2}-\\d{2}\\][A-Z0-9-]+/plan\\.md$')"
+
+  - id: "plan-011"
+    description: "主题代号不挂版本号 (OMNI-030)"
+    rule: "not regex_match(extract_topic_code(file_path), r'_V\\d+|_v\\d+|-V\\d+|-v\\d+')"
+
+  - id: "plan-012"
+    description: "compact summary 文件必有 §9-§13 五节 (普通 plan 不查这条)"
+    rule: |
+      if is_compact_summary(file_path):
+        all(section in body for section in ['§9 工作性假设', '§10 验证情况', '§11 假设树', '§12 假设验证情况', '§13 实验情况'])
+
+  - id: "plan-013"
+    description: "compact summary 文件的 §12 一句话总览 ≤ 200 字 + 必含五件核心问题答案 (做了什么 / 运行了什么 / 结果如何 / 如何证明 / 合理依据)"
+    rule: |
+      if is_compact_summary(file_path):
+        len(extract_one_sentence_overview(body['§12 假设验证情况 + 一句话总览'])) <= 200 and
+        all(keyword in body['§12'] for keyword in ['做了', '运行', '结果', '证明', '依据'])
+
+  - id: "plan-014"
+    description: "binding 块存在, OmniMark 头之后 §1 之前"
+    rule: "has_binding_block(file_content) and binding_block_position_correct(file_content)"
+
+  - id: "plan-015"
+    description: "binding.workspace 必填单值, 路径真存在"
+    rule: "binding.workspace and isinstance(binding.workspace, str) and exists(binding.workspace)"
+
+  - id: "plan-016"
+    description: "binding.applicable_standards 至少含 _global/code.md + _global/llm_first.md"
+    rule: "'standards/_global/code.md' in binding.applicable_standards and 'standards/_global/llm_first.md' in binding.applicable_standards"
+
+  - id: "plan-017"
+    description: "binding.expected_completion 跟 §2 起止段写的预期结束日一致"
+    rule: "binding.expected_completion == extract_end_date(body['§2 起止日期'])"
+
+  - id: "plan-018"
+    description: "binding.ttl_days 在 1-90 区间 (超过 90 是项目应当拆)"
+    rule: "1 <= binding.ttl_days <= 90"
+
+  - id: "plan-019"
+    description: "目录路径落到主题区 (代码模块名 / 业务域名 / omnicompany-<能力名>) 下, 不走废弃路径"
+    rule: |
+      topic_area = derive_topic_area(binding.packages, plan_kind)
+      # 主题区在 src/omnicompany/.../ 真存在, 或形如 omnicompany-<能力名>
+      regex_match(file_path, rf'docs/plans/{topic_area}/(?:[^/_][^/]*/)?(?:_archive/)?\\[\\d{{4}}-\\d{{2}}-\\d{{2}}\\][^/]+/plan\\.md$')
+
+  - id: "plan-020"
+    description: "正文用 wikilink 引用其他实体, 不用普通 markdown 链接 (除外部 URL)"
+    rule: |
+      not has_internal_markdown_links(body) and
+      count_wikilinks(body) >= len(binding.targets)   # targets 都该在正文有 wikilink 引用
+
+  - id: "plan-021"
+    description: "binding.targets 跟 §4 关联材料.输出 段对齐 (头部声明 + 正文铺开必一致)"
+    rule: "set(binding.targets) <= set(extract_wikilinks(body['§4 关联材料']))"
+
+  - id: "plan-022"
+    description: "status=completed 之前 §14 债务清单段必填且每项有处置 (没'待补' 开放项)"
+    rule: |
+      if header.status == 'completed':
+        '§14 债务清单' in body and
+        not has_open_items(body['§14 债务清单'])  # 不允许 '待补' / 'TBD' / 留空
+
+header_defaults:
+  origin: "ai-ide"          # 实例化时 CLI 自动填; human 写的 plan 显式传可覆盖
+  type: "plan"               # 不可覆盖
+  status: "active"           # 实例化默认 active; 完成后改 completed; 废弃改 deprecated
+  agent: "<auto-from-session>"
+
+related_standards:
+  - "omnicompany/docs/standards/_global/distributed-docs.md (过程记录归 docs/plans/[YYYY-MM-DD]TOPIC/, 完成后 _archive)"
+  - "omnicompany/docs/standards/concepts/template.md (规范在前模板在后, 修订要先改规范)"
+  - "omnicompany/docs/控制结构.md (七段式只用于落盘正式产出物 — plan 算正式产出物可考虑用)"
+
+reference_anti_patterns:
+  - "起止日期跨度超过 3 个月: 那是项目不是计划, 应当拆成多份 plan 或立 project (如果以后立)"
+  - "收尾条件用'差不多就行'之类模糊措辞: 必须客观可测"
+  - "用 plan.md 装跟 plan 无关的散文档案: plan 概念被滥用, 应当走 docs/reports/ 或 sandbox/drafts/"
+  - "主题代号挂版本号 (例 _V2 / _NEW): 违 OMNI-030, 拆变体走子目录"
+  - "阶段超过 8 个: 颗粒度太细, 拆成多份 plan"
+  - "阶段不到 3 个: 拆分不够, 中途失败时不知道哪炸; 这类小事可能不该立 plan 直接做"
+  - "风险全是泛泛而谈 (例 '可能进度慢'): 风险要具体, 跟本计划场景贴合"
+
+# ════════════════════════════════════════════════════════════════════════
+# 核心价值字段 1 / 2: 代码案例链接 (现存真 plan)
+# ════════════════════════════════════════════════════════════════════════
+
+case_references:
+
+  - path: "docs/plans/[2026-04-26]VERIFICATION-AS-HYPOTHESIS-METHOD/plan.md"
+    line_anchors: "整文件 (长 plan, 含 §0-§7+ 多个段)"
+    interprets: "复杂 plan 含起源段 / 立项哲学 / L1 关键指导 / 多阶段实施 / 含 compact 后第一动作清单"
+    look_at: |
+      看文件顶部 OmniMark 头 (v2 旧格式, 缺 summary/why/tags 三字段 — 这是 v2 → v3 演进的真案例,
+      新写 plan 一律走 v3) + § 0 起源 (compact 后第一动作 + 读 memory 列表) + § 1 起源详细 + § 5 段
+      (核心问题诊断 / L1 用户洞察) + § 7 段 (a/b 实施 + 验通用性). 这是"研究型 plan"风格, 重思辨 + 重诊断.
+
+  - path: "docs/plans/[2026-04-25]TEAM-BUILDER-RECONSTRUCT/plan.md"
+    line_anchors: "整文件"
+    interprets: "工程型 plan 含立项哲学 / 跟 SKILL.md 对齐 / 不做清单 / 阶段实施细节"
+    look_at: |
+      § 0 起源讲 P3.B 失败 + 4 大根因; § 1 立项哲学按 SKILL.md 现有方法论对齐 (有一个表格列每条 SKILL
+      规则跟 P3.B 的违反点, 这是好做法); § 2 不做清单 (避免重蹈 P3.B 错). 这是"返工型 plan"风格,
+      重对齐 + 重不重蹈覆辙.
+
+  - path: "docs/plans/[2026-04-25]voxel_engine-NORTH-STAR-ROADMAP/plan.md"
+    line_anchors: "整文件"
+    interprets: "长跨度 plan (北极星 + R 阶段路线图), 阶段拆分粒度大"
+    look_at: |
+      跟普通 16 天 plan 不一样, 这是跨数月的路线图, 阶段拆分到 sub-sprint 颗粒度 (R1 - R5).
+      看它的"北极星不标进度"约定 (高远目标作背景, 不放进 §6 收尾条件). 这种 plan 适合多月演进的
+      domain 路线图, 不适合具体实装计划.
+
+  - path: "docs/plans/[2026-04-30]OMNICOMPANY-FORMAT-STANDARDIZATION/road_design.md"
+    line_anchors: "整文件 (注: 这是 road_design.md 不是 plan.md)"
+    interprets: "道路设计文档 — 跟 plan.md 平行的另一种过程记录, 用于'立 plan 之前先想清楚方向'阶段"
+    look_at: |
+      road_design.md 是"先想道路再立 plan"纪律的产物 (memory feedback_road_first_then_implement).
+      它跟 plan.md 的边界: road_design 是方向性思考 + 用户审议未决项; plan 是道路审过之后的具体
+      实施安排. 一份 road_design 通常对应零到多份后续 plan. 这一份 road_design 是当前主线 plan
+      还没立的状态.
+
+  - path: "docs/plans/_archive/"
+    line_anchors: "整目录 (含已归档的历史 plans)"
+    interprets: "归档区 — 完成 plan 的去处"
+    look_at: |
+      plan 完成后 (status=completed) 整目录搬到 _archive/. 看任何一份归档 plan 跟同目录的
+      compact_summary_*.md 配对存在 — 后者是收尾时写的总结, 含实装路径 / 踩坑 / 学习. 这是
+      plan 生命周期的 active → completed → archived 三态在文件系统的具体落地.
+
+# ════════════════════════════════════════════════════════════════════════
+# 核心价值字段 2 / 2: 抽象概念诠释
+# ════════════════════════════════════════════════════════════════════════
+
+abstract_concepts_explained:
+
+  - principle: "plan 跟 project 的边界 — 跨度 3 个月以内是 plan, 以上是 project"
+    spec_quote: |
+      plan 是跨数日到数周的具体实施安排, 终点明确. project 是跨数月到数年的长期演进, 终点
+      可能在演进中调整. plan 的"起止日期跨度"硬上限 3 个月 — 超过 = 应当拆成多份 plan 或立
+      project (如果以后立 project kind).
+    positive_cases:
+      - case: "[2026-04-15]OMNICOMPANY-CLI-PHASE3 (假设, 16 天)"
+        why_correct: |
+          16 天的具体实装计划, 跨度短, 终点明确 (六组 CLI 命令真跑通). 6 个阶段 16 天总跨度,
+          落入 plan 范围. 一份 plan.md 能装下.
+      - case: "[2026-04-25]voxel_engine-NORTH-STAR-ROADMAP (北极星 + R 阶段, 跨数月)"
+        why_correct: |
+          表面看跨度大 (数月), 但拆成 R1-R5 sub-sprint 后每个 sub-sprint 是独立 plan
+          级别的. 顶层这一份是路线图 (跨多份 plan 的导航), 单个 R 阶段实施时另立短 plan.
+          这种"长 plan + 子 plan" 模式合规.
+    negative_case_real:
+      case: "(教学性反例) 假设立一份 [2026-01-01]COMPLETE-OMNICOMPANY 跨一年的'完整实装 omnicompany'plan"
+      why_violation: |
+        一年跨度的 plan 实质是"项目"不是"计划". 后果:
+        - 阶段拆分到 50+ 个无意义颗粒
+        - 中途用户优先级变 plan 跟不上
+        - "起止日期"约束失效 (反正一年, 谁记得估计天数)
+        - 收尾条件给不出可测的, 因为太多
+      修法: 拆成多份独立 plan (按月或按主题), 顶层用一份路线图 / 北极星文档作导航. 不强行
+        塞一份大 plan.
+    judgment_rule: |
+      立 plan 时自检跨度:
+      - < 1 周: 可能不该立 plan, 直接做
+      - 1 周 - 3 个月: 标准 plan 范围
+      - > 3 个月: 拆成多份, 或立路线图 (北极星型) 作顶层导航
+      - 拿不准: 看是不是能给出 ≤ 7 个具体阶段; 给不出 = 跨度太大需要拆
+
+  - principle: "plan 修订 vs 重立的边界 (status 状态机)"
+    spec_quote: |
+      plan 在生命周期里有几态: active (进行中) / completed (完成) / paused (暂停) /
+      deprecated (放弃 / 替代). 修订规则: active 阶段允许修订 plan 内容 (例如调整阶段
+      / 加新风险), 但保持主题/起止/输出不变. 主题/起止/输出变 → 重立新 plan, 旧的标
+      deprecated 加替代指针.
+    positive_cases:
+      - case: "[2026-04-25]TEAM-BUILDER-RECONSTRUCT 替代 [2026-04-24]TEAM-BUILDER-REAL-PASS"
+        why_correct: |
+          P3.B 失败后, 旧 TEAM-BUILDER-REAL-PASS 的方向被推倒, 新立 TEAM-BUILDER-RECONSTRUCT
+          重做. 旧的 status=deprecated + 在 OmniMark 头加替代指针指向新 plan. 不修旧的内容
+          假装是新方向 — 那会让历史不可追溯.
+    negative_case_real:
+      case: "(假设反例) 修旧 plan 假装是新方向"
+      why_violation: |
+        如果 P3.B 失败后, 我直接改 [2026-04-24]TEAM-BUILDER-REAL-PASS 的 §5 阶段拆分, 把
+        deploy 路线改成 worker 级推进路线, 同时改主题描述, 假装从一开始就是这个方向. 后果:
+        - 历史不可追溯 (git history 看到大量改动但 plan.md 表面"一直是这样")
+        - 失败教训丢失 (P3.B 怎么失败的没写在新 plan 里)
+        - 用户审议链断 (用户审过的旧方向被悄悄换成新方向)
+      修法: 旧 plan 保留 + status=deprecated, 新立 plan 写明从旧的什么地方来. 像
+        TEAM-BUILDER-RECONSTRUCT 这样.
+    judgment_rule: |
+      改 plan 时自检:
+      - 主题/起止日期/输出 不变 → 修订 (改 §5 阶段 / 加 §7 风险等), 直接改文件
+      - 主题/起止日期/输出 任一变 → 重立新 plan, 旧的 deprecated, 加替代指针
+      - 拿不准 → 重立新的 (代价小, 历史清晰)
+
+  - principle: "plan 的归档时机 — 完成不立刻进 _archive, 留一段冷静期"
+    spec_quote: |
+      plan 完成后立刻搬到 _archive/ 是错的. 冷静期 (推荐 2-4 周) 后才归档. 冷静期里 status
+      是 completed 但仍在 _archive 外, 让最近的实施成果还能被频繁查询 / 引用 / 反思.
+    positive_cases:
+      - case: "[2026-04-25]TEAM-BUILDER-RECONSTRUCT (假设已完成)"
+        why_correct: |
+          实装完成后保持 status=completed 在原位置 (不在 _archive). 后续几周内
+          frequently 被引用 (写新 plan 时拿它作参考 / 写 memory 时拿它作真案例 /
+          回顾时反思 4 大根因哪些真解决了哪些没). 冷静期过后, 引用频率降到日均不到 1 次,
+          搬到 _archive.
+    judgment_rule: |
+      plan 完成后归档时机:
+      - 立刻进 _archive: 错, 还要被频繁引用
+      - 完成后 2-4 周搬: 标准节奏
+      - 一直留在 active 不搬: 会污染当前 active 列表, 让"现在在做什么"不清楚
+
+# ════════════════════════════════════════════════════════════════════════
+# plan 模板的多维评估 (借用 material 模板的多维度框架, 视角换到 plan)
+# ════════════════════════════════════════════════════════════════════════
+
+multi_dimensional_value_checklist:
+
+  - dimension: "可读性"
+    question: "外部审阅者读完 plan 能不能 30 秒复述目标 / 5 分钟理解阶段?"
+    sample_check: |
+      §1 主题段一句话能复述? §5 阶段拆分清晰能 5 分钟过完? 不能 → 写得太密.
+
+  - dimension: "可追踪度"
+    question: "plan 实施过程中能不能从这份 plan 反查回相关材料和工人?"
+    sample_check: |
+      §4 关联材料链接齐 (上游能打开, 输出预期清晰)? 跟 git commit / PR / issue 能关联?
+
+  - dimension: "可收尾度"
+    question: "§6 收尾条件客观可测吗?"
+    sample_check: |
+      "X 测试通过 + Y 文档落盘" → 客观可测
+      "差不多了" / "感觉做完" → 模糊不收尾
+
+  - dimension: "风险预见度"
+    question: "§7 风险跟当前阶段实际情况贴合吗?"
+    sample_check: |
+      风险跟 §5 阶段拆分的具体步骤对应 (例如阶段三的"批量注册兜底未跑过"是真针对那一段)
+      → 贴合
+      风险全是"进度可能慢" / "可能出 bug" 这种泛泛 → 没识别清, 重写
+
+instantiation_protocol:
+  description: omni new plan 命令的执行流程, 跟 docs/standards/concepts/template.md 第八节"实例化协议"对齐
+  steps:
+    - "选定主题代号 (--topic=<TOPIC-CODE>) + 起始日期 (--start=<YYYY-MM-DD>, 默认今天)"
+    - "CLI 检查 docs/plans/[<date>]<topic>/ 目录不存在 (不允许覆盖现有 plan)"
+    - "CLI 复制骨架.md 到 docs/plans/[<date>]<topic>/plan.md, 在头部插入 OmniMark 头"
+    - "CLI 显示向导.md 内容"
+    - "调用方按向导填 §1-§8 八节"
+    - "调用方填完跑 omni sandbox check --content=<plan.md> --kind=plan"
+    - "通过 11 条 checks 后调 omni register material --kind=plan 注册到中心"
+    - "注册中心登记: 关联 session ID + 主实施者身份 token + 起止日期作生命周期约束"
+
+# ════════════════════════════════════════════════════════════════════
+# plan 跟 compact_summary 的关系 (l2_session_summary_protocol 8 项 checklist 的扩展点)
+# ════════════════════════════════════════════════════════════════════
+
+compact_summary_extension:
+  describe: |
+    plan.md 跟 compact_summary_<date>.md 是配对存在的两份材料:
+    - plan.md (一份): 跨日跨阶段的过程记录, 计划本身的当前状态
+    - compact_summary_<date>.md (多份, 按日期累加): trigger 时机产生的快照
+  triggers:
+    - "T1 compact 前: session 上下文将被压缩前必走"
+    - "T2 用户主动要求: '总结 / 整理' 类要求"
+    - "T3 新 team 开启: 准备开新 team / pipeline / service 时写本协议作起点档"
+    - "T4 验证完成 + 收尾 team: 验证通过 + 准备收工"
+  required_sections_at_trigger:
+    - "§1-§8 plan 本身的八节 (复制 plan.md 当前状态)"
+    - "§9 工作性假设 (每个 worker / team / 阶段至少 1 条)"
+    - "§10 验证情况 + 验证背后的假设 (每个关键产物的验证状态 + '如果 X 健康那 Y 应当 Z' 形式的假设)"
+    - "§11 假设树 (依赖关系图, 共同假设 + 依赖链)"
+    - "§12 假设验证情况 + 一句话总览 (每个假设的状态 + 来源标注 + ≤ 200 字总览覆盖五件核心问题)"
+    - "§13 实验情况 (运行日志 + 数据库证明 + 实验结果, 没数据就显式标'待接事件总线')"
+  authoritative_protocol: "omnicompany/docs/standards/protocol/l2_session_summary_protocol.md"
+  filename_pattern: "compact_summary_<YYYY-MM-DD>.md"
+  filename_constraint: "同一天多次 trigger 用 compact_summary_<YYYY-MM-DD>_<seq>.md (例如 _2)"
+
+# ════════════════════════════════════════════════════════════════════
+# 反例账本 (死规则在线监测)
+# ════════════════════════════════════════════════════════════════════
+
+counterexample_ledger:
+  required_for_implementations: true
+  describe: |
+    plan 实例化产出的 plan.md 里不直接含可执行死规则, 但 plan 关联的实施代码会含死规则.
+    plan 在跟踪实施时, 引用对应 worker / team 的反例账本路径作"实施过程中规则触发记录".
+    本字段保留接口, 让 plan 能在 §13 实验情况里链接对应反例账本.
+  ledger_path_pattern: "data/services/<service>/counterexamples/<rule_id>.jsonl"
+  reflect_on_count: 1
+  degrade_on_count: 3
+  rule_trace_required_fields:
+    - rule_id
+    - rule_version
+    - trigger_context
+    - rule_output
+    - timestamp
+  applies_to:
+    - "plan 实施过程中, §13 实验情况引用对应 worker 的反例账本"
+    - "plan 收尾时, 检查实施过程中的反例累计, 是否影响假设证否 / plan 重立"
+
+# ════════════════════════════════════════════════════════════════════
+# 验证不变量 (test_baseline 升级)
+# ════════════════════════════════════════════════════════════════════
+
+invariants:
+  - invariant_id: "plan-INV-001"
+    describe: "plan 跨度 ≤ 3 个月 (跨度大 = 项目不是计划)"
+    red_check: "起止日期跨度 12 个月 → 不通过"
+    green_check: "起止日期跨度 16 天 → 通过"
+    gradient:
+      A: "跨度 ≤ 1 个月, 阶段 3-7 个清晰"
+      B: "跨度 1-3 个月, 阶段 5-8 个 (颗粒度合理)"
+      C: "跨度 2-3 个月, 阶段 8-10 个 (颗粒度偏细但合规)"
+      F: "跨度 > 3 个月 (是项目不是计划, 应拆)"
+    verify_method: "extract_iso_date 计算跨度天数"
+    severity_if_fail: "major"
+
+  - invariant_id: "plan-INV-002"
+    describe: "阶段拆分总天数跟起止日期估计天数一致 (允许 ±10% 误差)"
+    red_check: "起止 16 天但阶段加总只有 8 天 → 不通过"
+    green_check: "起止 16 天 + 阶段加总 16 天 → 通过"
+    gradient:
+      A: "完全相等"
+      B: "差 ≤ 10% (合规, 取整误差范围内)"
+      C: "差 10-25% (估算粗糙但仍可用)"
+      F: "差 > 25% (拆分跟总账脱钩)"
+    verify_method: "regex_match + 数值比对"
+    severity_if_fail: "major"
+
+  - invariant_id: "plan-INV-003"
+    describe: "compact summary 文件含 §9-§13 五节, 每节非空"
+    red_check: "compact_summary_*.md 缺 §9 工作性假设 → 不通过"
+    green_check: "compact_summary_*.md §9-§13 都有内容"
+    gradient:
+      A: "五节齐全 + 每节内容详细 (假设有理由 + 验证有数据 + 假设树画了依赖)"
+      B: "五节齐全但部分简略 (例如假设只列名字没讲条件)"
+      C: "缺 1-2 节 (例如缺 §11 假设树)"
+      F: "缺 ≥ 3 节"
+    verify_method: "section 存在 + 长度检查"
+    severity_if_fail: "blocker"
+
+  - invariant_id: "plan-INV-004"
+    describe: "compact summary 一句话总览 ≤ 200 字, 必涵盖五件核心问题"
+    red_check: "总览 500 字 + 缺'如何证明做好了'答案 → 不通过"
+    green_check: "总览 ≤ 200 字 + 五件核心问题都有答案"
+    gradient:
+      A: "总览 ≤ 200 字 + 五件核心问题清晰"
+      B: "总览 200-300 字 (微超) 但五件齐"
+      C: "总览 ≤ 200 字但缺 1 件核心问题"
+      F: "总览 > 300 字或缺 ≥ 2 件核心问题"
+    verify_method: "字符数 + keyword 扫描"
+    severity_if_fail: "minor"
+
+# ════════════════════════════════════════════════════════════════════
+# standards-index 同步
+# ════════════════════════════════════════════════════════════════════
+
+standards_index_path_match:
+  - "docs/plans/[*]*/plan.md"
+  - "docs/plans/[*]*/compact_summary_*.md"
+  - "docs/plans/[*]*/road_design.md"
+  - "docs/plans/_archive/[*]*/plan.md"
+  - "docs/plans/_archive/[*]*/compact_summary_*.md"
+
+# ════════════════════════════════════════════════════════════════════
+# 三层对应 (用户层概念 / 协议层原语 / SKILL 实施层)
+# ════════════════════════════════════════════════════════════════════
+
+three_layer_correspondence:
+  user_layer_concept: "计划 (Plan)"
+  protocol_layer_primitive: "Format (markdown 类纯数据材料)"
+  skill_step: "§0 调研已有实现 + §11 落档 (跟 plan 配套)"
+  describe: |
+    Plan 是 omnicompany 用户层八种基础概念之一, 协议层落到 Format 原语 (markdown 类
+    纯数据). 在 SKILL.md 11 步指引里, plan 关联 §0 调研已有实现 (立 plan 前先看是不是
+    已经有同类计划) 跟 §11 落档 (plan 完成后归档 + 写 compact_summary). plan 在协议层
+    跟 DESIGN.md / report 等其他 markdown 类材料平行, 用 type=plan 字段区分.
+
+# ════════════════════════════════════════════════════════════════════
+# 实例运行时工作区隔离
+# ════════════════════════════════════════════════════════════════════
+
+instance_runtime:
+  workspace_isolation_required: false   # plan.md 本身是文档不是运行时实例, 不需要工作区隔离
+  describe: |
+    plan.md 是 markdown 文档, 不引发运行时跑步. 但 plan 关联的实施代码 (在 §4 关联材料
+    输出段列出) 跑步时按对应 worker / team 的工作区隔离规则走. plan 本身不施加工作区
+    隔离要求.

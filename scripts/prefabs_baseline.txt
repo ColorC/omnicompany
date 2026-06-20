@@ -1,0 +1,4 @@
+# 3 基线 pilot（已手工 findings，用于对比验证 auto Agent Loop 质量）
+pbui_activity_artcontest_main
+pbui_activity_fightpit_main
+pbui_activity_midautumnhs_main

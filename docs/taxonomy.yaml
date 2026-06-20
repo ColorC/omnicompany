@@ -1,0 +1,181 @@
+# [OMNI] origin=omnicompany domain=omnicompany/meta ts=2026-04-12T00:00:00Z
+# [OMNI] material_id="material:docs.omnimark_taxonomy.vocabulary.registry.yaml"
+# docs/taxonomy.yaml — OmniCompany 规范词汇表（机器可读）
+#
+# 所有严格成员（strict member）的文件头字段、实体类型、域标识必须从此处取值。
+# Guard 自动校验：违规文件名 → OMNI-029；头字段使用别名 → OMNI-030。
+#
+# 更新原则：
+#   - 追加 canonical 词条：人工审批后合并
+#   - 废弃 canonical：旧词条加 deprecated: true，保留六个月后删除
+#   - forbidden_aliases 只增不减（历史别名需保留以便 Guard 继续检测）
+#
+# 例外登记：术语迁移（docs/standards/terminology.md, 2026-04-19）
+#   - 为将 router → worker, format → material, pipeline → team,
+#     services·domains → department, omnicompany → omnicompany 反向重命名,
+#     以下词条从 forbidden_aliases 解除:
+#       router.forbidden.worker  (2026-04-19 移除, 将来 Phase A 反转为 canonical)
+#   - OMNI-033 对这些词不再告警; OMNI-036 接管新 module 旧名检测 (WARN 级)
+
+version: "1"
+updated: "2026-04-12"
+
+# ══════════════════════════════════════════════════════════
+# 实体类型（OmniMark type= 字段的合法值）
+# ══════════════════════════════════════════════════════════
+entity_types:
+  - router       # Router 子类：数据转换执行单元
+  - format       # Format 对象：数据契约
+  - pipeline     # PipelineSpec：路由拓扑
+  - domain       # 业务域（gameplay_system / guardian / doctor 等）
+  - package      # Python package（含 __init__.py 的目录）
+  - doc          # 文档文件（.md / .rst / .yaml 中的规范文档）
+  - test         # 测试文件（*_test.py）
+  - script       # 功能性脚本（可重复执行，有明确业务目的）
+  - scratch      # 临时脚本（只允许存在于 data/*/scratch/ 目录）
+  - config       # 配置文件（.yaml / .toml / .json，非规范文档）
+
+# ══════════════════════════════════════════════════════════
+# 文件状态（OmniMark status= 字段的合法值）
+# 与 src/omnicompany/core/omnimark.py STATUS_VALUES 保持同步
+# ══════════════════════════════════════════════════════════
+status_values:
+  - active          # 默认。正常使用中
+  - deprecated      # 仍可使用，但有替代方案；应在文件内声明替代路径
+  - quarantined     # 问题中，禁止新增依赖；等待修复或删除
+  - pending-review  # 等待人工审查，不得被其他严格成员依赖
+  - draft           # 草稿，功能不完整；不计入健康档案
+
+# ══════════════════════════════════════════════════════════
+# 起源标识（OmniMark origin= 字段的合法值）
+# 与 src/omnicompany/core/omnimark.py ORIGIN_VALUES 保持同步
+# ══════════════════════════════════════════════════════════
+origin_values:
+  - human             # 人类直接编写
+  - claude-code       # Claude Code (L2) 产生
+  - workflow-factory  # WorkflowFactory 管线产生
+  - skill-import      # skill 导入产生
+  - sw-implement      # sw-implement 管线产生
+  - sw-tdd            # sw-tdd 管线产生
+  - lang-rewrite      # lang-rewrite 管线产生
+  - guardian-stamp    # Guardian 自动注入
+  - omnicompany       # 框架自身产生（初始化/脚手架）
+  - unknown           # 来源不明（迁移期容忍，不得用于新文件）
+
+# ══════════════════════════════════════════════════════════
+# 禁止的文件名模式（OMNI-029）
+# 所有路径（严格成员和非严格成员）均适用
+# 原则：版本通过 git 控制；文件树中不允许出现版本标记
+# ══════════════════════════════════════════════════════════
+forbidden_filename_patterns:
+
+  # 版本数字后缀（所有文件类型）
+  versioned:
+    patterns:
+      - "_v[0-9]"        # foo_v1.py, bar_v2.md
+      - "_v[0-9][0-9]"   # foo_v10.py
+    description: "版本号通过 git 控制，禁止出现在文件名中"
+    exception: "API 命名空间目录（如 api/v1/）不适用，但 v1/v2 子目录需有 DESIGN.md 声明原因"
+
+  # 状态标记后缀（所有文件类型）
+  state_marker:
+    patterns:
+      - "_old"
+      - "_new"
+      - "_final"
+      - "_backup"
+      - "_copy"
+      - "_bak"
+      - "_revised"
+      - "_updated"
+    description: "文件状态通过 OmniMark status= 字段或 git 历史表达，禁止出现在文件名中"
+
+  # 测试文件前缀（Python 文件）
+  test_prefix:
+    patterns:
+      - "test_*.py"
+    description: "测试文件必须以 _test.py 结尾（兼容 pytest 就近发现），不得使用 test_* 前缀"
+    scope: "*.py"
+
+  # 临时文件（scratch 目录外禁止）
+  temp_outside_scratch:
+    patterns:
+      - "temp_*"
+      - "tmp_*"
+      - "*.tmp"
+      - "scratch_*"
+    description: "临时文件只允许存在于 data/*/scratch/ 目录，其他位置禁止"
+    exception: "data/*/scratch/ 目录内的文件豁免"
+
+# ══════════════════════════════════════════════════════════
+# 禁止的术语别名（OMNI-030）
+# 严格成员的 OmniMark 头字段（domain= / type=）禁止使用以下别名
+# 迁移期：别名触发 warn；严格成员期后：触发 block
+# ══════════════════════════════════════════════════════════
+forbidden_aliases:
+
+  router:
+    canonical: router
+    forbidden:
+      - handler
+      - processor
+      - 处理器
+      - transformer   # 注意：TransformerSpec 是合法术语，但"transformer"作为实体类型概念禁止
+      - executor
+      # - worker  # 2026-04-19 解除: terminology 迁移将 router → worker 作为新 canonical
+    note: "Router 特指 omnicompany.runtime.routing.router.Router 的子类实现。2026-04-19 起 Worker 为迁移目标名, 由 OMNI-036 管控新 module 用旧名。"
+
+  format:
+    canonical: format
+    forbidden:
+      - schema
+      - contract
+      - dtype
+      - datatype
+      - 格式
+      - 数据格式
+      - data_format
+    note: "Format 特指 omnicompany.protocol.format.Format 对象，不是泛指数据格式"
+
+  pipeline:
+    canonical: pipeline
+    forbidden:
+      - workflow
+      - chain
+      - flow
+      - dag
+      - 工作流
+      - 流程
+      - 链路
+    note: "Pipeline 特指 PipelineSpec 定义的有向路由拓扑"
+
+  domain:
+    canonical: domain
+    forbidden:
+      - namespace
+      - area
+      - region
+      - module_group
+      - 域
+      - 领域
+      - 子系统
+    note: "domain 是 OmniMark 中的层级标识前缀，格式为 <category>/<name>"
+
+  health_record:
+    canonical: health_record
+    forbidden:
+      - health_report
+      - diagnosis_result
+      - check_result
+      - 健康报告
+      - 诊断结果
+    note: "健康档案是 doctor 管线的标准输出格式，固定写入 health.jsonl"
+
+  strict_member:
+    canonical: strict_member
+    forbidden:
+      - registered_member
+      - formal_member
+      - enrolled
+      - compliant
+    note: "strict_member 是注册系统中的成员级别标记，表示该实体受全部规范约束"

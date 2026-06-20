@@ -1,0 +1,73 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "omnicompany"
+version = "0.2.0"
+description = "AI-native software factory — intent-driven, event-bus-native agent orchestration"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "omnicompany contributors" }
+]
+keywords = ["ai", "agent", "factory", "event-bus", "orchestration"]
+license = { file = "LICENSE" }
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+
+dependencies = [
+  "pydantic>=2.0.0",
+  "python-ulid>=2.0.0",
+  "click>=8.0.0",
+  "anthropic>=0.40.0",
+  "python-dotenv>=1.0.0",
+  "pyyaml>=6.0.0",
+]
+
+[project.optional-dependencies]
+redis = [
+  "redis[hiredis]>=5.0.0",
+]
+evolution = [
+  "datasets>=2.0.0",
+]
+dashboard = [
+  "fastapi>=0.100.0",
+  "uvicorn[standard]>=0.20.0",
+  "jinja2>=3.1.0",
+]
+selftest = [
+  "playwright>=1.40.0",
+]
+dev = [
+  "pytest>=7.0",
+  "pytest-asyncio>=0.21.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ColorC/omnicompany"
+Repository = "https://github.com/ColorC/omnicompany"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/omnicompany"]
+
+[project.scripts]
+omni = "omnicompany.cli.main:cli"
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
+testpaths = ["tests"]
+markers = [
+  "e2e: 需要真实 API key 的端到端测试（THE_COMPANY_API_KEY）",
+  "slow: 慢测试 (>10s · 如 agent loop · 真跑 LLM 多轮)",
+]

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>body { margin: 0; background: #323232; overflow: hidden; }</style>
+</head>
+<body>
+<script type="module">
+import * as THREE from '/three/three.module.min.js';
+
+const params = new URLSearchParams(location.search);
+const TEXTURE_URL = params.get('tex') || '/texture.png';
+const OUT_W = parseInt(params.get('w') || '320');
+const OUT_H = parseInt(params.get('h') || '480');
+const UV_TYPE = params.get('uvtype') || 'guard';  // 'guard' | 'steve' | 'wide'
+
+// ─── Model definitions ─────────────────────────────────────────────────────
+// All parts: {name, px,py,pz (pivot), bx,by,bz (box offset), w,h,d, u,v, m}
+// Coordinate system: MC Y increases downward (head at y≈-11, feet at y≈24)
+
+// GuardModel (128×128): guard-villagers mod, has hat layer + custom UV offsets
+const GUARD_PARTS = [
+  {name:'hat',       px:0,    py:1,  pz:0, bx:-4.5, by:-12, bz:-4.5, w:9, h:11, d:9, u:0,  v:0,  m:false},
+  {name:'head',      px:0,    py:1,  pz:0, bx:-4,   by:-11, bz:-4,   w:8, h:10, d:8, u:49, v:99, m:false},
+  {name:'body',      px:0,    py:0,  pz:0, bx:-4,   by:0,   bz:-2,   w:8, h:12, d:4, u:52, v:50, m:false},
+  {name:'right_arm', px:-5,   py:2,  pz:0, bx:-3,   by:-2,  bz:-2,   w:4, h:12, d:4, u:32, v:75, m:true },
+  {name:'left_arm',  px:5,    py:2,  pz:0, bx:-1,   by:-2,  bz:-2,   w:4, h:12, d:4, u:33, v:48, m:false},
+  {name:'right_leg', px:-1.9, py:12, pz:0, bx:-2,   by:0,   bz:-2,   w:4, h:12, d:4, u:16, v:48, m:true },
+  {name:'left_leg',  px:1.9,  py:12, pz:0, bx:-2,   by:0,   bz:-2,   w:4, h:12, d:4, u:16, v:28, m:false},
+];
+
+// Steve model (64×64, MC 1.8+ new format): standard PlayerEntityModel
+// UV layout per voxel_sandbox wiki: https://voxel_sandbox.wiki/w/Skin
+const STEVE_PARTS = [
+  // Layer 0 (base skin)
+  {name:'head',      px:0,    py:0,  pz:0, bx:-4,  by:-8,  bz:-4,  w:8, h:8, d:8, u:0,  v:0,  m:false},
+  {name:'body',      px:0,    py:0,  pz:0, bx:-4,  by:0,   bz:-2,  w:8, h:12,d:4, u:16, v:16, m:false},
+  {name:'right_arm', px:-5,   py:2,  pz:0, bx:-3,  by:-2,  bz:-2,  w:4, h:12,d:4, u:40, v:16, m:true },
+  {name:'left_arm',  px:5,    py:2,  pz:0, bx:-1,  by:-2,  bz:-2,  w:4, h:12,d:4, u:32, v:48, m:false},
+  {name:'right_leg', px:-1.9, py:12, pz:0, bx:-2,  by:0,   bz:-2,  w:4, h:12,d:4, u:0,  v:16, m:true },
+  {name:'left_leg',  px:1.9,  py:12, pz:0, bx:-2,  by:0,   bz:-2,  w:4, h:12,d:4, u:16, v:48, m:false},
+  // Layer 1 (armor/overlay — same geometry, rendered on top)
+  {name:'head_hat',  px:0,    py:0,  pz:0, bx:-4.5,by:-8.5,bz:-4.5,w:9, h:9, d:9, u:32, v:0,  m:false},
+  {name:'body_over', px:0,    py:0,  pz:0, bx:-4,  by:0,   bz:-2,  w:8, h:12,d:4, u:16, v:32, m:false},
+  {name:'rarm_over', px:-5,   py:2,  pz:0, bx:-3,  by:-2,  bz:-2,  w:4, h:12,d:4, u:40, v:32, m:true },
+  {name:'larm_over', px:5,    py:2,  pz:0, bx:-1,  by:-2,  bz:-2,  w:4, h:12,d:4, u:48, v:48, m:false},
+  {name:'rleg_over', px:-1.9, py:12, pz:0, bx:-2,  by:0,   bz:-2,  w:4, h:12,d:4, u:0,  v:32, m:true },
+  {name:'lleg_over', px:1.9,  py:12, pz:0, bx:-2,  by:0,   bz:-2,  w:4, h:12,d:4, u:0,  v:48, m:false},
+];
+
+// Legacy 64×32 (pre-1.8): only base skin, no layer 1, mirrored arms/legs
+const WIDE_PARTS = [
+  {name:'head',      px:0,    py:0,  pz:0, bx:-4,  by:-8,  bz:-4,  w:8, h:8, d:8, u:0,  v:0,  m:false},
+  {name:'body',      px:0,    py:0,  pz:0, bx:-4,  by:0,   bz:-2,  w:8, h:12,d:4, u:16, v:16, m:false},
+  {name:'right_arm', px:-5,   py:2,  pz:0, bx:-3,  by:-2,  bz:-2,  w:4, h:12,d:4, u:40, v:16, m:false},
+  {name:'left_arm',  px:5,    py:2,  pz:0, bx:-3,  by:-2,  bz:-2,  w:4, h:12,d:4, u:40, v:16, m:true },
+  {name:'right_leg', px:-1.9, py:12, pz:0, bx:-2,  by:0,   bz:-2,  w:4, h:12,d:4, u:0,  v:16, m:false},
+  {name:'left_leg',  px:1.9,  py:12, pz:0, bx:-2,  by:0,   bz:-2,  w:4, h:12,d:4, u:0,  v:16, m:true },
+];
+
+const UV_MODELS = { guard: GUARD_PARTS, steve: STEVE_PARTS, wide: WIDE_PARTS };
+// Texture sheet dimensions per UV type
+const UV_DIMS = { guard: [128, 128], steve: [64, 64], wide: [64, 32] };
+
+// ─── Dynamic model support ─────────────────────────────────────────────────
+// When uvtype=dynamic, server.js passes the model_parts.json path as the 7th arg,
+// exposed via ?modelparts=<url>.  render.html fetches it and uses the parts/tex_w/tex_h.
+const DYNAMIC_PARTS_URL = params.get('modelparts');
+
+let MODEL_PARTS = UV_MODELS[UV_TYPE] || STEVE_PARTS;
+let TW = (UV_DIMS[UV_TYPE] || [64, 64])[0];
+let TH = (UV_DIMS[UV_TYPE] || [64, 64])[1];
+
+// ─── Renderer ──────────────────────────────────────────────────────────────
+const renderer = new THREE.WebGLRenderer({ antialias: false });
+renderer.setSize(OUT_W, OUT_H);
+renderer.setClearColor(0x323232);
+document.body.appendChild(renderer.domElement);
+
+// ─── Scene ─────────────────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+
+// Isometric orthographic camera: looking from right (+X), front (-Z), above (+Y)
+// Camera direction ≈ normalize(1, 1, -1) which gives the classic MC isometric view.
+// Model spans MC y ≈ -11 (hat top) to +24 (feet bottom).
+// Three.js y = -MC_y, so center ≈ Three.js y = -6.5.
+// HALF must cover ~35 world units of model height in isometric projection.
+const HALF = 22;
+const camera = new THREE.OrthographicCamera(
+  -HALF * (OUT_W / OUT_H), HALF * (OUT_W / OUT_H),
+  HALF, -HALF, 0.1, 2000
+);
+camera.position.set(100, 80, -100);
+camera.lookAt(0, -6, 0);
+
+// ─── UV helpers ────────────────────────────────────────────────────────────
+// Three.js UV: v=0 at bottom, v=1 at top.  Image: y=0 at top → UV v = 1 - y/TH
+const uv = (px, py) => [px / TW, 1.0 - py / TH];
+
+function flipH(arr) {
+  const minU = Math.min(...arr.map(a => a[0]));
+  const maxU = Math.max(...arr.map(a => a[0]));
+  return arr.map(([u, v]) => [minU + maxU - u, v]);
+}
+
+// ─── Quad builder ──────────────────────────────────────────────────────────
+// verts/uvArr: 4-element arrays, CCW winding when viewed from the face's outside.
+function makeQuad(verts, uvArr, mat) {
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array([
+    ...verts[0], ...verts[1], ...verts[2],
+    ...verts[0], ...verts[2], ...verts[3],
+  ]), 3));
+  geo.setAttribute('uv', new THREE.BufferAttribute(new Float32Array([
+    ...uvArr[0], ...uvArr[1], ...uvArr[2],
+    ...uvArr[0], ...uvArr[2], ...uvArr[3],
+  ]), 2));
+  return new THREE.Mesh(geo, mat);
+}
+
+// ─── Cuboid builder ────────────────────────────────────────────────────────
+// Shading: top=bright, front/back=medium, sides=dark  (voxel_sandbox convention)
+const SHADE = { top: 1.0, front: 0.85, back: 0.65, side: 0.70 };
+
+function buildCuboid(part, tex) {
+  const { px, py, pz, bx, by, bz, w: W, h: H, d: D, u, v, m } = part;
+
+  // World-space box corners (voxel_sandbox coord: Y increases downward)
+  const x0 = px + bx,  x1 = x0 + W;
+  const my0 = py + by, my1 = my0 + H;   // voxel_sandbox Y
+  const z0 = pz + bz,  z1 = z0 + D;    // z0 = front (-Z), z1 = back (+Z)
+
+  // Three.js Y (flip: ty0 = top = more positive)
+  const ty0 = -my0, ty1 = -my1;
+
+  function mat(shade) {
+    return new THREE.MeshBasicMaterial({
+      map: tex,
+      color: new THREE.Color(shade, shade, shade),
+      side: THREE.FrontSide,
+      transparent: true,
+      alphaTest: 0.05,
+    });
+  }
+
+  const meshes = [];
+
+  // ── TOP (normal +Y, y = ty0) ──────────────────────────────────────────
+  // voxel_sandbox top UV: (u+D, v) → (u+D+W, v+D)
+  // Row v   (image top)    = back edge (z1)
+  // Row v+D (image bottom) = front edge (z0)  [adjacent to front face in net]
+  {
+    const verts = [
+      [x0, ty0, z1], [x1, ty0, z1],   // back-left, back-right
+      [x1, ty0, z0], [x0, ty0, z0],   // front-right, front-left
+    ];
+    let uvs = [
+      uv(u+D,   v),   uv(u+D+W, v),   // back → image top row
+      uv(u+D+W, v+D), uv(u+D,   v+D), // front → image bottom row
+    ];
+    if (m) uvs = flipH(uvs);
+    meshes.push(makeQuad(verts, uvs, mat(SHADE.top)));
+  }
+
+  // ── BOTTOM (normal -Y, y = ty1) ───────────────────────────────────────
+  // voxel_sandbox bottom UV: (u+D+W, v) → (u+2D+W, v+D)
+  // Bottom is viewed from below, mirrored vs top in Z
+  {
+    const verts = [
+      [x0, ty1, z0], [x1, ty1, z0],
+      [x1, ty1, z1], [x0, ty1, z1],
+    ];
+    let uvs = [
+      uv(u+D+W,   v+D), uv(u+2*D+W, v+D),
+      uv(u+2*D+W, v),   uv(u+D+W,   v),
+    ];
+    if (m) uvs = flipH(uvs);
+    meshes.push(makeQuad(verts, uvs, mat(SHADE.top)));
+  }
+
+  // ── FRONT (character chest, -Z face, normal -Z) ──────────────────────
+  // voxel_sandbox front UV: (u+D, v+D) → (u+D+W, v+D+H)
+  // Image left (-X side), image top (y0/top of box)
+  {
+    const verts = [
+      [x0, ty0, z0], [x1, ty0, z0],
+      [x1, ty1, z0], [x0, ty1, z0],
+    ];
+    let uvs = [
+      uv(u+D,   v+D),   uv(u+D+W, v+D),
+      uv(u+D+W, v+D+H), uv(u+D,   v+D+H),
+    ];
+    if (m) uvs = flipH(uvs);
+    meshes.push(makeQuad(verts, uvs, mat(SHADE.front)));
+  }
+
+  // ── BACK (character back, +Z face, normal +Z) ────────────────────────
+  // voxel_sandbox back UV: (u+2D+W, v+D) → (u+2D+2W, v+D+H)
+  // Back UV left (u+2D+W) = character's +X (left arm) side
+  // When viewed from +Z: +X is viewer's right → UV left is viewer's right → mirrored appearance
+  {
+    const verts = [
+      [x1, ty0, z1], [x0, ty0, z1],
+      [x0, ty1, z1], [x1, ty1, z1],
+    ];
+    let uvs = [
+      uv(u+2*D+W,   v+D),   uv(u+2*D+2*W, v+D),
+      uv(u+2*D+2*W, v+D+H), uv(u+2*D+W,   v+D+H),
+    ];
+    if (m) uvs = flipH(uvs);
+    meshes.push(makeQuad(verts, uvs, mat(SHADE.back)));
+  }
+
+  // ── LEFT (+X face, normal +X) ─────────────────────────────────────────
+  // voxel_sandbox left UV: (u+D+W, v+D) → (u+2D+W, v+D+H)
+  // UV left (u+D+W) = front (z0), UV right (u+2D+W) = back (z1)
+  // For mirrored: swap with right UV region
+  {
+    const ul = m ? u        : u+D+W;
+    const ur = m ? u+D      : u+2*D+W;
+    const verts = [
+      [x1, ty0, z0], [x1, ty0, z1],
+      [x1, ty1, z1], [x1, ty1, z0],
+    ];
+    let uvs = [
+      uv(ul, v+D),  uv(ur, v+D),
+      uv(ur, v+D+H), uv(ul, v+D+H),
+    ];
+    if (m) uvs = flipH(uvs);
+    meshes.push(makeQuad(verts, uvs, mat(SHADE.side)));
+  }
+
+  // ── RIGHT (-X face, normal -X) ───────────────────────────────────────
+  // voxel_sandbox right UV: (u, v+D) → (u+D, v+D+H)
+  // UV right (u+D) = front (z0), UV left (u) = back (z1)
+  // For mirrored: swap with left UV region
+  {
+    const uf = m ? u+D+W   : u+D;   // front side UV x
+    const ub = m ? u+2*D+W : u;     // back side UV x
+    const verts = [
+      [x0, ty0, z0], [x0, ty1, z0],
+      [x0, ty1, z1], [x0, ty0, z1],
+    ];
+    let uvs = [
+      uv(uf, v+D),   uv(uf, v+D+H),
+      uv(ub, v+D+H), uv(ub, v+D),
+    ];
+    if (m) uvs = flipH(uvs);
+    meshes.push(makeQuad(verts, uvs, mat(SHADE.side)));
+  }
+
+  return meshes;
+}
+
+// ─── Depth sort (painter's algorithm backup) ───────────────────────────────
+// Three.js z-buffer handles ordering; depthTest=true by default on MeshBasicMaterial.
+
+// ─── Render trigger ────────────────────────────────────────────────────────
+function doRender() {
+  const loader = new THREE.TextureLoader();
+  loader.load(TEXTURE_URL,
+    (tex) => {
+      tex.magFilter = THREE.NearestFilter;
+      tex.minFilter = THREE.NearestFilter;
+      tex.colorSpace = THREE.SRGBColorSpace;
+      for (const part of MODEL_PARTS) {
+        buildCuboid(part, tex).forEach(m => scene.add(m));
+      }
+      renderer.render(scene, camera);
+      window.__renderDone = true;
+    },
+    undefined,
+    (err) => {
+      console.error('Texture load error:', err);
+      window.__renderDone = true;
+    }
+  );
+  setTimeout(() => { window.__renderDone = true; }, 8000);
+}
+
+// ─── Load texture and render ───────────────────────────────────────────────
+if (UV_TYPE === 'dynamic' && DYNAMIC_PARTS_URL) {
+  fetch(DYNAMIC_PARTS_URL)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(data => {
+      MODEL_PARTS = data.parts || [];
+      TW = data.tex_w || 128;
+      TH = data.tex_h || 128;
+      doRender();
+    })
+    .catch(err => {
+      console.error('Failed to load dynamic model parts:', err, DYNAMIC_PARTS_URL);
+      // Fallback to steve if dynamic load fails
+      MODEL_PARTS = STEVE_PARTS; TW = 64; TH = 64;
+      doRender();
+    });
+} else {
+  doRender();
+}
+</script>
+</body>
+</html>
