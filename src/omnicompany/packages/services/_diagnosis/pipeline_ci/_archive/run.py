@@ -4,12 +4,12 @@
 
 from __future__ import annotations
 
-from omnicompany.packages.services._diagnosis.pipeline_ci.routers import (
+from omnifactory.packages.services._diagnosis.pipeline_ci.routers import (
     BatchAuditorRouter,
     CIGateRouter,
     DomainScannerRouter,
 )
-from omnicompany.runtime.routing.router import Router
+from omnifactory.runtime.routing.router import Router
 
 
 def build_bindings(input_dict: dict | None = None) -> dict[str, Router]:

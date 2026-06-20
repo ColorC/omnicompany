@@ -341,7 +341,7 @@ def cmd_pipeline_audit_info(pipeline_name: str, only_node: str | None, as_json: 
     \b
     示例:
         omni pipeline audit-info workflow-factory
-        omni pipeline audit-info gameplay_system-learn --node field_classifier
+        omni pipeline audit-info demogame-learn --node field_classifier
         omni pipeline audit-info workflow-factory --json > audit.json
     """
     import asyncio as _asyncio
@@ -521,9 +521,9 @@ def _has_positional(func) -> bool:
               help="以 JSON 格式输出问题列表")
 @click.option("--all-pipelines", "check_all", is_flag=True, default=False,
               help="扫描 src/omnicompany 下所有 pipeline.py 文件并全量检查")
-@click.option("--creative_content", "run_creative_content", is_flag=True, default=False,
+@click.option("--narrative", "run_narrative", is_flag=True, default=False,
               help="启用 L4 叙事审计（LLM，需要 API key；检查管线语义连贯性和节点单一性）")
-def cmd_pipeline_check(pipeline_file: str, as_json: bool, check_all: bool, run_creative_content: bool):
+def cmd_pipeline_check(pipeline_file: str, as_json: bool, check_all: bool, run_narrative: bool):
     """对 pipeline.py 文件做拓扑静态检查（B1 Pipeline 拓扑健康检查）。
 
     \b
@@ -537,17 +537,17 @@ def cmd_pipeline_check(pipeline_file: str, as_json: bool, check_all: bool, run_c
       - maturity_consistency（CRYSTALLIZED 上游有不稳定节点）
 
     \b
-    检查项（LLM，--creative_content 启用）：
-      - creative_content_semantic_jump（节点间语义跳跃）
-      - creative_content_purpose_misalign（管线意图与结构不符）
-      - creative_content_node_overload（节点职责过重）
+    检查项（LLM，--narrative 启用）：
+      - narrative_semantic_jump（节点间语义跳跃）
+      - narrative_purpose_misalign（管线意图与结构不符）
+      - narrative_node_overload（节点职责过重）
 
     \b
     示例：
         omni pipeline check src/omnicompany/packages/services/doctor/pipeline.py
-        omni pipeline check src/omnicompany/packages/domains/gameplay_system/table_learning/table_learning_pipeline.py
+        omni pipeline check src/omnicompany/packages/domains/demogame/table_learning/table_learning_pipeline.py
         omni pipeline check . --all-pipelines
-        omni pipeline check src/omnicompany/packages/services/doctor/pipeline.py --creative_content
+        omni pipeline check src/omnicompany/packages/services/doctor/pipeline.py --narrative
     """
     import json as _json
     from pathlib import Path
@@ -561,7 +561,7 @@ def cmd_pipeline_check(pipeline_file: str, as_json: bool, check_all: bool, run_c
     def _process_file(path: str) -> list[dict]:
         """通过 TeamRunner + SQLiteBus 检查一个 pipeline.py 文件，返回 JSON-able 结果列表。"""
         try:
-            report = run_pipeline_topology_check(path, run_llm=run_creative_content)
+            report = run_pipeline_topology_check(path, run_llm=run_narrative)
         except FileNotFoundError:
             click.echo(click.style(f"文件不存在: {path}", fg="red"), err=True)
             return []
@@ -684,8 +684,8 @@ def cmd_pipeline_lineage(
     \b
     示例：
         omni pipeline lineage
-        omni pipeline lineage --format gameplay_system.table_schema
-        omni pipeline lineage --pipeline gameplay_system-table-learning
+        omni pipeline lineage --format demogame.table_schema
+        omni pipeline lineage --pipeline demogame-table-learning
         omni pipeline lineage --cross
     """
     import json as _json

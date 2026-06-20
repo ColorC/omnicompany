@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/trace_induction ts=2026-04-20T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:learning.trace_induction.pipeline_design_spec.md" -->
 
 # trace_induction · 设计文档
 
@@ -107,5 +109,5 @@ ti.task (source)
 - [workers/](workers/) — 6 个 Worker (Diamond shortcut)
 - [formats.py](formats.py) — 7 个 Material
 - [_archive/routers_legacy.py](_archive/routers_legacy.py) — 原 Router 实现
-- [../pattern_discovery/](../pattern_discovery/) — 上游触发者
-- [../workflow_factory/](../workflow_factory/) — WFCaller 调用目标
+- ../pattern_discovery/ — 上游触发者
+- ../workflow_factory/ — WFCaller 调用目标

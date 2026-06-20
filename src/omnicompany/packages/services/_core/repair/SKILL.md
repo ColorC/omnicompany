@@ -5,6 +5,11 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/repair ts=2026-05-04T14:00:00Z type=doc status=active agent=ai-ide belongs_to_service=repair -->
+<!-- [OMNI] summary="repair 操作手册 — 跑 Format/Worker 修复管线的操作步骤 + 入口清单 + 故障排查" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §六 模板严格写. DESIGN 偏架构, 缺'怎么用'段, 抽出独立 SKILL 让操作可定位" -->
+<!-- [OMNI] tags=skill,repair,how-to,core -->
+<!-- [OMNI] material_id="material:services._core.repair.skill.operations_manual.md"-->
 
 # repair · 操作手册
 

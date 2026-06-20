@@ -27,7 +27,7 @@
 
 ## 原因
 
-Clean Migration 硬规则 (见 [`migration_log.md` · 完全迁移标准](../../../../../../docs/plans/[2026-04-19]BLACKBOARD-ARCHITECTURE/migration_log.md) §"完全迁移标准"):
+Clean Migration 硬规则 (见 `migration_log.md` · 完全迁移标准 §"完全迁移标准"):
 
 - ≥ 3 Worker 的 Team 必须拆 `workers/` 子目录 (repair 共 12 Worker)
 - 类继承必须从 `omnicompany.Worker` (非 `runtime.routing.router.Router`)
@@ -38,5 +38,5 @@ Clean Migration 硬规则 (见 [`migration_log.md` · 完全迁移标准](../../
 
 不要从 `_archive/` import。使用:
 
-- 新代码 (推荐): `from omnicompany.packages.services.repair.workers import FormatRepairAgentLoopWorker`
-- 兼容路径: `from omnicompany.packages.services.repair.routers import FormatRepairAgentLoop` (旧名自动 alias 到新名)
+- 新代码 (推荐): `from omnifactory.packages.services.repair.workers import FormatRepairAgentLoopWorker`
+- 兼容路径: `from omnifactory.packages.services.repair.routers import FormatRepairAgentLoop` (旧名自动 alias 到新名)

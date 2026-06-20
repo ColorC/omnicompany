@@ -5,11 +5,16 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/guardian ts=2026-05-04T11:35:00Z type=doc status=active agent=ai-ide belongs_to_service=guardian -->
+<!-- [OMNI] summary="guardian 操作手册 — 5 个场景 (一次性扫/装 hook/常驻 daemon/看违规处理罚单/管 archmap), 入口清单 (15+ 子命令), 故障排查" -->
+<!-- [OMNI] why="DESIGN.md 偏架构, 缺'怎么用'段. guardian 命令多 (15+ 子命令), 用户/agent 想用得 grep 拼. 抽出独立 SKILL 让操作可定位" -->
+<!-- [OMNI] tags=skill,guardian,how-to,cli,compliance -->
+<!-- [OMNI] material_id="material:services._core.guardian.skill.operations_manual.md"-->
 
 # guardian · 操作手册
 
 > 设计目的请看 [README.md](README.md). 内部架构请看 [DESIGN.md](DESIGN.md).
-> 核心设施统一方向见 [authority-confirmation.md](../../../../../../docs/plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/authority-confirmation.md), 长程执行门禁见 [autonomous-execution-rules.md](../../../../../../docs/plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/autonomous-execution-rules.md)。本 skill 只说明怎么跑 guardian, 不复制第二套唯一权威。
+> 核心设施统一方向见 authority-confirmation.md, 长程执行门禁见 autonomous-execution-rules.md。本 skill 只说明怎么跑 guardian, 不复制第二套唯一权威。
 
 ---
 
@@ -46,7 +51,7 @@ omni guardian patrol --scope=services/guardian    # 只扫某区
 omni guardian patrol --rules=OMNI-007,OMNI-014    # 只跑某些规则
 ```
 
-**验证**: 输出 `data/guardian/violations.jsonl` (append-only) + `data/guardian/reports/<date>.md` (人类可读). 同步到 [docs/tech_debt/REGISTRY.md](../../../../../../docs/tech_debt/REGISTRY.md) §活跃违规.
+**验证**: 输出 `data/guardian/violations.jsonl` (append-only) + `data/guardian/reports/<date>.md` (人类可读). 同步到 docs/tech_debt/REGISTRY.md §活跃违规.
 
 ### 场景 B · 装 pre-commit hook 拦未来违规
 
@@ -169,7 +174,7 @@ omni guardian patrol --json-out
 - 设计目的 → [README.md](README.md)
 - 内部架构 (D1-D10 决策 / 巡逻管线拓扑 / 规则家族) → [DESIGN.md](DESIGN.md)
 - doctor (运行时诊断, 跟 guardian 互补) → [../../_diagnosis/doctor/](../../_diagnosis/doctor/)
-- archmap.yaml (合法 drawer 唯一权威) → [docs/archmap.yaml](../../../../../../docs/archmap.yaml)
-- ARCH-CHANGES.jsonl (架构变更日志) → [docs/ARCH-CHANGES.jsonl](../../../../../../docs/ARCH-CHANGES.jsonl)
+- archmap.yaml (合法 drawer 唯一权威) → docs/archmap.yaml
+- ARCH-CHANGES.jsonl (架构变更日志) → docs/ARCH-CHANGES.jsonl
 - 自稳第二阶段道路 (扩 guardian 规则) → [docs/plans/guardian/[2026-05-04]CORE-SELF-STABILITY/plan.md](../../../../../docs/plans/guardian/%5B2026-05-04%5DCORE-SELF-STABILITY/plan.md)
-- 控制结构 (核心层四件武器) → [docs/控制结构.md](../../../../../../docs/控制结构.md)
+- 控制结构 (核心层四件武器) → docs/控制结构.md

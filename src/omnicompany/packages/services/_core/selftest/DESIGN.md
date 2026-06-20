@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/selftest ts=2026-05-04T13:40:00Z type=doc status=active belongs_to_service=selftest -->
+<!-- [OMNI] material_id="material:core.selftest.design_document.markdown.md" -->
 
 # selftest · 设计文档
 
@@ -97,4 +99,4 @@ EMIT (最终产出返回 CLI / CI)
   - [router.md R-18 Worker 粒度 / R-19 Agent Worker / R-20 升级规则](../../../../../../docs/standards/concepts/worker.md)
   - [pipeline.md P-14 Workspace](../../../../../../docs/standards/concepts/team.md)
 - 迁移记录:
-  - [migration_log.md Team 2](../../../../../../docs/plans/format-material/[2026-04-19]BLACKBOARD-ARCHITECTURE/migration_log.md)
+  - migration_log.md Team 2

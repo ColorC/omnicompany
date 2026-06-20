@@ -39,8 +39,8 @@ def main() -> None:
     parser.add_argument(
         "source_root",
         nargs="?",
-        default="/workspace/omnicompany/src/omnicompany",
-        help="omnicompany 源码根目录（默认：/workspace/omnicompany/src/omnicompany）",
+        default="e:/WindowsWorkspace/omnicompany/src/omnicompany",
+        help="omnicompany 源码根目录（默认：e:/WindowsWorkspace/omnicompany/src/omnicompany）",
     )
     parser.add_argument("--max", dest="max_iterations", type=int, default=3, help="最大修复迭代次数（默认 3）")
     args = parser.parse_args()

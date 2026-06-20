@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/agent ts=2026-05-04T15:05:00Z type=doc status=active belongs_to_service=agent -->
+<!-- [OMNI] material_id="material:core.agent.design_document.md" -->
 
 # agent · 设计文档
 
@@ -126,7 +128,7 @@ L7 之前没实现 — 长跑工具 (sleep 60 / 卡死 webfetch / 跑飞 sub-age
 - 懒构 `_subagent_registry_cache` 用 build_default_subagent_registry(bus=...), 注入 ctx
 - 强制 `register_tool("bash", DevBashRouter)` 解决 BashRouter / DevBashRouter 名字撞 (auto_register 顺序不定时拿到 BashRouter, 实例化缺 bash_bus= crash)
 
-测试 ([tests/dashboard/test_native_agent_integration.py](../../../../../tests/dashboard/test_native_agent_integration.py)) 7/7:
+测试 (tests/dashboard/test_native_agent_integration.py) 7/7:
 - read_files 真注入 (跨 turn 同引用)
 - subagent_registry 真注入 (3 种 sub-agent 类型 全 callable)
 - AgentRouter 用主 agent ctx 干跑通 (整链路 wiring 通)
@@ -235,7 +237,7 @@ L7 之前没实现 — 长跑工具 (sleep 60 / 卡死 webfetch / 跑飞 sub-age
 
 3. **ToolDispatchRouter 的权限审计仅基础** — 当前 permission_mode 检查粒度粗（default/auto），无细粒度工具级权限策略。
 
-4. **SingleToolRouter 子类集有限** — 内置 6 个（Glob/Grep/ReadFile/ListDir/Bash/Finish）。**BashRouter (2026-04-23 加入)** 是通用基类, 底层走 BashBus 获得 workspace + 危险命令 + 审计; 业务子类 override `_validate_command` 加白名单即可 (例 config_service 的 scm/python/git 白名单). 更多业务工具 (viewImages 等) 仍须在使用 AgentNodeLoop 的 Team 内定义 (如 gameplay_system/ux 的 SafeBashRouter 保持独立, 未合并到新 BashRouter, Phase B.1 是 additive 不 breaking)。
+4. **SingleToolRouter 子类集有限** — 内置 6 个（Glob/Grep/ReadFile/ListDir/Bash/Finish）。**BashRouter (2026-04-23 加入)** 是通用基类, 底层走 BashBus 获得 workspace + 危险命令 + 审计; 业务子类 override `_validate_command` 加白名单即可 (例 config_service 的 p4/python/git 白名单). 更多业务工具 (viewImages 等) 仍须在使用 AgentNodeLoop 的 Team 内定义 (如 demogame/ux 的 SafeBashRouter 保持独立, 未合并到新 BashRouter, Phase B.1 是 additive 不 breaking)。
 
 ## 新哲学对齐（Phase D · 2026-04-21）
 

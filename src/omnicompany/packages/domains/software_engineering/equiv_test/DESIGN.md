@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=packages/domains/software_engineering/equiv_test ts=2026-04-25T00:00:00Z type=doc status=design -->
+<!-- [OMNI] material_id="material:domains.software_engineering.equiv_test.design_specification.md" -->
 
 # equiv_test · 设计文档
 

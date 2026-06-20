@@ -146,7 +146,7 @@ SPEC_DIAGNOSTIC_SPEC = AgentSpec(
 
     # ── 13. 红绿测试基线 ─ 2026-05-06 self_audit §B-2 修复 ─────────
     test_baseline={
-        # 绿: csv_reader (worker 类合规标杆). dogfood 实测 2 finding 全正面 (不引 R-XX 阻断), creative_content 总结"职责清晰单一, 协议正确"
+        # 绿: csv_reader (worker 类合规标杆). dogfood 实测 2 finding 全正面 (不引 R-XX 阻断), narrative 总结"职责清晰单一, 协议正确"
         "green_samples": (
             "src/omnicompany/packages/services/_utility/csv_to_md/workers/csv_reader.py",
         ),
@@ -168,7 +168,7 @@ class _SpecVerdictExtractor:
 
     跟 default ExtractResultRouter 行为对比:
     - default: verdict.output = {text, turn_count, stop_reason} (raw LLM final text)
-    - 本类: verdict.output = submit_verdict 的 args 本体 (含 findings/creative_content/applied_standards)
+    - 本类: verdict.output = submit_verdict 的 args 本体 (含 findings/narrative/applied_standards)
 
     fallback: 没找到成功 submit_verdict 时, 回退默认 (含 final_text), 让管线不静默失败.
     """
@@ -261,7 +261,7 @@ def _build_spec_verdict_extractor(bus):
             return Verdict(
                 kind=kind,
                 output={
-                    **submitted,                   # findings / creative_content / applied_standards / target_*
+                    **submitted,                   # findings / narrative / applied_standards / target_*
                     "turn_count": turn_count,
                     "stop_reason": stop_reason,
                 },
@@ -285,7 +285,7 @@ class SpecDiagnosticAgent(ConfigurableAgent):
     - build_tool_context: 注入 current_task_id (= trace_id) / agent_id / scratch dict.
       让 write_finding 落盘走真 task_id 不是 'unknown'. submit_verdict 用 scratch 写入提交记录.
     - build_extract_result: verdict event payload 走 submit_verdict 工具 args 而非 raw final_text.
-      让下游 worker 订阅 verdict 时能 type-safely 读 findings/creative_content.
+      让下游 worker 订阅 verdict 时能 type-safely 读 findings/narrative.
     """
 
     SPEC = SPEC_DIAGNOSTIC_SPEC

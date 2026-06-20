@@ -175,7 +175,7 @@ _TEMP_HARD_PATTERNS: tuple[str, ...] = (
     "*~",             # vim/emacs backup
     # OS 残留
     ".DS_Store", "Thumbs.db", "desktop.ini",
-    # Office/WPS 打开锁文件 (用户 chat_platform-cli 下载 xlsm 时可能产生)
+    # Office/WPS 打开锁文件 (用户 lark-cli 下载 xlsm 时可能产生)
     "~$*",
     # 明显 backup 命名模式
     "*_backup_*", "*_bak_*", "*_old_*", "*_copy_*",

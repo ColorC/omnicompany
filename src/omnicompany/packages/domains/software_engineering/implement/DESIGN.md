@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=domains/software_engineering/implement ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:domains.software_engineering.implement.design_doc.architecture.py" -->
 
 # implement · 设计文档
 

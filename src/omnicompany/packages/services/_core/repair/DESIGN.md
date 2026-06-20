@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/repair ts=2026-05-04T13:55:00Z type=doc status=active belongs_to_service=repair -->
+<!-- [OMNI] material_id="material:core.repair.design.document.md" -->
 
 # repair · 设计文档
 
@@ -156,4 +158,4 @@ diag.repair.applied
   - [format.md F-19 Material kind](../../../../../../docs/standards/concepts/material.md)
   - [terminology.md §6 / §7 / §8](../../../../../../docs/standards/_global/terminology.md)
 - **依赖 Team**: [doctor/DESIGN.md](../../_diagnosis/doctor/DESIGN.md) (消费 health_record · 诊断链复用)
-- **迁移记录**: [migration_log.md Team 5 · Stage 2 完全迁移](../../../../../../docs/plans/format-material/[2026-04-19]BLACKBOARD-ARCHITECTURE/migration_log.md)
+- **迁移记录**: migration_log.md Team 5 · Stage 2 完全迁移

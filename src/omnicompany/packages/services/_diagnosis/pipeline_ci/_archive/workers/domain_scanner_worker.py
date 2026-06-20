@@ -7,8 +7,8 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.packages.services._core.omnicompany import Worker
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +26,7 @@ def _collect_domains(
         rel = directory.relative_to(pkg_root)
         domain_name = str(rel).replace("\\", "/")
         if domain_filter is None or domain_name in domain_filter:
-            package_path = "omnicompany.packages." + ".".join(rel.parts)
+            package_path = "omnifactory.packages." + ".".join(rel.parts)
             result.append({
                 "domain_name": domain_name,
                 "package_path": package_path,
@@ -43,7 +43,7 @@ class DomainScannerWorker(Worker):
     """扫描 packages/ 下所有含 routers.py + pipeline.py 的子包，收集文件内容供审计用。"""
 
     DESCRIPTION = (
-        "扫描 project_root/src/omnicompany/packages/ 下的所有子包（包括嵌套包如 sw/plan），"
+        "扫描 project_root/src/omnifactory/packages/ 下的所有子包（包括嵌套包如 sw/plan），"
         "收集同时包含 routers.py 和 pipeline.py 的目录，读取文件内容供后续审计使用。"
     )
     FORMAT_IN = "pipeline_ci.scan-request"
@@ -53,7 +53,7 @@ class DomainScannerWorker(Worker):
         project_root = input_data.get("project_root", ".")
         domain_filter: list[str] | None = input_data.get("domains")
 
-        pkg_root = Path(project_root) / "src" / "omnicompany" / "packages"
+        pkg_root = Path(project_root) / "src" / "omnifactory" / "packages"
         if not pkg_root.exists():
             return Verdict(
                 kind=VerdictKind.FAIL,

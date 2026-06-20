@@ -158,7 +158,7 @@ def cmd_run(pipeline_name: str, inputs: tuple, json_input: str | None,
     示例:
         omni run agent "列出目录下的文件"
         omni run lap-audit -i target=src/omnicompany/runtime/runner.py
-        omni run gameplay_system-learn -j '{"table": "TavernPool"}'
+        omni run demogame-learn -j '{"table": "TavernPool"}'
     """
     from omnicompany.core.registry import discover, get_or_raise
     discover()
@@ -248,8 +248,8 @@ def cmd_exec(pipeline_name: str, only: str | None, node: str | None,
 
     \b
     示例:
-        omni exec gameplay_system-learn --only schema_bootstrap,field_classifier
-        omni exec gameplay_system-learn --node benchmark_validator -j '{"schema": {...}}'
+        omni exec demogame-learn --only schema_bootstrap,field_classifier
+        omni exec demogame-learn --node benchmark_validator -j '{"schema": {...}}'
     """
     from omnicompany.core.registry import discover
     discover()
@@ -425,7 +425,7 @@ def cmd_pipelines(verbose: bool, grep_query: str | None, domain: str | None):
     \b
     示例:
         omni pipelines                    # 列出全部
-        omni pipelines -g gameplay_system           # 按关键词搜索
+        omni pipelines -g demogame           # 按关键词搜索
         omni pipelines -d sw_verify       # 按 domain 过滤
         omni pipelines -v                 # 含节点数和参数
     """
@@ -504,9 +504,9 @@ def cmd_nodes(grep_query: str | None, format_query: str | None,
     示例:
         omni nodes                           # 全部节点
         omni nodes -g "classifier"           # 按关键词搜索
-        omni nodes -f "gameplay_system.table_schema"   # 找所有接受此 Format 的节点
-        omni nodes -p gameplay_system-learn            # 只看某管线
-        omni nodes -d gameplay_system                  # 按域过滤
+        omni nodes -f "demogame.table_schema"   # 找所有接受此 Format 的节点
+        omni nodes -p demogame-learn            # 只看某管线
+        omni nodes -d demogame                  # 按域过滤
     """
     from omnicompany.core.registry import discover, list_all, get_or_raise
     from omnicompany.core.dispatch import _call_build_bindings
@@ -642,7 +642,7 @@ def cmd_describe(pipeline_name: str, verbose: bool):
 
     \b
     示例:
-        omni describe gameplay_system-learn
+        omni describe demogame-learn
         omni describe debug -v
     """
     from omnicompany.core.registry import discover, get_or_raise
@@ -698,7 +698,7 @@ def cmd_routers(grep_query: str | None, format_query: str | None,
     示例:
         omni routers                     # 列出所有 Router
         omni routers --grep "分类"        # 按关键词搜索
-        omni routers --format gameplay_system      # 按 Format ID 搜索
+        omni routers --format demogame      # 按 Format ID 搜索
         omni routers --pipeline debug    # 只看 debug 管线的 Router
     """
     from omnicompany.core.registry import discover
@@ -783,7 +783,7 @@ def cmd_formats(pipeline_name: str | None):
 
     \b
     示例:
-        omni formats gameplay_system-learn      # 某管线的 Format
+        omni formats demogame-learn      # 某管线的 Format
         omni formats                  # 全局已注册 Format
     """
     from omnicompany.core.registry import discover
@@ -865,7 +865,7 @@ def cmd_errors(domain: str, limit: int):
     \b
     示例:
         omni errors                    # 全部 domain
-        omni errors --domain gameplay_system     # 只看 gameplay_system
+        omni errors --domain demogame     # 只看 demogame
         omni errors -n 5              # 最近 5 条
     """
     from omnicompany.core.observe import tail_events

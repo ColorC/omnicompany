@@ -3,7 +3,7 @@
 #
 # ⚠ DEPRECATED (2026-04-18) — 继承旧 runtime.agent.agent_node_loop.AgentNodeLoop。阶段 C 会迁到 packages.services.agent.AgentNodeLoop
 # 违规：LLMClient/ToolDefinition.call 直调 + 内存 list[dict] 传参（非 Format+bus）。
-# 重构计划：omnicompany/docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md
+# 重构计划：omnifactory/docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md
 # 禁止基于本类新增实现；Guardian 会监控违规。
 """proposal_dispute_loop — Stage 3 反馈回路（AgentNodeLoop）
 
@@ -204,7 +204,7 @@ def _make_dispute_tools(sess_id: str) -> list:
                             "proposal_id": {"type": "string"},
                             "title": {"type": "string"},
                             "summary": {"type": "string"},
-                            "omnicompany_status": {"type": "string",
+                            "omnifactory_status": {"type": "string",
                                 "enum": ["缺失", "部分存在", "已有可改进"]},
                             "rationale": {"type": "string",
                                 "description": "Why this is worth doing (tie to findings)."},
@@ -441,7 +441,7 @@ def _write_revised_proposals(path: Path, proposals: list[dict], summary: str, re
         pid = p.get("proposal_id", "?")
         title = p.get("title", "?")
         pri = p.get("priority", "?")
-        st = p.get("omnicompany_status", "?")
+        st = p.get("omnifactory_status", "?")
         chg = p.get("change_from_previous", "?")
         lines.append(f"| {pid} | {title} | {pri} | {st} | {chg} |")
     lines += ["", "---", ""]
@@ -449,7 +449,7 @@ def _write_revised_proposals(path: Path, proposals: list[dict], summary: str, re
         lines += [
             f"## {p.get('proposal_id','?')}: {p.get('title','?')}",
             "",
-            f"**优先级**: {p.get('priority','?')} | **status**: {p.get('omnicompany_status','?')} | "
+            f"**优先级**: {p.get('priority','?')} | **status**: {p.get('omnifactory_status','?')} | "
             f"**变化**: {p.get('change_from_previous','?')}",
             "",
             f"**摘要**: {p.get('summary','')}",

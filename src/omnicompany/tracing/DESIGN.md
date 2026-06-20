@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=tracing ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:tracing.intent_tracer_design.specification.md" -->
 
 # tracing · 设计文档
 
@@ -61,6 +63,6 @@
 ## 参考资料
 - 核心实现: [intent_tracer.py](intent_tracer.py)
 - 包导出声明: [__init__.py](__init__.py)
-- 依赖协议: [omnicompany/protocol/events.py](../../protocol/events.py) (`FactoryEvent`)
-- 依赖存储: [omnicompany/runtime/storage/db_access.py](../../runtime/storage/db_access.py) (`open_db_rw`)
+- 依赖协议: omnicompany/protocol/events.py (`FactoryEvent`)
+- 依赖存储: omnicompany/runtime/storage/db_access.py (`open_db_rw`)
 - 迁移记录: `intent_tracer.py` 顶部 docstring (2026-04-07 shim 移除声明)

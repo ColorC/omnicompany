@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=standards ts=2026-04-18T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:standards.global.distributed_docs_six_domain_placement.md" -->
 
 # 分布式文档规范 v2
 
@@ -5,7 +7,7 @@
 > **必要不充分**：不满足一定有问题，满足不一定没问题。
 > **Guardian 规则**：OMNI-030（禁版本化文件名）/ OMNI-031（测试后缀）/ OMNI-032（临时文件）/ OMNI-034（DESIGN.md 结构）/ OMNI-035（本规范合规性，待实施）
 > **v2 要点**：全覆盖所有内容类型；明确尺寸/拆分/归档规则；`docs/design|gaps|legacy|reports` 重新归位到六域结构。
-> **设施统一例外规则**: 核心设施/唯一权威收束类计划必须集中放置 `authority-confirmation.md` 与 `autonomous-execution-rules.md`; 分散 README / standards / templates / SKILL 只写短锚点指向它们。当前活跃样例见 [authority-confirmation.md](../../plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/authority-confirmation.md) 与 [autonomous-execution-rules.md](../../plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/autonomous-execution-rules.md)。
+> **设施统一例外规则**: 核心设施/唯一权威收束类计划必须集中放置 `authority-confirmation.md` 与 `autonomous-execution-rules.md`; 分散 README / standards / templates / SKILL 只写短锚点指向它们。当前活跃样例见 authority-confirmation.md 与 autonomous-execution-rules.md。
 
 ---
 
@@ -67,7 +69,7 @@
 | 23 | 后台待办（L2） | `docs/overseer_backlog.md` | Markdown | 200 / 400 行 | 补完就删 |
 | 24 | 总索引 | `docs/README.md`（**必备**） | Markdown | 150 行 | 新目录必更新 |
 | 25 | 项目级 skill | `.claude/skills/<skill-name>/SKILL.md` + `reference/` | Markdown | 500 / 800 行 | 随能力演进 |
-| 26 | 工作区根指引 | `/workspace\CLAUDE.md` | Markdown | 200 / 300 行 | 超标拆子页 |
+| 26 | 工作区根指引 | `E:\WindowsWorkspace\CLAUDE.md` | Markdown | 200 / 300 行 | 超标拆子页 |
 | 27 | 用户自动记忆 | `~/.claude/projects/<proj>/memory/MEMORY.md` + `<type>_<slug>.md` | Markdown + frontmatter | 索引 200 行硬限 | 由 auto-memory 管理 |
 | 28 | 供应商嵌入材料 | `src/omnicompany/packages/vendors/<name>/` | 按供应商约定 | — | 免合规，冻结 |
 | 29 | 坟场标记 | `src/omnicompany/_graveyard/**/{_RETIRED.md,README.md}` | Markdown | 100 行 | 只增不减 |
@@ -150,6 +152,7 @@ src/omnicompany/
 所有第 4、5、6、8、9、11、12、19、21、22 类文档第一行必须是 OmniMark 头：
 
 ```markdown
+<!-- [OMNI] origin=<source> domain=<domain> ts=<ISO8601> type=<type> status=<status> -->
 ```
 
 - `type`：`doc` / `manifest` / `format` / `router` 之一（见 `omni-header.md`）
@@ -160,7 +163,7 @@ src/omnicompany/
 
 ### 5.2 DESIGN.md 结构（自我叙事三件套规范）
 
-遵循 `protocol/self_creative_content_three_files.md` §五（模板细则见 `design_md_template.md`）：
+遵循 `protocol/self_narrative_three_files.md` §五（模板细则见 `design_md_template.md`）：
 状态 / 核心接口 / 架构决策 / 数据流-拓扑 / 已知局限 / 参考资料，可选 内部构成 / 接收意愿。
 「核心目的」由同目录 README.md 承载，不写进 DESIGN（2026-06-13 起以三件套为现行权威）。
 
@@ -181,7 +184,7 @@ docs/plans/
    - 顶层目录名 **必须 match `src/omnicompany/.../` 实际目录名**, 不取别名
    - 多代码模块都改时, 取改动量最大的那个主题区
 
-2. **业务域** — 计划服务于具体业务域 (例: voxel_engine / gameplay_system)
+2. **业务域** — 计划服务于具体业务域 (例: voxelcraft / demogame)
    - 顶层目录名 **必须 match `src/omnicompany/packages/domains/<domain>/` 实际目录名**
 
 3. **omnicompany- 行政层** — 计划讨论方法论/元能力, 不绑死任何单一代码模块也不绑业务 (例: `omnicompany-计划跟进/` / `omnicompany-调研吸收/`)
@@ -196,8 +199,8 @@ docs/plans/
 允许多层关系, 但**子层必须继续按对象拆**, 不按时间轴/阶段/状态拆:
 
 - ✅ `agent-framework/team-builder/[date]TOPIC/` — 按代码子模块拆
-- ✅ `voxel_engine/N3-block-path/[date]TOPIC/` — 按业务子项目拆
-- ❌ `voxel_engine/_milestones/[date]TOPIC/` — 按时间轴拆 (milestones 是状态不是对象)
+- ✅ `voxelcraft/N3-block-path/[date]TOPIC/` — 按业务子项目拆
+- ❌ `voxelcraft/_milestones/[date]TOPIC/` — 按时间轴拆 (milestones 是状态不是对象)
 - ❌ `agent-framework/_research/[date]TOPIC/` — 按性质拆 (用 plan 内部 tag 表达)
 
 子层目录名同样要 match 代码或业务的实际子模块名。
@@ -314,14 +317,14 @@ skeleton → draft → active → frozen → deprecated → archived
 所有 `docs/` 一级子项（含目录和文件）都要在 `docs/README.md` 有一行索引，格式：
 
 ```markdown
-- [路径](相对链接) — 一句话用途 — 所有者/权威
+- 路径 — 一句话用途 — 所有者/权威
 ```
 
 单文件不超过 150 行；超 150 行说明 `docs/` 根项太多，先整合。
 
 ### 8.2 引用规则
 
-- 跨文件引用用相对链接：`[standards/concepts/material.md](../standards/concepts/material.md)`
+- 跨文件引用用相对链接：`standards/concepts/material.md`
 - 禁止复制规则原文——只能引用
 - plans → DESIGN.md 的回指：plan.md 归档前必须在对应 DESIGN.md 的"参考资料"节补上链接
 
@@ -352,7 +355,7 @@ skeleton → draft → active → frozen → deprecated → archived
 | `docs/plans/claude code学习` | `docs/plans/_archive/[2026-04-XX]CLAUDE-CODE-LEARNING/` | 重命名+归档 |
 | `docs/plans/*.md`（散文文件） | `docs/plans/[date]TOPIC/plan.md` | 包成目录 |
 | `docs/plans/` 早于 2026-04-10 的多数目录 | `docs/plans/_archive/` | 批量归档（核心决策先回流 DESIGN.md） |
-| `src/omnicompany/packages/domains/voxel_engine/PROGRESS.md` | 并入 `docs/PROGRESS.md` | 删源文件 |
+| `src/omnicompany/packages/domains/voxelcraft/PROGRESS.md` | 并入 `docs/PROGRESS.md` | 删源文件 |
 
 ---
 

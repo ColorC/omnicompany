@@ -5,6 +5,11 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/evolution ts=2026-05-04T14:55:00Z type=doc status=design agent=ai-ide belongs_to_service=evolution -->
+<!-- [OMNI] summary="evolution 操作手册 — 跑演化循环的 4 个 CLI 命令 (shallow-trace/evolve/list-boards/show-board) 操作步骤 + 入口清单 + 故障排查" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §六 模板严格写. status=design 说明工作流可能仍迭代, 但 SKILL 反映当前可用的操作" -->
+<!-- [OMNI] tags=skill,evolution,how-to,core,design-stage -->
+<!-- [OMNI] material_id="material:services._core.evolution.skill.operations_manual.md"-->
 
 # evolution · 操作手册
 

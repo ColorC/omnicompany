@@ -1,9 +1,14 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards ts=2026-05-02T06:00:00Z type=doc status=active agent=ai-ide-current -->
+<!-- [OMNI] summary="LLM 基础设施现状盘点 + 入口约定 - omni llm CLI / LLMClient / LLMCallRouter / dashboard API" -->
+<!-- [OMNI] why="用户原始需求 3.5: LLM 基础设施夹实. 本规范盘点已有设施 + 入口约定 + 演进路线" -->
+<!-- [OMNI] tags=cli,llm,infrastructure,standard -->
+<!-- [OMNI] material_id="material:standards.llm_infrastructure.spec.md" -->
 
 # LLM 基础设施
 
 > **状态**: 现状盘点 + 规范 v2 (2026-06-13)
 > **关联实装**: `runtime/llm/` + `services/_core/agent/routers/llm_call.py` + `services/_core/omnicompany/llm_client.py` + `cli/commands/llm_audit.py` + `dashboard/llm_api.py`
-> **统一权威**: [authority-confirmation.md](../../plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/authority-confirmation.md) 定方向, [autonomous-execution-rules.md](../../plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/autonomous-execution-rules.md) 定长程门禁; 本文件只记录 LLM 设施分散入口, 不另立第二套权威。
+> **统一权威**: authority-confirmation.md 定方向, autonomous-execution-rules.md 定长程门禁; 本文件只记录 LLM 设施分散入口, 不另立第二套权威。
 
 ## 一、 这层是干嘛的
 

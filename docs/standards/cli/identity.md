@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards ts=2026-05-02T05:00:00Z type=doc status=active agent=ai-ide-current -->
+<!-- [OMNI] summary="G1 身份组规范 - claude code session 跨 hook/CLI/dashboard 统一身份链" -->
+<!-- [OMNI] why="dashboard cc_wrapper 已实施 session 自动注册到 SQLite event bus, CLI 端要走直接共用逻辑. 这份规范明确双轨制(hook 自动 + CLI 兜底)走的逻辑必须一致" -->
+<!-- [OMNI] tags=cli,identity,session,standard,G1 -->
+<!-- [OMNI] material_id="material:standards.identity.session_resolver.spec.md" -->
 
 # G1 身份组 (claude code session 统一身份)
 

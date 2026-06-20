@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=software_engineering/_shared ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:domains.software_engineering.shared_design_spec.md" -->
 
 # _shared · 设计文档
 
@@ -59,6 +61,6 @@
 ## 参考资料
 - 协议基座: `src/omnicompany/packages/protocol/format.py` (Format / FormatRegistry 定义)
 - 分布式文档规范: `docs/standards/distributed-docs.md` (§二 六域结构 / §四 src 白名单 / §5.2 DESIGN.md 结构)
-- 审计计划: `docs/plans/_archive/[2026-04-07]voxel_engine-STRUCTURES-VISION-REDESIGN/UNDERSCORE_SMUGGLING_AUDIT.md` (提及 `_shared` 反模式审查背景)
+- 审计计划: `docs/plans/_archive/[2026-04-07]voxelcraft-STRUCTURES-VISION-REDESIGN/UNDERSCORE_SMUGGLING_AUDIT.md` (提及 `_shared` 反模式审查背景)
 - 兄弟包消费方: `src/omnicompany/packages/domains/software_engineering/review/DESIGN.md`
 - 兄弟包消费方: `src/omnicompany/packages/domains/software_engineering/implement/DESIGN.md`

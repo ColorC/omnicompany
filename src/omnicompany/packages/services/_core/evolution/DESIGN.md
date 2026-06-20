@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/evolution ts=2026-05-04T14:50:00Z type=doc status=design belongs_to_service=evolution -->
+<!-- [OMNI] material_id="material:core.evolution.hypothesis_pipeline.design_document.md" -->
 
 # evolution · 设计文档
 

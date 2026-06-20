@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/workflow_factory ts=2026-05-04T13:30:00Z type=doc status=deprecated belongs_to_service=workflow_factory -->
+<!-- [OMNI] material_id="material:core.workflow_factory.shim_deprecation.design_document.md" -->
 
 # workflow_factory · 设计文档 (deprecated shim)
 

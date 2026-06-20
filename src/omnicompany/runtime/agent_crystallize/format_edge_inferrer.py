@@ -60,23 +60,23 @@ class FormatEdgeInferrer:
             "hot_path_prefixes": hot_prefixes,
             "format_in": trace.format_in,
         }
-        creative_content_parts = []
+        narrative_parts = []
         if trace.external_node_accesses:
-            creative_content_parts.append(
+            narrative_parts.append(
                 f"Agent 明示访问了其他节点: {trace.external_node_accesses}."
             )
         if high_repeat_tools:
-            creative_content_parts.append(
+            narrative_parts.append(
                 f"高频重复工具: {high_repeat_tools} (≥{_REPEATED_ACCESS_THRESHOLD} 次)."
             )
         if hot_prefixes:
-            creative_content_parts.append(
+            narrative_parts.append(
                 f"热点路径前缀: {hot_prefixes} — 提示该节点深挖特定子系统."
             )
         return CrystallizerObservation(
             crystallizer=self.name,
             facts=facts,
-            creative_content=" ".join(creative_content_parts) or "未观察到显著外部依赖模式.",
+            narrative=" ".join(narrative_parts) or "未观察到显著外部依赖模式.",
         )
 
     def propose(

@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards/_global ts=2026-05-02T07:30:00Z type=doc status=active agent=ai-ide-current -->
+<!-- [OMNI] summary="omnicompany 概念三层分类 - AI 控制体系 6 种 / 文档体系 2 种 / 元模板 1 种" -->
+<!-- [OMNI] why="memory 里有但 standards 没明确写. 用户 2026-05-01 立的分类铁律, 不再用平铺八种" -->
+<!-- [OMNI] tags=standard,concept,classification,foundation -->
+<!-- [OMNI] material_id="material:standards.global.concept_three_layer_classification.md" -->
 
 # omnicompany 概念三层分类
 

@@ -4,22 +4,22 @@ name: Team 构建与诊断
 group: omnicompany
 updated: 2026-06-12
 roots:
-  - path: /workspace/omnicompany/src/omnicompany/packages/services/_diagnosis
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/_diagnosis
     note: 主目录(doctor 诊断生态, 约两万行)
-  - path: /workspace/omnicompany/src/omnicompany/packages/services/_core/team_loader
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/_core/team_loader
     note: team 构建器(yaml 与 TeamSpec 互转, 很薄, 116 行)
-  - path: /workspace/omnicompany/data/doctor
+  - path: E:/WindowsWorkspace/omnicompany/data/doctor
     note: 诊断运行审计日志(极简, 仅 audit 轨迹)
 entry_points:
-  - path: /workspace/omnicompany/src/omnicompany/cli/commands/team.py
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/cli/commands/team.py
     note: omni team validate/show/run/load 四个子命令(221 行薄框架)
-  - path: /workspace/omnicompany/src/omnicompany/packages/services/_diagnosis/doctor
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/_diagnosis/doctor
     note: doctor 主体(三条诊断管线 + 四子域约 30 个 Worker + 新方法论 agent)
-  - path: /workspace/omnicompany/src/omnicompany/packages/services/_diagnosis/doctor/SKILL.md
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/_diagnosis/doctor/SKILL.md
     note: doctor 操作手册
-  - path: /workspace/omnicompany/src/omnicompany/packages/services/_diagnosis/doctor/DESIGN.md
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/_diagnosis/doctor/DESIGN.md
     note: 诊断架构权威(管线拆分/不打分只语义标签等设计决策)
-  - path: /workspace/omnicompany/docs/plans/diagnosis
+  - path: E:/WindowsWorkspace/omnicompany/docs/plans/diagnosis
     note: 诊断计划类目(诊断重整/收束)
 latest:
   - "2026-05-16 dashboard 侧立项 team 观察台-doctor-repair 闭环, 见 docs/plans/dashboard/[2026-05-16]team观察台-doctor-repair闭环/"
@@ -27,27 +27,27 @@ latest:
 quick_actions:
   - label: 验证team配置
     skill: null
-    where: /workspace/omnicompany
+    where: E:/WindowsWorkspace/omnicompany
     desc: venv/Scripts/omni.exe team validate --from-yaml=<path> (yaml 能否载成合法 TeamSpec)
   - label: 看team拓扑
     skill: null
-    where: /workspace/omnicompany
+    where: E:/WindowsWorkspace/omnicompany
     desc: venv/Scripts/omni.exe team show --from-yaml=<path> (节点/连线/入口可视化)
   - label: 诊断Format
     skill: null
-    where: /workspace/omnicompany
+    where: E:/WindowsWorkspace/omnicompany
     desc: venv/Scripts/omni.exe run doctor.material -i format_id="<id>" -i source_root="<repo>"
   - label: 诊断Worker
     skill: null
-    where: /workspace/omnicompany
+    where: E:/WindowsWorkspace/omnicompany
     desc: venv/Scripts/omni.exe run doctor.router -i router_id="<类名>" -i source_root="<repo>"
   - label: 诊断管线拓扑
     skill: null
-    where: /workspace/omnicompany
+    where: E:/WindowsWorkspace/omnicompany
     desc: venv/Scripts/omni.exe run doctor.pipeline-topology -i pipeline_py_path="<pipeline.py>"
   - label: 委托Claude子worker
     skill: omni-claude-worker
-    where: /workspace/omnicompany
+    where: E:/WindowsWorkspace/omnicompany
     desc: 把诊断调查/修复实现委托给受审计的 claude-code 子 worker
 links: []
 ---

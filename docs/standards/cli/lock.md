@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards ts=2026-05-02T05:00:00Z type=doc status=active agent=ai-ide-current -->
+<!-- [OMNI] summary="G4 锁组规范 - omni lock, 离线扫描+处理 + baseline grandfather + 实时拦截待下阶段" -->
+<!-- [OMNI] why="目录规范化在主动防御之前必须完成 (用户硬规则). 这份是离线 G4 MVP 规范, 内部错位留 OMNI-LOCK-VIOLATION 注释 + 外部直接写移到 quarantine + 留指导" -->
+<!-- [OMNI] tags=cli,lock,protection,defense,standard,G4 -->
+<!-- [OMNI] material_id="material:standards.lock.protection_policy.spec.md" -->
 
 # G4 锁组规范 (omni lock)
 

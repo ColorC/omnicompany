@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/pipeline_ci ts=2026-05-05T19:50:00Z type=doc status=archived belongs_to_service=pipeline_ci -->
+<!-- [OMNI] material_id="material:diagnosis.pipeline_ci.archive_pointer.md" -->
+<!-- [OMNI] summary="pipeline_ci 整体归档 (2026-05-05). 三 Auditor 概念 (合规/拓扑/输出) 并入 doctor _spec/ 跟 _hypothesis/ 子域" -->
+<!-- [OMNI] why="诊断重制 plan 阶段 1 step 5: pipeline_ci 概念可挪用但实现不留, 旧 build_team 注册 + run.py 漂移版本归档" -->
+<!-- [OMNI] tags=archived,pointer,pipeline_ci,diagnosis-reconsolidation -->
 
 # pipeline_ci · 已归档
 

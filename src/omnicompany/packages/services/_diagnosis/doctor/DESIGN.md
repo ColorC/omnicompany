@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/doctor ts=2026-05-04T11:00:00Z type=doc status=active belongs_to_service=doctor -->
+<!-- [OMNI] material_id="material:diagnosis.doctor.service_design.document.md" -->
 
 # doctor · 设计文档
 
@@ -47,18 +49,18 @@
 
 - [`agents/spec_diagnostic.py`](agents/spec_diagnostic.py) `SpecDiagnosticAgent` (id: `doctor.spec_diagnostic`) — 规范型诊断
   - 跑路径: `doctor.spec_diagnosis.request → SpecDiagnosticAgent → doctor.spec_diagnosis.verdict + list[doctor.health_finding]`
-  - dogfood 跑通 × 3 (step 7, 8.4, 9.1-9.2). 见 [dogfood_step7_report.md](../../../../../../docs/plans/diagnosis/%5B2026-05-05%5DDIAGNOSIS-RECONSOLIDATION/dogfood_step7_report.md) + [dogfood_step8_4_report.md](../../../../../../docs/plans/diagnosis/%5B2026-05-05%5DDIAGNOSIS-RECONSOLIDATION/dogfood_step8_4_report.md)
+  - dogfood 跑通 × 3 (step 7, 8.4, 9.1-9.2). 见 dogfood_step7_report.md + dogfood_step8_4_report.md
   - prompt 在 [`agents/spec_diagnostic_prompt.md`](agents/spec_diagnostic_prompt.md)
   - override hooks: `build_tool_context` 注入 task_id (= trace_id) + agent_id + scratch / `build_extract_result` verdict event payload 走 submit_verdict args (跨 turn 持久化, 不依赖 ctx 短生命)
 
 - [`agents/hypothesis_diagnostic.py`](agents/hypothesis_diagnostic.py) `HypothesisDiagnosticAgent` (id: `doctor.hypothesis_diagnostic`) — 假设型诊断
   - 跑路径: `doctor.hypothesis_diagnosis.request → HypothesisDiagnosticAgent → doctor.hypothesis_diagnosis.verdict + list[doctor.health_finding (finding_kind=hypothesis)]`
-  - dogfood 跑通 × 1 (step 9.4). 用 [sample_hypothesis](../../../../../../docs/plans/diagnosis/%5B2026-05-05%5DDIAGNOSIS-RECONSOLIDATION/sample_hypothesis_H-2026-05-05-001.yaml) 诊断 doctor 自己 worker
+  - dogfood 跑通 × 1 (step 9.4). 用 sample_hypothesis 诊断 doctor 自己 worker
   - 复用 SpecDiagnosticAgent 的 build_tool_context + build_extract_result hook (双 agent 共用 80% 代码, 模式可复制)
 
 - [`agents/exemplar_diagnostic.py`](agents/exemplar_diagnostic.py) `ExemplarDiagnosticAgent` (id: `doctor.exemplar_diagnostic`) — 样例型诊断
   - 跑路径: `doctor.exemplar_diagnosis.request → ExemplarDiagnosticAgent → doctor.exemplar_diagnosis.verdict + list[doctor.health_finding (finding_kind=exemplar)]`
-  - dogfood 跑通 × 2 (post-compact phase 2 后续 1). 用 [sample_exemplar (csv_reader)](../../../../../../docs/plans/diagnosis/%5B2026-05-05%5DDIAGNOSIS-RECONSOLIDATION/sample_exemplar_E-worker-csv_reader-2026-05-05.yaml) 比对 doctor 的 format_in_mode_checker.py
+  - dogfood 跑通 × 2 (post-compact phase 2 后续 1). 用 sample_exemplar (csv_reader) 比对 doctor 的 format_in_mode_checker.py
   - prompt 在 [`agents/exemplar_diagnostic_prompt.md`](agents/exemplar_diagnostic_prompt.md) — 强调"差在哪 / 学到什么", 不是判合规
   - 复用 SpecDiagnosticAgent 的 build_tool_context + build_extract_result hook (三 agent 共用 80% 代码 — 模式跨 spec/hypothesis/exemplar 可复制确认)
 
@@ -85,7 +87,7 @@
 
 派生 agent 用 (2):
 - [`tools/write_hypothesis.py`](tools/write_hypothesis.py) `WriteHypothesisRouter` (TOOL_NAME=`write_hypothesis`) — 落一条 doctor.hypothesis.statement yaml 到 `data/services/doctor/hypotheses/<id>.yaml`. 必填 id/source_kind/source_path/source_excerpt/statement/motivation/applies_to/evidence_query (各字段长度门 + 拒 severity).
-- [`tools/submit_derivation_report.py`](tools/submit_derivation_report.py) `SubmitDerivationReportRouter` (TOOL_NAME=`submit_derivation_report`) — 派生 agent 出口检查. 校验 source_paths/derived_hypothesis_ids/creative_content + 拒 7 打分字段.
+- [`tools/submit_derivation_report.py`](tools/submit_derivation_report.py) `SubmitDerivationReportRouter` (TOOL_NAME=`submit_derivation_report`) — 派生 agent 出口检查. 校验 source_paths/derived_hypothesis_ids/narrative + 拒 7 打分字段.
 
 ### 用户铁律落地
 
@@ -93,7 +95,7 @@
 |---|---|
 | 不擅设施 | 沿用 service 标准结构 (workers/agents/tools/), 不立 6 子域目录 |
 | 规范是引用不抽取, LLM 判 | SpecDiagnosticAgent prompt 让 LLM 读 docs/standards/ 原文判, 不抽硬规则 (硬规则归 guardian) |
-| 自然语言判定 | finding 三字段 evidence/commentary/concern 必填自然语言, hypothesis statement+motivation 自然语言, creative_content 自然语言整体评论 |
+| 自然语言判定 | finding 三字段 evidence/commentary/concern 必填自然语言, hypothesis statement+motivation 自然语言, narrative 自然语言整体评论 |
 | 假设也是 material | doctor.hypothesis.statement Material 类型, 实例 yaml 走 `data/services/doctor/hypotheses/` |
 | 一切都是 material | finding/exemplar/spec_request+verdict/hypothesis_request+verdict 全 Material 类型 |
 | 骨架带 todo | 每文件含 ## 待做 列表 |
@@ -108,7 +110,7 @@
 - `data/services/doctor/exemplars/` — 样例库 (`doctor.exemplar` Material 实例)
 - `data/services/doctor/findings/` — 诊断发现归档 (`doctor.health_finding` Material 实例)
 
-教学示例 (一份 hypothesis, 进版本控) — [docs/plans/.../sample_hypothesis_H-2026-05-05-001.yaml](../../../../../../docs/plans/diagnosis/%5B2026-05-05%5DDIAGNOSIS-RECONSOLIDATION/sample_hypothesis_H-2026-05-05-001.yaml)
+教学示例 (一份 hypothesis, 进版本控) — docs/plans/.../sample_hypothesis_H-2026-05-05-001.yaml
 
 ### Phase 2 已完 (本会话 2026-05-05)
 
@@ -127,7 +129,7 @@
 - [x] **HypothesisDeriverAgent** (2026-05-05 完, dogfood × 1 跑通, 5 条新假设入 data/services/doctor/hypotheses/. 加 write_hypothesis + submit_derivation_report 2 个派生专属业务工具)
 - [x] **registry HealthArchive 接通 doctor.health_finding** (2026-05-06 完, V0 走 FindingArchive JSONL 双轨: yaml 按 task_id 分桶 + JSONL 按 entity 分桶. write_finding 工具自动双落, registry 失败不阻断主路径. V1 走 bus 事件)
 - [x] **finding 聚合 V3 snapshot** (2026-05-06 完, 立 FindingArchive.aggregate_to_snapshot 方法. schema v3 拒打分铁律: 不打 severity, 不打 verdict='healthy/unhealthy'. 跟 V2 HealthSnapshot 双轨独立 — V2 含 severity 跟铁律冲突, 不强行兼容. 字段: finding_count + by_finding_kind 分桶 + applied_* union + findings_summary 各 commentary 前 200 字. 健康判定靠人/agent 读 commentary+concern, 不靠数字)
-- [x] **A 类 8 上下文准备 worker 评估** (2026-05-06 完, 结论: 不应订阅, 现状 read_file 自取最优. 详 [v3_workers_inventory_and_classification.md §五附](../../../../../docs/plans/diagnosis/[2026-05-05]DIAGNOSIS-RECONSOLIDATION/reports/v3_workers_inventory_and_classification.md))
+- [x] **A 类 8 上下文准备 worker 评估** (2026-05-06 完, 结论: 不应订阅, 现状 read_file 自取最优. 详 v3_workers_inventory_and_classification.md §五附)
 - [ ] **现 V3 30 worker 收编**: 评估哪些可归为"规范型/假设型"实例, 重写或保留 (大工作)
 - [ ] **测试基线 red/green**: 四 agent SPEC.test_baseline 现 () 占位, 待真用更多场景后校准
 - [ ] **prompt/context engineering 规范统一**: 用户 2026-05-05 提的元任务, 留单独议
@@ -140,21 +142,21 @@
 - **`build_pipeline_topology_pipeline() -> PipelineSpec`** — Pipeline 拓扑诊断管线（7 节点）— [pipeline.py:239](pipeline.py#L239)
 - **`build_router_pipeline() -> PipelineSpec`** — Router 诊断管线 — [pipeline.py:444](pipeline.py#L444)
 
-### Workers — Format 诊断子域（见 [workers/format/](workers/format/)）
-- **`FormatExtractorWorker`** — 从源码提取 Format 定义 + 引用位置 — [workers/format/format_extractor.py](workers/format/format_extractor.py)
-- **`SignatureDiffWorker`** — HARD Anchor，无正式定义 → FAIL EMIT 短路 — [workers/format/signature_diff.py](workers/format/signature_diff.py)
-- **`FiveElementCheckWorker`** — 五要素：域前缀 / 常量名 / 行内描述 / 定义于 formats.py / ≥1 处引用 — [workers/format/five_element_check.py](workers/format/five_element_check.py)
-- **`TagCoverageWorker`** — 命名规范：全小写 / 含语义类型 tag — [workers/format/tag_coverage.py](workers/format/tag_coverage.py)
-- **`ParentChainWorker`** — FORMAT_IN / FORMAT_OUT 使用者存在性 — [workers/format/parent_chain.py](workers/format/parent_chain.py)
-- **`CompositeFormatCheckWorker`** — composite 的 components 合法性 — [workers/format/composite_format_check.py](workers/format/composite_format_check.py)
-- **`ExamplePresenceCheckWorker`** — Format.examples 非空且有意义 — [workers/format/example_presence_check.py](workers/format/example_presence_check.py)
-- **`FormatContextualAuditWorker`** — LLM 全语境审计（含上下游 Router 源码 + F-01/F-06/F-08 标准）— [workers/format/format_contextual_audit.py](workers/format/format_contextual_audit.py)
-- **`HealthWriterWorker`** — fan-in 汇聚 + 等级评定（A/B/C/D/F）— [workers/format/health_writer.py](workers/format/health_writer.py)
+### Workers — Format 诊断子域（见 workers/format/）
+- **`FormatExtractorWorker`** — 从源码提取 Format 定义 + 引用位置 — workers/format/format_extractor.py
+- **`SignatureDiffWorker`** — HARD Anchor，无正式定义 → FAIL EMIT 短路 — workers/format/signature_diff.py
+- **`FiveElementCheckWorker`** — 五要素：域前缀 / 常量名 / 行内描述 / 定义于 formats.py / ≥1 处引用 — workers/format/five_element_check.py
+- **`TagCoverageWorker`** — 命名规范：全小写 / 含语义类型 tag — workers/format/tag_coverage.py
+- **`ParentChainWorker`** — FORMAT_IN / FORMAT_OUT 使用者存在性 — workers/format/parent_chain.py
+- **`CompositeFormatCheckWorker`** — composite 的 components 合法性 — workers/format/composite_format_check.py
+- **`ExamplePresenceCheckWorker`** — Format.examples 非空且有意义 — workers/format/example_presence_check.py
+- **`FormatContextualAuditWorker`** — LLM 全语境审计（含上下游 Router 源码 + F-01/F-06/F-08 标准）— workers/format/format_contextual_audit.py
+- **`HealthWriterWorker`** — fan-in 汇聚 + 等级评定（A/B/C/D/F）— workers/format/health_writer.py
 
-### Workers — Router 诊断子域（见 [workers/router/](workers/router/)）
+### Workers — Router 诊断子域（见 workers/router/）
 - `RouterExtractorWorker` / `RouterSignatureWorker` / `RouterContextCollectorWorker` / `RouterDeterministicCheckWorker` / `RouterContextualAuditWorker` / `RouterHealthWriterWorker`
 
-### Workers — Pipeline 诊断子域（见 [workers/pipeline/](workers/pipeline/)）
+### Workers — Pipeline 诊断子域（见 workers/pipeline/）
 - `PipelineSpecLoaderWorker` — 从 pipeline.py 调用 build_*() 加载 PipelineSpec
 - `PipelineStructuralCheckWorker` — no_entry / isolated / dead_end / cycle / duplicate_edge
 - `PipelineFormatContractCheckWorker` — format_break / composite_missing / granted_tag_chain
@@ -178,7 +180,7 @@
 
 **共享**: [`workers/blackboard/_shared.py`](workers/blackboard/_shared.py) · 动态 import Team + 订阅图构建工具 (`load_team_workers` / `load_team_materials` / `build_subscription_graph`). 当前静态 AST 未接入, runtime import 为主.
 
-**验证**: [tests/doctor/test_blackboard_workers.py](../../../../../../tests/doctor/test_blackboard_workers.py) · 19 smoke 覆盖 Worker 注册 / 金标 Team 0 违规 / 异常请求 / 真实违规捕获能力.
+**验证**: tests/doctor/test_blackboard_workers.py · 19 smoke 覆盖 Worker 注册 / 金标 Team 0 违规 / 异常请求 / 真实违规捕获能力.
 
 ### Run.py 内 passthrough Worker（3 个 bindings 内部细节）
 - `_FormatLLMPassthroughWorker` / `_PassthroughWorker` / `_NarrativePassthroughWorker` — hard 诊断模式 LLM 占位，与 bindings 构建紧耦合，保留在 run.py 内（OMNI-024 ALLOW）
@@ -250,7 +252,7 @@ Pipeline 拓扑诊断有 11 条检查（见 pipeline_topology.py 文件头 docst
 
 一次 `_build_context` 预计算图结构（node_map / out_edges / in_edges / reachable / fan_in_nodes / feedback_pairs），所有检查共享，O(N) 而非 O(N·C)。
 
-### D5 — LLM 检查器（desc_eval / creative_content）读源码级上下文，不做纯字符串分析
+### D5 — LLM 检查器（desc_eval / narrative）读源码级上下文，不做纯字符串分析
 
 `FormatContextualAuditRouter` / `PipelineNarrativeCheckerRouter` 都是 LLM 检查器。与 rule 检查器不同，它们喂给 LLM：
 - format + 上下游 Router **完整源码**（不截断 — 符合铁律 A）
@@ -319,7 +321,7 @@ pipeline_spec_loader (HARD Anchor，调 build_*() 加载)
    │       ├─ pipeline_format_contract (RULE, format_break/composite/granted_tag)
    │       ├─ pipeline_maturity_check (RULE, 短板原则)
    │       ├─ pipeline_soft_hard_check (RULE, P-07)
-   │       └─ pipeline_creative_content_check (LLM, 叙事连贯)
+   │       └─ pipeline_narrative_check (LLM, 叙事连贯)
    │           ↓
    │       pipeline_topo_health_writer (fan-in)
    │           ↓
@@ -344,7 +346,7 @@ router_extractor → router_signature → router_context_collector
 
 1. **`.omni/health/` 就近写盘未完成** — Phase 2 设计是让 Format / Router / Pipeline 的健康档案就近写到所属包的 `.omni/health/` 子目录，dashboard 才能按包聚合。当前所有 health_record 写集中目录（`data/health/*`），背离分布式文档规范。**升级路径**：HealthWriter 根据 target 路径推导 `.omni/health/` 位置 + dashboard 支持两种读取。
 
-2. **LLM 检查器（desc_eval / creative_content_check）预算消耗高** — 每条管线诊断调 1-2 次 LLM，大管线（30+ 节点）`creative_content_check` 要喂所有节点 description + edges，成本可观。**缓解**：LLM 检查器可按 ID 关闭（注册表设计留了口子）。**根治**：缓存（针对未改动的 Format/Pipeline，health_record 有效期 7 天不重跑）。
+2. **LLM 检查器（desc_eval / narrative_check）预算消耗高** — 每条管线诊断调 1-2 次 LLM，大管线（30+ 节点）`narrative_check` 要喂所有节点 description + edges，成本可观。**缓解**：LLM 检查器可按 ID 关闭（注册表设计留了口子）。**根治**：缓存（针对未改动的 Format/Pipeline，health_record 有效期 7 天不重跑）。
 
 3. **Router 诊断管线成熟度落后 Format 管线** — Format 诊断走过数百次实战，Router 诊断只跑过少量基准。`RouterDeterministicCheckRouter` 目前只检查"是否有 LLM 调用"，不检查"deterministic Router 是否真的 deterministic"（需要 run 两次比较输出）。
 
@@ -395,7 +397,7 @@ doctor/
 │       ├── pipeline_maturity_check.py
 │       ├── pipeline_soft_hard_check.py
 │       ├── pipeline_topo_health_writer.py
-│       ├── pipeline_creative_content_checker.py
+│       ├── pipeline_narrative_checker.py
 │       ├── pipeline_topology_check.py
 │       └── pipeline_lineage.py
 └── _archive/
@@ -454,7 +456,7 @@ MRO: `[FormatExtractorWorker, Worker, _Legacy, Router, ABC, object]` — `Worker
 - 归档 Legacy：[_archive/](_archive/)（`routers_legacy.py` + `pipeline_topology_legacy.py` 业务逻辑源）
 - 关联 Material：[formats.py](formats.py)（doctor.material.* / diag.worker.*）
 - 关联 standards：`docs/standards/material.md`（F-01/F-06/F-08 引用）
-- 关联 standards：`docs/standards/pipeline-creative_content.md`（叙事性检查标准）
+- 关联 standards：`docs/standards/pipeline-narrative.md`（叙事性检查标准）
 - 关联 guardian：[../guardian/DESIGN.md](../../_core/guardian/DESIGN.md)（guardian 扫源码合规，doctor 扫运行时健康）
 - 关联 repair：[../repair/DESIGN.md](../../_core/repair/DESIGN.md)（Doctor 下游的修复候选生成）
 - 关联 runtime：[../../../runtime/exec/DESIGN.md](../../../../runtime/exec/DESIGN.md)（诊断管线本身也走 PipelineRunner）

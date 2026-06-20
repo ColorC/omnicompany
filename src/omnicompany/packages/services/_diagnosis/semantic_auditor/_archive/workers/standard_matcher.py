@@ -13,8 +13,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.packages.services._core.omnicompany import Worker
 
 from ..standards_loader import load_standards_index, match_standards
 

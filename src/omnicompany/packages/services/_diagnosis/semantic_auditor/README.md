@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/semantic_auditor ts=2026-05-05T20:15:00Z type=doc status=archived belongs_to_service=semantic_auditor -->
+<!-- [OMNI] material_id="material:diagnosis.semantic_auditor.archive_pointer.md" -->
+<!-- [OMNI] summary="semantic_auditor 整体归档 (2026-05-05). 5 worker 概念全部并入 doctor (artifact_selector/standard_matcher/excerpt_retriever 进 _spec/_entity, llm_audit 进 _hypothesis/, finding_writer 进 _archive_table/)" -->
+<!-- [OMNI] why="诊断重制 plan 阶段 1 step 7: semantic_auditor 跟新 doctor 假设派生子域同源 (LLM 假设型诊断), 旧实现归档让 doctor 重写" -->
+<!-- [OMNI] tags=archived,pointer,semantic_auditor,diagnosis-reconsolidation -->
 
 # semantic_auditor · 已归档
 

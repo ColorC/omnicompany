@@ -3,7 +3,7 @@
 """patch_self_judge — SpecPatch 产出后的自判断准入门槛.
 
 Exp F 发现两类失效:
-  1. 阈值软 (scm): LLM 识别出"近义词替换无增益"但给 borderline 而非 reject
+  1. 阈值软 (P4): LLM 识别出"近义词替换无增益"但给 borderline 而非 reject
   2. 结构漏洞 (P5): LLM 信任 evidence 文本，不核实工具是否真实存在
 
 修复:
@@ -15,7 +15,7 @@ Exp F 发现两类失效:
   P1 approve   → approve  ✓ (local_list 在白名单里)
   P2 reject    → reject   ✓ (阈值: 0.5 borderline 不再通过)
   P3 borderline-approve → approve ✓ (score 0.9 > threshold)
-  scm reject    → reject   ✓ (阈值: 0.4 borderline → reject)
+  P4 reject    → reject   ✓ (阈值: 0.4 borderline → reject)
   P5 reject    → reject   ✓ (web_search 不在白名单 → 结构拦截)
 """
 from __future__ import annotations
@@ -29,7 +29,7 @@ from .protocol import SpecPatch
 
 logger = logging.getLogger(__name__)
 
-_APPROVE_THRESHOLD = 0.65  # 低于此分数不通过 (Exp F scm=0.4, P2=0.5 被拦; P1=0.9, P3=0.9 通过)
+_APPROVE_THRESHOLD = 0.65  # 低于此分数不通过 (Exp F P4=0.4, P2=0.5 被拦; P1=0.9, P3=0.9 通过)
 
 _JUDGE_SYSTEM = """你是 OmniCompany Router 规范改动质量仲裁员.
 

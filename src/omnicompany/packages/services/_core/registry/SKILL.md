@@ -5,6 +5,11 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/registry ts=2026-05-04T10:15:00Z type=doc status=active agent=ai-ide belongs_to_service=registry -->
+<!-- [OMNI] summary="registry 操作手册 — 适用范围 + 9 条 CLI 子命令操作步骤 + 入口清单 + 故障排查" -->
+<!-- [OMNI] why="DESIGN.md 七节没'怎么用'段, 用户/agent 想用 registry 得 grep 代码或 omni --help 拼. 抽出独立 SKILL 让操作可定位" -->
+<!-- [OMNI] tags=skill,registry,how-to,cli -->
+<!-- [OMNI] material_id="material:services._core.registry.skill.operations_manual.md"-->
 
 # registry · 操作手册
 

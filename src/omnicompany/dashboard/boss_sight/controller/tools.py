@@ -304,7 +304,7 @@ def _build_spawn_prompt(
         "- 列目录: `ls e:/path` (不是 `Get-ChildItem`)\n"
         "- 找文件: `find e:/path -name \"*.md\"` (不是 `Get-ChildItem -Recurse`)\n"
         "- 看文件: `cat e:/path/file.md` (不是 `Get-Content`)\n"
-        "- 路径: 正斜杠 `/workspace/...` 或反斜杠双写 `e:\\\\workspace\\\\...`\n\n"
+        "- 路径: 正斜杠 `e:/WindowsWorkspace/...` 或反斜杠双写 `e:\\\\WindowsWorkspace\\\\...`\n\n"
         "**不要直接调 PowerShell cmdlet** (`Get-ChildItem` / `Select-Object` / `Format-Table` / `Sort-Object`) — "
         "git-bash 不认, 会报 'command not found' 然后 sdk 把同批并行 Bash 全 cancel.\n\n"
         "**如果一定要跑 PowerShell**: 用 `powershell.exe -NoProfile -Command \"...\"`。"
@@ -321,7 +321,7 @@ def _build_spawn_prompt(
         "- 只 Write 了 md 文件然后停止 = **任务未完成 = 任务失败**, 不管文件写得多好\n"
         "- 没拿到 mat_xxx ID 就 stop, 等同于没干\n\n"
         "### 正确流程 (按顺序, 一步都不能跳)\n\n"
-        "1. 用 Write 把审阅内容落到一个 md 文件 (路径建议 `/workspace/omnicompany/data/tmp/<任意名>.md`)\n"
+        "1. 用 Write 把审阅内容落到一个 md 文件 (路径建议 `e:/WindowsWorkspace/omnicompany/data/tmp/<任意名>.md`)\n"
         "2. **立刻**调 Bash 跑 `omni review submit ... --file <你刚写的 md 路径>` (见下面模板)\n"
         "3. 看到 stdout 里 `material submitted: id=mat_xxx` 字样 — 这一步是任务真正结束的标志\n"
         "4. 这时才能 stop\n\n"
@@ -391,7 +391,7 @@ class SpawnSubagentRouter(SingleToolRouter):
             "plan_id": {
                 "type": "string",
                 "minLength": 1,
-                "description": "omnicompany plan id, e.g. 'voxel_engine/[2026-05-17]MC-COMPANY-PIPELINE'. For team_worker this is the team id (e.g. 'team_supervisor').",
+                "description": "omnicompany plan id, e.g. 'voxelcraft/[2026-05-17]MC-COMPANY-PIPELINE'. For team_worker this is the team id (e.g. 'team_supervisor').",
             },
             "initial_prompt": {
                 "type": "string",
@@ -966,7 +966,7 @@ class AuditPlansForTodoRouter(SingleToolRouter):
         "properties": {
             "category_filter": {
                 "type": "string",
-                "description": "Optional: only audit this category (e.g. 'dashboard', 'voxel_engine'). Empty = all.",
+                "description": "Optional: only audit this category (e.g. 'dashboard', 'voxelcraft'). Empty = all.",
             },
             "max_results": {
                 "type": "integer",
@@ -1056,7 +1056,7 @@ class RecordPlanCompletionRouter(SingleToolRouter):
             "plan_id": {
                 "type": "string",
                 "minLength": 3,
-                "description": "Plan id, e.g. 'voxel_engine/[2026-05-17]MC-COMPANY-PIPELINE'",
+                "description": "Plan id, e.g. 'voxelcraft/[2026-05-17]MC-COMPANY-PIPELINE'",
             },
             "status": {
                 "type": "string",

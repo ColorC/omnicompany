@@ -5,6 +5,10 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/pattern_discovery ts=2026-05-04T15:47:00Z type=doc status=active agent=ai-ide belongs_to_service=pattern_discovery -->
+<!-- [OMNI] summary="pattern_discovery 操作手册 — 跑模式发现的步骤 + 入口清单 + 故障排查" -->
+<!-- [OMNI] tags=skill,pattern_discovery,how-to,core -->
+<!-- [OMNI] material_id="material:services._core.pattern_discovery.skill.operations_manual.md"-->
 
 # pattern_discovery · 操作手册
 
@@ -59,4 +63,4 @@ result = runner.run({})
 ## 想了解更多
 
 - [README.md](README.md) / [DESIGN.md](DESIGN.md)
-- 下游 → [../trace_induction/](../trace_induction/)
+- 下游 → ../trace_induction/

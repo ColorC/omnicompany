@@ -3,14 +3,14 @@
 #
 # ⚠ 可能含 DEPRECATED (2026-04-18) — 继承旧 runtime.agent.agent_node_loop.AgentNodeLoop。阶段 C 会迁到 packages.services.agent.AgentNodeLoop
 # 违规：LLMClient/ToolDefinition.call 直调 + 内存 list[dict] 传参（非 Format+bus）。
-# 重构计划：omnicompany/docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md
+# 重构计划：omnifactory/docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md
 # 禁止基于 V1 AgentNodeLoop 新增实现；Guardian 会监控违规。
 """absorption.routers — Stage 1 Survey & Triage 真实实现 (Stage 3d 升级)。
 
 7 节点管线, 本文件持有 6 个同步 Router:
   1. TargetIntakeRouter              — ANCHOR + HARD, 规整用户请求
   2. RepoFacadeFetcherRouter         — ANCHOR + HARD, 抓 GitHub 元数据 (L1 升级)
-  3. omnicompanySnapshotFetcherRouter — ANCHOR + HARD, 扫本仓自身能力 (L2 新增)
+  3. OmnifactorySnapshotFetcherRouter — ANCHOR + HARD, 扫本仓自身能力 (L2 新增)
   4. (LandmarkPickerRouter 在 landmark_picker.py, AgentNodeLoop)
   5. CoverageAuditorRouter           — ANCHOR + HARD, 覆盖度审计 (L5 新增)
   6. TriageGateRouter                — ANCHOR + HARD, tier-1 过滤 + 落盘 pool (改写)
@@ -18,7 +18,7 @@
 
 本次升级 (Stage 3d) 解决了前一轮的 7 个问题:
   L1. 数据抓取太薄 → RepoFacadeFetcher 加: 递归 tree / 全 README / 贡献者 / 近期 release
-  L2. 无 OmniCompany 对照 → omnicompanySnapshotFetcher 扫 packages/core/runtime
+  L2. 无 OmniCompany 对照 → OmnifactorySnapshotFetcher 扫 packages/core/runtime
   L3. 无迭代读文件 → LandmarkPicker 升 AgentNodeLoop (独立文件)
   L4. 证据链薄弱 → 提交工具强制 file_path + snippet, 非读过的文件拒绝
   L5. 无完整性审计 → CoverageAuditor 比对总 tree vs 读过的文件
@@ -442,11 +442,11 @@ class RepoFacadeFetcherRouter(Router):
 
 
 # ═══════════════════════════════════════════════════════════
-# Node 03 · omnicompanySnapshotFetcherRouter (ANCHOR + HARD)
+# Node 03 · OmnifactorySnapshotFetcherRouter (ANCHOR + HARD)
 # Stage 3d L2 新增: 扫本仓自身能力
 # ═══════════════════════════════════════════════════════════
 
-class omnicompanySnapshotFetcherRouter(Router):
+class OmnifactorySnapshotFetcherRouter(Router):
     """扫描 OmniCompany 本仓, 生成当前能力快照。
 
     无 LLM, 无网络, 纯文件系统扫描。由 snapshot.build_snapshot() 完成重活。
@@ -459,7 +459,7 @@ class omnicompanySnapshotFetcherRouter(Router):
         "无 LLM 无网络, 纯 FS 扫描。"
     )
     FORMAT_IN = "absorption.facade_card"
-    FORMAT_OUT = "absorption.omnicompany_snapshot"
+    FORMAT_OUT = "absorption.omnifactory_snapshot"
 
     def run(self, input_data: Any) -> Verdict:
         try:
@@ -783,14 +783,14 @@ class ReportWriterRouter(Router):
             "",
             f"**Why this evidence**: {ev.get('why_this_evidence', '')}",
             "",
-            f"**vs OmniCompany**: {lm.get('compared_against_omnicompany', '')}",
+            f"**vs OmniCompany**: {lm.get('compared_against_omnifactory', '')}",
             "",
         ]
         return "\n".join(parts)
 
     def _render_sketch(self, sk: dict[str, Any]) -> str:
         # New sketch schema: positioning (prose), core_abstractions (list of dicts),
-        # diff_vs_omnicompany (prose), files_relied_on (list of str)
+        # diff_vs_omnifactory (prose), files_relied_on (list of str)
         abstractions = sk.get("core_abstractions") or []
         abs_rendered: list[str] = []
         for a in abstractions:
@@ -814,7 +814,7 @@ class ReportWriterRouter(Router):
             "**Core abstractions**:",
             abs_list,
             "",
-            f"**vs OmniCompany**: {sk.get('diff_vs_omnicompany', '')}",
+            f"**vs OmniCompany**: {sk.get('diff_vs_omnifactory', '')}",
             "",
             "**Files relied on**:",
             files_list,
@@ -840,7 +840,7 @@ class ReportWriterRouter(Router):
             "",
             f"**Why this proves the gap**: {why_proves}",
             "",
-            f"**OmniCompany current state**: {gap.get('omnicompany_current_state', '')}",
+            f"**OmniCompany current state**: {gap.get('omnifactory_current_state', '')}",
             "",
             "**Omni capability queries used**:",
             q_list,

@@ -5,6 +5,10 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/team_builder ts=2026-05-04T16:32:00Z type=doc status=active agent=ai-ide belongs_to_service=team_builder -->
+<!-- [OMNI] summary="team_builder 操作手册 — 跑 meta team 建新 Team 的步骤 + 入口清单 + 故障排查" -->
+<!-- [OMNI] tags=skill,team_builder,how-to,core,meta-team,agent-first -->
+<!-- [OMNI] material_id="material:services._core.team_builder.skill.operations_manual.md"-->
 
 # team_builder · 操作手册
 
@@ -26,7 +30,7 @@ disable-model-invocation: false
 ### 场景 A · CLI 触发建新 Team
 
 ```bash
-omni run team_builder --text "我要给 gameplay_system 加一个赛季手册自动生成 Team. 输入是赛季配置, 输出是手册 markdown."
+omni run team_builder --text "我要给 demogame 加一个赛季手册自动生成 Team. 输入是赛季配置, 输出是手册 markdown."
 ```
 
 V1 当前只到草图深度 (DESIGN 七节标题 + Worker/Material 一行 brief). V2 加深化, V3 加代码生成.
@@ -68,6 +72,6 @@ result = run_team_builder(
 
 - [README.md](README.md) / [DESIGN.md](DESIGN.md) (11 阶段表 + V1/V2/V3 状态)
 - agent-first 哲学 → [docs/standards/concepts/agent_first.md](../../../../../../docs/standards/concepts/agent_first.md)
-- workflow → [.omni/build_workflow.md](.omni/build_workflow.md)
-- workspace → [.omni/workspace.yaml](.omni/workspace.yaml)
+- workflow → .omni/build_workflow.md
+- workspace → .omni/workspace.yaml
 - 旧实现 (Diamond 归档) → [_archive/](_archive/)

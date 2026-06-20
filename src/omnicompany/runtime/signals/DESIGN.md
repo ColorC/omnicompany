@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=runtime/signals ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:runtime.signals.design_specification.documentation.md" -->
 
 # signals · 设计文档
 
@@ -15,7 +17,7 @@
 - 注册系统内部状态（路由图/AST/自认知）为一等公民 `Format`（`self_types.py`），实现代码即数据同构。
 不解决：
 - 不直接执行痛觉反向传播（已迁移至 `semantic_router.py`，本包保留历史类为兼容占位）。
-- 不管理业务域信号（如 `absorption` 或 `gameplay_system` 特定指标），仅处理引擎级通用信号。
+- 不管理业务域信号（如 `absorption` 或 `demogame` 特定指标），仅处理引擎级通用信号。
 - 不替代 `EventBus` 本身，而是定义其承载的 payload schema 与无状态计算逻辑。
 
 ## 核心接口

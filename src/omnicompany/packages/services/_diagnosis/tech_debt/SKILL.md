@@ -5,6 +5,11 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/tech_debt ts=2026-05-04T12:20:00Z type=doc status=active agent=ai-ide belongs_to_service=tech_debt -->
+<!-- [OMNI] summary="tech_debt 操作手册 — omni debt 5 子命令 (list/stats/resolve/scan/add) 操作步骤 + 入口清单 + 故障排查" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §六 模板严格写. DESIGN 偏架构, 缺'怎么用'段, 抽出独立 SKILL 让操作可定位" -->
+<!-- [OMNI] tags=skill,tech_debt,how-to,diagnosis -->
+<!-- [OMNI] material_id="material:services._diagnosis.tech_debt.skill.operations_manual.md"-->
 
 # tech_debt · 操作手册
 
@@ -29,7 +34,7 @@ disable-model-invocation: false
 ## 前置条件
 
 - omnicompany 已装 (`omni --help` 确认)
-- [docs/tech_debt/REGISTRY.md](../../../../../../docs/tech_debt/REGISTRY.md) 文件存在 (项目根有, 不需要自建)
+- docs/tech_debt/REGISTRY.md 文件存在 (项目根有, 不需要自建)
 - 在 git repo 内 (DriftChecker 部分检查依赖 git)
 
 ## 操作步骤
@@ -88,7 +93,7 @@ omni debt add 文档漂移 --fields '{"kind": "design_md_drift", "target": "src/
 
 **两条入口** (都合法):
 - CLI (机器友好): `omni debt add <section> --fields '<JSON>' [--dedup-on KEY,...]` — 同步写 ARCH-CHANGES `violation-found`
-- Markdown (人友好): 直接编辑 [docs/tech_debt/REGISTRY.md](../../../../../../docs/tech_debt/REGISTRY.md) — 不写事件但下次 list 仍能读出
+- Markdown (人友好): 直接编辑 docs/tech_debt/REGISTRY.md — 不写事件但下次 list 仍能读出
 
 ## 入口清单
 
@@ -122,7 +127,7 @@ omni debt add 文档漂移 --fields '{"kind": "design_md_drift", "target": "src/
 
 - 设计目的 → [README.md](README.md)
 - 内部架构 (D1-D8 决策 / 共享数据源拓扑) → [DESIGN.md](DESIGN.md)
-- 数据源 REGISTRY.md → [docs/tech_debt/REGISTRY.md](../../../../../../docs/tech_debt/REGISTRY.md)
-- 事件流 → [docs/ARCH-CHANGES.jsonl](../../../../../../docs/ARCH-CHANGES.jsonl)
+- 数据源 REGISTRY.md → docs/tech_debt/REGISTRY.md
+- 事件流 → docs/ARCH-CHANGES.jsonl
 - producer guardian → [../../_core/guardian/SKILL.md](../../_core/guardian/SKILL.md)
 - producer semantic_auditor → [../semantic_auditor/](../semantic_auditor/)

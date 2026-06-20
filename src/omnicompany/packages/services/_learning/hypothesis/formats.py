@@ -45,15 +45,15 @@ HYPOTHESIS_SESSION = Format(
     description=(
         "假设探索会话的配置，是整条循环的入口。"
         "`session_id` 为 uuid，用于落盘路径和跨轮恢复；"
-        "`domain` 为探索域（如 'chat_platform-api-exploration'），决定 data/hypothesis/sessions/<domain>/ 子目录；"
+        "`domain` 为探索域（如 'lark-api-exploration'），决定 data/hypothesis/sessions/<domain>/ 子目录；"
         "`goal` 为自然语言目标，ExperimenterRouter 读此生成第一条 probe；"
-        "`tools` 枚举可用工具（shell / chat_platform-cli / curl），ShellProbeNode 按此白名单校验；"
+        "`tools` 枚举可用工具（shell / lark-cli / curl），ShellProbeNode 按此白名单校验；"
         "`max_iterations` 防止无限循环，典型值 20-50；"
         "`env` 注入环境变量，如 {'MSYS_NO_PATHCONV': '1'}。"
         "上游承诺：无（入口）。"
         "下游：SessionInitNode 据此创建空 store；ExperimenterRouter 读 goal/tools/max_iterations 做决策。"
-        "样例：{session_id:'uuid-xxx', domain:'chat_platform-api-exploration', "
-        "goal:'搞清楚 chat_platform REST API 如何认证', tools:['chat_platform-cli'], max_iterations:20, "
+        "样例：{session_id:'uuid-xxx', domain:'lark-api-exploration', "
+        "goal:'搞清楚 lark REST API 如何认证', tools:['lark-cli'], max_iterations:20, "
         "env:{'MSYS_NO_PATHCONV':'1'}}"
     ),
     parent="requirement",
@@ -66,7 +66,7 @@ HYPOTHESIS_SESSION = Format(
             "goal": {"type": "string", "minLength": 10},
             "tools": {
                 "type": "array",
-                "items": {"type": "string", "enum": ["shell", "chat_platform-cli", "curl", "python"]},
+                "items": {"type": "string", "enum": ["shell", "lark-cli", "curl", "python"]},
                 "minItems": 1,
             },
             "max_iterations": {"type": "integer", "minimum": 1},
@@ -98,7 +98,7 @@ HYPOTHESIS_FACTLOG = Format(
         "上游承诺：ExperimenterRouter 内部 ObserverNode 已过滤解释性内容。"
         "下游：ReflectorRouter 读 facts 提取候选假设；facts 为空时 Reflector 应输出空 diff。"
         "样例：{session_id:'uuid-xxx', iteration:1, facts:["
-        "{cmd:'chat_platform-cli login', action:'执行 chat_platform-cli login', "
+        "{cmd:'lark-cli login', action:'执行 lark-cli login', "
         "result:'返回 unknown command', verbatim:'Error: unknown command login'}]}"
     ),
     parent="tool-observation",
@@ -149,8 +149,8 @@ HYPOTHESIS_STORE = Format(
         "下游：ExperimenterRouter 读 entries 决定下一条 probe（F-14：必须看全量才能判断不确定性）；"
         "  ReflectorRouter 读 entries 做去重（F-14：防止重复发现已知假设）。"
         "落盘：data/hypothesis/sessions/<domain>/<session_id>/iter_<N>.json。"
-        "样例：{session_id:'uuid-xxx', domain:'chat_platform-api', iteration:2, "
-        "entries:[{id:'H1', kind:'policy', trigger:'调用 chat_platform-cli login', "
+        "样例：{session_id:'uuid-xxx', domain:'lark-api', iteration:2, "
+        "entries:[{id:'H1', kind:'policy', trigger:'调用 lark-cli login', "
         "predicted:'命令存在', actual:'unknown command', "
         "evidence_count:0, counterexample_count:1, state:'falsified', depends_on:[]}], "
         "tainted_ids:[], continue_session:true}"
@@ -210,7 +210,7 @@ HYPOTHESIS_STORE_DIFF = Format(
         "下游：StoreUpdateNode 校验 verbatim_evidence 非空后 apply；"
         "  StoreUpdateNode 读 continue_session 写入新 store。"
         "样例：{session_id:'uuid-xxx', iteration:1, "
-        "new_entries:[{kind:'policy', trigger:'chat_platform-cli 无 login 子命令', "
+        "new_entries:[{kind:'policy', trigger:'lark-cli 无 login 子命令', "
         "predicted:'正确命令是 auth login', verbatim_evidence:'Error: unknown command login'}], "
         "state_changes:[{hypothesis_id:'H1', new_state:'falsified', "
         "verbatim_evidence:'unknown command login'}], "

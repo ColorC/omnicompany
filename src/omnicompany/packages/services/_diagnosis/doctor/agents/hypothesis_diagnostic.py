@@ -12,7 +12,7 @@
 设计:
 - 输入: doctor.hypothesis_diagnosis.request (含 target_entity_path / target_entity_kind / applicable_hypothesis_paths 假设 yaml 路径列表)
 - 工作: agent 用 read_file 读每条假设 yaml + 待诊断对象代码, 自然语言判
-- 输出: doctor.hypothesis_diagnosis.verdict (含 list[finding with finding_kind=hypothesis] + creative_content)
+- 输出: doctor.hypothesis_diagnosis.verdict (含 list[finding with finding_kind=hypothesis] + narrative)
 
 工具集 = SpecDiagnosticAgent 同 (read_file/glob/grep/list_dir/write_finding/submit_verdict).
 共用 submit_verdict 通用工具 (consulted_references 字段填假设 yaml path).
@@ -139,7 +139,7 @@ HYPOTHESIS_DIAGNOSTIC_SPEC = AgentSpec(
         ),
         "gradient_samples": (),
         # 红绿对比脚本: _scratch/dogfood_red_green_hypothesis.py
-        # 实测 (2026-05-06): GREEN/RED creative_content 双向区分 (满足/违反). H-2026-05-05-001 在 red applied 命中
+        # 实测 (2026-05-06): GREEN/RED narrative 双向区分 (满足/违反). H-2026-05-05-001 在 red applied 命中
         "_baseline_validated_at": "2026-05-06",
         "_baseline_overall": "PASS",
     },

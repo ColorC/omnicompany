@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/lap_auditor ts=2026-05-04T12:00:00Z type=doc status=active agent=ai-ide belongs_to_service=lap_auditor -->
+<!-- [OMNI] summary="lap_auditor service 自我叙事 README — LAP 协议合规审计, 通过 LLM 按四大红线 (事件总线驱动/Format 真实性/接口规范实现/Domain 隔离) 给 .py 代码归类 + 修复建议" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §四 模板严格写 — 不再每份重写各异格式. 抽核心目的到 README, DESIGN 留架构性内容" -->
+<!-- [OMNI] tags=readme,lap_auditor,diagnosis,self-narrative -->
+<!-- [OMNI] material_id="material:services._diagnosis.lap_auditor.readme.self_narrative.md"-->
 
 # lap_auditor · LAP 协议合规审计
 
@@ -39,7 +44,7 @@ lap_auditor 是 omnicompany 的 **LAP 协议合规审计 service**. 接收 Pytho
 **最终目标** (当下能认知的):
 - 按需扩展审计维度 (例 Team / Material 规范检查)
 - 跟 repair service 形成"审 → 修" 闭环
-- 接入 [CORE-SELF-STABILITY 第二阶段](../../../../../../docs/plans/guardian/[2026-05-04]CORE-SELF-STABILITY/plan.md) 自我画像漂移检测 — 让"代码漂离 LAP" 自动可见
+- 接入 CORE-SELF-STABILITY 第二阶段 自我画像漂移检测 — 让"代码漂离 LAP" 自动可见
 
 ## 规划
 
@@ -47,7 +52,7 @@ lap_auditor 是 omnicompany 的 **LAP 协议合规审计 service**. 接收 Pytho
 - **下一步**: 按需扩展审计维度 (例 Team/Material 规范检查), 跟 repair 接通形成闭环
 - **远景**: 跟自我画像漂移检测协作
 
-进度细节: [docs/PROGRESS.md](../../../../../../docs/PROGRESS.md) (项目级) + [DESIGN.md `## 状态`](DESIGN.md) (本 service 状态).
+进度细节: docs/PROGRESS.md (项目级) + [DESIGN.md `## 状态`](DESIGN.md) (本 service 状态).
 
 ## 构成
 
@@ -69,6 +74,6 @@ lap_auditor 是 omnicompany 的 **LAP 协议合规审计 service**. 接收 Pytho
 
 - 架构 → [DESIGN.md](DESIGN.md)
 - 操作手册 → [SKILL.md](SKILL.md)
-- LAP 规范权威 → [docs/standards/pipeline.md](../../../../../docs/standards/pipeline.md)
-- 跟 doctor / guardian 关系 → [../doctor/](../doctor/) / [../../_core/guardian/](../../_core/guardian/)
-- 项目根叙事 → [../../../../../README.md](../../../../../../README.md)
+- LAP 规范权威 → docs/standards/pipeline.md
+- 跟 doctor / guardian 关系 → ../doctor/ / ../../_core/guardian/
+- 项目根叙事 → ../../../../../README.md

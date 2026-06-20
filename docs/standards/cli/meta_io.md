@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards ts=2026-05-02T05:00:00Z type=doc status=active agent=ai-ide-current -->
+<!-- [OMNI] summary="元 IO 规范 - tool 操作绑定状态 + I/O 语义原子化注册, 实施层留下一阶段" -->
+<!-- [OMNI] why="用户原始需求 6.6: 所有 I (输入观察) 和 O (输出操作) 要统一注册为元 IO. 这层让 tool 操作可被状态检查/反查根除/锁机制扩展" -->
+<!-- [OMNI] tags=cli,meta_io,tool,standard,draft -->
+<!-- [OMNI] material_id="material:standards.meta_io.spec.md" -->
 
 # 元 IO 规范 (Meta IO)
 
@@ -52,8 +57,8 @@
 |---|---|---|
 | `meta_io.http.get` | read | 单一 HTTP GET, 返回 body. 不能再分 |
 | `meta_io.http.post` | write | 单一 HTTP POST, 改远端状态. 不能再分 |
-| `meta_io.chat_platform.read_doc` | read | 协作平台拉一份文档全文. 不能再分 |
-| `meta_io.chat_platform.update_doc` | write | 协作平台更新一份文档. 不能再分 |
+| `meta_io.lark.read_doc` | read | collab platform拉一份文档全文. 不能再分 |
+| `meta_io.lark.update_doc` | write | collab platform更新一份文档. 不能再分 |
 
 ### 例 4 · git
 

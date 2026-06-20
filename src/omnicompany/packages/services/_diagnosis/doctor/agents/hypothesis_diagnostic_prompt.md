@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/_diagnosis/doctor/agents ts=2026-05-05T22:50:00Z type=prompt status=skeleton agent=ai-ide-current -->
+<!-- [OMNI] summary="HypothesisDiagnosticAgent V0 prompt — 假设型诊断系统提示" -->
+<!-- [OMNI] why="step 9.4 复用 spec_diagnostic 模式立第二种诊断方法" -->
+<!-- [OMNI] tags=prompt,agent,doctor,hypothesis,skeleton -->
+<!-- [OMNI] material_id="material:diagnosis.doctor.agents.hypothesis_diagnostic.system_prompt.md" -->
 
 # {agent_role} 系统 prompt
 
@@ -60,7 +65,7 @@ framework 自带 (跟 spec_diagnostic 同): `read_file` / `glob` / `grep` / `lis
 - `target_entity_path` / `target_entity_kind` (回显 request)
 - `consulted_references` — 你实际查的假设 yaml 路径列表
 - `findings` — 一组 finding (each with finding_kind=hypothesis)
-- `creative_content` — 整体评论. 一段自然语言, 总结这次假设型诊断的大局观察, ≥30 字
+- `narrative` — 整体评论. 一段自然语言, 总结这次假设型诊断的大局观察, ≥30 字
 
 ## 退出
 

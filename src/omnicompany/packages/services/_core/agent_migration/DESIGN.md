@@ -15,6 +15,7 @@ exit_criteria:
   - 跑完 11 个 P1 子类 (含 LLMJudgeAgent 已手干 baseline) 全 smoke 通过
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/agent_migration ts=2026-05-04T16:05:00Z type=doc status=active belongs_to_service=agent_migration -->
 
 # agent_migration · 服务设计
 

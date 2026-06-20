@@ -15,7 +15,7 @@ V0 范围:
 设计:
 - 输入: doctor.plan_diagnosis.request (含 target_plan_path / applicable_template_paths / check_modes)
 - 工作: agent 用 read_file 读 plan.md + plan_template.md, 用 glob/grep 查产物清单 path 实在性
-- 输出: doctor.plan_diagnosis.verdict (含 list[finding finding_kind=plan] + creative_content)
+- 输出: doctor.plan_diagnosis.verdict (含 list[finding finding_kind=plan] + narrative)
 
 工具集 = SpecDiagnosticAgent / HypothesisDiagnosticAgent / ExemplarDiagnosticAgent 同
 (read_file/glob/grep/list_dir/write_finding/submit_verdict).
@@ -147,8 +147,8 @@ PLAN_DIAGNOSTIC_SPEC = AgentSpec(
         ),
         "gradient_samples": (),
         # 红绿对比脚本: _scratch/dogfood_red_green_plan.py
-        # 实测 (2026-05-06): green creative_content 主调合规, red creative_content 主调缺失阻断, 双向区分
-        # 注: PlanDiagnosticAgent 合规 plan 也产 N 个"正面发现" finding, finding 数不是判别力 metric. 真判别力在 creative_content
+        # 实测 (2026-05-06): green narrative 主调合规, red narrative 主调缺失阻断, 双向区分
+        # 注: PlanDiagnosticAgent 合规 plan 也产 N 个"正面发现" finding, finding 数不是判别力 metric. 真判别力在 narrative
         "_baseline_validated_at": "2026-05-06",
         "_baseline_overall": "PASS",
     },

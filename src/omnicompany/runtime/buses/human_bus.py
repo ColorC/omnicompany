@@ -13,10 +13,10 @@
 持久化: SQLite `data/runtime/buses/human_inbox.db`.
 CLI 入口: `omni human inbox` / `omni human resolve <id> <answer>` (见 cli/commands/human.py).
 
-**多身份扩展** (2026-04-23 Phase B.2 · 为 config_service 面向同事协作平台审批):
+**多身份扩展** (2026-04-23 Phase B.2 · 为 config_service 面向同事collab platform审批):
   - 每个问题带 `target = HumanTarget(kind, id)` 二元组
   - 默认 `HumanTarget("l2_claude_code", "")` (向后兼容, 老数据 migration 默认此值)
-  - 可注册 `NotifierProtocol` 按 target_kind 分发通知 (例: 协作平台 notifier 发卡给同事)
+  - 可注册 `NotifierProtocol` 按 target_kind 分发通知 (例: collab platform notifier 发卡给同事)
 
 **设计决策**:
   - `ask()` 不阻塞 (避免卡死 agent); 立即返回 HumanQuestion 对象, status 反映当前状态
@@ -63,14 +63,14 @@ class QuestionStatus(str, Enum):
 
 # 常用 target_kind 常量 (约定俗成 · 可扩 · 非 Enum 让外部自定义 kind)
 TARGET_L2_CLAUDE_CODE = "l2_claude_code"       # L2 Claude Code (现有默认)
-TARGET_COLLEAGUE_FEISHU = "colleague_feishu"   # 协作平台同事 (id = open_id)
+TARGET_COLLEAGUE_FEISHU = "colleague_feishu"   # collab platform同事 (id = open_id)
 TARGET_CORE_SELF_REPAIR = "core_self_repair"   # 核心层 A4 self_repair 消费
 TARGET_ANY_HUMAN = "any_human"                 # 任意能看到 inbox 的人
 
 
 @dataclass(frozen=True)
 class HumanTarget:
-    """审批目标 · `kind` 是类别 (路由 notifier), `id` 是具体身份 (如协作平台 open_id).
+    """审批目标 · `kind` 是类别 (路由 notifier), `id` 是具体身份 (如collab platform open_id).
 
     设计为 frozen dataclass 而非 tuple, 是因为:
       - 将来可能扩字段 (如 email / escalation / timeout_hours override)
@@ -92,7 +92,7 @@ class NotifierProtocol(Protocol):
     实现是 sync 函数 (HumanBus 内部在锁外调, 不阻塞 inbox DB 操作).
     实现应**自己处理异常**; HumanBus 侧兜底 try/except 吞错 + 审计 notifier_error.
 
-    典型实现: 协作平台机器人 notifier — on_question 发卡片给同事, on_resolved 发感谢+归档.
+    典型实现: collab platform机器人 notifier — on_question 发卡片给同事, on_resolved 发感谢+归档.
     放在 package 内 (例: `packages/services/config_service/notifiers/feishu.py`),
     不污染 `runtime/buses/` 基础设施层.
     """
@@ -476,7 +476,7 @@ class HumanBus(ServiceBus):
         Args:
           status: 默认 pending; 传 None 查所有状态.
           kind: 可选按 kind 过滤.
-          target_kind: 可选按 target_kind 过滤 (如 TARGET_COLLEAGUE_FEISHU 只看协作平台同事工单).
+          target_kind: 可选按 target_kind 过滤 (如 TARGET_COLLEAGUE_FEISHU 只看collab platform同事工单).
           target_id: 可选按 target_id 过滤 (如单同事 open_id).
         """
         clauses: list[str] = []
@@ -512,7 +512,7 @@ class HumanBus(ServiceBus):
         return HumanQuestion.from_row(row) if row else None
 
     def resolve(self, question_id: str, answer: str, *, resolver: str = "human") -> HumanQuestion:
-        """回答 pending 问题. resolver 字段承载"谁批准的"信息 (如协作平台同事 name 或 open_id)."""
+        """回答 pending 问题. resolver 字段承载"谁批准的"信息 (如collab platform同事 name 或 open_id)."""
         now = time.time()
         with self._db_lock, self._conn() as conn:
             row = conn.execute(

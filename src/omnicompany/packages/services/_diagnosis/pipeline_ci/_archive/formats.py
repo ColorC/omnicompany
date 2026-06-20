@@ -1,10 +1,10 @@
-# [OMNI] origin=omnicompany domain=pipeline_ci/formats.py ts=2026-04-10T00:00:00Z
+# [OMNI] origin=omnifactory domain=pipeline_ci/formats.py ts=2026-04-10T00:00:00Z
 # [OMNI] material_id="material:diagnosis.pipeline_ci.material_definitions.python"
 """pipeline_ci — Format 定义"""
 
 from __future__ import annotations
 
-from omnicompany.protocol.format import Format, FormatRegistry
+from omnifactory.protocol.format import Format, FormatRegistry
 
 
 FORMATS = [

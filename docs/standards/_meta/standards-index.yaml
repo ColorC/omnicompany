@@ -123,8 +123,8 @@ standards:
     excerpt_strategy: full
 
   # 自我叙事三件套 — DESIGN/README/SKILL 的现行权威 (2026-06-13 用户裁决"冲突以新为准")
-  - id: SELF-creative_content-THREE-FILES
-    file: docs/standards/protocol/self_creative_content_three_files.md
+  - id: SELF-NARRATIVE-THREE-FILES
+    file: docs/standards/protocol/self_narrative_three_files.md
     applies_to: [design_md, readme_md, skill_md]
     path_match:
       - "**/DESIGN.md"
@@ -132,7 +132,7 @@ standards:
       - "src/omnicompany/**/SKILL.md"
     excerpt_strategy: full
 
-  # DESIGN.md 模板细则 — 从属于 SELF-creative_content-THREE-FILES, 冲突时以三件套为准
+  # DESIGN.md 模板细则 — 从属于 SELF-NARRATIVE-THREE-FILES, 冲突时以三件套为准
   - id: DESIGN-MD-TEMPLATE
     file: docs/standards/protocol/design_md_template.md
     applies_to: [design_md]

@@ -1,3 +1,7 @@
+<!-- [OMNI] origin=ai-ide domain=services/protection ts=2026-05-04T17:16:00Z type=doc status=active agent=ai-ide belongs_to_service=protection -->
+<!-- [OMNI] summary="protection service - omni lock 主动防御 service 内核. handlers (锁开关处理) + policy (策略) + scanner (无身份扫描)" -->
+<!-- [OMNI] tags=readme,protection,core,lock,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.protection.readme.md"-->
 
 # protection · omni 锁机制内核
 
@@ -10,7 +14,7 @@ protection 是 omnicompany 的**锁机制 service 内核**. omni lock open/close
 ## 解决什么 / 不解决什么
 
 **解决**: omni 写入路径锁开关 / 锁状态查询 / 无身份写入扫描.
-**不解决**: guardian 静态合规 (那是 [guardian](../guardian/)); 业务级权限 (那是各 service 自己的事); 真"内拦"机制 (待 [CORE-SELF-STABILITY 第二/三阶段](../../../../../../docs/plans/guardian/[2026-05-04]CORE-SELF-STABILITY/plan.md) 升级).
+**不解决**: guardian 静态合规 (那是 [guardian](../guardian/)); 业务级权限 (那是各 service 自己的事); 真"内拦"机制 (待 CORE-SELF-STABILITY 第二/三阶段 升级).
 
 ## 设计目的与最终目标
 

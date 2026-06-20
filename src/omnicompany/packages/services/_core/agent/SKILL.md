@@ -5,6 +5,11 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/agent ts=2026-05-04T15:10:00Z type=doc status=active agent=ai-ide belongs_to_service=agent -->
+<!-- [OMNI] summary="agent 操作手册 — 怎么继承 AgentNodeLoop 建业务 agent + 12 Worker 入口清单 + 故障排查" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §六 模板严格写. agent 的 SKILL 主要是'怎么用 AgentNodeLoop 建业务 agent' 工程指引" -->
+<!-- [OMNI] tags=skill,agent,how-to,core,agent-loop -->
+<!-- [OMNI] material_id="material:services._core.agent.skill.operations_manual.md"-->
 
 # agent · 操作手册
 
@@ -22,7 +27,7 @@ disable-model-invocation: false
 
 **不用我**:
 - 跨 Team 协作 → 走 [omnicompany MaterialDispatcher](../omnicompany/SKILL.md), 不在单 agent loop 内
-- 业务逻辑实现 → 各业务 Team 自己 (例 [hypothesis](../../_diagnosis/hypothesis/) / [docauthor](../../_authoring/docauthor/) / gameplay_system_kb_storywiki)
+- 业务逻辑实现 → 各业务 Team 自己 (例 hypothesis / docauthor / demogame_kb_storywiki)
 - 旧 `runtime/agent` 直接用 → 已 deprecated, 用本包的新接口
 
 ## 前置条件
@@ -148,5 +153,5 @@ omni trace-view <trace_id>          # 看具体 trace
 - 内部架构 (D1-D6 决策 / 6 Router 数据流) → [DESIGN.md](DESIGN.md)
 - AGENT-NODE-LOOP-ROUTERIZATION 计划 → [docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md](../../../../../docs/plans/%5B2026-04-18%5DAGENT-NODE-LOOP-ROUTERIZATION/plan.md)
 - 旧 runtime/agent (待迁) → [../../../runtime/agent/](../../../../runtime/agent/)
-- 调用样例 hypothesis → [../../_diagnosis/hypothesis/routers.py](../../_diagnosis/cleanup_bot/routers.py)
+- 调用样例 hypothesis → ../../_diagnosis/hypothesis/routers.py
 - Worker 设计单 R-19/R-20 Agent Worker 三件套 → [docs/standards/worker.md](../../../../../../docs/standards/concepts/worker.md)

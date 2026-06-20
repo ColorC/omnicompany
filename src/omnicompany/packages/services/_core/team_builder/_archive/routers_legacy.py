@@ -148,8 +148,8 @@ class CompileCheckerRouter(Router):
             # 将生成的文件写入实际位置后尝试 import
             # 这里用安全方式：检查 package_path 对应的目录是否存在
             pkg_dir = pkg_path.replace(".", os.sep)
-            # __file__ = .../src/omnicompany/packages/services/workflow_factory/routers.py
-            # parents: [0]=workflow_factory [1]=services [2]=packages [3]=omnicompany [4]=src
+            # __file__ = .../src/omnifactory/packages/services/workflow_factory/routers.py
+            # parents: [0]=workflow_factory [1]=services [2]=packages [3]=omnifactory [4]=src
             src_root = Path(__file__).resolve().parents[4]  # src/
             target = src_root / pkg_dir
             if target.exists():
@@ -521,8 +521,8 @@ class IntegrationTesterRouter(Router):
             src_root = Path(override_root).resolve()
             src_root.mkdir(parents=True, exist_ok=True)
         else:
-            # __file__ = .../src/omnicompany/packages/services/workflow_factory/_archive/routers_legacy.py
-            # parents: [0]=_archive [1]=workflow_factory [2]=services [3]=packages [4]=omnicompany [5]=src
+            # __file__ = .../src/omnifactory/packages/services/workflow_factory/_archive/routers_legacy.py
+            # parents: [0]=_archive [1]=workflow_factory [2]=services [3]=packages [4]=omnifactory [5]=src
             # (parents[5] 因为从 routers.py 搬到 _archive/ 多了一层)
             # 历史上 parents[4]=src 当本文件还在 routers.py 里 (2026-04-21 前)
             src_root = Path(__file__).resolve().parents[5]  # src/
@@ -860,7 +860,7 @@ _REQ_SYSTEM = """\
 ```json
 {
   "goal": "工作流要达成的目标（一句话）",
-  "domain": "所属领域（sw/gameplay_system/rewrite/custom 等）",
+  "domain": "所属领域（sw/demogame/rewrite/custom 等）",
   "input_description": "输入数据的语义描述",
   "output_description": "期望输出的语义描述",
   "constraints": ["约束条件列表"],
@@ -877,7 +877,7 @@ _REQ_SYSTEM = """\
 - verification_requirements 至少包含 1 项
 - 每个错误场景要说明处理方式（重试/打回/升级）
 - 参考现有管线：sw-verify, sw-review, sw-plan, sw-tdd, sw-implement, debug,
-  lang-rewrite, equiv-test, guardian, gameplay_system-learn, skill-import
+  lang-rewrite, equiv-test, guardian, demogame-learn, skill-import
 """
 
 
@@ -2994,8 +2994,8 @@ class FinalizerRouter(Router):
         }
 
         # ── 写入文件系统 ──
-        # pkg_path 如 "omnicompany.packages.domains.gameplay_system.tavern_pool_modify"
-        # → 写到 src/omnicompany/packages/domains/gameplay_system/tavern_pool_modify/
+        # pkg_path 如 "omnicompany.packages.domains.demogame.tavern_pool_modify"
+        # → 写到 src/omnifactory/packages/domains/demogame/tavern_pool_modify/
         written = False
         write_path: Path | None = None
         write_error = ""
@@ -3015,7 +3015,7 @@ class FinalizerRouter(Router):
                     this_file = Path(__file__).resolve()
                     src_root = this_file
                     for _ in range(10):
-                        if (src_root / "omnicompany").is_dir() and (src_root / "omnicompany" / "__init__.py").exists():
+                        if (src_root / "omnifactory").is_dir() and (src_root / "omnifactory" / "__init__.py").exists():
                             break
                         src_root = src_root.parent
 

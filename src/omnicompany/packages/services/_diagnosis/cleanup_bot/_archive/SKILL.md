@@ -5,6 +5,11 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/cleanup_bot ts=2026-05-04T13:05:00Z type=doc status=active agent=ai-ide belongs_to_service=cleanup_bot -->
+<!-- [OMNI] summary="cleanup_bot 操作手册 — 跑磁盘扫描 + LLM 判 + 生成 PowerShell 清理脚本的操作步骤 + 入口清单 + 故障排查" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §六 模板严格写. DESIGN 偏架构, 缺'怎么用'段, 抽出独立 SKILL 让操作可定位" -->
+<!-- [OMNI] tags=skill,cleanup_bot,how-to,diagnosis -->
+<!-- [OMNI] material_id="material:services._diagnosis.cleanup_bot.skill.operations_manual.md"-->
 
 # cleanup_bot · 操作手册
 
@@ -15,7 +20,7 @@ disable-model-invocation: false
 ## 适用范围
 
 **用我**:
-- 怀疑宿主机有 AI agent 误触产生的垃圾目录 (例 `E:\e\workspace` 这种嵌套错位)
+- 怀疑宿主机有 AI agent 误触产生的垃圾目录 (例 `E:\e\WindowsWorkspace` 这种嵌套错位)
 - 想得到 PowerShell 清理脚本 (用户手动审过再执行)
 - 大致知道"垃圾在哪个区域"(给 root_dir + keyword)
 
@@ -26,10 +31,10 @@ disable-model-invocation: false
 
 ## 前置条件
 
-- omnicompany 已装 (`omni --help` 确认)
+- omnifactory 已装 (`omni --help` 确认)
 - 有 `THE_COMPANY_API_KEY` (AnomalyDetectorWorker 调 qwen-3.6-plus)
 - 在 Windows (产出是 PowerShell 脚本); 其他 OS 也能跑但脚本要手工调
-- 知道大致 root_dir (例 `E:\` 或 `D:\`) + keyword (例 `e` / `workspace`)
+- 知道大致 root_dir (例 `E:\` 或 `D:\`) + keyword (例 `e` / `WindowsWorkspace`)
 
 ## 操作步骤
 
@@ -43,7 +48,7 @@ omni run cleanup_bot -i root_dir="E:\\" -i keyword="e"
 
 ```powershell
 # 清理建议 (用户审过执行):
-Remove-Item -Path "E:\e\workspace" -Recurse -Force
+Remove-Item -Path "E:\e\WindowsWorkspace" -Recurse -Force
 Remove-Item -Path "E:\e\foo\bar" -Recurse -Force
 ```
 
@@ -52,16 +57,16 @@ Remove-Item -Path "E:\e\foo\bar" -Recurse -Force
 ### 场景 B · 扫工作区找特定 keyword 嵌套
 
 ```bash
-omni run cleanup_bot -i root_dir="D:\workspace" -i keyword="workspace"
+omni run cleanup_bot -i root_dir="D:\workspace" -i keyword="WindowsWorkspace"
 ```
 
-**用途**: 工作区里出现的奇怪嵌套 (例 `D:\workspace\workspace\workspace\...`).
+**用途**: 工作区里出现的奇怪嵌套 (例 `D:\workspace\WindowsWorkspace\WindowsWorkspace\...`).
 
 ### 场景 C · 库调用
 
 ```python
-from omnicompany.packages.services._diagnosis.cleanup_bot.team import build_team
-from omnicompany.runtime.exec import PipelineRunner
+from omnifactory.packages.services._diagnosis.cleanup_bot.team import build_team
+from omnifactory.runtime.exec import PipelineRunner
 
 team = build_team()
 runner = PipelineRunner(team)
@@ -77,7 +82,7 @@ plan = result.outputs["cleanup.plan"]["anomaly_report"]  # Markdown
 | `build_team()` (Python) | 库调用 | 见 [team.py](team.py) |
 | `EvidenceGathererWorker` / `AnomalyDetectorWorker` / `RollbackPlannerWorker` | 单 Worker 调用 (测试用) | 见 [workers/](workers/) |
 
-详细 CLI 规范: [docs/standards/cli/omnicompany_cli.md](../../../../../../docs/standards/cli/omnicompany_cli.md)
+详细 CLI 规范: docs/standards/cli/omnicompany_cli.md
 
 ## 故障排查
 
@@ -96,4 +101,4 @@ plan = result.outputs["cleanup.plan"]["anomaly_report"]  # Markdown
 
 - 设计目的 → [README.md](README.md)
 - 内部架构 (D1-D5 决策 / 数据流) → [DESIGN.md](DESIGN.md)
-- 类似设计模式 → [../lap_auditor/SKILL.md](../lap_auditor/SKILL.md) (同三节点 ANCHOR-LLM-ANCHOR 链路)
+- 类似设计模式 → ../lap_auditor/SKILL.md (同三节点 ANCHOR-LLM-ANCHOR 链路)

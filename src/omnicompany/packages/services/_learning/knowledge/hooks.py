@@ -33,7 +33,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-_DEFAULT_ROOT = Path("/workspace/omnicompany")
+_DEFAULT_ROOT = Path("e:/WindowsWorkspace/omnicompany")
 
 
 class KBAuditHook(PeriodicHook):

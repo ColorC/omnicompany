@@ -22,9 +22,9 @@
 
 ## Clean Migration 硬规则
 
-见 [`migration_log.md` · 完全迁移标准（Stage 2 升级版）](../../../../../../docs/plans/%5B2026-04-19%5DBLACKBOARD-ARCHITECTURE/migration_log.md):
+见 `migration_log.md` · 完全迁移标准（Stage 2 升级版）:
 
-- 类继承必须从 `omnicompany.packages.services.omnicompany.Worker`
+- 类继承必须从 `omnifactory.packages.services.omnicompany.Worker`
 - ≥ 3 Worker 的 Team 必须拆 `workers/` 子目录
 - Material kind（F-19）100% 覆盖
 - DESIGN.md 七节 + §十 Team 专属
@@ -33,8 +33,8 @@
 
 不要从 `_archive/` 直接 import Worker 类实例化。使用:
 
-- **新代码**: `from omnicompany.packages.services.doctor.workers import FormatExtractorWorker` 或从子域 `.workers.format import FormatExtractorWorker`
-- **兼容路径**: `from omnicompany.packages.services.doctor.routers import FormatExtractorRouter`（旧名 alias = 新 Worker 类）
+- **新代码**: `from omnifactory.packages.services.doctor.workers import FormatExtractorWorker` 或从子域 `.workers.format import FormatExtractorWorker`
+- **兼容路径**: `from omnifactory.packages.services.doctor.routers import FormatExtractorRouter`（旧名 alias = 新 Worker 类）
 
 ## 为什么保留
 

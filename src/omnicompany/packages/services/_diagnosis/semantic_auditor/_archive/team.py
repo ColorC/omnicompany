@@ -18,11 +18,11 @@
 """
 from __future__ import annotations
 
-from omnicompany.protocol.team import (
+from omnifactory.protocol.team import (
     TeamSpec, TeamNode, TeamEdge,
     NodeKind, NodeMaturity,
 )
-from omnicompany.protocol.anchor import (
+from omnifactory.protocol.anchor import (
     AnchorSpec, TransformerSpec, TransformMethod,
     ValidatorSpec, ValidatorKind,
     Route, RouteAction, VerdictKind,

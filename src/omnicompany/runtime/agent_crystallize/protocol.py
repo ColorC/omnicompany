@@ -84,7 +84,7 @@ class CrystallizerObservation:
     """ crystallizer-specific 的关键事实.
     例: TraceSummarizer 会写 tool_usage_counts / repeated_args.
     """
-    creative_content: str = ""  # 人类可读的观察叙述 (给 SpecPatch 用)
+    narrative: str = ""  # 人类可读的观察叙述 (给 SpecPatch 用)
 
 
 @dataclass
@@ -106,7 +106,7 @@ class SpecPatch:
     title: str = ""
     """20 字以内标题."""
     rationale: str = ""
-    """为什么建议这么改 (from observation creative_content)."""
+    """为什么建议这么改 (from observation narrative)."""
     target_file: str | None = None
     """目标文件 (若已知). 可选."""
     current_value: Any = None

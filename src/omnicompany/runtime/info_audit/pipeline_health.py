@@ -50,7 +50,7 @@ def _domain_from_pipeline_id(pipeline_id: str) -> str:
     支持多种分隔符:
       'absorption-module-driven'  → 'absorption'
       'absorption.v3'  → 'absorption'
-      'gameplay_system-learn'    → 'gameplay_system'
+      'demogame-learn'    → 'demogame'
       'doctor-format'  → 'doctor'
     """
     if not pipeline_id:

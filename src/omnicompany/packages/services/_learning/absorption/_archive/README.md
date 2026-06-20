@@ -48,9 +48,9 @@ Diamond shortcut 在保证命名层合规 (Worker 继承链 + workers/ 结构 + 
 
 ## Clean Migration 硬规则
 
-见 [`migration_log.md` · 完全迁移标准 (Stage 2 升级版)](../../../../../../docs/plans/%5B2026-04-19%5DBLACKBOARD-ARCHITECTURE/migration_log.md):
+见 `migration_log.md` · 完全迁移标准 (Stage 2 升级版):
 
-- 类继承必须从 `omnicompany.packages.services.omnicompany.Worker`
+- 类继承必须从 `omnifactory.packages.services.omnicompany.Worker`
 - ≥ 3 Worker 的 Team 必须拆 `workers/` 子目录 (本 Team 用 v1/v2/v3 三子域)
 - Material kind (F-19) 100% 覆盖 (本 Team 39 Format, 全标)
 - DESIGN.md 活跃 + §十 Team 专属
@@ -59,11 +59,11 @@ Diamond shortcut 在保证命名层合规 (Worker 继承链 + workers/ 结构 + 
 
 不要从 `_archive/` 直接 import Worker 类实例化. 使用:
 
-- **新代码**: `from omnicompany.packages.services.absorption.workers import TargetIntakeWorker`
+- **新代码**: `from omnifactory.packages.services.absorption.workers import TargetIntakeWorker`
   或从子域 `.workers.v1 import TargetIntakeWorker`
-- **兼容路径**: `from omnicompany.packages.services.absorption.routers import TargetIntakeRouter`
+- **兼容路径**: `from omnifactory.packages.services.absorption.routers import TargetIntakeRouter`
   (旧名 alias = 新 Worker 类)
-  `from omnicompany.packages.services.absorption.routers.module_explorer import ModuleExplorerRouter`
+  `from omnifactory.packages.services.absorption.routers.module_explorer import ModuleExplorerRouter`
   (子模块路径也保留 shim)
 
 ## 为什么保留

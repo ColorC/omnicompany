@@ -3,7 +3,7 @@
 """omnicompany.core.pipelines — 管线懒加载注册（基础设施）
 
 将所有已知管线注册到全局 Registry，但使用延迟 import 避免在 CLI 启动时
-拉入 gameplay_system/unity/evolution 等重依赖。
+拉入 demogame/unity/evolution 等重依赖。
 
 原则：
 - 简单管线（workflow 类）直接在自己的模块里 _register()
@@ -80,7 +80,7 @@ def register_all() -> None:
             name="project-audit",
             description=(
                 "项目遍历 + 据真源(我的原始prompt + 真实代码内容 + 文件树)逐条核实完成度 — 不信报告/说明/复选框.\n"
-                "  omni run project-audit -i name=quant-lab -i root=/workspace/quant-lab\n"
+                "  omni run project-audit -i name=quant-lab -i root=E:/WindowsWorkspace/quant-lab\n"
                 "  产出: 真实规模 + 采到的原始 prompt + 读过的代码 + 每条计划项 done/partial/not_done/uncertain (claimed 与 verdict 不一致点是重点)"
             ),
             domain="project_audit",
@@ -116,7 +116,7 @@ def register_all() -> None:
             default_db_dir="data/services/project_audit",
             default_max_steps=5,
             cli_args=[
-                CliArg(name="repo_roots", help="仓库扫描根, 逗号分隔 (默认 /workspace,/scm/main/AIWorkSpace)"),
+                CliArg(name="repo_roots", help="仓库扫描根, 逗号分隔 (默认 E:/WindowsWorkspace,D:/P4/main/AIWorkSpace)"),
                 CliArg(name="min_sessions", help="一个 cwd 至少出现几次会话才算项目 (默认 1)"),
             ],
         ))
@@ -513,9 +513,9 @@ def register_all() -> None:
             name="unity-explore",
             description="Unity 游戏环境探索管线 — 自动化 UI 交互与观察",
             domain="unity",
-            build_team=_lazy("omnicompany.packages.domains.gameplay_system.unity_explore.pipeline",
+            build_team=_lazy("omnicompany.packages.domains.demogame.unity_explore.pipeline",
                                 "build_explore_pipeline"),
-            build_bindings=_lazy("omnicompany.packages.domains.gameplay_system.unity_explore.run_pipeline",
+            build_bindings=_lazy("omnicompany.packages.domains.demogame.unity_explore.run_pipeline",
                                 "build_explore_bindings"),
             default_db_dir="data/domains/unity_qa",
             default_max_steps=50,
@@ -530,11 +530,11 @@ def register_all() -> None:
             description="AI 驱动的 Unity 游戏广度探索 — 自动发现界面、建图、记录 bug",
             domain="unity-qa",
             build_team=_lazy(
-                "omnicompany.packages.domains.gameplay_system.unity_qa.discover.pipeline",
+                "omnicompany.packages.domains.demogame.unity_qa.discover.pipeline",
                 "build_team",
             ),
             build_bindings=_lazy_fn(
-                "omnicompany.packages.domains.gameplay_system.unity_qa.discover.run",
+                "omnicompany.packages.domains.demogame.unity_qa.discover.run",
                 "build_bindings",
             ),
             default_db_dir="data/domains/unity_qa",
@@ -553,11 +553,11 @@ def register_all() -> None:
             description="AI 驱动的 Unity 游戏目标导向游玩 — 在指定界面完成具体任务",
             domain="unity-qa",
             build_team=_lazy(
-                "omnicompany.packages.domains.gameplay_system.unity_qa.playtest.pipeline",
+                "omnicompany.packages.domains.demogame.unity_qa.playtest.pipeline",
                 "build_team",
             ),
             build_bindings=_lazy_fn(
-                "omnicompany.packages.domains.gameplay_system.unity_qa.playtest.run",
+                "omnicompany.packages.domains.demogame.unity_qa.playtest.run",
                 "build_bindings",
             ),
             default_db_dir="data/domains/unity_qa",
@@ -577,11 +577,11 @@ def register_all() -> None:
             description="Unity 测试执行器 — 执行 TestSuite 并产出 TestReport",
             domain="unity-qa",
             build_team=_lazy(
-                "omnicompany.packages.domains.gameplay_system.unity_qa.execute.pipeline",
+                "omnicompany.packages.domains.demogame.unity_qa.execute.pipeline",
                 "build_team",
             ),
             build_bindings=_lazy_fn(
-                "omnicompany.packages.domains.gameplay_system.unity_qa.execute.run",
+                "omnicompany.packages.domains.demogame.unity_qa.execute.run",
                 "build_bindings",
             ),
             default_db_dir="data/domains/unity_qa",
@@ -600,11 +600,11 @@ def register_all() -> None:
             description="AI 驱动的 Roadmap 修复 — 诊断失败路径、修复 detect 规则、回归验证",
             domain="unity-qa",
             build_team=_lazy(
-                "omnicompany.packages.domains.gameplay_system.unity_qa.fix.pipeline",
+                "omnicompany.packages.domains.demogame.unity_qa.fix.pipeline",
                 "build_team",
             ),
             build_bindings=_lazy_fn(
-                "omnicompany.packages.domains.gameplay_system.unity_qa.fix.run",
+                "omnicompany.packages.domains.demogame.unity_qa.fix.run",
                 "build_bindings",
             ),
             default_db_dir="data/domains/unity_qa",
@@ -624,11 +624,11 @@ def register_all() -> None:
             description="AI 驱动的测试用例生成 — 视觉探索 UI、自动生成 TestSuite",
             domain="unity-qa",
             build_team=_lazy(
-                "omnicompany.packages.domains.gameplay_system.unity_qa.design.pipeline",
+                "omnicompany.packages.domains.demogame.unity_qa.design.pipeline",
                 "build_team",
             ),
             build_bindings=_lazy_fn(
-                "omnicompany.packages.domains.gameplay_system.unity_qa.design.run",
+                "omnicompany.packages.domains.demogame.unity_qa.design.run",
                 "build_bindings",
             ),
             default_db_dir="data/domains/unity_qa",
@@ -753,7 +753,7 @@ def register_all() -> None:
             default_db_dir="data/services/hypothesis",
             default_max_steps=10,
             cli_args=[
-                CliArg(name="domain", help="主题域名（如 chat_platform-cli）", required=True),
+                CliArg(name="domain", help="主题域名（如 lark-cli）", required=True),
                 CliArg(name="goal", help="探索目标", required=True),
                 CliArg(name="max_iterations", help="最大迭代次数（默认 2）", default="2"),
             ],
@@ -877,75 +877,75 @@ def register_all() -> None:
     except Exception as e:
         logger.debug("skip pattern-discovery: %s", e)
 
-    # ── voxel_engine 游戏制作所管线 ──
-    _bw_pkg = "omnicompany.packages.domains.voxel_engine"
+    # ── voxelcraft 游戏制作所管线 ──
+    _bw_pkg = "omnicompany.packages.domains.voxelcraft"
 
     try:
         register(PipelineEntry(
-            name="voxel_engine.design",
-            description="voxel_engine 策划管线 — vision → GDD → balance → review",
-            domain="voxel_engine",
+            name="voxelcraft.design",
+            description="voxelcraft 策划管线 — vision → GDD → balance → review",
+            domain="voxelcraft",
             build_team=_lazy(f"{_bw_pkg}.team", "build_design_pipeline"),
             build_bindings=_lazy_fn(f"{_bw_pkg}.run", "build_design_bindings"),
-            default_db_dir="data/domains/voxel_engine",
+            default_db_dir="data/domains/voxelcraft",
             default_max_steps=20,
         ))
         register(PipelineEntry(
-            name="voxel_engine.engineering",
-            description="voxel_engine 工程管线 — GDD → code → compile → debug loop",
-            domain="voxel_engine",
+            name="voxelcraft.engineering",
+            description="voxelcraft 工程管线 — GDD → code → compile → debug loop",
+            domain="voxelcraft",
             build_team=_lazy(f"{_bw_pkg}.team", "build_engineering_pipeline"),
             build_bindings=_lazy_fn(f"{_bw_pkg}.run", "build_engineering_bindings"),
-            default_db_dir="data/domains/voxel_engine",
+            default_db_dir="data/domains/voxelcraft",
             default_max_steps=30,
         ))
         register(PipelineEntry(
-            name="voxel_engine.combat_test",
-            description="voxel_engine 战斗测试管线 — config → build → server → remote_console test → evolve",
-            domain="voxel_engine",
+            name="voxelcraft.combat_test",
+            description="voxelcraft 战斗测试管线 — config → build → server → RCON test → evolve",
+            domain="voxelcraft",
             build_team=_lazy(f"{_bw_pkg}.team", "build_combat_test_pipeline"),
             build_bindings=_lazy_fn(f"{_bw_pkg}.run", "build_combat_test_bindings"),
-            default_db_dir="data/domains/voxel_engine",
+            default_db_dir="data/domains/voxelcraft",
             default_max_steps=30,
         ))
         register(PipelineEntry(
-            name="voxel_engine.pm",
-            description="voxel_engine PM 管线 — epic → sprint goals → schedule DAG",
-            domain="voxel_engine",
+            name="voxelcraft.pm",
+            description="voxelcraft PM 管线 — epic → sprint goals → schedule DAG",
+            domain="voxelcraft",
             build_team=_lazy(f"{_bw_pkg}.team", "build_pm_pipeline"),
             build_bindings=_lazy_fn(f"{_bw_pkg}.run", "build_pm_bindings"),
-            default_db_dir="data/domains/voxel_engine",
+            default_db_dir="data/domains/voxelcraft",
             default_max_steps=15,
         ))
         register(PipelineEntry(
-            name="voxel_engine.art",
-            description="voxel_engine 美术管线 — 通用资产搜索 + 分析 + 验证",
-            domain="voxel_engine",
+            name="voxelcraft.art",
+            description="voxelcraft 美术管线 — 通用资产搜索 + 分析 + 验证",
+            domain="voxelcraft",
             build_team=_lazy(f"{_bw_pkg}.team", "build_art_pipeline"),
             build_bindings=_lazy_fn(f"{_bw_pkg}.run", "build_art_bindings"),
-            default_db_dir="data/domains/voxel_engine",
+            default_db_dir="data/domains/voxelcraft",
             default_max_steps=15,
         ))
         register(PipelineEntry(
-            name="voxel_engine.visual_assets",
-            description="voxel_engine 兵种外观管线 — entity model search → style eval → texture map",
-            domain="voxel_engine",
+            name="voxelcraft.visual_assets",
+            description="voxelcraft 兵种外观管线 — entity model search → style eval → texture map",
+            domain="voxelcraft",
             build_team=_lazy(f"{_bw_pkg}.team", "build_visual_asset_pipeline"),
             build_bindings=_lazy_fn(f"{_bw_pkg}.run", "build_visual_assets_bindings"),
-            default_db_dir="data/domains/voxel_engine",
+            default_db_dir="data/domains/voxelcraft",
             default_max_steps=25,
         ))
         register(PipelineEntry(
-            name="voxel_engine.structures",
-            description="voxel_engine 建筑管线 — schematic search → parse → validate → FillOp",
-            domain="voxel_engine",
+            name="voxelcraft.structures",
+            description="voxelcraft 建筑管线 — schematic search → parse → validate → FillOp",
+            domain="voxelcraft",
             build_team=_lazy(f"{_bw_pkg}.team", "build_structure_pipeline"),
             build_bindings=_lazy_fn(f"{_bw_pkg}.run", "build_structures_bindings"),
-            default_db_dir="data/domains/voxel_engine",
+            default_db_dir="data/domains/voxelcraft",
             default_max_steps=15,
         ))
     except Exception as e:
-        logger.debug("skip voxel_engine pipelines: %s", e)
+        logger.debug("skip voxelcraft pipelines: %s", e)
 
     # ── vilo 内容评测管线（2026-06-13 框架级内化）──
     _vilo_pkg = "omnicompany.packages.domains.vilo"
@@ -1073,7 +1073,7 @@ def register_all() -> None:
             default_db_dir="data/domains/publish",
             default_max_steps=10,
             cli_args=[
-                CliArg(name="src", help="AIWorkSpace 根(默认 /scm/main/AIWorkSpace 或 OMNI_AIWORKSPACE_ROOT)", default=""),
+                CliArg(name="src", help="AIWorkSpace 根(默认 d:/P4/main/AIWorkSpace 或 OMNI_AIWORKSPACE_ROOT)", default=""),
                 CliArg(name="dry_run", help="只算清单+diff 预览, 不提交不推送", is_flag=True),
                 CliArg(name="push", help="提交后推送到 gitee(默认只本地提交, 显式 --push 才推)", is_flag=True),
                 CliArg(name="max_file_mb", help="单文件大小上限 MB(超过当数据跳过)", type=int, default=2),
@@ -1082,16 +1082,16 @@ def register_all() -> None:
     except Exception as e:
         logger.debug("skip publish pipelines: %s", e)
 
-    # ── creative_content 叙事管线 ──
-    _creative_content_pkg = "omnicompany.packages.domains.creative_content"
+    # ── narrative 叙事管线 ──
+    _narrative_pkg = "omnicompany.packages.domains.narrative"
     try:
         register(PipelineEntry(
-            name="creative_content.a5_loop",
-            description="creative_content A5 闭环 — 作者意图 → 执行偏置 → 生成 scene → 达成度报告",
-            domain="creative_content",
-            build_team=_lazy(f"{_creative_content_pkg}.team", "build_a5_loop_pipeline"),
-            build_bindings=_lazy_fn(f"{_creative_content_pkg}.run", "build_a5_loop_bindings"),
-            default_db_dir="data/domains/creative_content",
+            name="narrative.a5_loop",
+            description="Narrative A5 闭环 — 作者意图 → 执行偏置 → 生成 scene → 达成度报告",
+            domain="narrative",
+            build_team=_lazy(f"{_narrative_pkg}.team", "build_a5_loop_pipeline"),
+            build_bindings=_lazy_fn(f"{_narrative_pkg}.run", "build_a5_loop_bindings"),
+            default_db_dir="data/domains/narrative",
             default_max_steps=10,
             cli_args=[
                 CliArg(name="text", help="作者意图（自然语言）", required=True),
@@ -1099,12 +1099,12 @@ def register_all() -> None:
             ],
         ))
         register(PipelineEntry(
-            name="creative_content.beat.generate",
-            description="creative_content Beat 生成 — 骨架节点→CSL约束注入→场景生成→一致性检查→戏剧验证",
-            domain="creative_content",
-            build_team=_lazy(f"{_creative_content_pkg}.team_beat", "build_beat_pipeline"),
-            build_bindings=_lazy_fn(f"{_creative_content_pkg}.run", "build_beat_bindings"),
-            default_db_dir="data/domains/creative_content",
+            name="narrative.beat.generate",
+            description="Narrative Beat 生成 — 骨架节点→CSL约束注入→场景生成→一致性检查→戏剧验证",
+            domain="narrative",
+            build_team=_lazy(f"{_narrative_pkg}.team_beat", "build_beat_pipeline"),
+            build_bindings=_lazy_fn(f"{_narrative_pkg}.run", "build_beat_bindings"),
+            default_db_dir="data/domains/narrative",
             default_max_steps=15,
             cli_args=[
                 CliArg(name="scene_id", help="Scene ID", required=True),
@@ -1114,12 +1114,12 @@ def register_all() -> None:
             ],
         ))
         register(PipelineEntry(
-            name="creative_content.csl.ingest",
-            description="creative_content CSL 摄入 — scene 写完后自动记账，提议 anchor/state/hook 供作者确认",
-            domain="creative_content",
-            build_team=_lazy(f"{_creative_content_pkg}.team_csl", "build_csl_ingest_pipeline"),
-            build_bindings=_lazy_fn(f"{_creative_content_pkg}.run", "build_csl_ingest_bindings"),
-            default_db_dir="data/domains/creative_content",
+            name="narrative.csl.ingest",
+            description="Narrative CSL 摄入 — scene 写完后自动记账，提议 anchor/state/hook 供作者确认",
+            domain="narrative",
+            build_team=_lazy(f"{_narrative_pkg}.team_csl", "build_csl_ingest_pipeline"),
+            build_bindings=_lazy_fn(f"{_narrative_pkg}.run", "build_csl_ingest_bindings"),
+            default_db_dir="data/domains/narrative",
             default_max_steps=10,
             cli_args=[
                 CliArg(name="scene_id", help="Scene ID", required=True),
@@ -1127,7 +1127,7 @@ def register_all() -> None:
             ],
         ))
     except Exception as e:
-        logger.debug("skip creative_content pipelines: %s", e)
+        logger.debug("skip narrative pipelines: %s", e)
 
 
 
@@ -1485,8 +1485,8 @@ def _derive_domain_from_path(source_file: str) -> str:
 
     例: 'src/omnicompany/packages/services/_authoring/mass_materialization/teams/x.yaml'
        → '_authoring.mass_materialization'
-    例: 'src/omnicompany/packages/domains/gameplay_system/.../x.yaml'
-       → 'gameplay_system'
+    例: 'src/omnicompany/packages/domains/demogame/.../x.yaml'
+       → 'demogame'
     """
     parts = source_file.replace("\\", "/").split("/")
     try:

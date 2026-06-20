@@ -4,24 +4,24 @@ name: Omni Guard 守护防漂移
 group: omnicompany
 updated: 2026-06-12
 roots:
-  - path: /workspace/omnicompany/src/omnicompany/packages/services/_core/guardian
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/_core/guardian
     note: 主目录(规则引擎 + 巡逻 + 罚单处置 + 长驻守护)
-  - path: /workspace/omnicompany/src/omnicompany/packages/services/_core/protection
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/_core/protection
     note: 锁防护(主动防御, omni lock)
-  - path: /workspace/omnicompany/.omni
+  - path: E:/WindowsWorkspace/omnicompany/.omni
     note: 运行态数据(sentinel 状态/巡逻报告/fix-queue/锁策略)
 entry_points:
-  - path: /workspace/omnicompany/src/omnicompany/packages/services/_core/guardian/rules
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/_core/guardian/rules
     note: 20 条架构规则(OMNI-001 至 020), 纯计算无副作用
-  - path: /workspace/omnicompany/src/omnicompany/packages/services/_core/guardian/sentinel.py
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/_core/guardian/sentinel.py
     note: 长驻守护进程(活跃才扫, 冷却节流, pid 单例)
-  - path: /workspace/omnicompany/src/omnicompany/cli/commands/guardian.py
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/cli/commands/guardian.py
     note: omni guardian 全部子命令
-  - path: /workspace/omnicompany/src/omnicompany/cli/commands/protection.py
+  - path: E:/WindowsWorkspace/omnicompany/src/omnicompany/cli/commands/protection.py
     note: omni lock 全部子命令
-  - path: /workspace/omnicompany/docs/standards/cli/omni-header.md
+  - path: E:/WindowsWorkspace/omnicompany/docs/standards/cli/omni-header.md
     note: OmniMark 文件身份头规范(权威, v3)
-  - path: /workspace/omnicompany/docs/standards/cli/lock.md
+  - path: E:/WindowsWorkspace/omnicompany/docs/standards/cli/lock.md
     note: 锁防护规范(权威)
 latest:
   - "2026-05-02 锁防护离线版完成(enable/scan/handle/baseline 全套), 实时拦截是下一阶段, 规范见 docs/standards/cli/lock.md"
@@ -30,23 +30,23 @@ latest:
 quick_actions:
   - label: 巡逻一遍
     skill: null
-    where: /workspace/omnicompany
+    where: E:/WindowsWorkspace/omnicompany
     desc: venv/Scripts/omni.exe guardian patrol (按 git diff 跑 20 条规则, 只警告不改文件; --full 全量)
   - label: 健康检查
     skill: null
-    where: /workspace/omnicompany
+    where: E:/WindowsWorkspace/omnicompany
     desc: venv/Scripts/omni.exe guardian health (完整守护管线, --fix 自动清理根目录违规文件)
   - label: 看罚单
     skill: null
-    where: /workspace/omnicompany
+    where: E:/WindowsWorkspace/omnicompany
     desc: venv/Scripts/omni.exe guardian tickets (违规罚单列表; whitelist/restore 处理)
   - label: 守护报告
     skill: null
-    where: /workspace/omnicompany
+    where: E:/WindowsWorkspace/omnicompany
     desc: venv/Scripts/omni.exe guardian report (聚合规则扫/巡逻/审计成 Markdown 报告)
   - label: 锁状态
     skill: null
-    where: /workspace/omnicompany
+    where: E:/WindowsWorkspace/omnicompany
     desc: venv/Scripts/omni.exe lock status / scan / handle (看锁、离线扫违规、按类处置)
 links: []
 ---
@@ -64,7 +64,7 @@ omnicompany 的守护设施, 防止仓库被各路 AI 写漂: 20 条架构规则
 主体能力齐了: 规则引擎 20 条、巡逻(手动 patrol + sentinel 长驻自动)、罚单全生命周期
 (生成/白名单/恢复/溯源)、OmniMark 身份头 v3、锁防护离线版(2026-05-02 完成)。
 锁的下一阶段是实时拦截(写入前钩子 + 文件监视), 分五级逐步收紧, 还没动工。
-两条已知未修违规: creative_content 包未注册到管线注册表、lang_rewrite 有死 Router。
+两条已知未修违规: narrative 包未注册到管线注册表、lang_rewrite 有死 Router。
 权威规范在 docs/standards/cli/(omni-header.md / lock.md), 计划在 docs/plans/guardian/。
 
 ## 主要目录

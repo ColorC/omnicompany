@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=core ts=2026-04-17T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:omnicompany.core.design.document.md" -->
 
 # core · 设计文档
 
@@ -108,7 +110,7 @@ _验证来源: [code] `core/dispatch.py::dispatch` 各 hook 位 `try/except Exce
 - archmap 按 domain 画架构图
 - dashboard 按 origin 分组"claude-code 写的" vs "human 写的"
 
-约定在 [docs/standards/omni-header.md](../../../docs/standards/omni-header.md)。
+约定在 docs/standards/omni-header.md。
 
 _验证来源: [归纳] 从 Guardian OMNI-001/024 等规则对 OmniMark 的消费归纳；[code] `core/omnimark.py::parse_omnimark`_
 
@@ -157,7 +159,7 @@ app 启动 / CLI / dispatch()
 
 - 关联 protocol：[protocol/DESIGN.md](../protocol/DESIGN.md)
 - 关联 runtime：[runtime/exec/DESIGN.md](../runtime/exec/DESIGN.md)
-- 关联规范：[docs/standards/omni-header.md](../../../docs/standards/omni-header.md) / [distributed-docs.md](../../../docs/standards/distributed-docs.md)
+- 关联规范：docs/standards/omni-header.md / distributed-docs.md
 - 关联 plan：`docs/plans/[2026-04-15]INFO-SUFFICIENCY/FOUR_TIER_PLAN.md`（dispatch 接入 probe baseline）
 
 ## 接收意愿

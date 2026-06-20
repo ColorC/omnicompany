@@ -1,3 +1,7 @@
+<!-- [OMNI] origin=ai-ide domain=services/configurable ts=2026-05-04T17:10:00Z type=doc status=active agent=ai-ide belongs_to_service=configurable -->
+<!-- [OMNI] summary="configurable service - ConfigurableHook + ConfigurableTool spec 类承载. 让 hook/tool 通过外部 spec 配置驱动, 不硬编码业务子类" -->
+<!-- [OMNI] tags=readme,configurable,core,spec,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.configurable.readme.md"-->
 
 # configurable · 配置驱动 spec 库
 
@@ -24,7 +28,7 @@ configurable 是 omnicompany 的**配置驱动 spec 基类库**. 含两个配置
 
 ## 规划
 
-- **当前 active** — 2 spec 类已用 (gameplay_system_kb_storywiki / config_service / 等)
+- **当前 active** — 2 spec 类已用 (demogame_kb_storywiki / config_service / 等)
 - **下一步**: 持续观察, 按需扩展 spec 字段
 
 ## 构成

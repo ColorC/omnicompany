@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=ai-ide domain=services/meta_io ts=2026-05-04T17:14:00Z type=doc status=active agent=ai-ide belongs_to_service=meta_io -->
+<!-- [OMNI] material_id="material:services._core.meta_io.design.md"-->
 
 # meta_io · 设计文档
 

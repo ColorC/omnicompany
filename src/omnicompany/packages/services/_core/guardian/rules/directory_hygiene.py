@@ -6,7 +6,7 @@ OMNI-041: data/ 下新建的目录必须在 archmap.yaml `data.allowed_subdirs` 
 OMNI-042: 归档目录命名必须统一为 `_archive/<topic>/`，禁止 `_archived/`、`_archive_<xxx>/` 等变体
 
 背景:
-    2026-04-21 B3/B4 治理发现 data/ 下长期存在 18+ 非法 subdir (voxel_engine/crystallize/
+    2026-04-21 B3/B4 治理发现 data/ 下长期存在 18+ 非法 subdir (voxelcraft/crystallize/
     doctor/llm_audit 等) 违反 archmap.yaml `forbid_new_subdirs: true`, 但 Guardian
     没扫到。根因: fs_scanner_worker.py 自己维护了一份 13 entries 的 hardcoded 白名单,
     与 archmap.yaml 的 3 entries 严重不一致 (B3b 发现).

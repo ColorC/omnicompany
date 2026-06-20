@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/_diagnosis/doctor/_test_fixtures ts=2026-05-06T18:55:00Z type=doc status=active agent=ai-ide -->
+<!-- [OMNI] summary="doctor 红绿基线测试 fixture 库. SPEC.test_baseline 引这里的样本验证诊断 agent 真有判别力, 不是单方向跑通" -->
+<!-- [OMNI] why="self_audit_2026-05-06 §B-2 修复: 用户铁律 feedback_connected_is_not_discriminating 要求接通声明前必走红绿对比. doctor agent SPEC.test_baseline 字段填这里的 fixture 路径" -->
+<!-- [OMNI] tags=test-fixtures,red-green,doctor,baseline -->
+<!-- [OMNI] material_id="material:diagnosis.doctor.test_fixtures.readme.md" -->
 
 # doctor 红绿基线 test_fixtures 库
 
@@ -23,7 +28,7 @@
 
 | fixture | 故意违反 | 期望 finding |
 |---|---|---|
-| [`red_minimal_plan.md`](red_plans/red_minimal_plan.md) | plan_template 七节硬下限 (缺一·需求清单 / 二·产物清单 / 三·验收标准 / 五·不达标处置) | creative_content 主调缺失/阻断 |
+| [`red_minimal_plan.md`](red_plans/red_minimal_plan.md) | plan_template 七节硬下限 (缺一·需求清单 / 二·产物清单 / 三·验收标准 / 五·不达标处置) | narrative 主调缺失/阻断 |
 
 ### red_sources/
 
@@ -36,18 +41,18 @@
 | kind | 绿样本 | 用于 |
 |---|---|---|
 | worker | [`csv_reader.py`](../../../_utility/csv_to_md/workers/csv_reader.py) (E-worker-csv_reader-2026-05-05 标杆) | Spec/Hypothesis/Exemplar 红绿 worker 绿测 |
-| plan | [`sample_compliant_plan_exemplar_library.md`](../../../../../../docs/plans/diagnosis/[2026-05-05]DIAGNOSIS-RECONSOLIDATION/samples/sample_compliant_plan_exemplar_library.md) | Plan 红绿绿测 |
-| derivation source | [`worker.md`](../../../../../../docs/standards/concepts/worker.md) (强制词富) | Deriver 红绿绿测 |
+| plan | `sample_compliant_plan_exemplar_library.md` | Plan 红绿绿测 |
+| derivation source | `worker.md` (强制词富) | Deriver 红绿绿测 |
 
 ## 三 · 验证脚本 (跑红绿真接通)
 
 | agent | 脚本 | 实测 (2026-05-06) |
 |---|---|---|
-| SpecDiagnosticAgent | [`_scratch/dogfood_red_green_baseline.py`](../../../../../../../_scratch/dogfood_red_green_baseline.py) | OVERALL PASS — RED 5 finding 引 R-01/R-02/R-04/R-05/R-14, GREEN 2 finding 全正面 |
-| HypothesisDiagnosticAgent | [`_scratch/dogfood_red_green_hypothesis.py`](../../../../../../../_scratch/dogfood_red_green_hypothesis.py) | PASS — RED creative_content 含"违反", GREEN 含"满足", H-001 在 red applied 命中 |
-| ExemplarDiagnosticAgent | [`_scratch/dogfood_red_green_exemplar.py`](../../../../../../../_scratch/dogfood_red_green_exemplar.py) | PASS — RED 4 gap finding, GREEN 1 parity finding |
-| PlanDiagnosticAgent | [`_scratch/dogfood_red_green_plan.py`](../../../../../../../_scratch/dogfood_red_green_plan.py) | PASS — creative_content 双向区分 (绿合规 / 红缺失) |
-| HypothesisDeriverAgent | [`_scratch/dogfood_red_green_deriver.py`](../../../../../../../_scratch/dogfood_red_green_deriver.py) | PASS — GREEN 派 5, RED 派 0 (极强判别力, LLM 真自律) |
+| SpecDiagnosticAgent | `_scratch/dogfood_red_green_baseline.py` | OVERALL PASS — RED 5 finding 引 R-01/R-02/R-04/R-05/R-14, GREEN 2 finding 全正面 |
+| HypothesisDiagnosticAgent | `_scratch/dogfood_red_green_hypothesis.py` | PASS — RED narrative 含"违反", GREEN 含"满足", H-001 在 red applied 命中 |
+| ExemplarDiagnosticAgent | `_scratch/dogfood_red_green_exemplar.py` | PASS — RED 4 gap finding, GREEN 1 parity finding |
+| PlanDiagnosticAgent | `_scratch/dogfood_red_green_plan.py` | PASS — narrative 双向区分 (绿合规 / 红缺失) |
+| HypothesisDeriverAgent | `_scratch/dogfood_red_green_deriver.py` | PASS — GREEN 派 5, RED 派 0 (极强判别力, LLM 真自律) |
 
 ## 四 · 怎么用
 

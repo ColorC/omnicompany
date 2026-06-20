@@ -32,7 +32,7 @@ class PipelineEntry:
 
     每个业务管线在自己的模块中创建一个 PipelineEntry 并调用 register()。
     """
-    name: str                                   # CLI 名称，如 "agent", "gameplay_system-learn"
+    name: str                                   # CLI 名称，如 "agent", "demogame-learn"
     description: str                            # 人类可读描述
     domain: str                                 # 领域标识，用于 DB 路径分隔
     build_team: Callable[..., Any]          # () -> TeamSpec

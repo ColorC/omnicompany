@@ -5,6 +5,7 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/meta_io ts=2026-05-04T17:14:00Z type=doc status=active agent=ai-ide belongs_to_service=meta_io -->
 
 # meta_io · 操作手册
 

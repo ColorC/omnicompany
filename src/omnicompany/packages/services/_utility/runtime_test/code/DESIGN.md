@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/code_runtime_test ts=2026-04-26T00:00:00Z type=design status=active -->
+<!-- [OMNI] material_id="material:utility.runtime_test.code.design_specification.md" -->
 
 # code_runtime_test · 代码产物测试团队
 
@@ -9,7 +11,7 @@
 
 **关键差别**: 代码产物**有 ground truth** (人写的标杆输出). 验证方式以**对标 + 边界探测**为主, 不需要多源 LLM 互验.
 
-立项: 2026-04-26 · sediment 自 [tests/teams/csv_to_md/test_contract.py](../../../../../../../data/_workspaces/team_builder/repo_abs_140156/tests/teams/csv_to_md/test_contract.py) 现成 contract test 模式.
+立项: 2026-04-26 · sediment 自 tests/teams/csv_to_md/test_contract.py 现成 contract test 模式.
 
 ## 2 · 职责
 
@@ -83,7 +85,7 @@ TargetIngressWorker (HARD)
 
 ### 6.3 反模式禁令
 
-按 [feedback_semantic_sentences_not_classification](C:/Users/user/.claude/projects/e--workspace/memory/feedback_semantic_sentences_not_classification.md):
+按 feedback_semantic_sentences_not_classification:
 - portrait 字段全自然语言句子
 - 物理度量 (byte_diff_count / pass_rate / elapsed_sec) 允许
 - 禁打分/标签
@@ -93,7 +95,7 @@ TargetIngressWorker (HARD)
 仅适合**代码产物** (有确定性 ground truth):
 - ✅ csv-to-md (input csv → output markdown · 有标杆)
 - ✅ team_builder (input 需求 → output Python 代码 · 标杆是"能编译能跑")
-- ✅ config_table生成 (input 表 → output csv · 有 historical baseline diff)
+- ✅ 配表生成 (input 表 → output csv · 有 historical baseline diff)
 - ❌ repo_absorption (absorption 类 · 走 absorption_runtime_test)
 
 ### 6.5 红绿基线在哪做

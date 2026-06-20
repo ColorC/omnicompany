@@ -313,7 +313,7 @@ class ModelRegistry:
         "pain_classify":        "cheap",     # 分类任务用便宜模型
         "vision":               "vision",
         "vision_quality":       "quality",   # 高质量视觉：用 qwen3.6-plus
-        "field_discovery":      "quality",   # gameplay_system 字段公式自主发现 AgentNodeLoop
+        "field_discovery":      "quality",   # demogame 字段公式自主发现 AgentNodeLoop
     }
 
     # role-level override：忽略 policy 的 tier→model 映射，强制特定 role 用指定模型
@@ -398,7 +398,7 @@ class ModelRegistry:
         return policy.get(tier) or self._POLICIES[self._DEFAULT_POLICY].get(tier) or "glm-5"
 
     def _model_config(self, model: str) -> dict[str, str]:
-        """根据模型名查 base_url + ***。未知模型默认走 the_company。"""
+        """根据模型名查 base_url + api_key。未知模型默认走 the_company。"""
         cfg = self._MODELS.get(model)
         if not cfg:
             logger.warning("ModelRegistry: unknown model '%s', defaulting to the_company endpoint", model)
@@ -406,13 +406,13 @@ class ModelRegistry:
         return {
             "model": model,
             "base_url": cfg["base_url"],
-            "***": _resolve_key(cfg["key_env"]),
+            "api_key": _resolve_key(cfg["key_env"]),
         }
 
     # ── Public API (backward-compatible shape) ───────────────────────────
 
     def get(self, role: str) -> dict[str, str]:
-        """返回首选配置 {model, base_url, ***}（向后兼容）。"""
+        """返回首选配置 {model, base_url, api_key}（向后兼容）。"""
         return self._model_config(self._resolve_model_name(role))
 
     def get_fallback_chain(self, role: str) -> list[dict[str, str]]:
@@ -989,7 +989,7 @@ class LLMClient:
     """多协议 LLM 客户端 — Anthropic (DashScope) + OpenAI-compatible (the_company proxy)。
 
     支持两种构造方式：
-      1. 直接传参: LLMClient(model=..., base_url=..., ***=...)
+      1. 直接传参: LLMClient(model=..., base_url=..., api_key=...)
       2. 按角色构造: LLMClient.for_role("pain_classify")
 
     自动检测 base_url 并选择 Anthropic 或 OpenAI SDK。
@@ -999,7 +999,7 @@ class LLMClient:
         self,
         model: str | None = None,
         base_url: str | None = None,
-        ***: str | None = None,
+        api_key: str | None = None,
         max_tokens: int = 16000,  # 现代 agent 默认 16k 起步 (2026-05-03 提, 跟 LLMCallRouter 16384 一致). 续写在 _continue_if_truncated_* 兜底, 撞 length 自动接着生
         tools: list[dict] | None = None,
         role: str | None = None,
@@ -1031,17 +1031,17 @@ class LLMClient:
     ):
         # Resolve primary model from registry (no cross-model fallback — see call()).
         registry = ModelRegistry.get_instance()
-        effective_role = role or (None if (model or base_url or ***) else "runtime_main")
+        effective_role = role or (None if (model or base_url or api_key) else "runtime_main")
         if effective_role:
             primary = registry.get(effective_role)
             model = model or primary["model"]
             base_url = base_url or primary["base_url"]
-            *** = *** or primary["***"]
-        elif model and not (base_url or ***):
-            # 显式传入 model 但未传 base_url/*** 时，从注册表查 model 的端点配置
+            api_key = api_key or primary["api_key"]
+        elif model and not (base_url or api_key):
+            # 显式传入 model 但未传 base_url/api_key 时，从注册表查 model 的端点配置
             model_cfg = registry._model_config(model)
             base_url = base_url or model_cfg["base_url"]
-            *** = *** or model_cfg["***"]
+            api_key = api_key or model_cfg["api_key"]
 
         # 默认模型按 endpoint 类型选取：the_company/OpenAI-compatible endpoint 用 the_company 模型
         # 注意：此处 base_url 已经被 role chain 或显式参数设置好了
@@ -1070,14 +1070,14 @@ class LLMClient:
         # 按 endpoint 类型选择 key，防止 DashScope token 被错误地发送到 OpenAI-compatible 端点
         if _is_openai_endpoint(resolved_base or ""):
             resolved_key = (
-                ***
+                api_key
                 or os.environ.get("THE_COMPANY_API_KEY")
                 or os.environ.get("OPENAI_API_KEY")
                 or "no-key"  # 防止测试环境 None 导致 OpenAI SDK 初始化崩溃
             )
         else:
             resolved_key = (
-                ***
+                api_key
                 or os.environ.get("ANTHROPIC_AUTH_TOKEN")
                 or os.environ.get("ANTHROPIC_API_KEY")
             )
@@ -1097,14 +1097,14 @@ class LLMClient:
             import openai
             self._openai_client = openai.OpenAI(
                 base_url=resolved_base,
-                ***=resolved_key,
+                api_key=resolved_key,
                 timeout=300.0,
                 max_retries=0,
             )
         else:
             self.client = anthropic.Anthropic(
                 base_url=resolved_base,
-                ***=resolved_key or os.environ.get("ANTHROPIC_AUTH_TOKEN"),
+                api_key=resolved_key or os.environ.get("ANTHROPIC_AUTH_TOKEN"),
                 timeout=120.0,
             )
 
@@ -1146,10 +1146,10 @@ class LLMClient:
         """
         model = self.model
         base_url = self._resolved_base or ""
-        *** = self._resolved_key or ""
-        if not ***:
+        api_key = self._resolved_key or ""
+        if not api_key:
             raise RuntimeError(
-                f"LLM call failed: no *** for role={self.role or 'default'} "
+                f"LLM call failed: no api_key for role={self.role or 'default'} "
                 f"model={model} base_url={base_url}. Set THE_COMPANY_API_KEY."
             )
 
@@ -1226,7 +1226,7 @@ class LLMClient:
             is_openai = _is_openai_endpoint(base_url)
             if is_openai:
                 import openai
-                oai_client = openai.OpenAI(base_url=base_url, ***=***, timeout=300.0, max_retries=0)
+                oai_client = openai.OpenAI(base_url=base_url, api_key=api_key, timeout=300.0, max_retries=0)
                 result = self._call_openai_with(oai_client, model, messages, effective_system, base_url, response_format=response_format, tool_choice=tool_choice)
                 # 续写: finish_reason=length (OpenAI) 时, 把已生成内容回灌 + 注入 continue
                 # 提示再调一次, 直到 finish_reason != length 或 重试上限. 跟 Claude Code
@@ -1236,7 +1236,7 @@ class LLMClient:
                     response_format=response_format, tool_choice=tool_choice,
                 )
             else:
-                anth_client = anthropic.Anthropic(base_url=base_url, ***=***, timeout=120.0)
+                anth_client = anthropic.Anthropic(base_url=base_url, api_key=api_key, timeout=120.0)
                 result = self._call_anthropic_with(
                     anth_client, model, messages, effective_system,
                     tool_choice=tool_choice, response_format=response_format,

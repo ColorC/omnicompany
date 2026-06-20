@@ -142,7 +142,7 @@ META_DIAGNOSTIC_SPEC = AgentSpec(
         # 红绿对比脚本: _scratch/dogfood_meta_red_green.py
         # 实测 (2026-05-07): GREEN csv_to_md 4 finding 引 P-05/P-12/P-13/distributed-docs (规范引用),
         #                   RED red_minimal_team 5 applied 含 4 AP-XXX (AP-001/004/012/014) + test-pyramid
-        #                   judgement: 红 archetype 命中 4 vs 绿 0, 红 creative_content 含'客观扫描' (修 prompt 后), OVERALL PASS
+        #                   judgement: 红 archetype 命中 4 vs 绿 0, 红 narrative 含'客观扫描' (修 prompt 后), OVERALL PASS
         # 修 prompt 历史: 第一次跑发现 agent 见 fixture 自述就偷懒 (red applied 空), 加'客观对待铁律' 后第二次 PASS
         # 落档: meta_red_green_finding_2026-05-07.md
         "_baseline_validated_at": "2026-05-07",

@@ -5,6 +5,10 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/team_supervisor ts=2026-05-04T16:37:00Z type=doc status=active agent=ai-ide belongs_to_service=team_supervisor -->
+<!-- [OMNI] summary="team_supervisor 操作手册 — 跑 Team 健康监督的步骤 + 入口清单 + 故障排查" -->
+<!-- [OMNI] tags=skill,team_supervisor,how-to,core,health-supervision -->
+<!-- [OMNI] material_id="material:services._core.team_supervisor.skill.operations_manual.md"-->
 
 # team_supervisor · 操作手册
 

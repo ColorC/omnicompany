@@ -54,10 +54,10 @@ _SUMMARY_PROMPT = """\
 {
   "activities": [
     {
-      "purpose": "修改 TavernPool config_table的 PoolType 字段",
+      "purpose": "修改 TavernPool 配表的 PoolType 字段",
       "behavior": "读取 Excel → 按种族+是否新UP推断 PoolType → 写回 Excel",
-      "tools_used": ["read_excel", "write_excel", "scm_submit"],
-      "domain": "gameplay_system/tavern",
+      "tools_used": ["read_excel", "write_excel", "p4_submit"],
+      "domain": "demogame/tavern",
       "input_artifacts": ["TavernPool.xlsm"],
       "output_artifacts": ["TavernPool.xlsm (modified)"]
     }

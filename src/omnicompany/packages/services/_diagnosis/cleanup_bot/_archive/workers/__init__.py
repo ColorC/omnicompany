@@ -1,4 +1,4 @@
-# [OMNI] origin=claude-code domain=omnicompany/cleanup_bot ts=2026-04-21T00:00:00Z type=config
+# [OMNI] origin=claude-code domain=omnifactory/cleanup_bot ts=2026-04-21T00:00:00Z type=config
 # [OMNI] material_id="material:diagnosis.cleanup_bot.workers_aggregate_exports.py"
 """cleanup_bot Team · 3 Worker 清单 (Stage 3 Clean Migration 2026-04-21).
 
@@ -10,7 +10,7 @@
 """
 from __future__ import annotations
 
-from omnicompany.packages.services._core.omnicompany import Worker
+from omnifactory.packages.services._core.omnicompany import Worker
 
 from .anomaly_detector_worker import AnomalyDetectorWorker
 from .evidence_gatherer_worker import EvidenceGathererWorker

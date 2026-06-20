@@ -1,4 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards/_global ts=2026-05-02T10:00:00Z type=doc status=active agent=ai-ide-current -->
+<!-- [OMNI] summary="目录关系 - .claude/skills/ + .omni/sandbox/guides/ 都是 docs/standards/ 的薄包装 + 平台必要位置说明" -->
+<!-- [OMNI] why="用户 2026-05-02 明示 - 不是迁移 .claude 到 .omni, 而是单源 + 薄包装. 详细在 single_source_thin_wrap.md, 本文件保留 .claude 平台必要位置说明" -->
 <!-- [OMNI] tags=standard,directory,boundary,foundation,thin-wrapper
+<!-- [OMNI] material_id="material:standards.global.dot_claude_dot_omni_directory_boundary.md" -->
 
 # `.claude/` 平台必要位置 + 跟 omnicompany 的关系
 
@@ -98,7 +102,7 @@ trace_id 跨 `.claude` 跟 `.omni`:
 - **`.claude/settings.json` 不可避免** — Claude Code 平台强制位置, cc_wrapper 必须写这
 - **`.claude/skills/` 是薄包装** — 详 [single_source_thin_wrap.md](single_source_thin_wrap.md). 当前两个 skill (omnicompany-dev / omnicompany-use) 还是厚副本形态, 待治理
 - **`.claude/agents/` 不复用** — 我们用 `services/_core/agent/` + `templates/agent/`
-- **`.omni/` 持续扩展** — 但每加一个 `.omni/<sub>/` 必先经用户批准 (跟 [feedback_no_dir_creation_without_approval](../../../C:\Users\user\.claude\projects\e--workspace\memory\feedback_no_dir_creation_without_approval.md) 一致)
+- **`.omni/` 持续扩展** — 但每加一个 `.omni/<sub>/` 必先经用户批准 (跟 feedback_no_dir_creation_without_approval 一致)
 
 ## 六、 反模式
 

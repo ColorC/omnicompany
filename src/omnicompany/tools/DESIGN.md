@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=tools ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:tools.step_runner_design.specification.md" -->
 
 # tools · 设计文档
 
@@ -69,6 +71,6 @@
 
 ## 参考资料
 - 模块源码: [__init__.py](__init__.py) / [step_runner.py](step_runner.py)
-- 框架调度边界: [src/omnicompany/runtime/DESIGN.md](../runtime/DESIGN.md)
+- 框架调度边界: src/omnicompany/runtime/DESIGN.md
 - 核心数据契约: [src/omnicompany/core/DESIGN.md](../core/DESIGN.md)
-- 分布式文档规范: [docs/standards/distributed-docs.md](../../docs/standards/distributed-docs.md) (OMNI-034 设计文档结构要求)
+- 分布式文档规范: docs/standards/distributed-docs.md (OMNI-034 设计文档结构要求)

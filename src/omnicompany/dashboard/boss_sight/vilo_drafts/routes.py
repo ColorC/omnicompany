@@ -5,7 +5,7 @@
 """Vilo 草稿区文件 CRUD。
 
 挂载于 /api/boss-sight/vilo-drafts。目标目录在 omnicompany 仓外
-(workspace/故事/vilo-wants-to-know/wiki/drafts)，所以不走 guarded_write
+(WindowsWorkspace/故事/vilo-wants-to-know/wiki/drafts)，所以不走 guarded_write
 (它只管 omnicompany 仓内、且会给 .md 贴 OmniMark 头污染正文)，用普通 Path 读写 +
 resolve 后容器校验防穿越，仿 captures/routes.py 拿根目录的方式。
 """
@@ -25,7 +25,7 @@ _TEMPLATE_EVENT = "_模板-草稿事件.md"
 
 
 def _drafts_root() -> Path:
-    # omni_workspace_root() = .../workspace/omnicompany → .parent = .../workspace
+    # omni_workspace_root() = .../WindowsWorkspace/omnicompany → .parent = .../WindowsWorkspace
     # (与 captures/routes.py 同一权威拿法，别硬编码盘符)。
     from omnicompany.core.config import omni_workspace_root
     return (omni_workspace_root().parent / "故事" / "vilo-wants-to-know" / "wiki" / "drafts").resolve()

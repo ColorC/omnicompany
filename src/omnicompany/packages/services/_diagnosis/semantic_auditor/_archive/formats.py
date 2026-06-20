@@ -14,8 +14,8 @@ Material kind 标注 (F-19):
 """
 from __future__ import annotations
 
-from omnicompany.packages.services._core.omnicompany import Material
-from omnicompany.protocol.format import FormatRegistry
+from omnifactory.packages.services._core.omnicompany import Material
+from omnifactory.protocol.format import FormatRegistry
 
 
 FORMATS = [

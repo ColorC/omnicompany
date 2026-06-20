@@ -129,7 +129,7 @@ class KFormatEntry(_BaseEntry):
     """描述一类数据实体"是什么", 比可执行 Format 多领域背景与历史上下文,
     但没有 JSON Schema 约束能力。
 
-    典型用途: 描述一个业务概念 (如 "游戏levels配置表"), 其约束、典型形态、常见误区,
+    典型用途: 描述一个业务概念 (如 "游戏关卡配置表"), 其约束、典型形态、常见误区,
     即使还没对应的可执行 Format 也可以先写出来作为设计草稿。
     """
 
@@ -351,7 +351,7 @@ class KRepoArchitectEntry(_BaseEntry):
 class KHypothesisEntry(_BaseEntry):
     """一个主题的探索文档，包含该主题下的所有假设。
 
-    一份文档 = 一个探索主题（如"chat_platform-cli 认证系统"），
+    一份文档 = 一个探索主题（如"lark-cli 认证系统"），
     内含多条假设，每条是一个虚 Router（触发条件 → 预测结果）。
 
     文档的 maturity 取所有假设中最高的成熟度。
@@ -361,15 +361,15 @@ class KHypothesisEntry(_BaseEntry):
     body 供人类阅读（叙事/表格/markdown 链接）。
 
     典型用途:
-      - kb.hyp.chat_platform.auth_system — chat_platform-cli 认证系统的所有假设
-      - kb.hyp.gameplay_system.tavern_pool — gacha_pool生产规则的假设集合
+      - kb.hyp.lark.auth_system — lark-cli 认证系统的所有假设
+      - kb.hyp.demogame.tavern_pool — 卡池生产规则的假设集合
     """
 
     omnikb_type: Literal["khyp"] = "khyp"
 
     # ── 场景锚定（文档级）──
     scene: dict = Field(default_factory=dict)
-    """本文档所有假设的共同场景。例：{"tool": "chat_platform-cli", "version": "0.3.2", "os": "Windows 10"}"""
+    """本文档所有假设的共同场景。例：{"tool": "lark-cli", "version": "0.3.2", "os": "Windows 10"}"""
 
     # ── 内嵌假设列表（机器解析用）──
     hypotheses: list[dict] = Field(default_factory=list)

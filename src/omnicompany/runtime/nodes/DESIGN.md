@@ -1,10 +1,12 @@
+<!-- [OMNI] origin=claude-code domain=runtime/nodes ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:runtime.nodes.package_architecture.design.md" -->
 
 # nodes · 设计文档
 
 ## 状态
 - **版本**: V1 (2026-04-25 · Router化拆分落地，从单体 semantic/agent loop 拆分为独立模块)
 - **成熟度**: active
-- **下一步**: 完成旧 `agent_node_loop.py` 的 Phase D 彻底删除与全量切换至 Router 管线 (见 [plan.md](../../../docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md))
+- **下一步**: 完成旧 `agent_node_loop.py` 的 Phase D 彻底删除与全量切换至 Router 管线 (见 plan.md)
 
 ## 核心目的
 本包提供运行时图中的所有节点（Nodes）的 Router 实现。每个节点对应一个明确的关注点（上下文注入、痛觉处理、路由分发、安全拦截、工具执行、元进化审计），通过标准 `Verdict` 协议接入底座调度器。
@@ -109,7 +111,7 @@
 - 重构规则: [docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/guardian_rules.md](../../../docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/guardian_rules.md)
 - 路由协议: [src/omnicompany/protocol/anchor.py](../../../src/omnicompany/protocol/anchor.py)
 - 兄弟包架构: [runtime/agent/DESIGN.md](../agent/DESIGN.md) · [runtime/exec/DESIGN.md](../exec/DESIGN.md) · [runtime/routing/DESIGN.md](../routing/DESIGN.md)
-- 规范: [docs/standards/distributed-docs.md](../../../docs/standards/distributed-docs.md) (OMNI-034 结构合规)
+- 规范: docs/standards/distributed-docs.md (OMNI-034 结构合规)
 
 ## 接收意愿
 - **接收**: 新增符合 `Router` 协议的领域节点（如特定格式的解析节点、新型审计节点）；对现有节点输入/输出 `Verdict` 格式的无损演进。

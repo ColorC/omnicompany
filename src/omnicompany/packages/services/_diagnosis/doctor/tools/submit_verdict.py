@@ -21,7 +21,7 @@
 校验内容 (V0):
   - target_entity_path / target_entity_kind / applicable_standards 元信息齐
   - findings 是 list, 每条满足 doctor.health_finding 必填字段 (entity_id / entity_kind / finding_kind / evidence / commentary / concern)
-  - creative_content (LLM 整体评论) 必填且非空
+  - narrative (LLM 整体评论) 必填且非空
   - 任何 severity 字段 (critical/major/minor 等数字打分) 出现 → 报错指引: 改成 commentary + concern
 
 ## 待做 (V0 → V1)
@@ -61,7 +61,7 @@ class SubmitVerdictRouter(SingleToolRouter):
         "before calling finish. The tool verifies content is complete and lawful. How you arrived at the "
         "content (inline JSON or via prior write_finding calls) is up to you. "
         "通用工具 — 4 类诊断方法 (spec/hypothesis/exemplar/plan) 都用本工具.\n"
-        "Required: target_entity_path / target_entity_kind / consulted_references / findings (list) / creative_content (overall commentary).\n"
+        "Required: target_entity_path / target_entity_kind / consulted_references / findings (list) / narrative (overall commentary).\n"
         "Each finding must have: entity_id, entity_kind, finding_kind, evidence, commentary (评论), concern (来龙去脉).\n"
         "禁止 (rejection cases): severity / score / level / tier / confidence / rating / grade fields ANYWHERE in your verdict — "
         "用户铁律: 拒打分拥评论, 拒数字要来龙去脉. Use commentary + concern natural-language sentences instead.\n"
@@ -122,14 +122,14 @@ class SubmitVerdictRouter(SingleToolRouter):
                 },
                 "description": "List of findings (each is a doctor.health_finding instance). Empty list ALLOWED only when you've fully verified there are zero findings worth recording (rare)",
             },
-            "creative_content": {
+            "narrative": {
                 "type": "string",
                 "description": "Your overall natural-language commentary on this entity. One paragraph. References regulations + code locations. Explains the big picture, not enumerated bullet points",
             },
         },
         "required": [
             "target_entity_path", "target_entity_kind",
-            "consulted_references", "findings", "creative_content",
+            "consulted_references", "findings", "narrative",
         ],
     }
     IS_CONCURRENCY_SAFE: ClassVar[bool] = True
@@ -140,10 +140,10 @@ class SubmitVerdictRouter(SingleToolRouter):
 
     def _execute(self, args: dict, ctx: ToolContext) -> str:
         # ── 1. 元信息检查 ──
-        creative_content = (args.get("creative_content") or "").strip()
-        if len(creative_content) < 30:
+        narrative = (args.get("narrative") or "").strip()
+        if len(narrative) < 30:
             raise ToolExecutionError(
-                "creative_content too short (< 30 chars). Write a full natural-language paragraph "
+                "narrative too short (< 30 chars). Write a full natural-language paragraph "
                 "explaining the big picture: what stood out, why, what regulations/locations support it. "
                 "Do not just list bullet points."
             )
@@ -186,14 +186,14 @@ class SubmitVerdictRouter(SingleToolRouter):
             scratch["submitted_verdict"] = ctx_dict
 
         logger.info(
-            "[submit_verdict] OK target=%s entity_kind=%s findings=%d creative_content_len=%d",
+            "[submit_verdict] OK target=%s entity_kind=%s findings=%d narrative_len=%d",
             args["target_entity_path"], args["target_entity_kind"],
-            len(findings), len(creative_content),
+            len(findings), len(narrative),
         )
 
         return (
             f"Verdict accepted. {len(findings)} finding(s) recorded, "
-            f"creative_content {len(creative_content)} chars. "
+            f"narrative {len(narrative)} chars. "
             f"You may now call finish to end the diagnosis loop."
         )
 

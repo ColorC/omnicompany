@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/repair ts=2026-05-04T13:55:00Z type=doc status=active agent=ai-ide belongs_to_service=repair -->
+<!-- [OMNI] summary="repair service 自我叙事 README — omnicompany 修理员. 消费 doctor Finding 迭代调 LLM 产 Format/Router 修复补丁, 跟 doctor 形成诊断→修复闭环" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §四 模板严格写. 抽核心目的到 README, DESIGN 留 12 Worker 架构详述" -->
+<!-- [OMNI] tags=readme,repair,core,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.repair.readme.self_narrative.md"-->
 
 # repair · omnicompany 修理员
 

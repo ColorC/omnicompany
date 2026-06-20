@@ -1,6 +1,6 @@
 # [OMNI] origin=ai-ide domain=decisions ts=2026-06-17T00:00:00Z type=format status=active
 # [OMNI] summary="decisions domain 的 Material(Format)定义。决策记录的统一数据契约:一条决策/猜想/评论的标准记录 + 抽取观测 + 索引。"
-# [OMNI] why="主线=决策记录(非提取)。决策有多源(对话/协作平台/策划文档/札记)多落地面,必须一套源无关、面无关的公共契约把它们汇成一棵可搜索的决策树(符号统一体系)。"
+# [OMNI] why="主线=决策记录(非提取)。决策有多源(对话/collab platform/策划文档/札记)多落地面,必须一套源无关、面无关的公共契约把它们汇成一棵可搜索的决策树(符号统一体系)。"
 # [OMNI] tags=decisions,format,material,decision-record,schema
 """decisions domain Materials —— 决策记录的统一数据契约。
 
@@ -29,7 +29,7 @@ from omnicompany.protocol.format import Format, FormatRegistry
 
 # ── 公共子结构(anchor / origin / links)在多个 Format 间复用 ────────────────
 
-# anchor = 「中间契约甜蜜点」: 这条决策/猜想挂在哪个富信息载体上(文档/代码/AI产物/协作平台消息…)。
+# anchor = 「中间契约甜蜜点」: 这条决策/猜想挂在哪个富信息载体上(文档/代码/AI产物/collab platform消息…)。
 _ANCHOR = {
     "type": "object",
     "description": "决策依附的中间契约(甜蜜点):富信息、好读好改、可插人类控制节点的载体。",
@@ -50,7 +50,7 @@ _ORIGIN = {
     "properties": {
         "channel": {
             "type": "string",
-            "enum": ["claude", "codex", "feishu", "note", "gameplay_system_doc", "manual"],
+            "enum": ["claude", "codex", "feishu", "note", "demogame_doc", "manual"],
         },
         "session_ref": {"type": "string", "description": "会话/文档/消息定位(jsonl 路径、wiki token、doc id…)"},
         "observed_at": {"type": "string", "description": "ISO 时间:这条决策在源里发生的时刻"},
@@ -201,7 +201,7 @@ DECISION_OBSERVATION = Format(
     id="decision.observation",
     name="DecisionObservation",
     description=(
-        "抽取态:从某个源(对话/协作平台/札记/策划文档)抽出的一条原始决策信号,尚未去重/精炼/接树。"
+        "抽取态:从某个源(对话/collab platform/札记/策划文档)抽出的一条原始决策信号,尚未去重/精炼/接树。"
         "下游 refine 把它判成 decision|belief|comment、补 anchor/links、并进统一库。"
     ),
     tags=["domain.decisions", "stage.extracted", "kind.internal"],
@@ -210,7 +210,7 @@ DECISION_OBSERVATION = Format(
         "properties": {
             "channel": {
                 "type": "string",
-                "enum": ["claude", "codex", "feishu", "note", "gameplay_system_doc", "manual"],
+                "enum": ["claude", "codex", "feishu", "note", "demogame_doc", "manual"],
             },
             "raw_quote": {"type": "string", "description": "原话(不改写,留作证据)"},
             "gist": {"type": "string", "description": "一句话概括"},

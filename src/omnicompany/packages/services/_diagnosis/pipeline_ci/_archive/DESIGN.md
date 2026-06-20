@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/pipeline_ci ts=2026-05-04T14:30:00Z type=doc status=active belongs_to_service=pipeline_ci -->
+<!-- [OMNI] material_id="material:diagnosis.pipeline_ci.design_specification.md" -->
 
 # pipeline_ci · 设计文档
 
@@ -101,5 +103,5 @@ scan-request (source)
 
 - [workers/](workers/) — 3 个 Worker 实现
 - [formats.py](formats.py) — 3 个 Material 定义
-- [_archive/routers_legacy.py](_archive/routers_legacy.py) — 原 Router 归档（迁移前）
-- [../workflow_factory/routers.py](../../../../../../data/services/workflow_factory/output/01KNR7BN48HY0VB131ZH8WVXAD/routers.py) — ErrorRouteAuditorRouter (跨 Team 依赖)
+- _archive/routers_legacy.py — 原 Router 归档（迁移前）
+- ../workflow_factory/routers.py — ErrorRouteAuditorRouter (跨 Team 依赖)

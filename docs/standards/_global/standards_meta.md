@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=standards/_global ts=2026-05-06T01:30:00Z type=doc status=active agent=ai-ide -->
+<!-- [OMNI] summary="立规范的元规范 — 任何新规范文档诞生前必走的两条硬底线: 唯一权威源 (不跟已有矛盾) + 至少一份真合规样本 (符合, 不是避开)" -->
+<!-- [OMNI] why="用户 2026-05-06 立元规范: AI IDE 立 plan_template 时违反了第 2 条 (推荐'本计划'作合规例但 dogfood 验证它不合规). 必须把这条上升为立规范者的硬底线" -->
+<!-- [OMNI] tags=standard,meta,lawmaking,foundation -->
+<!-- [OMNI] material_id="material:standards.global.standards_meta.md" -->
 
 # 立规范的元规范
 
@@ -73,12 +78,12 @@
 |---|---|---|
 | [`protocol/design_md_template.md`](../protocol/design_md_template.md) (从属三件套规范) | [`csv_to_md/DESIGN.md`](../../../src/omnicompany/packages/services/_utility/csv_to_md/DESIGN.md) (六必需节齐 — 状态/核心接口/架构决策/数据流-拓扑/已知局限/参考资料; 2026-06-13 起核心目的归 README, 样本残留核心目的不违规) | 配 (2026-05-06 验; 2026-06-13 随规范切换更新口径) |
 | [`protocol/plan_template.md`](../protocol/plan_template.md) | [`docs/plans/diagnosis/[2026-05-05]DIAGNOSIS-RECONSOLIDATION/samples/sample_compliant_plan_exemplar_library.md`](../../plans/diagnosis/[2026-05-05]DIAGNOSIS-RECONSOLIDATION/samples/sample_compliant_plan_exemplar_library.md) | 配 (2026-05-06 立, 跟元规范一起诞生; PlanDiagnosticAgent dogfood 验收 4 finding 全正面) |
-| [`protocol/l2_session_summary_protocol.md`](../protocol/l2_session_summary_protocol.md) | [`compact_summary_2026-05-05.md`](../../plans/diagnosis/[2026-05-05]DIAGNOSIS-RECONSOLIDATION/compact_summary_2026-05-05.md) (4.1.1-4.8 八项 checklist 齐 + 附录) | 配 (2026-05-06 验) |
-| [`protocol/self_creative_content_three_files.md`](../protocol/self_creative_content_three_files.md) | [`docauthor/`](../../../src/omnicompany/packages/services/_authoring/docauthor/) (含 README + SKILL + DESIGN 三件套齐) | 配 (2026-05-06 候选, 待逐条对规范 2.5 项验) |
+| [`protocol/l2_session_summary_protocol.md`](../protocol/l2_session_summary_protocol.md) | `compact_summary_2026-05-05.md` (4.1.1-4.8 八项 checklist 齐 + 附录) | 配 (2026-05-06 验) |
+| [`protocol/self_narrative_three_files.md`](../protocol/self_narrative_three_files.md) | [`docauthor/`](../../../src/omnicompany/packages/services/_authoring/docauthor/) (含 README + SKILL + DESIGN 三件套齐) | 配 (2026-05-06 候选, 待逐条对规范 2.5 项验) |
 | [`concepts/worker.md`](../concepts/worker.md) | [`csv_reader.py`](../../../src/omnicompany/packages/services/_utility/csv_to_md/workers/csv_reader.py) (E-worker-csv_reader-2026-05-05 yaml) | 配 (跟样例库共享, doctor.exemplar 实例) |
-| [`concepts/material.md`](../concepts/material.md) | [`E-material-doctor_exemplar-2026-05-06.yaml`](../../plans/diagnosis/[2026-05-05]DIAGNOSIS-RECONSOLIDATION/samples/sample_exemplar_E-material-doctor_exemplar-2026-05-06.yaml) (DIAG_EXEMPLAR Material 自身, 自指演示) | 配 (2026-05-06) |
-| [`concepts/team.md`](../concepts/team.md) | [`E-team-csv_to_md-2026-05-06.yaml`](../../plans/diagnosis/[2026-05-05]DIAGNOSIS-RECONSOLIDATION/samples/sample_exemplar_E-team-csv_to_md-2026-05-06.yaml) (csv_to_md HARD 端到端 Team) | 配 (2026-05-06) |
-| [`concepts/agent_first.md`](../concepts/agent_first.md) | [`E-agent-spec_diagnostic-2026-05-06.yaml`](../../plans/diagnosis/[2026-05-05]DIAGNOSIS-RECONSOLIDATION/samples/sample_exemplar_E-agent-spec_diagnostic-2026-05-06.yaml) (SpecDiagnosticAgent ConfigurableAgent 子类典型) | 配 (2026-05-06, 跟 agent_tools 共享) |
+| [`concepts/material.md`](../concepts/material.md) | `E-material-doctor_exemplar-2026-05-06.yaml` (DIAG_EXEMPLAR Material 自身, 自指演示) | 配 (2026-05-06) |
+| [`concepts/team.md`](../concepts/team.md) | `E-team-csv_to_md-2026-05-06.yaml` (csv_to_md HARD 端到端 Team) | 配 (2026-05-06) |
+| [`concepts/agent_first.md`](../concepts/agent_first.md) | `E-agent-spec_diagnostic-2026-05-06.yaml` (SpecDiagnosticAgent ConfigurableAgent 子类典型) | 配 (2026-05-06, 跟 agent_tools 共享) |
 | [`concepts/agent_tools.md`](../concepts/agent_tools.md) | 同上 (P-3 yaml — SpecDiagnosticAgent 工具集 6 个 ≤10 + bash 主, 跟 agent 工具集铁律一致) | 配 (跟 agent_first 共享) |
 | [`concepts/plan.md`](../concepts/plan.md) | 同 plan_template 合规样本 (concept 层 + protocol 层共享同一份样本, 实例既是 plan 概念实例又是 plan_template 模板实例) | 配 (2026-05-06) |
 | [`concepts/template.md`](../concepts/template.md) | — | 待找 (template 是抽象规范, 样本应是一组按 template 实例化产出的具象产物, 待评估) |
@@ -89,7 +94,7 @@
 
 待补的合规样本跟 doctor.exemplar 库 (`data/services/doctor/exemplars/`) 是同一件事 — **每条规范的合规样本就是该 kind 的 exemplar 实例**, ExemplarDiagnosticAgent 用它做对照.
 
-> 收尾状态 (2026-05-06): 现存 concepts + protocol 共 12 份规范, 9 份已配合规样本 ✓, 2 份候选待逐条验 (self_creative_content / workspace), 1 份样本类型待评估 (template), 2 份规范本身未立 (hook / tool). 元规范第 2 条覆盖度 75% (9/12).
+> 收尾状态 (2026-05-06): 现存 concepts + protocol 共 12 份规范, 9 份已配合规样本 ✓, 2 份候选待逐条验 (self_narrative / workspace), 1 份样本类型待评估 (template), 2 份规范本身未立 (hook / tool). 元规范第 2 条覆盖度 75% (9/12).
 
 ---
 

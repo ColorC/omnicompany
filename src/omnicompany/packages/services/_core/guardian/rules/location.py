@@ -102,7 +102,7 @@ def _check_data_no_code(ctx: FileContext) -> bool:
         return False
     if "/_workspaces/" in p or "/repo_abs_" in p or "/scratch/" in p:
         return False
-    # references/ 是 voxel_engine 等真业务参考的上游 mod 真源码, 同 vendors/ 性质
+    # references/ 是 voxelcraft 等真业务参考的上游 mod 真源码, 同 vendors/ 性质
     if "/references/" in p:
         return False
     # 必须是可执行代码后缀

@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=docs/standards ts=2026-05-02T00:00:00Z type=standard status=active -->
+<!-- [OMNI] material_id="material:standards.global.cross_end_board_consistency_invariant.md" -->
 
 # 跨端棋盘一致性铁律 · Cross-End Board Consistency
 
@@ -19,7 +21,7 @@
 | autochess 战斗 (iframe 跑 battle-sim-web) | `battle-sim-web frontend/app.js` | y = -1.5 * row | 28 默认 | ~150 行独立 |
 | battle-sim-web 独立 demo | 同上文件 | 同上 | viewport 动态 | 同上 |
 
-三处独立 hexPos / 独立 hex polygon 渲染 / 独立 unit overlay / 独立 drop listener. spec 没说必须共享, 没人提"先去 gameplay_system 看已有", AI IDE 写每端时都从零写. 用户拖到位置 A unit 出现在位置 B / 备战切战斗棋盘视觉反转 / 跨端视觉风格漂移 — 全是这条铁律缺失的衍生症状.
+三处独立 hexPos / 独立 hex polygon 渲染 / 独立 unit overlay / 独立 drop listener. spec 没说必须共享, 没人提"先去 demogame 看已有", AI IDE 写每端时都从零写. 用户拖到位置 A unit 出现在位置 B / 备战切战斗棋盘视觉反转 / 跨端视觉风格漂移 — 全是这条铁律缺失的衍生症状.
 
 **根因**: 没立"共享同一组件" 的硬约束. 软 prompt (引导 / 提醒 / 元规则) 不可靠, 总有 agent 漏掉 (用户 2026-05-01 戳穿).
 

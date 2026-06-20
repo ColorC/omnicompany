@@ -75,7 +75,7 @@ async def delete_project(req: dict) -> dict[str, Any]:
 async def get_project_plans(project_id: str) -> dict[str, Any]:
     """项目关联计划 — **服务端**归属(治理覆盖表优先, 退回前缀规则)。
 
-    2026-06-12 用户: gameplay_system 各项目计划列表全错。根因之一是前端自带一份前缀匹配逻辑,
+    2026-06-12 用户: demogame 各项目计划列表全错。根因之一是前端自带一份前缀匹配逻辑,
     治理覆盖表落地后归属判断收口到 core.resolve_project_plans, 前端只消费本端点;
     返回的 plan_ids 同时供前端过滤对话(active_plan)/审阅材料(source_plan_id)。
     """

@@ -208,7 +208,7 @@ TOOLS: list[mt.Tool] = [
                 "limit": {"type": "integer", "default": 50, "minimum": 1, "maximum": 500}}}),
     mt.Tool(name="omni_get_worker", description="Get one worker's metadata + DESIGN.md content (if present).",
             inputSchema={"type": "object", "required": ["id"], "properties": {
-                "id": {"type": "string", "description": "Worker id like `domains/voxel_engine/block/workers/block_designer`"}}}),
+                "id": {"type": "string", "description": "Worker id like `domains/voxelcraft/block/workers/block_designer`"}}}),
     mt.Tool(name="omni_list_teams", description="List Team definitions (49 `team*.py` files under packages/).",
             inputSchema={"type": "object", "properties": {
                 "filter": {"type": "string"}, "limit": {"type": "integer", "default": 50}}}),

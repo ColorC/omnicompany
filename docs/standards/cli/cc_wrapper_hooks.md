@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards ts=2026-05-02T08:00:00Z type=doc status=active agent=ai-ide-current -->
+<!-- [OMNI] summary="cc_wrapper hooks 规范 - claude code SessionStart/PreToolUse/PostToolUse/Stop/PreCompact 跟 omnicompany 集成" -->
+<!-- [OMNI] why="dashboard cc_wrapper/hooks/ 已实施 6 个 hook (session_start/trace/todos/compact/lock_pretooluse), 散落规范不全. 这份集中规范化让新加 hook 时知道协作模式" -->
+<!-- [OMNI] tags=cli,cc_wrapper,hooks,claude-code,standard -->
+<!-- [OMNI] material_id="material:standards.cc_wrapper_hooks.spec.md" -->
 
 # cc_wrapper hooks 规范
 

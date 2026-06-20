@@ -42,7 +42,7 @@ class PlanIndexEntry:
     """单条 plan 的索引信息."""
 
     plan_id: str                  # category/[timestamp]ID 形式
-    category: str                 # voxel_engine / dashboard / cli 等
+    category: str                 # voxelcraft / dashboard / cli 等
     plan_path: str                # 相对 workspace 根的路径
     project_path: str | None = None  # 关联 project.md (如有)
     title: str | None = None

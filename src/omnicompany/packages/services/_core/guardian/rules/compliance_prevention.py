@@ -91,7 +91,7 @@ _STAGED_EXEMPTIONS_EXPIRES: dict[str, str] = {
 _FLOW_OUTSIDE_WORKER_EXEMPTIONS: tuple[str, ...] = (
     # LLM-CALL-UNIFICATION T4 (2026-06-13): this adapter keeps the multi-turn
     # tool_use_id continuity contract until runtime owns a structured-chat API.
-    "src/omnicompany/packages/domains/voxel_engine/item/_llm_helpers.py",
+    "src/omnicompany/packages/domains/voxelcraft/item/_llm_helpers.py",
 )
 
 _ORPHAN_MODULE_EXEMPTIONS: tuple[str, ...] = (
@@ -101,14 +101,14 @@ _ORPHAN_MODULE_EXEMPTIONS: tuple[str, ...] = (
     # single structured JSON authority.
     "src/omnicompany/packages/services/_governance/plan_steward/steward.py",
     "src/omnicompany/packages/services/_governance/work_history/miner.py",
-    "src/omnicompany/packages/domains/voxel_engine/routers/design.py",
-    "src/omnicompany/packages/domains/voxel_engine/item/_llm_helpers.py",
-    "src/omnicompany/packages/domains/voxel_engine/item/workers/item_asset_picker.py",
-    "src/omnicompany/packages/domains/creative_content/routers/beat_generate.py",
-    "src/omnicompany/packages/domains/creative_content/routers/csl_ingest.py",
-    "src/omnicompany/packages/domains/creative_content/routers/dialogue_generator.py",
-    "src/omnicompany/packages/domains/creative_content/routers/goal_achievement_evaluator.py",
-    "src/omnicompany/packages/domains/creative_content/routers/intent_compiler.py",
+    "src/omnicompany/packages/domains/voxelcraft/routers/design.py",
+    "src/omnicompany/packages/domains/voxelcraft/item/_llm_helpers.py",
+    "src/omnicompany/packages/domains/voxelcraft/item/workers/item_asset_picker.py",
+    "src/omnicompany/packages/domains/narrative/routers/beat_generate.py",
+    "src/omnicompany/packages/domains/narrative/routers/csl_ingest.py",
+    "src/omnicompany/packages/domains/narrative/routers/dialogue_generator.py",
+    "src/omnicompany/packages/domains/narrative/routers/goal_achievement_evaluator.py",
+    "src/omnicompany/packages/domains/narrative/routers/intent_compiler.py",
     # LLM-CALL-UNIFICATION T6 (2026-06-13): active publish pipeline worker.
     # Imported by workers/__init__.py and run.py, and declared in the local
     # publish_pipeline manifest; not an orphan candidate.
@@ -132,7 +132,7 @@ _ORPHAN_MODULE_EXEMPTIONS: tuple[str, ...] = (
     # LLM-CALL-UNIFICATION T13 (2026-06-13): active EventBus bridge and batch
     # tool entrypoint, not orphan candidates.
     "src/omnicompany/packages/services/_core/evolution/workflow/events.py",
-    "src/omnicompany/packages/domains/gameplay_system/ux/seven_tuple/runners/batch_runner.py",
+    "src/omnicompany/packages/domains/demogame/ux/seven_tuple/runners/batch_runner.py",
 )
 
 

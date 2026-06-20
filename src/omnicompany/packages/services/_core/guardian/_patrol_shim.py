@@ -87,7 +87,7 @@ class RuleEngine:
 
         return {"confirmed": confirmed, "needs_judgment": needs_judgment}
 
-_DEFAULT_ROOT = Path("/workspace/omnicompany")
+_DEFAULT_ROOT = Path("e:/WindowsWorkspace/omnicompany")
 
 
 def _count_by_severity(violations: list[dict[str, Any]]) -> dict[str, int]:

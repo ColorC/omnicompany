@@ -266,7 +266,7 @@ def cmd_debt_resolve(
 
     \b
     示例：
-      omni debt resolve D-024 --reason "voxel_engine/PROGRESS.md 已删除"
+      omni debt resolve D-024 --reason "voxelcraft/PROGRESS.md 已删除"
       omni debt resolve SA-001 --reason "034d/e 已迁移 LLM 巡逻" --by claude-code
     """
     from omnicompany.packages.services._diagnosis.tech_debt import resolve_row

@@ -41,7 +41,7 @@ def cmd_human():
 @click.option("--status", "-s", default="pending", help="pending | resolved | default_applied | expired | all")
 @click.option("--kind", "-k", default=None, help="auto_continue | core_diagnose | human_blocking")
 @click.option("--target-kind", "-t", default=None, help="l2_claude_code | colleague_feishu | core_self_repair | ...")
-@click.option("--target-id", default=None, help="特定身份 id (如协作平台 open_id)")
+@click.option("--target-id", default=None, help="特定身份 id (如collab platform open_id)")
 @click.option("--limit", "-n", default=50, show_default=True)
 def cmd_inbox(status: str, kind: str | None, target_kind: str | None, target_id: str | None, limit: int):
     """列出 Human Bus inbox 问题."""

@@ -1,4 +1,4 @@
-﻿# [OMNI] origin=ai-ide ts=2026-05-07 type=infra
+# [OMNI] origin=ai-ide ts=2026-05-07 type=infra
 # [OMNI] material_id="material:dashboard.cc_wrapper.cc_chat_bridge.endpoints.py"
 """Claude Code 网页 chat 后端 — 用 claude-agent-sdk 包装本地 claude 二进制.
 

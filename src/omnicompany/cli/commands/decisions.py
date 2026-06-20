@@ -68,7 +68,7 @@ def cmd_decisions_status() -> None:
 @click.option("--confidence", type=click.Choice(["high", "medium", "low"]), default=None)
 @click.option("--authority", type=click.Choice(["user_explicit", "high", "medium", "low", "derived", "unknown"]),
               default="user_explicit", help="来源权威(默认 user_explicit=本人手记拍板)")
-@click.option("--channel", type=click.Choice(["claude", "codex", "feishu", "note", "gameplay_system_doc", "manual"]),
+@click.option("--channel", type=click.Choice(["claude", "codex", "feishu", "note", "demogame_doc", "manual"]),
               default="manual", help="来源渠道(手记默认 manual)")
 @click.option("--risk", type=click.Choice(["low", "medium", "high"]), default=None, help="belief: 猜想错了的代价")
 @click.option("--query", "evidence_query", default="", help="belief: 怎么验证这个猜想")

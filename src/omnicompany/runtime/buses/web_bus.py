@@ -43,9 +43,9 @@ _KNOWN_HOST_SUFFIXES = (
     ".anthropic.com",
     ".aliyuncs.com",  # dashscope + 阿里云
     ".deepseek.com",
-    # 协作平台 / chat_platform
+    # collab platform / Lark
     ".feishu.cn",
-    ".chat_platform_suite.com",
+    ".larksuite.com",
     ".feishu-pre.cn",
     # GitHub
     ".github.com",

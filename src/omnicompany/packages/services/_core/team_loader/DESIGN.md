@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=ai-ide domain=services/team_loader ts=2026-05-04T17:18:00Z type=doc status=active agent=ai-ide belongs_to_service=team_loader -->
+<!-- [OMNI] material_id="material:services._core.team_loader.design.md"-->
 
 # team_loader · 设计文档
 

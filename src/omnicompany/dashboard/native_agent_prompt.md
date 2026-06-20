@@ -47,7 +47,7 @@ When you encounter an obstacle, do not use destructive actions as a shortcut. Fo
 
 `docs/plans/` is structured by project. Hierarchy: `docs/plans/<category>/<project>/[YYYY-MM-DD]TOPIC/`.
 - `<category>` = `_infra` (infrastructure work) | `domain` (business) | `_cross` (cross-cutting) | `_archive`
-- `<project>` = e.g. `dashboard`, `agent-framework`, `format-material`, `gameplay_system/ux-figma`, `voxel_engine`
+- `<project>` = e.g. `dashboard`, `agent-framework`, `format-material`, `demogame/ux-figma`, `voxelcraft`
 - Each project subdir has a `project.md` with vision + exit_criteria + plans list
 
 When you write files INTO an active plan, write under the SPECIFIC plan dir path (you have it via `## Active plan` section above). Do NOT:

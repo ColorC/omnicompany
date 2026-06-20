@@ -1,7 +1,11 @@
+<!-- [OMNI] origin=ai-ide domain=services/identity ts=2026-05-04T17:12:00Z type=doc status=active agent=ai-ide belongs_to_service=identity -->
+<!-- [OMNI] summary="identity service - omni 身份解析跟写入凭据. 跟 omni who/whoami/session CLI 配套, 是 PHASE3 注册体系的身份部分" -->
+<!-- [OMNI] tags=readme,identity,core,session,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.identity.readme.md"-->
 
 # identity · omni 身份解析
 
-> omni session 身份解析 + 写入凭据签发. 跟 [omni who / whoami / session CLI](../../../../../../docs/standards/cli/identity.md) 配套, 是 [CLI-PHASE3](../../../../../../docs/plans/_archive/[2026-05-01]OMNICOMPANY-CLI-PHASE3/) 注册体系的身份部分.
+> omni session 身份解析 + 写入凭据签发. 跟 [omni who / whoami / session CLI](../../../../../../docs/standards/cli/identity.md) 配套, 是 CLI-PHASE3 注册体系的身份部分.
 
 ## 这是什么
 
@@ -16,7 +20,7 @@ identity 是 omnicompany 的**身份解析跟写入凭据 service**. 跟 registe
 
 **设计目的**: AI IDE 跟 agent 写入 omnicompany 都得有身份, 不能匿名. 身份 → 凭据 → 写入审计 → 出问题可追溯.
 
-**最终目标**: 接 [CORE-SELF-STABILITY 第二/三阶段](../../../../../../docs/plans/guardian/[2026-05-04]CORE-SELF-STABILITY/plan.md) 的内拦机制 — 写前校验身份 + 凭据 + agent 给的预期对照.
+**最终目标**: 接 CORE-SELF-STABILITY 第二/三阶段 的内拦机制 — 写前校验身份 + 凭据 + agent 给的预期对照.
 
 ## 规划
 

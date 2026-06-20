@@ -37,7 +37,7 @@ FORMAT_REQUEST = Format(
         {"format_id": "guardian.check-request"},
         {
             "format_id": "guardian.fs-report",
-            "source_root": "/workspace/omnicompany/src/omnicompany",
+            "source_root": "e:/WindowsWorkspace/omnicompany/src/omnicompany",
         },
     ],
 )
@@ -55,7 +55,7 @@ FORMAT_EXTRACTED = Format(
     examples=[
         {
             "format_id": "guardian.check-request",
-            "source_root": "/workspace/omnicompany/src/omnicompany",
+            "source_root": "e:/WindowsWorkspace/omnicompany/src/omnicompany",
             "found": True,
             "defined_in": "omnicompany/packages/services/guardian/formats.py",
             "constant_name": "FORMAT_CHECK_REQUEST",
@@ -65,7 +65,7 @@ FORMAT_EXTRACTED = Format(
                 "description": "触发守护检查管线的入口请求，携带待检查的项目根目录路径",
                 "parent": "requirement",
                 "tags": ["guardian", "input", "service"],
-                "examples": [{"project_root": "/workspace/omnicompany"}],
+                "examples": [{"project_root": "e:/WindowsWorkspace/omnicompany"}],
             },
             "usages": [
                 {
@@ -92,7 +92,7 @@ FORMAT_ACC = Format(
     examples=[
         {
             "format_id": "guardian.check-request",
-            "source_root": "/workspace/omnicompany/src/omnicompany",
+            "source_root": "e:/WindowsWorkspace/omnicompany/src/omnicompany",
             "extracted": {
                 "format_id": "guardian.check-request",
                 "found": True,
@@ -144,14 +144,14 @@ FORMAT_HEALTH_RECORD = Format(
         {
             "schema_version": 2,
             "format_id": "guardian.check-request",
-            "source_root": "/workspace/omnicompany/src/omnicompany",
+            "source_root": "e:/WindowsWorkspace/omnicompany/src/omnicompany",
             "format_def": {
                 "id": "guardian.check-request",
                 "name": "Guardian Check Request",
                 "description": "触发守护检查管线的入口请求，携带待检查的项目根目录路径",
                 "parent": "requirement",
                 "tags": ["guardian", "input", "service"],
-                "examples": [{"project_root": "/workspace/omnicompany"}],
+                "examples": [{"project_root": "e:/WindowsWorkspace/omnicompany"}],
             },
             "checks": [
                 {"check": "sig_diff", "passed": True, "severity": "CRITICAL", "detail": "Format 对象定义存在"},
@@ -192,8 +192,8 @@ RTR_FORMAT_REQUEST = Format(
     examples=[
         {
             "router_class": "FormatExtractorRouter",
-            "source_file": "/workspace/omnicompany/src/omnicompany/packages/services/doctor/routers.py",
-            "source_root": "/workspace/omnicompany/src/omnicompany",
+            "source_file": "e:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/doctor/routers.py",
+            "source_root": "e:/WindowsWorkspace/omnicompany/src/omnicompany",
         },
     ],
 )
@@ -216,8 +216,8 @@ RTR_FORMAT_EXTRACTED = Format(
     examples=[
         {
             "router_class": "FormatExtractorRouter",
-            "source_file": "/workspace/omnicompany/src/omnicompany/packages/services/doctor/routers.py",
-            "source_root": "/workspace/omnicompany/src/omnicompany",
+            "source_file": "e:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/doctor/routers.py",
+            "source_root": "e:/WindowsWorkspace/omnicompany/src/omnicompany",
             "found": True,
             "description": "用 AST 从 formats.py 提取 Format 对象字段；扫描全部源码收集 FORMAT_IN/OUT 引用",
             "format_in": "doctor.material.request",
@@ -265,8 +265,8 @@ RTR_FORMAT_SIG_CHECKED = Format(
     examples=[
         {
             "router_class": "FormatExtractorRouter",
-            "source_file": "/workspace/omnicompany/src/omnicompany/packages/services/doctor/routers.py",
-            "source_root": "/workspace/omnicompany/src/omnicompany",
+            "source_file": "e:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/doctor/routers.py",
+            "source_root": "e:/WindowsWorkspace/omnicompany/src/omnicompany",
             "extracted": {
                 "found": True,
                 "description": "用 AST 从 formats.py 提取 Format 对象字段",
@@ -306,7 +306,7 @@ RTR_FORMAT_CONTEXT = Format(
     examples=[
         {
             "router_class": "FormatExtractorRouter",
-            "source_file": "/workspace/omnicompany/src/omnicompany/packages/services/doctor/routers.py",
+            "source_file": "e:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/doctor/routers.py",
             "extracted": {"found": True, "format_in": "doctor.material.request", "format_out": "doctor.material.extracted"},
             "sig_ok": True,
             "context": {
@@ -379,7 +379,7 @@ RTR_FORMAT_AUDIT = Format(
                     "detail": {"overall_grade": "A", "key_findings": ["run() 边界处理完整"]},
                 },
             ],
-            "audit_path": "/workspace/omnicompany/data/doctor/audit/rtr_FormatExtractorRouter/abc1234.md",
+            "audit_path": "e:/WindowsWorkspace/omnicompany/data/doctor/audit/rtr_FormatExtractorRouter/abc1234.md",
         }
     ],
 )
@@ -404,8 +404,8 @@ RTR_FORMAT_HEALTH_RECORD = Format(
         {
             "schema_version": 2,
             "router_class": "FormatExtractorRouter",
-            "source_file": "/workspace/omnicompany/src/omnicompany/packages/services/doctor/routers.py",
-            "source_root": "/workspace/omnicompany/src/omnicompany",
+            "source_file": "e:/WindowsWorkspace/omnicompany/src/omnicompany/packages/services/doctor/routers.py",
+            "source_root": "e:/WindowsWorkspace/omnicompany/src/omnicompany",
             "verdict": "unhealthy",
             "passed": False,
             "is_isolated": False,
@@ -423,7 +423,7 @@ RTR_FORMAT_HEALTH_RECORD = Format(
                 "total_checks": 3, "passed_checks": 1,
                 "critical": 1, "major": 0, "minor": 1,
             },
-            "audit_path": "/workspace/omnicompany/data/doctor/audit/rtr_FormatExtractorRouter/a5d1234.md",
+            "audit_path": "e:/WindowsWorkspace/omnicompany/data/doctor/audit/rtr_FormatExtractorRouter/a5d1234.md",
             "summary": "Router 'FormatExtractorRouter' 3 checks, 1 critical + 1 minor failing",
         }
     ],
@@ -713,7 +713,7 @@ DIAG_EXEMPLAR_VERDICT = Format(
     description=(
         "样例型诊断输出 — 结构跟 doctor.spec_diagnosis.verdict / hypothesis_diagnosis.verdict 同 "
         "(共用 submit_verdict 工具). 区别在 finding.applied_exemplars 字段含具体样例 id, finding_kind=exemplar. "
-        "creative_content 大局观察应聚焦 '差在哪' 跟 '能不能学到', 不是合规判定."
+        "narrative 大局观察应聚焦 '差在哪' 跟 '能不能学到', 不是合规判定."
     ),
     parent="requirement",
     tags=["doctor", "exemplar", "kind.internal", "skeleton"],
@@ -722,7 +722,7 @@ DIAG_EXEMPLAR_VERDICT = Format(
             "target_entity_path": "src/omnicompany/.../format_extractor.py",
             "target_entity_kind": "worker",
             "findings": ["<list[doctor.health_finding] with finding_kind=exemplar>"],
-            "creative_content": (
+            "narrative": (
                 "本次拿 csv_reader 作样例 (HARD worker 标杆) 看 format_extractor.py. 主要差异: "
                 "csv_reader 边界处理 (文件不存在 / 编码不匹配 / 空 csv 等) 都显式 Verdict 返回, "
                 "format_extractor 在 source_root 不存在等同类边界看上去也覆盖了, 学到了样例的边界处理思路."
@@ -762,7 +762,7 @@ DIAG_PLAN_VERDICT = Format(
     description=(
         "计划型诊断输出 — 结构跟其他三种 verdict 同 (共用 submit_verdict). "
         "区别在 finding.applied_standards 里含 plan_template path:节, finding_kind=plan. "
-        "creative_content 总结 plan 完成度 (产物存在性 + 结构合规 + 动态验收) 跟未达标项的处置建议."
+        "narrative 总结 plan 完成度 (产物存在性 + 结构合规 + 动态验收) 跟未达标项的处置建议."
     ),
     parent="requirement",
     tags=["doctor", "plan", "kind.internal", "skeleton"],
@@ -771,7 +771,7 @@ DIAG_PLAN_VERDICT = Format(
             "target_plan_path": "docs/plans/.../plan.md",
             "target_entity_kind": "plan",
             "findings": ["<list[doctor.health_finding] with finding_kind=plan>"],
-            "creative_content": (
+            "narrative": (
                 "本次拿 plan_template 看 [2026-05-05]DIAGNOSIS-RECONSOLIDATION plan.md. "
                 "整体合规度高: 一-八节齐, OMNI 头齐, 产物清单 12 条全部 path 存在. "
                 "差异点: '验收标准' 节没分静态/动态, 只列了一段总验收. 模板要求分子节, "
@@ -808,7 +808,7 @@ DIAG_META_VERDICT = Format(
     name="Doctor Meta-Diagnosis Verdict",
     description=(
         "元诊断输出 — 含 10 问回答 + 推荐验证设施清单. 跟 4 诊断 agent verdict 同共用 submit_verdict 工具. "
-        "区别在 creative_content 应含'团队整体健康总结 + 推荐设施'."
+        "区别在 narrative 应含'团队整体健康总结 + 推荐设施'."
     ),
     parent="requirement",
     tags=["doctor", "meta-diagnosis", "kind.internal", "skeleton"],
@@ -816,7 +816,7 @@ DIAG_META_VERDICT = Format(
         "team_path": "src/omnicompany/.../csv_to_md/",
         "target_entity_kind": "team",
         "findings": ["<list[doctor.health_finding]>"],
-        "creative_content": "csv_to_md team 整体健康度高 ...",
+        "narrative": "csv_to_md team 整体健康度高 ...",
         "consulted_references": ["docs/plans/.../anti_patterns/archetypes.yaml", "..."],
         "agent_id": "MetaDiagnosticAgent",
     }],
@@ -850,7 +850,7 @@ DIAG_HYPOTHESIS_DERIVATION_REPORT = Format(
     description=(
         "假设派生输出 — 不是 verdict 形态, 是派生过程报告. "
         "含 source_paths (派生时考虑了哪些源) + derived_hypothesis_ids (产了哪些假设 id) "
-        "+ creative_content (派生策略 / hard rule 候选 vs 软语义判定). "
+        "+ narrative (派生策略 / hard rule 候选 vs 软语义判定). "
         "实际假设实例 yaml 走 write_hypothesis 工具落 hypothesis 库, 不在 report 内嵌."
     ),
     parent="requirement",
@@ -859,7 +859,7 @@ DIAG_HYPOTHESIS_DERIVATION_REPORT = Format(
         {
             "source_paths": ["docs/standards/concepts/worker.md"],
             "derived_hypothesis_ids": ["H-2026-05-06-001", "H-2026-05-06-002", "H-2026-05-06-003"],
-            "creative_content": (
+            "narrative": (
                 "本次拿 worker.md 派生 worker 类假设 3 条. 策略: 找规范里'必须/应/不得'类硬性表述, "
                 "每条独立成假设. 其中 H-2026-05-06-001 (FORMAT_OUT 必声明) 是 hard rule 候选 "
                 "(ast 解析能查), 已在现 sample_hypothesis_H-2026-05-05-001 重叠 — 跳过重复. "
@@ -885,7 +885,7 @@ DIAG_HYPOTHESIS_VERDICT = Format(
             "target_entity_path": "src/omnicompany/.../format_extractor.py",
             "target_entity_kind": "worker",
             "findings": ["<list[doctor.health_finding] with finding_kind=hypothesis>"],
-            "creative_content": (
+            "narrative": (
                 "本次根据 1 条假设 (H-2026-05-05-001 'Worker 必有 FORMAT_OUT 显式声明') 看 format_extractor.py. "
                 "对象本身满足该假设 (FORMAT_OUT 已声明), 但发现一处副作用值得记: 类没有 docstring 解释 FORMAT_OUT 的语义."
             ),
@@ -903,7 +903,7 @@ DIAG_SPEC_VERDICT = Format(
     name="Doctor Spec-Driven Diagnosis Verdict",
     description=(
         "规范型诊断输出 — 含一组 finding (走 doctor.health_finding 格式) + agent 自然语言整体评论 "
-        "(creative_content). 下游接 health_finding 走 sink 落 registry. agent 必须通过 submit_verdict 工具产, "
+        "(narrative). 下游接 health_finding 走 sink 落 registry. agent 必须通过 submit_verdict 工具产, "
         "schema 校验通过才合法 (堵不如疏: 出口检查替代 prompt 强迫)."
     ),
     parent="requirement",
@@ -913,7 +913,7 @@ DIAG_SPEC_VERDICT = Format(
             "target_entity_path": "src/omnicompany/.../material_extractor.py",
             "target_entity_kind": "worker",
             "findings": ["<list[doctor.health_finding]>"],
-            "creative_content": (
+            "narrative": (
                 "整体看, 这个 Worker 的代码骨架按 worker 规范来的, 元数据齐. "
                 "主要观察落在 description 字段不够具体 (单一 Worker 看勉强够, 当 doctor 通用诊断中心铺开后会成本放大), "
                 "跟 confidence 字段缺 (确定性 Worker 应显式 1.0, 让下游路由判定可读). "

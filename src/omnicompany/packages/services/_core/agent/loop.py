@@ -191,7 +191,7 @@ class AgentNodeLoop(Router):
     ) -> None:
         """工具调用**前**钩子（2026-04-24 新增 · for 实时 UI 更新 · 默认空）.
 
-        用途: 子类 override 把 (tool_name, tool_args) 推给外部 UI (如协作平台流式卡片),
+        用途: 子类 override 把 (tool_name, tool_args) 推给外部 UI (如collab platform流式卡片),
         同事能看到 "agent 正在调 grep ...".
         """
         return
@@ -288,7 +288,7 @@ class AgentNodeLoop(Router):
                     "role": "user",
                     "content": (
                         f"[SYSTEM_RETRY] 你这一轮没调任何工具就停了, 输出只 {len(text)} 字节. "
-                        f"按 NODE_PROMPT 流程, 你必须先调工具 (cat / ls / grep / chat_platform-cli / write_file 等). "
+                        f"按 NODE_PROMPT 流程, 你必须先调工具 (cat / ls / grep / lark-cli / write_file 等). "
                         f"不要直接给文字回答. 重新决定下一步该调什么工具."
                     ),
                 })

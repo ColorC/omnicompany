@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/guardian ts=2026-05-04T11:30:00Z type=doc status=active belongs_to_service=guardian -->
+<!-- [OMNI] material_id="material:core.guardian.service_design.specification.md" -->
 
 # guardian · 设计文档
 
@@ -27,7 +29,7 @@
 ## 状态
 - **版本**: V2（规则拆分为家族模块 + certainty 双轨 + Guardian Agent 复核雏形 + OMNI-034/035 已加入）
 - **成熟度**: active
-- **唯一权威收束**: 方向权威见 [authority-confirmation.md](../../../../../../docs/plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/authority-confirmation.md), 执行门禁见 [autonomous-execution-rules.md](../../../../../../docs/plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/autonomous-execution-rules.md)。本服务只通过 OMNI-093 守护它们, 不另立第二套设施统一决断。
+- **唯一权威收束**: 方向权威见 authority-confirmation.md, 执行门禁见 autonomous-execution-rules.md。本服务只通过 OMNI-093 守护它们, 不另立第二套设施统一决断。
 - **下一步**: OMNI-034 TBD/decisions 语义检测从固定正则迁移到 Guardian Agent LLM 巡逻（见 §已知局限 1 + M1 计划）；auto_check 时间/变更阈值完全接通；统一技术债登记处（OMNI-035/093 等规则产出统一索引）
 
 ## 核心接口
@@ -264,7 +266,7 @@ _R034 (design_md)  ← 本 session 新加
 - 关联管线：[pipeline.py](pipeline.py) + [routers.py](routers.py)
 - 关联规则家族：[rules/](rules/) 全部 10 个家族文件
 - 关联规则注册：[rules/__init__.py](rules/__init__.py)（RULES 聚合）
-- 关联 Agent 复核：[judge_agent.py](judge_agent.py) / [llm_judge_agent.py](llm_judge_agent.py)
+- 关联 Agent 复核：judge_agent.py / [llm_judge_agent.py](llm_judge_agent.py)
 - 关联 auto_check：[auto_check.py](auto_check.py) / [auto_comment.py](auto_comment.py) / [sentinel.py](sentinel.py)
 - 关联 tow_truck：[tow_truck.py](tow_truck.py)（Phase 1 只重命名）
 - 关联演化接入：[guardian_hook.py](guardian_hook.py) / [evolve_signal.py](evolve_signal.py)

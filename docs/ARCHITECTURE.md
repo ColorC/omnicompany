@@ -1,166 +1,66 @@
-# OmniCompany Architecture
+<!-- [OMNI] origin=ai-ide domain=docs type=doc status=active -->
 
-> **This document is the human-readable description.** 从 Session 3a (2026-04-08) 起，
-> **机器可读的权威源**是 [`docs/archmap.yaml`](archmap.yaml) —— OmniGuardian (OMNI-014 /
-> OMNI-015 / 未来的 guarded_write 门禁) 全部从那里读取 drawer 定义。
->
-> 两份文档的职责分工：
-> - `archmap.yaml` — 唯一权威，结构化 YAML，人 + 机器都能用。修改需 human 审阅批准。
-> - `ARCHITECTURE.md` (本文件) — 人类友好的说明文字，解释设计理由和依赖契约。
->
-> **如果两份文档冲突以 archmap.yaml 为准**，请同时更新两份。
->
-> 常用命令:
-> - `omni guardian archmap show`     查看结构树
-> - `omni guardian archmap validate`  校验 YAML 格式
-> - `omni guardian archmap check <path> --writer <identity>`  试判一个路径
->
-> Last structural migration: 2026-04-07 (see `docs/plans/[2026-04-07]TARGET-ARCH/`)
+# Architecture
 
-## The ten drawers
+omnicompany 是一个 AI 原生的软件工厂：给 LLM 一个"显式声明、明文可读、全程留痕"的工作环境。
+LLM 是引擎，omnicompany 是工厂。本文描述这个发布版的组织方式。
+
+## 构件模型
+
+一切都拆成可声明、可注册、可观测的构件：
+
+| 构件 | 是什么 |
+|---|---|
+| **Material** | 数据契约（schema + 描述）。Worker 之间只通过 Material 交换。 |
+| **Worker** | 单职责处理单元：订阅特定 Material、产出特定 Material。 |
+| **Team** | Worker 的拓扑组合，跑端到端工作流（= 一条"管线"）。 |
+| **Hook** | 周期 / 事件驱动的旁路触发。 |
+| **Tool** | Worker 内调用的原子能力。 |
+| **Agent** | 多轮 tool-loop 的复合 Worker。 |
+
+每个文件 / 模块带可追溯的头注释（OmniMark），配合统一事件总线全程留痕——让 agent 不黑箱跑，漂移有抓手。
+
+## 分层
 
 ```
 src/omnicompany/
-├── core/           ★ Framework glue (config, registry, dispatch, pipelines, observe, omnimark, omni_shield)
-├── bus/            ★ Event bus (SQLite, Memory)
-├── protocol/       ★ Wire types & interface contracts
-├── primitives/     ★ Abstract interfaces (Hook, Intent, Node, Signal, Tool) — zero impls
-├── runtime/        ★ Pipeline execution + Agent loops (+ runtime/nodes/)
-├── tracing/        ★ IntentTracer
-├── cli/            ■ CLI interface
-├── dashboard/      ■ Web UI (FastAPI + Vite)
-├── packages/       ● Domain implementations (flat, one subdir per domain)
-└── _graveyard/     × Retired code (NEVER imported by live code)
+├── core/         # 注册中心、身份、Guardian(目录/架构健康)、自检、修复
+├── runtime/      # 事件总线、agent loop、执行图、信号
+├── protocol/     # Material / Worker / Team 的协议定义
+├── cli/          # omni 命令入口
+├── dashboard/    # 可选 Web UI（pip install -e ".[dashboard]"）
+└── packages/
+    ├── domains/  # 一个个领域（业务层）——自带电池
+    └── services/ # 基础设施服务（_core / _diagnosis / _governance / _learning / _utility）
 ```
 
-## What goes where
+- **框架不进业务**：通用能力在 `core/` `runtime/` `packages/services/`；具体领域在 `packages/domains/`。
+- **事件总线 + OmniMark**：执行落事件、文件带头注释，是"可观测 / 可追溯"的两条腿。
+- **Guardian**：启动自检 + 巡逻，扫目录健康 / 架构漂移 / 头注释合规（`omni guardian patrol`）。
 
-| Drawer | What belongs here | What doesn't |
-|---|---|---|
-| **`core/`** | Pipeline registry, dispatch, config, observe SDK, OmniMark file identity, OmniShield write permit. Framework glue loaded by every caller. | Business logic. LLM-specific code. Agent loops. |
-| **`bus/`** | `SQLiteBus`, `MemoryBus`, `EventBus` base class. Event transport primitives. | Anything that interprets event payloads. |
-| **`protocol/`** | `Format`, `Router`, `PipelineSpec`, `FactoryEvent`, `Anchor`. Stable wire layer — rarely changes. | Any code that *consumes* these types (that lives in `runtime/` or `packages/`). |
-| **`primitives/`** | **Abstract** `Hook`, `Intent`, `Node`, `Signal`, `Tool` interfaces. Contracts only, no implementations. | Any concrete Router or Node impl — those go in `packages/<domain>/`. |
-| **`runtime/`** | `PipelineRunner`, `LLMClient`, `ToolExecutor`, agent loops (`agent_node_loop`, `ide_agent_loop`), DAG builder, session management, routing. | Domain-specific logic. UI code. |
-| **`tracing/`** | `IntentTracer` and trace data schema. | Event bus wiring (that's `bus/`). |
-| **`cli/`** | Click commands. Thin wrappers over `core.dispatch` / `core.observe`. | Business logic. Agent state. |
-| **`dashboard/`** | FastAPI backend + Vite frontend. Thin wrappers over `core.observe` + SSE. | Any business logic or agent state. |
-| **`packages/<domain>/`** | One domain of business code. Self-contained: `formats.py`, `routers/`, `pipeline.py`, `run.py`. | Cross-package imports to another `packages/<other>/`. Use `primitives/` interfaces for inter-domain interaction. |
-| **`_graveyard/`** | Retired code that may be revived. **Not a package**, just an archive path. | Anything imported by live code. |
+## 自带电池的领域
 
-## Dependency contracts
+发布版内置几个通用领域，开箱即用，也是"照着加你自己的"的范例：
 
-Who may depend on whom. Violating these creates structural drift and will be
-caught by OmniGuardian post-Phase E.
+| 领域 | 做什么 |
+|---|---|
+| `research` | 公开调研管线：多视角拆题 → 并行联网 → 综合 + 源核查 → 库累积。 |
+| `decisions` | 决策记录库：多源决策 → 统一契约 → 可搜索决策树。 |
+| `software_engineering` | 软件工程多阶段管线（plan → design → tdd → implement → review → verify）。 |
+| `publish` | 发布 / 脱敏 / 备份治理。 |
 
-```
-  protocol  ←  bus      primitives
-      ↑        ↑             ↑
-      └────────┴─────────────┤
-                             │
-                            core
-                             ↑
-                         runtime
-                             ↑
-                      ┌──────┴──────┐
-                      │             │
-                 packages        tracing
-                      ↑             ↑
-                      └─────┬───────┘
-                            │
-                    ┌───────┴───────┐
-                    │               │
-                   cli          dashboard
+## 加你自己的领域
+
+领域是 `packages/domains/<name>/` 下的一个包：一个 `team.py`（定义 Team = 管线拓扑）+ `DESIGN.md`（设计意图）+ 可选 `run.py`。
+照着 `research` 写一个同形的包即可；框架按领域名调度（`omni run <domain>.<pipeline>`）。
+
+## 命令
+
+```bash
+omni --help              # 命令总览
+omni health              # 系统自检
+omni guardian patrol     # 目录健康巡逻
+omni run research.run --topic "..."   # 跑一个领域管线（需要 LLM key）
 ```
 
-Rules:
-- `protocol/`, `bus/`, `primitives/` never import from anything below them in the diagram
-- `core/` imports `protocol/`, `bus/`, `primitives/` — never `runtime/` or above
-- `runtime/` imports `core/` and lower — never `cli/`, `dashboard/`, or `packages/`
-- `packages/<domain>/` imports everything below but **never another `packages/<other>/`**
-- `cli/` and `dashboard/` are parallel — they don't import each other
-
-## The `packages/` subpackage list
-
-After the 2026-04-07 migration, `packages/` is completely flat. Each subdir is
-an independent domain with `formats.py` + `routers/` + `pipeline.py` + `run.py`
-at minimum:
-
-| Package | Purpose | Dispatchable as |
-|---|---|---|
-| `packages/domains/gameplay_system/` | Game config learning + production + Unity QA (absorbs former `primitives_impl/gameplay_system/` as `table_learning/` subfeature) | `omni run gameplay_system-learn` / `gameplay_system-produce` / `unity-*` |
-| `packages/domains/voxel_engine/` | voxel_engine voxel game domain (design, engineering, art, PM, QA; includes `mechanics_evolver/` subfeature) | `omni run voxel_engine.*` |
-| `packages/domains/software_engineering/` | Software engineering agents (plan, design, TDD, implement, review, verify; includes `generated/` subfeature) | `omni run sw-*` |
-| `packages/domains/creative_content/` | creative_content creation engine (experimental) | — |
-| `packages/services/guardian/` | **OmniGuardian** architectural immune system. Auto-started by `runtime/runner.py:_ensure_guardian_running()` on every PipelineRunner boot. | `omni guardian patrol` / `omni run guardian` |
-| `packages/services/evolution/` | Evolution workflow (orchestrator, hypothesis board, experiment runner, replay runner, diagnosis) | — |
-| `packages/services/trace_induction/` | Convert execution traces into reusable patterns | `omni run trace-induction` |
-| `packages/services/pattern_discovery/` | Discover structural patterns in historical data | `omni run pattern-discovery` |
-| `packages/services/lap_auditor/` | LAP (Language Anchoring Protocol) compliance auditor | `omni run lap-audit` |
-| `packages/services/cleanup_bot/` | Automated cleanup pipeline | `omni run cleanup` |
-| `packages/services/pipeline_ci/` | CI for pipeline definitions | `omni run pipeline-ci` |
-| `packages/services/selftest/` | Self-diagnostic pipeline | `omni run selftest` |
-| `packages/services/skill_importer/` | Import external Claude Skills into OmniCompany | `omni run skill-import` |
-| `packages/services/workflow_factory/` | LLM-driven workflow generation | `omni run workflow-factory` |
-| `packages/vendors/mcp_builder/` | MCP server scaffold generator | — |
-
-## Immune systems
-
-Two subsystems exist to catch structural drift before it accumulates:
-
-**OmniGuardian** (`packages/services/guardian/`) — post-facto scanner, active
-- Rules in `packages/services/guardian/patrol.py`: OMNI-001 through OMNI-007 today,
-  OMNI-008+ added post-Phase E to codify the new drawer labels
-- Runs as a background daemon auto-started by every `PipelineRunner`
-- Dispositions: warn → stamp → quarantine → tow truck
-
-**OmniShield** (`core/omni_shield.py`) — write-time interceptor, audit-only
-- `ALLOWED_WRITE_ROOTS` whitelist + `FORBIDDEN_WRITE_PATHS` blacklist
-- Currently logs but does not block (`audit_only=True`)
-- Phase E will add `src/omnicompany/` root-level writes to the forbidden list
-  and wire Shield into the agent tool layer
-
-## What's NOT here (intentionally)
-
-These are frequently-asked questions about where things live:
-
-- **Event databases** — still fragmented across `data/*/events.db` etc.
-  A future "Move 8" will unify into a single `data/events.db` with a
-  `domain` column. See `docs/plans/[2026-04-07]ARCH-TIDY/tidy_proposal.md`
-  Move 8.
-- **Skills** (Claude skills) — live at `.claude/skills/` at repo root, not
-  under `src/omnicompany/`. They're loaded by the Claude Code runtime, not
-  by omnicompany itself.
-- **Tests** — live at `tests/` at repo root. Mirrors `src/omnicompany/`
-  structure loosely.
-- **Pipeline registrations** — declared in `core/pipelines.py` via
-  `_lazy_fn()` strings. This is the central registry; lazy loading means the
-  domain packages aren't imported until `omni run <name>` is called.
-  **Guardian is the exception**: it's imported eagerly by `runtime/runner.py`
-  to start the patrol daemon.
-
-## History
-
-- **2026-03-24**: initial architectural diagnosis
-  (`docs/plans/[2026-03-24]ARCH-DIAGNOSIS-AND-CLEANUP/diagnosis.md`)
-- **2026-04-07**: full structural migration executed
-  (`docs/plans/[2026-04-07]TARGET-ARCH/`). 14 commits from `e22e41a` (baseline)
-  to `8dca4dc` (`packages/omnicompany/` wrapper delete). Phases A, B.1-B.10,
-  B', C.
-- Pending: Phase D (runtime/ subdir split) + Phase E (Guardian rule additions,
-  OmniShield enforce mode)
-
-## For agents working in this codebase
-
-If you're an agent editing this codebase, read this doc first before adding
-a new file. If you don't know which drawer your file belongs in, it probably
-needs to be a new subdir under `packages/<your_domain>/`, not a root-level
-file and not a new top-level dir.
-
-Never:
-- Create `.py` files directly under `src/omnicompany/` (only dunder files
-  allowed at root)
-- Import from `_graveyard/`
-- Use `primitives_impl`, `packages.omnicompany`, or `packages.imported`
-  in any import path or string literal (these drawers no longer exist)
-- Create new top-level directories without updating this doc and Guardian
+规范（Material / Worker / Team / 头注释约定等）见 [standards/](standards/)。

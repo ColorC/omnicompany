@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards ts=2026-05-01T00:00:00Z type=doc status=active agent=ai-ide-bd9cde92 -->
+<!-- [OMNI] summary="omnicompany CLI 注册流程草案规范, 定义命令接口和数据结构" -->
+<!-- [OMNI] why="后续实装注册中心需要明确的契约, 避免边实装边改接口导致命令错乱" -->
+<!-- [OMNI] tags=cli,registry,standard,draft,omnicompany -->
+<!-- [OMNI] material_id="material:standards.cli.omnicompany_cli_command_specification.md" -->
 
 # omnicompany CLI 注册流程规范 (草案)
 
@@ -112,7 +117,7 @@ omni register batch --identity=<token> --manifest=<清单文件>
 omni sandbox open
 ```
 
-输出: 当前 workspace 的沙盒路径, 例如 `/e/workspace/.omni/sandbox/drafts/`。
+输出: 当前 workspace 的沙盒路径, 例如 `/e/WindowsWorkspace/.omni/sandbox/drafts/`。
 
 ### 4.2 `omni sandbox check`
 

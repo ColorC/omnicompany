@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/_diagnosis/doctor/agents ts=2026-05-06T00:10:00Z type=prompt status=skeleton agent=ai-ide-current -->
+<!-- [OMNI] summary="PlanDiagnosticAgent V0 prompt — 计划型诊断系统提示" -->
+<!-- [OMNI] why="阶段 2 后续 2: 第四种诊断方法. 复用 spec/hypothesis/exemplar 模式, 区别在 prompt 强调'plan 结构合规 + 产物存在性', 不是判合规也不是比对" -->
+<!-- [OMNI] tags=prompt,agent,doctor,plan,skeleton -->
+<!-- [OMNI] material_id="material:diagnosis.doctor.agents.plan_diagnostic.system_prompt.md" -->
 
 # {agent_role} 系统 prompt
 
@@ -65,7 +70,7 @@ framework 自带 (跟 spec/hypothesis/exemplar 同): `read_file` / `glob` / `gre
 - `target_entity_kind` — 'plan'
 - `consulted_references` — 你实际查的模板 path + plan.md path
 - `findings` — 一组 finding (each with finding_kind=plan)
-- `creative_content` — 整体评论. 一段自然语言, 总结 plan 完成度 (产物存在性 + 结构合规) + 未达标项的处置建议, ≥30 字
+- `narrative` — 整体评论. 一段自然语言, 总结 plan 完成度 (产物存在性 + 结构合规) + 未达标项的处置建议, ≥30 字
 
 ## 退出 (V15 2026-05-07 加强 — 无条件必走 submit_verdict)
 

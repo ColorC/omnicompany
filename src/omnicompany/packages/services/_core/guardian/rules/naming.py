@@ -295,7 +295,7 @@ def _check_forbidden_alias_in_header(ctx: FileContext) -> bool:
             if type_val in [f.lower() for f in forbidden_list]:
                 return True
 
-    # 检查 domain= 字段的最后一段（如 gameplay_system/table_learning → 只检查 table_learning 部分）
+    # 检查 domain= 字段的最后一段（如 demogame/table_learning → 只检查 table_learning 部分）
     domain_val = ctx.omnimark.get("domain", "").lower().strip()
     if domain_val:
         # domain 格式是 category/name，检查两部分

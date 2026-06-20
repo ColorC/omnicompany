@@ -45,12 +45,12 @@ class StateKind(str, Enum):
     """文件的 SHA-256 内容摘要。与路径无关，只依赖内容。
     适合验证"我操作的那个文件是否是预期版本"。"""
 
-    scm_CHANGELIST = "scm_changelist"
-    """scm Changelist 号。服务端真相，但用户可能在此 CL 基础上继续编辑。
+    P4_CHANGELIST = "p4_changelist"
+    """Perforce Changelist 号。服务端真相，但用户可能在此 CL 基础上继续编辑。
     is_mutable=True 时需监控后续改动。"""
 
     SVN_REVISION = "svn_revision"
-    """SVN 版本号。同 scm_CHANGELIST 的注意事项。"""
+    """SVN 版本号。同 P4_CHANGELIST 的注意事项。"""
 
     API_SNAPSHOT = "api_snapshot"
     """外部服务的时刻状态快照（如 Feishu 消息列表、REST API 响应）。
@@ -75,14 +75,14 @@ class StateAnchor:
         ref:         锚点的标识符（commit hash / sha256 / CL号 / API 返回的版本字段）
         path:        对应的文件路径或服务地址（可选）
         verified_at: 本锚点最后一次被验证的时间
-        is_mutable:  True = 外部环境可能改变此锚点（如用户在 scm CL 上继续编辑）
+        is_mutable:  True = 外部环境可能改变此锚点（如用户在 P4 CL 上继续编辑）
         trace_id:    产生此锚点的 trace（若来自某次 agent run）
         meta:        额外的上下文信息（如 API 端点、分支名等）
 
     Examples:
         # Git 提交（最可靠）
         StateAnchor(kind=StateKind.GIT_COMMIT, ref="abc123ef",
-                    path="/workspace")
+                    path="e:/WindowsWorkspace")
 
         # 文件摘要（适合验证文件内容未被意外修改）
         StateAnchor(kind=StateKind.FILE_HASH, ref="sha256:abcdef...",

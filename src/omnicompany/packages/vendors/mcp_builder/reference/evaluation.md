@@ -395,7 +395,7 @@ After creating your evaluation file, you can use the provided evaluation harness
 2. **Set API Key**
 
    ```bash
-   export ANTHROPIC_***=your_api_key_here
+   export ANTHROPIC_API_KEY=your_api_key_here
    ```
 
 ## Evaluation File Format
@@ -441,7 +441,7 @@ python scripts/evaluation.py \
   -t stdio \
   -c python \
   -a my_mcp_server.py \
-  -e ***=abc123 \
+  -e API_KEY=abc123 \
   -e DEBUG=true \
   evaluation.xml
 ```
@@ -554,7 +554,7 @@ Here's a complete example of creating and running an evaluation:
 
 ```bash
 pip install -r scripts/requirements.txt
-export ANTHROPIC_***=your_api_key
+export ANTHROPIC_API_KEY=your_api_key
 ```
 
 3. **Run evaluation**:

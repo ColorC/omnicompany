@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=software_engineering/plan ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:domains.software_engineering.plan.design_spec.md" -->
 
 # plan · 设计文档
 
@@ -62,7 +64,7 @@ context_judge (LLM/HARD)
 ## 参考资料
 - 关联管线定义: [team.py](team.py), [routers.py](routers.py), [run.py](run.py)
 - 格式契约: [formats.py](formats.py) (FORMATS 列表与双回路语义定义)
-- 数据落盘策略: [.omni/manifest.yaml](.omni/manifest.yaml) (§aging_policy / §size_limits)
+- 数据落盘策略: .omni/manifest.yaml (§aging_policy / §size_limits)
 - 兼容迁移记录: [pipeline.py](pipeline.py) (2026-04-21 标记 DEPRECATED，重定向至 `team.py`)
 - 相邻域边界: `src/omnicompany/packages/domains/software_engineering/implement/DESIGN.md` (计划消费方与 TDD 验收标准)
 - 规范对齐: `docs/standards/distributed-docs.md` (OMNI-034 结构合规 / §四 src 允许位置)

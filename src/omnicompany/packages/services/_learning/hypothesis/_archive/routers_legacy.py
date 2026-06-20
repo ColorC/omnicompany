@@ -370,7 +370,7 @@ def _load_all_registered_formats() -> list:
         "omnicompany.packages.services._utility.skill_importer.formats",
         "omnicompany.packages.services._learning.trace_induction.formats",
         "omnicompany.packages.services._core.workflow_factory.formats",
-        "omnicompany.packages.domains.voxel_engine.formats",
+        "omnicompany.packages.domains.voxelcraft.formats",
     ]
     registry = create_builtin_registry()
     for mod_path in _SERVICE_FORMAT_MODULES:

@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=software_engineering/lang_rewrite_verifier ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:domains.software_engineering.lang_rewrite_verifier.design_doc.architecture.py" -->
 
 # lang_rewrite_verifier · 设计文档
 

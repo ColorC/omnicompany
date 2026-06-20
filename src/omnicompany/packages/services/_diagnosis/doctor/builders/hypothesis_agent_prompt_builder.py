@@ -113,6 +113,10 @@ class HypothesisAgentPromptBuilder:
         related_aps_str = ", ".join(related_aps) if related_aps else "(待填)"
 
         return f'''<!-- [OMNI] origin=doctor.hypothesis_agent_prompt_builder domain=services/_diagnosis/doctor/agents ts=2026-05-07 type=prompt status=skeleton agent=doctor.builder -->
+<!-- [OMNI] summary="据假设 {hid} 自动产 prompt skeleton — 单条假设专用诊断 agent" -->
+<!-- [OMNI] why="hypothesis_agent_prompt_builder 自动产, 据 plan §一第 7 条 '据假设产新诊断 agent'. 调用方手工 review 后决定接通" -->
+<!-- [OMNI] tags=prompt,agent,doctor,hypothesis-specific,auto-generated,skeleton -->
+<!-- [OMNI] material_id="material:diagnosis.doctor.agents.hypothesis_{_safe_id(hid)}.system_prompt.md" -->
 
 # 单假设诊断 agent · 系统 prompt (skeleton)
 
@@ -168,7 +172,7 @@ class HypothesisAgentPromptBuilder:
 - target_entity_path / target_entity_kind ({applies_to})
 - consulted_references: [本假设 yaml path / 待诊断对象 path]
 - findings: list (每条 finding_kind=hypothesis, applied_hypotheses=[{hid}])
-- creative_content: 整体评论, 必含"是否满足假设 {hid}" 明确表态
+- narrative: 整体评论, 必含"是否满足假设 {hid}" 明确表态
 
 ## TODO (调用方手工补)
 

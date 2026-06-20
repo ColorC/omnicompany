@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/pattern_discovery ts=2026-05-04T15:45:00Z type=doc status=active belongs_to_service=pattern_discovery -->
+<!-- [OMNI] material_id="material:core.pattern_discovery.service_architecture.design.md" -->
 
 # pattern_discovery · 设计文档
 
@@ -99,4 +101,4 @@ pd.trigger (source)
 - [workers/](workers/) — 3 个 Worker (Diamond shortcut)
 - [formats.py](formats.py) — 4 个 Material
 - [_archive/routers_legacy.py](_archive/routers_legacy.py) — 原 Router 实现
-- [../trace_induction/](../trace_induction/) — 下游被调管线
+- ../trace_induction/ — 下游被调管线

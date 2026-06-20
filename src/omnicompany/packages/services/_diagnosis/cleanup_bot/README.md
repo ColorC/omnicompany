@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/cleanup_bot ts=2026-05-05T19:45:00Z type=doc status=archived belongs_to_service=cleanup_bot -->
+<!-- [OMNI] material_id="material:diagnosis.cleanup_bot.archive_pointer.md" -->
+<!-- [OMNI] summary="cleanup_bot 整体归档 (2026-05-05). 不属诊断 — 它是清理工具的取证 (扫磁盘可疑路径 + LLM 判正误触 + 打印清理脚本), 跟健康诊断不同质" -->
+<!-- [OMNI] why="诊断重制 plan 阶段 1 step 4: 用户决议 cleanup_bot 不属诊断设施. 真要保留挪到独立位置, 当前默认归档" -->
+<!-- [OMNI] tags=archived,pointer,cleanup_bot,diagnosis-reconsolidation -->
 
 # cleanup_bot · 已归档
 

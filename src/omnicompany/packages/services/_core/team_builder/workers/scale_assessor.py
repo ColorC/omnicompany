@@ -57,7 +57,7 @@ _SYSTEM_PROMPT = """你是 team_builder 第 2 阶段 · ScaleAssessor agent.
 
 **若落 large**: 必须判拆分维度
 - by_capability: 能力边界明确 (分析 / 生成 / 验证)
-- by_domain: 业务子领域明确 (gameplay_system / voxel_engine)
+- by_domain: 业务子领域明确 (demogame / voxelcraft)
 - by_phase: 阶段明确 (ingest / process / output)
 
 ## 产出 (finish 的 result 字段应为 JSON 字符串)

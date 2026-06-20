@@ -2,7 +2,7 @@
 # [OMNI] summary="TeamNarrativeChecker — V3 L4 LLM 叙事审计 worker. 软归档 2026-05-06: 判定点已反推为 H-2026-05-06-011..015 进新假设库, 用 HypothesisDiagnosticAgent 替代"
 # [OMNI] why="诊断重制阶段 3 项 2: D 类老 LLM worker 软归档. 物理归档待 V3 管线整体替换 (plan §六 阶段 8)"
 # [OMNI] tags=worker,doctor,deprecated,phase-3-soft-archive
-# [OMNI] material_id="material:diagnosis.doctor.worker.team.pipeline_creative_content_auditor.py"
+# [OMNI] material_id="material:diagnosis.doctor.worker.team.pipeline_narrative_auditor.py"
 """TeamNarrativeChecker — L4 LLM 叙事审计 (SOFT, Stage 3 2026-04-22).
 
 ## DEPRECATED (2026-05-06 软归档, V3 整体替换时物理归档)
@@ -22,7 +22,7 @@
 
 Worker 协议:
   FORMAT_IN  = diag.team.extracted
-  FORMAT_OUT = diag.team.check.creative_content
+  FORMAT_OUT = diag.team.check.narrative
 
 诊断目标: LLM 评估整管线的:
   - 叙事连贯性: 从入口到出口, 每一步是否有清晰的信息增量
@@ -31,7 +31,7 @@ Worker 协议:
   - 节点单一性: 哪个节点做了超出 DESCRIPTION 声明的事情
 
 LLM 失败时降级为 SKIP (passed=None), 不阻断管线.
-输出 check_creative_content 字段, advisory 级别 Finding.
+输出 check_narrative 字段, advisory 级别 Finding.
 """
 from __future__ import annotations
 
@@ -67,7 +67,7 @@ _SYSTEM = """\
 严格输出合法 JSON（不要 markdown 代码块）：
 
 {
-  "creative_content_coherent": true/false,
+  "narrative_coherent": true/false,
   "has_semantic_jump": true/false,
   "semantic_jump_locations": ["edge:node_a→node_b（跳跃描述）"],
   "purpose_aligned": true/false,
@@ -94,10 +94,10 @@ class TeamNarrativeChecker(Worker):
         "L4 整管线叙事审计 (LLM): 给定完整 Format 链 + 所有节点 DESCRIPTION + purpose/design_rationale, "
         "评估叙事连贯性 (信息增量是否可解释)、语义跳跃 (哪条边信息差距过大)、意图对齐 (结构是否服务业务目标). "
         "LLM 失败时降级为 SKIP (passed=None), 不阻断管线. "
-        "输出 check_creative_content 字段, advisory 级别 Finding."
+        "输出 check_narrative 字段, advisory 级别 Finding."
     )
     FORMAT_IN = "diag.team.extracted"
-    FORMAT_OUT = "diag.team.check.creative_content"
+    FORMAT_OUT = "diag.team.check.narrative"
 
     def __init__(self, model: str | None = None):
         # 项目唯一 LLM: qwen3.6-plus. 保留 model 参数以便测试覆写.
@@ -109,8 +109,8 @@ class TeamNarrativeChecker(Worker):
 
         if not specs_data:
             output = dict(input_data)
-            output["check_creative_content"] = {
-                "check": "creative_content",
+            output["check_narrative"] = {
+                "check": "narrative",
                 "passed": None,
                 "severity": "INFO",
                 "detail": "无 TeamSpec 数据, 跳过叙事审计",
@@ -132,7 +132,7 @@ class TeamNarrativeChecker(Worker):
                 for loc in r.get("semantic_jump_locations", []):
                     findings.append({
                         "pipeline_id": pid,
-                        "check_id": "creative_content_semantic_jump",
+                        "check_id": "narrative_semantic_jump",
                         "level": "advisory",
                         "location": loc,
                         "observation": f"语义跳跃: {loc}",
@@ -140,7 +140,7 @@ class TeamNarrativeChecker(Worker):
             if not r.get("purpose_aligned"):
                 findings.append({
                     "pipeline_id": pid,
-                    "check_id": "creative_content_purpose_misalign",
+                    "check_id": "narrative_purpose_misalign",
                     "level": "advisory",
                     "location": f"pipeline:{pid}",
                     "observation": f"意图不对齐: {r.get('purpose_alignment_notes', '')}",
@@ -148,15 +148,15 @@ class TeamNarrativeChecker(Worker):
             for vn in r.get("violation_nodes", []):
                 findings.append({
                     "pipeline_id": pid,
-                    "check_id": "creative_content_node_overload",
+                    "check_id": "narrative_node_overload",
                     "level": "advisory",
                     "location": f"node:{vn.split('(')[0] if '(' in vn else vn}",
                     "observation": f"节点职责过重: {vn}",
                 })
 
         output = dict(input_data)
-        output["check_creative_content"] = {
-            "check": "creative_content",
+        output["check_narrative"] = {
+            "check": "narrative",
             "passed": not any_fail,
             "severity": "MEDIUM" if any_fail else "INFO",
             "audit_results": all_audit_results,
@@ -265,7 +265,7 @@ class TeamNarrativeChecker(Worker):
             return {
                 "pipeline_id": spec.id,
                 "overall_grade": "?",
-                "creative_content_coherent": None,
+                "narrative_coherent": None,
                 "has_semantic_jump": False,
                 "semantic_jump_locations": [],
                 "purpose_aligned": None,

@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=ai-ide domain=services/configurable ts=2026-05-04T17:10:00Z type=doc status=active agent=ai-ide belongs_to_service=configurable -->
+<!-- [OMNI] material_id="material:services._core.configurable.design.md"-->
 
 # configurable · 设计文档
 
@@ -23,7 +25,7 @@
 
 ## 数据流 / 拓扑
 
-无独立管线, 是基类库. 业务子类 (例 `gameplay_system.SafeBashRouter` / `config_service._query_bash`) 继承本包的基类 + 提供 SPEC.
+无独立管线, 是基类库. 业务子类 (例 `demogame.SafeBashRouter` / `config_service._query_bash`) 继承本包的基类 + 提供 SPEC.
 
 ## 已知局限
 

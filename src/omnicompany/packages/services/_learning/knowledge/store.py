@@ -5,7 +5,7 @@
 扫描 3 类根路径:
   1. data/knowledge/                               — 跨 package 共享的长期资产
   2. src/omnicompany/packages/*/knowledge/         — 挂在业务包下的领域知识
-  3. src/omnicompany/packages/*/*/knowledge/       — 二级业务包 (如 domains/gameplay_system/knowledge)
+  3. src/omnicompany/packages/*/*/knowledge/       — 二级业务包 (如 domains/demogame/knowledge)
 
 目录命名约定 (非强制, 但推荐遵守):
   data/knowledge/

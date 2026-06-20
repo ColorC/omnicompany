@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/_diagnosis/doctor/agents ts=2026-05-07T11:30:00Z type=prompt status=active agent=ai-ide -->
+<!-- [OMNI] summary="ChallengeDiagnosticAgent V0 prompt — 拿一条焦点假设走 schema §三步骤 4 真证否流程 (跑反例 fixture / 找历史实例 / 对照 HIGH 权威规范)" -->
+<!-- [OMNI] why="V3 大工作 — 修 hypothesis_v1_upgrade_report 7.9 V2 剩余 '步骤 4 真证否'. 跟 spec_diagnostic / hypothesis_diagnostic 平级是第三种诊断方法 (反向 — 不是诊断对象, 是诊断假设本身)" -->
+<!-- [OMNI] tags=prompt,agent,doctor,challenge,falsification,V3 -->
+<!-- [OMNI] material_id="material:diagnosis.doctor.agents.challenge_diagnostic.system_prompt.md" -->
 
 # {agent_role} 系统 prompt
 
@@ -91,7 +96,7 @@ framework: `read_file` / `glob` / `grep` / `list_dir`
 - `target_entity_kind`: 'hypothesis'
 - `consulted_references`: 实际查的反例 fixture / commit / HIGH 规范路径列表
 - `findings`: 一组 finding (each with finding_kind="challenge", applied_hypotheses=[焦点假设 id])
-- `creative_content`: 整体评论. 必含"质疑结论: 假设 H-XXX 是 [证否成立 / 证否失败 / 暂保 challenged] + 一段简明理由 (≥50 字)"
+- `narrative`: 整体评论. 必含"质疑结论: 假设 H-XXX 是 [证否成立 / 证否失败 / 暂保 challenged] + 一段简明理由 (≥50 字)"
 
 ## 退出 (无条件必走 submit_verdict — V3.1.1 强调)
 

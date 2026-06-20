@@ -1,14 +1,19 @@
+<!-- [OMNI] origin=ai-ide domain=services/guardian ts=2026-05-04T11:30:00Z type=doc status=active agent=ai-ide belongs_to_service=guardian -->
+<!-- [OMNI] summary="guardian service 自我叙事 README — 源码/文档/架构合规自动巡逻, 30+ 规则 OMNI-001~035, 跟 Doctor 互补 (Guardian 静态/Doctor 运行时)" -->
+<!-- [OMNI] why="DESIGN.md 285 行混了核心目的+架构. Guardian 是核心层四件武器之一+自稳第二阶段地基. README/DESIGN/SKILL 拆开让目的+架构+操作各管一段" -->
+<!-- [OMNI] tags=readme,guardian,core,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.guardian.readme.self_narrative.md"-->
 
 # guardian · 源码合规自动巡逻
 
 > 本仓每次改动是否仍合规? OMNI-NNN 规则家族扫源码 / 文档 / 架构边界. Phase 1 全部 warn 不杀生, Phase 2 逐条升级到 fix/block. 是 omnicompany 核心层四件武器之一.
-> 核心设施统一的方向权威见 [authority-confirmation.md](../../../../../../docs/plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/authority-confirmation.md), 长程门禁见 [autonomous-execution-rules.md](../../../../../../docs/plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/autonomous-execution-rules.md); guardian 只负责用 OMNI-093 防漂移, 不复制第二套决断。
+> 核心设施统一的方向权威见 authority-confirmation.md, 长程门禁见 autonomous-execution-rules.md; guardian 只负责用 OMNI-093 防漂移, 不复制第二套决断。
 
 ---
 
 ## 这是什么
 
-guardian 是 omnicompany 的**源码 / 文档 / 架构规范的自动巡逻 service**. 它在 git hook / CLI / 定时器 / 阈值触发下扫源码, 把违规标 `Violation` (含 OMNI-NNN 编号 / 路径 / 严重度 / 修复建议), 同步到 [docs/tech_debt/REGISTRY.md](../../../../../../docs/tech_debt/REGISTRY.md) 跟 [ARCH-CHANGES.jsonl](../../../../../../docs/ARCH-CHANGES.jsonl).
+guardian 是 omnicompany 的**源码 / 文档 / 架构规范的自动巡逻 service**. 它在 git hook / CLI / 定时器 / 阈值触发下扫源码, 把违规标 `Violation` (含 OMNI-NNN 编号 / 路径 / 严重度 / 修复建议), 同步到 docs/tech_debt/REGISTRY.md 跟 ARCH-CHANGES.jsonl.
 
 跟 [doctor](../../_diagnosis/doctor/) 分工互补:
 - **doctor** = 运行时健康诊断 (Format / Worker / Team 是否语义正确)
@@ -37,11 +42,11 @@ guardian 是 omnicompany 的**源码 / 文档 / 架构规范的自动巡逻 serv
 
 **设计目的**: 让"项目结构合规" 不靠人记每条规则, 不靠 commit 时被人挑刺. 机器扫一次给出 N 条违规清单 + 改法建议. L2 看清单 / agent 自查 / pre-commit 拦杀.
 
-**理论锚点**: guardian 是 [控制结构.md §三 核心层四件武器](../../../../../../docs/控制结构.md) 之一 ("Guardian / WorkflowFactory / Overseer 未落地 / Doctor 雏形"). 它跟 [自稳定主轴第三件能力](../../../../../../docs/PROGRESS.md) — "架构自维护 / 自诊断 / 自认知" — 直接对应 — 是"架构自维护" 的自动化执行者.
+**理论锚点**: guardian 是 控制结构.md §三 核心层四件武器 之一 ("Guardian / WorkflowFactory / Overseer 未落地 / Doctor 雏形"). 它跟 自稳定主轴第三件能力 — "架构自维护 / 自诊断 / 自认知" — 直接对应 — 是"架构自维护" 的自动化执行者.
 
 **最终目标** (当下能认知的):
 - needs_judgment 规则规模化, 让 LLM 复核成主流 (不是字符串硬规则)
-- 跟 [CORE-SELF-STABILITY 第二阶段](../../../../../../docs/plans/guardian/[2026-05-04]CORE-SELF-STABILITY/plan.md) 协作 — 升级到含语义级规则 (例 "OmniMark 头的 implements_capability 跟代码 import 关系应一致" 这种漂移检测)
+- 跟 CORE-SELF-STABILITY 第二阶段 协作 — 升级到含语义级规则 (例 "OmniMark 头的 implements_capability 跟代码 import 关系应一致" 这种漂移检测)
 - 接入自我画像 (CORE-SELF-STABILITY 第一阶段铆钉的 belongs_to_service 字段) 做合规校验
 - pre-commit 拦截集合扩展 (当前 BLOCK_RULES 含 OMNI-014~018 / 035f~i HIGH, 后续逐条加)
 
@@ -60,7 +65,7 @@ guardian 不是 Team 形态 (虽然有"巡逻管线"), 是**多功能合规 serv
 | 巡逻管线 (3 节点) | 扫文件 → 跑规则 → 写报告 | [pipeline.py](pipeline.py) + [workers/](workers/) |
 | 规则家族 | OMNI-NNN 规则定义, 按语义家族组织; OMNI-093 守护唯一权威收束 | [rules/](rules/) |
 | 规则引擎 | FileContext / GuardianRule / Violation | [rules/_base.py](rules/_base.py) |
-| Guardian Agent (LLM 复核) | needs_judgment 规则二次裁定 | [judge_agent.py](judge_agent.py) + [llm_judge_agent.py](llm_judge_agent.py) |
+| Guardian Agent (LLM 复核) | needs_judgment 规则二次裁定 | judge_agent.py + [llm_judge_agent.py](llm_judge_agent.py) |
 | Sentinel (常驻巡逻) | 增量巡逻 + 唤醒机制 + 罚单逾期升级 | [sentinel.py](sentinel.py) |
 | 拖车 (修复) | warn-only 之外的轻量改动 | [tow_truck.py](tow_truck.py) |
 | auto_check (阈值触发) | commit 数 / 时间 / 变更行数阈值 | [auto_check.py](auto_check.py) |
@@ -78,5 +83,5 @@ guardian 不是 Team 形态 (虽然有"巡逻管线"), 是**多功能合规 serv
 - 操作手册 → [SKILL.md](SKILL.md)
 - 跟 doctor 互补 → [../../_diagnosis/doctor/](../../_diagnosis/doctor/)
 - 自稳第二阶段道路 → [docs/plans/guardian/[2026-05-04]CORE-SELF-STABILITY/plan.md](../../../../../../docs/plans/guardian/[2026-05-04]CORE-SELF-STABILITY/plan.md)
-- 控制结构 (核心层四件武器) → [docs/控制结构.md](../../../../../../docs/控制结构.md)
+- 控制结构 (核心层四件武器) → docs/控制结构.md
 - 项目根叙事 → [../../../../../README.md](../../../../../../README.md)

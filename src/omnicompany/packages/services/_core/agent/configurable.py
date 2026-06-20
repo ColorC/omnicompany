@@ -86,7 +86,7 @@ _register_builtin_tools()
 def auto_register_singletool_subclasses() -> int:
     """扫所有已 import 的 SingleToolRouter 子类自动 register_tool.
 
-    业务侧 (例 gameplay_system/team_business/workers/feishu_tools 等) import 自己 router 后
+    业务侧 (例 demogame/team_business/workers/feishu_tools 等) import 自己 router 后
     调一次本函数, 把所有有 TOOL_NAME 的子类都登记到 TOOL_REGISTRY.
 
     返回新登记的 tool 数. 已存在的不重复.
@@ -129,9 +129,9 @@ class AgentSpec:
     """
 
     # ── 1. omnicompany 注册信息 ──
-    id: str                                              # 唯一 ID (例 "gameplay_system.business_researcher")
-    name: str                                            # 类名风格 (例 "gameplay_systemBusinessResearcher")
-    domain: str = ""                                     # 业务域 (例 "gameplay_system")
+    id: str                                              # 唯一 ID (例 "demogame.business_researcher")
+    name: str                                            # 类名风格 (例 "IgameBusinessResearcher")
+    domain: str = ""                                     # 业务域 (例 "demogame")
     parent_worker_kind: str = "agent"                    # 跟工人规范对齐 (R-19 智能体子类型)
     registry_namespace: str = "services.agent.instances"  # 注册中心命名空间
 
@@ -198,16 +198,16 @@ class ConfigurableAgent(AgentNodeLoop):
 
     示例最小子类 (业务侧)::
 
-        class gameplay_systemBusinessResearcher(ConfigurableAgent):
+        class IgameBusinessResearcher(ConfigurableAgent):
             SPEC = AgentSpec(
-                id="gameplay_system.business_researcher",
-                name="gameplay_systemBusinessResearcher",
-                domain="gameplay_system",
-                prompt_path="docs/agent_prompts/gameplay_system_business_researcher.md",
+                id="demogame.business_researcher",
+                name="IgameBusinessResearcher",
+                domain="demogame",
+                prompt_path="docs/agent_prompts/demogame_business_researcher.md",
                 tools=("glob", "grep", "read_file", "list_dir"),
-                output_materials=("gameplay_system.business-understanding-doc",),
-                primary_output="gameplay_system.business-understanding-doc",
-                trigger_materials=("gameplay_system.business-research-request",),
+                output_materials=("demogame.business-understanding-doc",),
+                primary_output="demogame.business-understanding-doc",
+                trigger_materials=("demogame.business-research-request",),
             )
 
     框架自动:

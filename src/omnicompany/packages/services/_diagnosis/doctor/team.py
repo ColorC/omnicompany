@@ -246,7 +246,7 @@ def build_team_topology_pipeline() -> TeamSpec:
                            │        pipeline_format_contract   ──→
                            │        pipeline_maturity_check    ──→ pipeline_topo_health_writer
                            │        pipeline_soft_hard_check   ──→
-                           │        pipeline_creative_content_check   ──→
+                           │        pipeline_narrative_check   ──→
                            │(FAIL)→ EMIT 最小健康档案
 
     说明:
@@ -255,7 +255,7 @@ def build_team_topology_pipeline() -> TeamSpec:
       - pipeline_format_contract:   RULE，format_break/composite_missing/granted_tag_chain
       - pipeline_maturity_check:    RULE，maturity_consistency（短板原则）
       - pipeline_soft_hard_check:   RULE，soft_hard_pairing（P-07）
-      - pipeline_creative_content_check:   LLM，叙事连贯性/语义跳跃/意图对齐（L4）
+      - pipeline_narrative_check:   LLM，叙事连贯性/语义跳跃/意图对齐（L4）
       - pipeline_topo_health_writer:RULE，fan-in 汇聚 → 健康档案
 
     自指性：本管线本身应通过自己定义的所有检查（无 blocking/degrading Finding）。
@@ -371,13 +371,13 @@ def build_team_topology_pipeline() -> TeamSpec:
 
         # ── 2e. 整管线叙事审计（fan-out 第 5 路，L4 LLM）──
         TeamNode(
-            id="pipeline_creative_content_check",
+            id="pipeline_narrative_check",
             kind=NodeKind.TRANSFORMER,
             transformer=TransformerSpec(
-                id=f"{DOMAIN}-team-creative_content",
+                id=f"{DOMAIN}-team-narrative",
                 name="PipelineNarrativeCheck",
                 from_format="diag.team.extracted",
-                to_format="diag.team.check.creative_content",
+                to_format="diag.team.check.narrative",
                 method=TransformMethod.LLM,
                 description=(
                     "L4 整管线叙事审计（LLM）：给定完整 Format 链 + 所有节点 DESCRIPTION + "
@@ -417,14 +417,14 @@ def build_team_topology_pipeline() -> TeamSpec:
                      condition=VerdictKind.PASS, label="加载成功 → 成熟度一致性检查"),
         TeamEdge(source="pipeline_spec_loader", target="pipeline_soft_hard_check",
                      condition=VerdictKind.PASS, label="加载成功 → 软硬配对检查"),
-        TeamEdge(source="pipeline_spec_loader", target="pipeline_creative_content_check",
+        TeamEdge(source="pipeline_spec_loader", target="pipeline_narrative_check",
                      condition=VerdictKind.PASS, label="加载成功 → 叙事审计（L4）"),
         # fan-in → health_writer（5 → 1）
         TeamEdge(source="pipeline_structural_check", target="pipeline_topo_health_writer"),
         TeamEdge(source="pipeline_format_contract",  target="pipeline_topo_health_writer"),
         TeamEdge(source="pipeline_maturity_check",   target="pipeline_topo_health_writer"),
         TeamEdge(source="pipeline_soft_hard_check",  target="pipeline_topo_health_writer"),
-        TeamEdge(source="pipeline_creative_content_check",  target="pipeline_topo_health_writer"),
+        TeamEdge(source="pipeline_narrative_check",  target="pipeline_topo_health_writer"),
     ]
 
     return TeamSpec(

@@ -89,11 +89,11 @@ data/domains/<domain>/counterexamples/<rule_id>_<date>.jsonl
 
 两者配套使用, 缺一不可.
 
-## 死规则清单 (gameplay_system_ux 域 2026-04-30)
+## 死规则清单 (demogame_ux 域 2026-04-30)
 
 | 规则 ID | 状态 | 真值源 | 账本路径 |
 |---|---|---|---|
-| `grid_mount_anchor_v1` | 修后保留 (B-#3) | GT 验证器 + step12 跑时 | `data/domains/gameplay_system_ux/counterexamples/grid_mount_anchor_v1_*.jsonl` |
+| `grid_mount_anchor_v1` | 修后保留 (B-#3) | GT 验证器 + step12 跑时 | `data/domains/demogame_ux/counterexamples/grid_mount_anchor_v1_*.jsonl` |
 | `typical_subtree_keep_llm_v1` | LLM 唯一路径 (B-#4) | GT 验证器 (子节点存在性) | 同上 |
 | `decoration_classify_llm_v1` | LLM 缓存 (B-#5) | GT m_Name 真用法 | 同上 |
 | `naming_style_v1` (9 条 yaml) | LLM 缓存 (C-#6) | 4 GT 抽样 | 同上 |

@@ -220,7 +220,7 @@ def cmd_guardian_report(out_path: str | None, with_llm_prose: bool, quiet: bool)
 @click.option("--llm-all", "llm_all", is_flag=True, default=False,
               help="LLM 审查所有变更文件（而非仅新增文件，配合 --llm 使用）")
 @click.option("--pilot", "pilot_path", type=str, default=None,
-              help="LLM 试点路径前缀（例: src/omnicompany/packages/domains/gameplay_system/）")
+              help="LLM 试点路径前缀（例: src/omnicompany/packages/domains/demogame/）")
 @click.option("--json-out", "json_output", is_flag=True, default=False,
               help="以 JSON 格式输出（便于机器处理）")
 def cmd_guardian_patrol(
@@ -244,7 +244,7 @@ def cmd_guardian_patrol(
       omni guardian patrol --commits 5              # 回溯 5 个 commit
       omni guardian patrol --llm                    # 规则 + LLM 审查新增文件
       omni guardian patrol --llm --llm-all          # LLM 审查所有变更文件
-      omni guardian patrol --llm --pilot src/omnicompany/packages/domains/gameplay_system/
+      omni guardian patrol --llm --pilot src/omnicompany/packages/domains/demogame/
       omni guardian patrol --json-out               # JSON 输出
     """
     from omnicompany.packages.services._core.guardian import (

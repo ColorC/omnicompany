@@ -54,7 +54,7 @@ _SYSTEM_PROMPT = """你是 team_builder 第 2 阶段 · DecompositionPlanner age
 
 ## 拆分原则 (scale_assessment.decompose_axis 指定)
 - **by_capability**: 按能力边界 (例: 分析/生成/验证 三子 team)
-- **by_domain**: 按业务子域 (例: gameplay_system/voxel_engine 三子 team)
+- **by_domain**: 按业务子域 (例: demogame/voxelcraft 三子 team)
 - **by_phase**: 按阶段 (例: ingest/process/output 三子 team)
 
 ## 契约 material 设计要点

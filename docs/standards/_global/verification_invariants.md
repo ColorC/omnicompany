@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=docs/standards ts=2026-04-30T17:00:00Z type=standard -->
+<!-- [OMNI] material_id="material:standards.global.verification_invariants_gradient_schema.md" -->
 
 # 标准 · 验证 invariants (W6/W7/PlayerAgent 通用)
 
@@ -18,11 +20,11 @@
 
 **为什么失败**:
 - vision LLM 永远答 "pass" — 任何字号, 任何对比度的标题都"看得见"
-- 不区分 demo vs hifi baseline / vs 真 gameplay_system 的差距
+- 不区分 demo vs hifi baseline / vs 真 demogame 的差距
 - 没有梯度, 好/一般/差 都一个 PASS
 - **没有判别力** = 没有验证
 
-实测后果: a 块 demo 跟用户列出的真 gameplay_system (剑与远征:启程) 差距巨大 (没用 backend 真 cellmap / 商店按钮浮动 / 倒计时空跑 / 棋盘看不见棋子 / 等 15 项), W6 4/4 PASS, 严重误导.
+实测后果: a 块 demo 跟用户列出的真 demogame (剑与远征:启程) 差距巨大 (没用 backend 真 cellmap / 商店按钮浮动 / 倒计时空跑 / 棋盘看不见棋子 / 等 15 项), W6 4/4 PASS, 严重误导.
 
 ### 1.2 正模式
 
@@ -40,7 +42,7 @@
 ```jsonc
 {
   "invariant_id": "S2-battlefield-cellmap",  // 屏 + 项 unique
-  "describe": "棋盘必须用 backend /api/battlefield 拉的 gameplay_system cellmap (~45 tiles, 含 banned/block 过渡), 不是 hand-rolled 8x4 死格",
+  "describe": "棋盘必须用 backend /api/battlefield 拉的 demogame cellmap (~45 tiles, 含 banned/block 过渡), 不是 hand-rolled 8x4 死格",
 
   // 三档敏感性 — 必填
   "red_check": "如果是 8x4 等距矩阵, 没看到 banned 灰格 / block 物体 → fail (说明没接 backend)",
@@ -55,7 +57,7 @@
   // 验证方法 — 调度具体怎么验
   "verify_method": "vision_llm_compare_to_baseline",  // 见 §3
   "baseline_path": "designs/06-hifi-final/main_board_prepare.baseline.png",
-  "real_gameplay_system_path": "scratch/W7_real_gameplay_system_baseline/main_board_prepare.png",  // 可选
+  "real_demogame_path": "scratch/W7_real_demogame_baseline/main_board_prepare.png",  // 可选
 
   // 严重度 — 这条若 fail 算什么级别
   "severity_if_fail": "blocker"  // blocker | major | minor | cosmetic
@@ -114,7 +116,7 @@ vision LLM 看 2 张图 (实物 + baseline) + 答相似度 + pass/fail. 用于 p
 
 例:
 - ❌ "标题 '选择威胁等级' 显示" — 反例?(任何标题都过)
-- ✅ "标题文字精确匹配 spec '选择威胁等级' 字符串" — 反例: 文案 "选择难度", "选择levels" 都 fail
+- ✅ "标题文字精确匹配 spec '选择威胁等级' 字符串" — 反例: 文案 "选择难度", "选择关卡" 都 fail
 
 ### 4.2 数值化优先
 
@@ -126,7 +128,7 @@ vision LLM 看 2 张图 (实物 + baseline) + 答相似度 + pass/fail. 用于 p
 
 ### 4.3 锚到 baseline
 
-视觉类 invariants 必须有 baseline (hifi-final / 真 gameplay_system 截图) 作锚. 不锚到具体图就空谈.
+视觉类 invariants 必须有 baseline (hifi-final / 真 demogame 截图) 作锚. 不锚到具体图就空谈.
 
 例:
 - ❌ "棋盘视觉合理"

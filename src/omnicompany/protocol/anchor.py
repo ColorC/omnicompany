@@ -85,7 +85,7 @@ class Verdict(BaseModel):
     声明 validator 确认了哪些语义维度。
     在管线中只增不减地累积——经过的 validator 越多，
     数据携带的已验证语义维度越多。
-    例: ["source.scm.verified", "domain.battle"]"""
+    例: ["source.p4.verified", "domain.battle"]"""
 
     info_audit: "InfoAuditReport | None" = None  # type: ignore[name-defined]
     """信息审计报告 (2026-04-09, Phase 1)。

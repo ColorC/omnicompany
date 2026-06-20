@@ -18,8 +18,8 @@ import traceback
 from pathlib import Path
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.runtime.routing.router import Router
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.runtime.routing.router import Router
 
 logger = logging.getLogger(__name__)
 
@@ -40,8 +40,8 @@ class RegistryCheckerRouter(Router):
     FORMAT_OUT = "selftest.registry-report"
 
     def run(self, input_data: Any) -> Verdict:
-        from omnicompany.core.pipelines import register_all
-        import omnicompany.core.registry as _reg
+        from omnifactory.core.pipelines import register_all
+        import omnifactory.core.registry as _reg
 
         # 注册所有管线
         try:
@@ -216,7 +216,7 @@ def _detect_project_root() -> str:
 def _test_domain_scanner(project_root: str) -> dict:
     name = "domain_scanner_smoke"
     try:
-        from omnicompany.packages.services._diagnosis.pipeline_ci.routers import DomainScannerRouter
+        from omnifactory.packages.services._diagnosis.pipeline_ci.routers import DomainScannerRouter
         router = DomainScannerRouter()
         verdict = router.run({"project_root": project_root})
         if verdict.kind == VerdictKind.FAIL:
@@ -233,9 +233,9 @@ def _test_eventbus(project_root: str) -> dict:
     """验证 SQLiteBus 可导入并实例化（基础可用性检查）。"""
     name = "eventbus_import"
     try:
-        from omnicompany.bus import SQLiteBus
-        from omnicompany.bus.base import EventBus
-        from omnicompany.protocol.events import FactoryEvent
+        from omnifactory.bus import SQLiteBus
+        from omnifactory.bus.base import EventBus
+        from omnifactory.protocol.events import FactoryEvent
 
         # 验证类继承关系正确
         assert issubclass(SQLiteBus, EventBus), "SQLiteBus 未继承 EventBus"
@@ -250,10 +250,10 @@ def _test_eventbus(project_root: str) -> dict:
 def _test_pipeline_checker() -> dict:
     name = "selftest_pipeline_checker"
     try:
-        from omnicompany.protocol.format import create_builtin_registry
-        from omnicompany.protocol.pipeline import PipelineChecker
-        from omnicompany.packages.services._core.selftest.formats import register_formats
-        from omnicompany.packages.services._core.selftest.pipeline import build_pipeline
+        from omnifactory.protocol.format import create_builtin_registry
+        from omnifactory.protocol.pipeline import PipelineChecker
+        from omnifactory.packages.services._core.selftest.formats import register_formats
+        from omnifactory.packages.services._core.selftest.pipeline import build_pipeline
 
         registry = create_builtin_registry()
         register_formats(registry)
@@ -412,7 +412,7 @@ class LLMReporterRouter(Router):
         functional_results: list,
     ) -> tuple[bool, str]:
         try:
-            from omnicompany.runtime.llm.llm import LLMClient
+            from omnifactory.runtime.llm.llm import LLMClient
 
             client = self._client or LLMClient(role="runtime_main", max_tokens=512)
 

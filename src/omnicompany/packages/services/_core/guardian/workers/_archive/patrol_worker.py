@@ -1,4 +1,4 @@
-# [OMNI] origin=claude-code domain=omnicompany/guardian ts=2026-04-21T00:00:00Z type=router
+# [OMNI] origin=claude-code domain=omnifactory/guardian ts=2026-04-21T00:00:00Z type=router
 # [OMNI] material_id="material:guardian.service_patrol.inspector.worker.py"
 """PatrolWorker — Guardian LLM 巡查 Worker (C4 2026-04-21).
 
@@ -35,8 +35,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from omnicompany.packages.services._core.omnicompany import Worker
-from omnicompany.protocol.anchor import Verdict, VerdictKind
+from omnifactory.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
 
 from ..rules.stage3_completeness import _has_archive_import_via_ast
 
@@ -166,8 +166,8 @@ class PatrolWorker(Worker):
             services_root = Path(services_root_str)
         else:
             # 默认走项目根 services/
-            from omnicompany.core.config import _project_root
-            services_root = _project_root() / "src" / "omnicompany" / "packages" / "services"
+            from omnifactory.core.config import _project_root
+            services_root = _project_root() / "src" / "omnifactory" / "packages" / "services"
 
         if not services_root.exists():
             return Verdict(kind=VerdictKind.FAIL, diagnosis=f"services_root 不存在: {services_root}")
@@ -202,10 +202,10 @@ class PatrolWorker(Worker):
         user_content = "".join(user_content_parts)
 
         # 3. 调用 LLM — 走 role-based 构造, 让 ModelRegistry 统一解析
-        # model → endpoint → ***. role="runtime_main" 的 quality tier 当前
+        # model → endpoint → api_key. role="runtime_main" 的 quality tier 当前
         # 即 qwen3.6-plus (铁律: 项目唯一模型). 不要硬传 model name 绕开 registry.
         try:
-            from omnicompany.runtime.llm.llm import LLMClient
+            from omnifactory.runtime.llm.llm import LLMClient
             client = LLMClient(role="runtime_main")
             response = client.call(
                 messages=[{"role": "user", "content": user_content}],
@@ -224,7 +224,7 @@ class PatrolWorker(Worker):
             return Verdict(kind=VerdictKind.FAIL, diagnosis="LLM 返回空响应")
 
         # 4. 落盘报告
-        from omnicompany.core.config import resolve_service_data_dir
+        from omnifactory.core.config import resolve_service_data_dir
         patrol_dir = resolve_service_data_dir("guardian") / "patrol"
         patrol_dir.mkdir(parents=True, exist_ok=True)
         ts = datetime.now().strftime("%Y-%m-%d-%H%M%S")
@@ -233,7 +233,7 @@ class PatrolWorker(Worker):
         report_path.write_text(header + report_md, encoding="utf-8")
         # I-20 data-provenance: 写 sidecar 记录合法写入者身份
         try:
-            from omnicompany.core.omnimark import write_data_sidecar
+            from omnifactory.core.omnimark import write_data_sidecar
             write_data_sidecar(
                 report_path,
                 written_by=f"{self.__class__.__module__}.{self.__class__.__name__}",

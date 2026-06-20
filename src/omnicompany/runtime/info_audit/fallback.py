@@ -29,7 +29,7 @@
     config = FallbackConfig(
         trigger={
             "node_id": "req_analyzer",
-            "missing_critical": ["目标 Excel config_table的完整 Schema 定义"],
+            "missing_critical": ["目标 Excel 配表的完整 Schema 定义"],
             "sufficiency": "partial",
         },
         scratch_dir=Path("data/scratch/fallback/trace_X"),

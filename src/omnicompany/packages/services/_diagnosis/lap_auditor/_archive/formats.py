@@ -1,4 +1,4 @@
-# [OMNI] origin=claude-code domain=omnicompany/lap_auditor ts=2026-04-21T00:00:00Z type=config
+# [OMNI] origin=claude-code domain=omnifactory/lap_auditor ts=2026-04-21T00:00:00Z type=config
 # [OMNI] material_id="material:diagnosis.lap_auditor.material_definitions.python"
 """lap_auditor.formats — LAP 合规审计 Material 定义 (Clean Migration 2026-04-21).
 
@@ -9,8 +9,8 @@ Material kind 标注 (F-19):
   lap_auditor.done    → kind.sink     (最终报告输出, 无 consumer Worker)
 """
 
-from omnicompany.packages.services._core.omnicompany import Material
-from omnicompany.protocol.format import FormatRegistry
+from omnifactory.packages.services._core.omnicompany import Material
+from omnifactory.protocol.format import FormatRegistry
 
 LAP_AUDITOR_INPUT = Material(
     id="lap_auditor.input",
@@ -24,8 +24,8 @@ LAP_AUDITOR_INPUT = Material(
     parent="requirement",
     tags=["lap_auditor", "input", "kind.source"],
     examples=[
-        {"target_path": "src/omnicompany/packages/services/repair/routers.py"},
-        {"target_path": "src/omnicompany/packages/services/doctor/"},
+        {"target_path": "src/omnifactory/packages/services/repair/routers.py"},
+        {"target_path": "src/omnifactory/packages/services/doctor/"},
     ],
 )
 
@@ -43,7 +43,7 @@ LAP_AUDITOR_CONTEXT = Material(
     tags=["lap_auditor", "context", "kind.internal"],
     examples=[
         {
-            "target_path": "src/omnicompany/packages/services/repair/routers.py",
+            "target_path": "src/omnifactory/packages/services/repair/routers.py",
             "code_context": "--- File: routers.py ---\n```python\n...\n```\n",
         }
     ],
@@ -63,7 +63,7 @@ LAP_AUDITOR_REPORT = Material(
     tags=["lap_auditor", "report", "kind.internal"],
     examples=[
         {
-            "target_path": "src/omnicompany/packages/services/repair/routers.py",
+            "target_path": "src/omnifactory/packages/services/repair/routers.py",
             "report": "## 整体分类结论\n规范的 LAP 管线实现...",
         }
     ],

@@ -1,4 +1,4 @@
-# [OMNI] origin=claude-code domain=omnicompany/guardian ts=2026-04-20T00:00:00Z type=router
+# [OMNI] origin=claude-code domain=omnifactory/guardian ts=2026-04-20T00:00:00Z type=router
 # [OMNI] material_id="material:guardian.llm_violation_judge.worker.py"
 """LLMJudgeWorker — Guardian Team Worker #3.
 
@@ -18,8 +18,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.packages.services._core.omnicompany import Worker
 
 
 class LLMJudgeWorker(Worker):

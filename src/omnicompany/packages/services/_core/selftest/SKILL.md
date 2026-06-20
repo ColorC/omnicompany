@@ -5,6 +5,11 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/selftest ts=2026-05-04T13:45:00Z type=doc status=active agent=ai-ide belongs_to_service=selftest -->
+<!-- [OMNI] summary="selftest 操作手册 — 跑自测的操作步骤 + 入口清单 + 故障排查" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §六 模板严格写. DESIGN 偏架构, 缺'怎么用'段, 抽出独立 SKILL 让操作可定位" -->
+<!-- [OMNI] tags=skill,selftest,how-to,core -->
+<!-- [OMNI] material_id="material:services._core.selftest.skill.operations_manual.md"-->
 
 # selftest · 操作手册
 
@@ -23,7 +28,7 @@ disable-model-invocation: false
 - 测业务正确性 → 找各 domain Team 的测试
 - 测 Format/Worker/Team 单对象语义 → 找 [doctor](../../_diagnosis/doctor/SKILL.md)
 - 测源码合规 → 找 [guardian](../guardian/SKILL.md)
-- 测协议 / 语义合规 → 找 [lap_auditor](../../_diagnosis/lap_auditor/SKILL.md) / [semantic_auditor](../../_diagnosis/semantic_auditor/SKILL.md)
+- 测协议 / 语义合规 → 找 lap_auditor / semantic_auditor
 - 测性能基准 → 找 benchmark Team
 
 ## 前置条件

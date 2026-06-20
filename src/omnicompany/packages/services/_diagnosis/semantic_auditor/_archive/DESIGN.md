@@ -1,9 +1,11 @@
+<!-- [OMNI] origin=claude-code domain=services/semantic_auditor ts=2026-05-04T12:45:00Z type=doc status=active belongs_to_service=semantic_auditor -->
+<!-- [OMNI] material_id="material:diagnosis.semantic_auditor.design_specification.md" -->
 
 # semantic_auditor · 设计文档
 
 > 设计目的请看 [README.md](README.md). 怎么用请看 [SKILL.md](SKILL.md). 本文档专管**架构内部** (接口 / 决策 / 数据流 / 局限).
 >
-> 形态: 行政部 Team (见 [terminology §2](../../../../../../docs/standards/_global/terminology.md) · 核心基础设施服务全公司).
+> 形态: 行政部 Team (见 terminology §2 · 核心基础设施服务全公司).
 > Clean Migration 完成 2026-04-20 夜 (Stage 2 完全迁移 · workers/ 子目录 + Worker 基类 + Material alias).
 
 ## 状态
@@ -24,7 +26,7 @@
 - **`FindingWriterWorker`** (Worker #5 · HARD) — 验证 Finding 字段（必填 + confidence 区间 + standard_id 合法），append 到 `docs/tech_debt/REGISTRY.md §语义合规待审` + `docs/ARCH-CHANGES.jsonl` `event_type=finding-generated` — FORMAT_OUT: `semantic_auditor.finding-written` — [workers/finding_writer.py](workers/finding_writer.py)
 
 兼容 shim: [routers.py](routers.py) 旧名 `*Router` 作为 `*Worker` 别名保留（不要新增代码）
-归档: [_archive/routers_legacy.py](_archive/routers_legacy.py) 原单文件 5-Router 实现 · 见 [_archive/README.md](_archive/README.md)
+归档: _archive/routers_legacy.py 原单文件 5-Router 实现 · 见 _archive/README.md
 
 ### Agent（见 [audit_agent.py](audit_agent.py)）
 - **`AuditAgent`** — 继承 `packages.services.agent.AgentNodeLoop`（新版 Router 化，**非** legacy `runtime/agent`）；单次 run 处理一个 (artifact, standard, excerpt) 三元组 — TOOL_ROUTERS: `ReadFileRouter` / `GrepRouter` / `GlobRouter`（+自动 `FinishRouter`）
@@ -146,9 +148,9 @@ ExcerptRetrieverRouter (HARD)
 
 ## 参考资料
 
-- 关联标准索引：[`docs/standards/standards-index.yaml`](../../../../../../docs/standards/_meta/standards-index.yaml)
-- 关联规范：[`docs/standards/llm_first.md`](../../../../../../docs/standards/_global/llm_first.md) / [`docs/standards/worker.md`](../../../../../../docs/standards/concepts/worker.md) / [`docs/standards/material.md`](../../../../../../docs/standards/concepts/material.md)
-- 关联 Guardian：[`../guardian/DESIGN.md`](../../_core/guardian/DESIGN.md)（两者互补，出口共用 REGISTRY）
-- 关联 Agent 新包：[`../agent/DESIGN.md`](../../_core/agent/DESIGN.md)（Phase B2 LLMAuditRouter 继承 AgentNodeLoop）
+- 关联标准索引：`docs/standards/standards-index.yaml`
+- 关联规范：`docs/standards/llm_first.md` / `docs/standards/worker.md` / `docs/standards/material.md`
+- 关联 Guardian：`../guardian/DESIGN.md`（两者互补，出口共用 REGISTRY）
+- 关联 Agent 新包：`../agent/DESIGN.md`（Phase B2 LLMAuditRouter 继承 AgentNodeLoop）
 - 关联计划：[`docs/plans/[2026-04-18]TECH-DEBT-AND-SEMANTIC-AUDIT/plan.md`](../../../../../docs/plans/[2026-04-18]TECH-DEBT-AND-SEMANTIC-AUDIT/plan.md)
-- 关联 REGISTRY：[`docs/tech_debt/REGISTRY.md`](../../../../../../docs/tech_debt/REGISTRY.md)（出口表）
+- 关联 REGISTRY：`docs/tech_debt/REGISTRY.md`（出口表）

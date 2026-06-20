@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/team_supervisor ts=2026-05-04T16:35:00Z type=design status=active belongs_to_service=team_supervisor -->
+<!-- [OMNI] material_id="material:core.team_supervisor.design_documentation.md" -->
 
 # team_supervisor · 通用 Team 健康监督设施
 
@@ -9,7 +11,7 @@
 
 `team_supervisor` 是一个**通用 Team 健康监督**服务. 给定任意 OmniCompany Team (target_team_id), 自动回答三个基本问题、产生假设、设计并跑测试, 输出健康报告 — 不修复, 只发信号.
 
-立项: 2026-04-26 · L1 在 P3.B v4 真达成后提出. 完整计划见 [plan.md](../../../../../../docs/plans/agent-framework/[2026-04-26]TEAM-SUPERVISOR/plan.md).
+立项: 2026-04-26 · L1 在 P3.B v4 真达成后提出. 完整计划见 plan.md.
 
 ## 2 · 职责
 
@@ -47,7 +49,7 @@
 - `diagnosis`: 总体诊断自然语言段落
 - `ledger_increment[]`: 这次新增假设, 用于下次累积
 
-**反模式禁令** (按 [feedback_semantic_sentences_not_classification](../../../../../../../../../Users/user/.claude/projects/e--workspace/memory/feedback_semantic_sentences_not_classification.md)):
+**反模式禁令** (按 feedback_semantic_sentences_not_classification):
 - 禁字段 `complexity_score` / `quality_rating` / `maturity_level` / `tier` / `tags` / `kind` (语义 vibe 评分)
 - 仅允许物理度量 (count) 与协议层硬枚举 (VerdictKind)
 

@@ -127,49 +127,49 @@ profiles:
       implementation:
         - src/omnicompany/cli/commands/registration.py
 
-  - id: voxel_engine.project-base
+  - id: voxelcraft.project-base
     priority: 95
-    description: "voxel_engine/MC 公司项目上下文。"
+    description: "voxelcraft/MC 公司项目上下文。"
     applies:
-      projects: [voxel_engine]
+      projects: [voxelcraft]
       path_match:
-        - docs/plans/voxel_engine/**
-        - src/omnicompany/packages/domains/voxel_engine/**
-        - docs/standards/_domain_specific/voxel_engine/**
-      trigger_keywords: [voxel_engine, mc, voxel_sandbox, demo, material, worker]
+        - docs/plans/voxelcraft/**
+        - src/omnicompany/packages/domains/voxelcraft/**
+        - docs/standards/_domain_specific/voxelcraft/**
+      trigger_keywords: [voxelcraft, mc, minecraft, demo, material, worker]
     include:
       project_docs:
-        - docs/plans/voxel_engine/project.md
-        - src/omnicompany/packages/domains/voxel_engine/DESIGN.md
-        - src/omnicompany/packages/domains/voxel_engine/.omni/manifest.yaml
-        - src/omnicompany/packages/domains/voxel_engine/.omni/workspace.yaml
+        - docs/plans/voxelcraft/project.md
+        - src/omnicompany/packages/domains/voxelcraft/DESIGN.md
+        - src/omnicompany/packages/domains/voxelcraft/.omni/manifest.yaml
+        - src/omnicompany/packages/domains/voxelcraft/.omni/workspace.yaml
 
-  - id: voxel_engine.mc-pipeline-plan
+  - id: voxelcraft.mc-pipeline-plan
     priority: 100
     description: "当前 MC 公司混合产线计划上下文。"
     applies:
-      projects: [voxel_engine]
+      projects: [voxelcraft]
       trigger_keywords: [mc pipeline, mc company, mc 公司, 产线, dogfood]
     include:
       plans:
-        - docs/plans/voxel_engine/[2026-05-17]MC-COMPANY-PIPELINE/plan.md
-        - docs/plans/voxel_engine/[2026-05-17]MC-COMPANY-PIPELINE/brief.md
-        - docs/plans/voxel_engine/[2026-05-17]MC-COMPANY-PIPELINE/audit.md
+        - docs/plans/voxelcraft/[2026-05-17]MC-COMPANY-PIPELINE/plan.md
+        - docs/plans/voxelcraft/[2026-05-17]MC-COMPANY-PIPELINE/brief.md
+        - docs/plans/voxelcraft/[2026-05-17]MC-COMPANY-PIPELINE/audit.md
 
-  - id: voxel_engine.material-standard-authoring
+  - id: voxelcraft.material-standard-authoring
     priority: 90
-    description: "为 voxel_engine 新建 domain-specific material/stage standard 时的上下文。"
+    description: "为 voxelcraft 新建 domain-specific material/stage standard 时的上下文。"
     applies:
-      projects: [voxel_engine]
+      projects: [voxelcraft]
       kinds: [material, standard_md]
       path_match:
-        - docs/standards/_domain_specific/voxel_engine/**
+        - docs/standards/_domain_specific/voxelcraft/**
       trigger_keywords: [material standard, stage standard, 反规范, 骨架, 阶段性]
     include:
       standards:
-        - docs/standards/_domain_specific/gameplay_system/gameplay_system_ux_rule_schema.md
-        - docs/standards/_domain_specific/gameplay_system/production_ref_rules.md
-        - docs/standards/_domain_specific/gameplay_system/semantic_builder_rules.md
+        - docs/standards/_domain_specific/demogame/demogame_ux_rule_schema.md
+        - docs/standards/_domain_specific/demogame/production_ref_rules.md
+        - docs/standards/_domain_specific/demogame/semantic_builder_rules.md
       templates:
         - templates/material/注册件.yaml
         - templates/template/注册件.yaml

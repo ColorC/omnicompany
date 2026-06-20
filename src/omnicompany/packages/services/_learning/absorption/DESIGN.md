@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/absorption ts=2026-04-17T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:learning.absorption.service_design.md" -->
 
 # absorption · 设计文档
 
@@ -34,7 +36,7 @@ V3 接入反馈循环（Stage 2）和提案解析（Stage 3）：
 
 ### V1 Survey 管线
 - **`build_survey_pipeline()`** — 7 节点线性 DAG — [pipeline.py:59](pipeline.py#L59)
-- **`LandmarkPickerRouter`** — AgentNodeLoop 读 facade + omnicompany_snapshot → 打 tier 评级 — [routers.py](routers.py)
+- **`LandmarkPickerRouter`** — AgentNodeLoop 读 facade + omnicompany_snapshot → 打 tier 评级 — routers.py
 
 ### V2 问题驱动管线
 - **`build_v2_pipeline()`** — 8 节点含人审门 — [pipeline.py:334](pipeline.py#L334)
@@ -47,7 +49,7 @@ V3 接入反馈循环（Stage 2）和提案解析（Stage 3）：
 - **`ReportWriterV3`** — LLM 综合报告 + 路径硬替换 — [routers/report_writer.py](routers/report_writer.py)
 
 ### Stage 2 反馈循环
-- **`HumanFeedbackGateV3`** + **`FeedbackRouterV3`** — 读 feedback.md → PARTIAL JUMP 至 supplement_explorer — [routers.py](routers.py)
+- **`HumanFeedbackGateV3`** + **`FeedbackRouterV3`** — 读 feedback.md → PARTIAL JUMP 至 supplement_explorer — routers.py
 - **`ReportUpdaterV3`** — LLM 增量融合补充发现到已有报告 — [routers/report_updater.py](routers/report_updater.py)
 
 ### Stage 3 提案解析
@@ -217,21 +219,21 @@ session 状态走模块级 `_sessions` dict，落盘到 `data/domains/absorption
 - 关联 workers：[workers/](workers/) 目录（34 Worker 分 v1/v2/v3 三子域, Clean Migration 2026-04-20）
 - 关联 routers（compat shim）：[routers/](routers/) 目录（shim re-export 旧 Router 名 → 新 Worker alias）
 - 关联 formats：[formats.py](formats.py) 四组 ALL_*_FORMATS
-- 关联归档：[_archive/](\_archive/) · routers_v1v2_legacy.py + routers_v3_legacy/ (Diamond 继承业务逻辑源)
+- 关联归档：_archive/ · routers_v1v2_legacy.py + routers_v3_legacy/ (Diamond 继承业务逻辑源)
 - 关联 plan：`docs/plans/[2026-04-15]PROPOSAL-QUALITY/pipeline_diagnosis.md`（信息丢失链路全分析）
 - 关联 plan：`docs/plans/[2026-04-15]PROPOSAL-QUALITY/hermes_independent_study.md`（独立研究基线）
 - 关联 plan：`docs/plans/[2026-04-15]PROPOSAL-QUALITY/independent_vs_pipeline_gap.md`（4/7 领域缺失）
 - 关联 plan：`docs/plans/[2026-04-13]REPO-ABSORPTION-V3/DESIGN.md`（V3 设计起源）
 - 关联 plan：`docs/plans/[2026-04-14]STAGE3-WORKFLOW-MODIFIER/plan.md`（Stage 3 设计）
 - 关联 plan：`docs/plans/[2026-04-17]OMNICOMPANY-SELF-KNOWLEDGE/HANDOFF.md`（本文所在 session 的交接）
-- 关联 gap：[docs/gaps/G2_learning_distill.md](../../../../../../data/_workspaces/team_builder/repo_abs_140156/docs/gaps/G2_learning_distill.md)
+- 关联 gap：docs/gaps/G2_learning_distill.md
 - 关联 workflow_factory：[../workflow_factory/DESIGN.md](../../_core/workflow_factory/DESIGN.md)（Stage 3 未接入的下游）
 
 ## 十、Team 专属信息（Clean Migration V2, 2026-04-20）
 
 > 迁移类型: **类 B+ · 原生 pipeline 形态 · 超大 (~7151 行 legacy)**
 > 迁移策略: **Diamond shortcut**（业务代码保留在 `_archive/`, workers/ 只做 `class XxxWorker(Worker, _Legacy)` 继承）
-> Stage 2 硬规则: 11/11 通过（见 [migration_log.md · 完全迁移标准](../../../../../../docs/plans/format-material/[2026-04-19]BLACKBOARD-ARCHITECTURE/migration_log.md)）
+> Stage 2 硬规则: 11/11 通过（见 migration_log.md · 完全迁移标准）
 
 ### 10.1 目录结构
 
@@ -299,7 +301,7 @@ absorption/
 | `_ExplorerLoop` | `_archive/routers_v3_legacy/module_explorer.py` 内嵌 | 内嵌于 ModuleExplorerRouter.run() |
 | `_DisputeLoop` | `_archive/routers_v3_legacy/proposal_dispute_loop.py` 内嵌 | 内嵌于 ProposalDisputeLoopRouter.run() |
 
-阶段 D [AGENT-NODE-LOOP-ROUTERIZATION](../../../../../../docs/plans/agent-framework/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md) 落地后会统一迁移到新 `packages/services/agent/AgentNodeLoop`.
+阶段 D AGENT-NODE-LOOP-ROUTERIZATION 落地后会统一迁移到新 `packages/services/agent/AgentNodeLoop`.
 
 ### 10.4 Material kind 分配（39 Material, F-19 100% 覆盖）
 

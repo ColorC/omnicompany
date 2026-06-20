@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/_diagnosis/doctor/_test_fixtures ts=2026-05-06T03:30:00Z type=fixture status=active agent=ai-ide -->
+<!-- [OMNI] summary="红样本 fixture: 一份故意没'必须/应/不得'强制词的软介绍, HypothesisDeriverAgent 跑应派生 0-1 条假设 (无强制语义无可派生)" -->
+<!-- [OMNI] why="self_audit B-2 HypothesisDeriverAgent 红绿基线" -->
+<!-- [OMNI] tags=test-fixture,red-sample,derivation-source,no-imperative -->
+<!-- [OMNI] material_id="material:diagnosis.doctor.test_fixtures.red_sources.random_readme.md" -->
 
 # 我的工具箱
 

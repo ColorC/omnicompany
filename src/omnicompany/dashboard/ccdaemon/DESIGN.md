@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=ai-ide domain=dashboard/ccdaemon ts=2026-05-09T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:dashboard.ccdaemon.design_doc.architecture.markdown" -->
 
 # ccdaemon · 设计文档
 
@@ -20,7 +22,7 @@ ccdaemon 是 dashboard 体系内**Claude Code 子进程的独家持有方**. 单
 - **`lifecycle.py`** — pid/port 文件管理 + 启动健康自检 + reload 模式探测 — [lifecycle.py](lifecycle.py)
 
 ### 业务模块
-- **`sessions.py`** — `CcSession` 共同基类, 封装 `data/cc_sessions.json` 元数据协议 (id/kind/cwd/started_at/ended_at/claude_session_id/active_plan/exit_reason). 阶段三填写 — [sessions.py](sessions.py)
+- **`sessions.py`** — `CcSession` 共同基类, 封装 `data/cc_sessions.json` 元数据协议 (id/kind/cwd/started_at/ended_at/claude_session_id/active_plan/exit_reason). 阶段三填写 — sessions.py
 - **`chat.py`** — claude-agent-sdk 路线 chat session manager + 路由 + WebSocket. 阶段三从 `cc_wrapper/cc_chat_bridge.py` 重写迁入 — [chat.py](chat.py)
 - **`pty.py`** — winpty 路线 PTY session manager + 路由 + WebSocket. 阶段三从 `cc_wrapper/pty_service.py` 跟 `cc_wrapper/api.py` 合并迁入 — [pty.py](pty.py)
 - **`installer.py`** — claude code settings 安装/卸载工具. 阶段三从 `cc_wrapper/settings_installer.py` 迁入 — [installer.py](installer.py)

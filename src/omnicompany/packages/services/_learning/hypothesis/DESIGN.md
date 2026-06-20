@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/hypothesis ts=2026-04-20T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:services.learning.hypothesis.service.design_doc.md" -->
 
 # Hypothesis Service · 设计文档
 
@@ -151,5 +153,5 @@ dispatch(domain, goal, scene)
 - 理论：[`docs/plans/[2026-04-15]hypothesis-learning/META_HYPOTHESIS.md`](../../../../../docs/plans/[2026-04-15]hypothesis-learning/META_HYPOTHESIS.md)
 - 实现计划：[`docs/plans/[2026-04-15]hypothesis-learning/IMPLEMENTATION_PLAN.md`](../../../../../docs/plans/[2026-04-15]hypothesis-learning/IMPLEMENTATION_PLAN.md)
 - 吸收研究：[`docs/plans/[2026-04-15]hypothesis-learning/ABSORPTION.md`](../../../../../docs/plans/[2026-04-15]hypothesis-learning/ABSORPTION.md)
-- 同类参考：`packages/domains/voxel_engine/routers/mod_explorer_agent.py`（AgentNodeLoop 用法）
+- 同类参考：`packages/domains/voxelcraft/routers/mod_explorer_agent.py`（AgentNodeLoop 用法）
 - TMS 理论：Doyle 1979 JTMS / de Kleer 1986 ATMS

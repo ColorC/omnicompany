@@ -113,12 +113,12 @@ Router 内的"Python 源码清理" / "从 LLM 响应提代码块" / "JSON schema
 | CA-01 | 裸写 | `open('output.csv', 'w')` 不经 guarded_write |
 | CA-02 | 裸调 | `openai.ChatCompletion.create(...)` 不经 LLMClient |
 | CA-03 | 硬编码模型 | `model="gpt-4-turbo"` 绕过配置 |
-| CA-04 | 幽灵导入 | voxel_engine 代码里 `from omnicompany.packages.domains.gameplay_system.xxx import yyy` |
+| CA-04 | 幽灵导入 | voxelcraft 代码里 `from omnicompany.packages.domains.demogame.xxx import yyy` |
 | CA-05 | 墓地复活 | `from omnicompany._graveyard.xxx import yyy` |
 | CA-06 | Hook 里调 LLM | PeriodicHook 子类里 `LLMClient().complete()` |
 | CA-07 | Tool 做决策 | Tool 里判断 `VerdictKind.PASS / FAIL` 并返回 |
 | CA-08 | Router 写数据库 | `run()` 里 `sqlite3.connect(...).execute("INSERT ...")` |
-| CA-09 | 根层垃圾 | `/workspace/omnicompany/output.log` |
+| CA-09 | 根层垃圾 | `e:/WindowsWorkspace/omnicompany/output.log` |
 | CA-10 | system prompt 当 changelog | 堆积"LLM 常犯错误"禁令代替真源码注入 |
 
 ---

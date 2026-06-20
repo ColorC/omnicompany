@@ -1,4 +1,4 @@
-# [OMNI] origin=claude-code domain=omnicompany/lap_auditor ts=2026-04-21T00:00:00Z type=router
+# [OMNI] origin=claude-code domain=omnifactory/lap_auditor ts=2026-04-21T00:00:00Z type=router
 # [OMNI] material_id="material:diagnosis.lap_auditor.report_printer.worker.python"
 """ReportFormatterWorker — lap_auditor 报告格式化 (Stage 3 独立文件).
 
@@ -12,8 +12,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from omnicompany.packages.services._core.omnicompany import Worker
-from omnicompany.protocol.anchor import Verdict, VerdictKind
+from omnifactory.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
 
 
 class ReportFormatterWorker(Worker):

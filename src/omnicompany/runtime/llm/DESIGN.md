@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=runtime/llm ts=2026-04-17T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:runtime.llm.module_spec.design.md" -->
 
 # runtime/llm · 设计文档
 
@@ -145,7 +147,7 @@ Router.run(input_data) 内部
 
 - 关联 info_audit：[runtime/info_audit/DESIGN.md](../info_audit/DESIGN.md)（piggyback tool 定义 + audit_store）
 - 关联 agent：[runtime/agent/DESIGN.md](../agent/DESIGN.md)（agent loop 如何用 LLMClient）
-- 关联 memory：[project_llm_model_choice.md](../../../../C:/Users/user/.claude/projects/e--workspace/memory/project_llm_model_choice.md)（L2 铁律）
+- 关联 memory：project_llm_model_choice.md（L2 铁律）
 - 关联 plan：`docs/plans/[2026-04-14]INFO-SUFFICIENCY/EXPERIMENT_REPORT.md`（M1 piggyback 改造全过程）
 
 ## 接收意愿

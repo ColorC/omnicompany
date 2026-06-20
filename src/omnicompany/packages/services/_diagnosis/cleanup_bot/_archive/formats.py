@@ -1,4 +1,4 @@
-# [OMNI] origin=claude-code domain=omnicompany/cleanup_bot ts=2026-04-21T00:00:00Z type=config
+# [OMNI] origin=claude-code domain=omnifactory/cleanup_bot ts=2026-04-21T00:00:00Z type=config
 # [OMNI] material_id="material:diagnosis.cleanup_bot.material_definitions.formats.py"
 """cleanup_bot.formats — 系统环境清理 Material 定义 (Clean Migration 2026-04-21).
 
@@ -9,15 +9,15 @@ Material kind 标注 (F-19):
   cleanup.done     → kind.sink     (最终清理计划输出, 无 consumer Worker)
 """
 
-from omnicompany.packages.services._core.omnicompany import Material
-from omnicompany.protocol.format import FormatRegistry
+from omnifactory.packages.services._core.omnicompany import Material
+from omnifactory.protocol.format import FormatRegistry
 
 CLEANUP_INPUT = Material(
     id="cleanup.input",
     name="Cleanup Scan Request",
     description=(
         "触发系统环境异常清理管线的入口请求。"
-        "指定 root_dir（扫描起点，默认 E:\\）和 keyword（路径关键词，如 'workspace'），"
+        "指定 root_dir（扫描起点，默认 E:\\）和 keyword（路径关键词，如 'WindowsWorkspace'），"
         "EvidenceGatherer 将递归（最大 5 层）收集包含该关键词的所有路径，"
         "供 LLM 判断哪些是 AI 误触产生的错位垃圾。"
         "Kind: source（外部触发，无 producer Worker，见 F-19）。"
@@ -25,8 +25,8 @@ CLEANUP_INPUT = Material(
     parent="requirement",
     tags=["cleanup_bot", "input", "kind.source"],
     examples=[
-        {"root_dir": "E:\\", "keyword": "workspace"},
-        {"root_dir": "C:\\Users\\user", "keyword": "omnicompany"},
+        {"root_dir": "E:\\", "keyword": "WindowsWorkspace"},
+        {"root_dir": "C:\\Users\\user", "keyword": "omnifactory"},
     ],
 )
 
@@ -44,9 +44,9 @@ CLEANUP_EVIDENCE = Material(
     tags=["cleanup_bot", "evidence", "kind.internal"],
     examples=[
         {
-            "keyword": "workspace",
-            "evidence_str": "E:\\e\\workspace\nE:\\workspace",
-            "raw_paths": ["E:\\e\\workspace", "E:\\workspace"],
+            "keyword": "WindowsWorkspace",
+            "evidence_str": "E:\\e\\WindowsWorkspace\nE:\\WindowsWorkspace",
+            "raw_paths": ["E:\\e\\WindowsWorkspace", "E:\\WindowsWorkspace"],
         }
     ],
 )
@@ -65,7 +65,7 @@ CLEANUP_PLAN = Material(
     examples=[
         {
             "anomaly_report": (
-                "## 异常判定结论\n`E:\\e\\workspace` 是路径拼接事故...\n"
+                "## 异常判定结论\n`E:\\e\\WindowsWorkspace` 是路径拼接事故...\n"
                 "## Windows 清理脚本\n```powershell\nRemove-Item ...\n```"
             )
         }

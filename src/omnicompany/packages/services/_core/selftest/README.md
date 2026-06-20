@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/selftest ts=2026-05-04T13:40:00Z type=doc status=active agent=ai-ide belongs_to_service=selftest -->
+<!-- [OMNI] summary="selftest service 自我叙事 README — omnicompany 自测套件, 端到端冒烟验证 (注册体系/Stock 读写/CLI 健康). 4 Worker 线性 Team 产 health-report" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §四 模板严格写. 抽核心目的到 README, DESIGN 留架构性内容" -->
+<!-- [OMNI] tags=readme,selftest,core,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.selftest.readme.self_narrative.md"-->
 
 # selftest · omnicompany 自测套件
 

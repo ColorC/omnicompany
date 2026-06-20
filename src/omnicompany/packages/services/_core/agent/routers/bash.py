@@ -2,14 +2,14 @@
 # [OMNI] material_id="material:core.agent.routers.bash.executor.py"
 """BashRouter · 通用 Bash SingleTool, 底层走 BashBus.
 
-与 `packages/domains/gameplay_system/ux/routers/_safe_bash.py::SafeBashRouter` 的关系:
-  - SafeBashRouter 是成熟的 gameplay_system/ux 业务特化版 (白名单命令 / 路径白名单 / 50KB 截断).
+与 `packages/domains/demogame/ux/routers/_safe_bash.py::SafeBashRouter` 的关系:
+  - SafeBashRouter 是成熟的 demogame/ux 业务特化版 (白名单命令 / 路径白名单 / 50KB 截断).
   - 本 Router 是 `services/agent` 层的**通用基类** — 底层复用 BashBus 获得:
     * 工作区安全网 (workspace.bash_cwd_prefixes 硬限 cwd)
     * 危险命令 regex 黑名单 (rm -rf / / format C: / mkfs / dd / fork bomb)
     * 审计回流 EventBus
-  - 子类 override `_validate_command` 加业务白名单 (例: config_service 只允 scm/python/git).
-  - 不强制统一 SafeBashRouter — gameplay_system/ux 迁移可选, 不在本 Phase 做.
+  - 子类 override `_validate_command` 加业务白名单 (例: config_service 只允 p4/python/git).
+  - 不强制统一 SafeBashRouter — demogame/ux 迁移可选, 不在本 Phase 做.
 
 **输出策略** (对齐 `feedback_no_defensive_truncation` 铁律):
   - 默认**不截断** stdout/stderr. 大输出由调用者 (LLM) 自己 pipe `head`/`tail`/`grep` 精确过滤.
@@ -20,7 +20,7 @@
 ```python
 class ConfigServiceBashRouter(BashRouter):
     TOOL_NAME = "bash"
-    _WHITELIST_HEADS = ("scm", "python", "git", "ls", "cat", "head", "tail", "grep", "find")
+    _WHITELIST_HEADS = ("p4", "python", "git", "ls", "cat", "head", "tail", "grep", "find")
 
     def _validate_command(self, command: str) -> tuple[bool, str]:
         head = command.strip().split(None, 1)[0] if command.strip() else ""

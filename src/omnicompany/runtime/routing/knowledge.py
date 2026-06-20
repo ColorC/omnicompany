@@ -12,14 +12,14 @@
 示例::
 
     class P4WorkflowKnowledge(KnowledgeRouter):
-        FORMAT_IN  = "scm-changelist"
-        FORMAT_OUT = "scm-changelist"
+        FORMAT_IN  = "p4-changelist"
+        FORMAT_OUT = "p4-changelist"
         DESCRIPTION = '''
-        scm 提交流程：
-        1. scm edit 打开文件编辑
+        P4 提交流程：
+        1. p4 edit 打开文件编辑
         2. 修改文件
-        3. scm submit -d "描述" 提交
-        注意：必须先 scm login
+        3. p4 submit -d "描述" 提交
+        注意：必须先 p4 login
         '''
 """
 

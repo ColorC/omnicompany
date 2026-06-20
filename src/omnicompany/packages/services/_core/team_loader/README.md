@@ -1,3 +1,7 @@
+<!-- [OMNI] origin=ai-ide domain=services/team_loader ts=2026-05-04T17:18:00Z type=doc status=active agent=ai-ide belongs_to_service=team_loader -->
+<!-- [OMNI] summary="team_loader service - yaml 加载 Team 配置. 跟 omni team 命令组配套, 让 Team 可以纯 yaml 定义不写 Python pipeline.py" -->
+<!-- [OMNI] tags=readme,team_loader,core,yaml,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.team_loader.readme.md"-->
 
 # team_loader · yaml 加载 Team 配置
 
@@ -31,4 +35,4 @@ team_loader 是 omnicompany 的**yaml Team 加载 service**. 含 [yaml_loader.py
 
 - [DESIGN.md](DESIGN.md) / [SKILL.md](SKILL.md)
 - omni team CLI → 项目根 README cli 段
-- 跟 docauthor 结合 → [../../_authoring/docauthor/](../../_authoring/docauthor/)
+- 跟 docauthor 结合 → ../../_authoring/docauthor/

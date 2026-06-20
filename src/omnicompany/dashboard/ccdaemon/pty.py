@@ -140,7 +140,7 @@ def _claude_jsonl_for(cwd: str, claude_session_id: str | None) -> Path | None:
 
     Claude's encoding (observed from real `~/.claude/projects/`):
       `C:\\Users\\user`           → `C--Users-user`
-      `E:\\workspace\\omnicompany` → `E--workspace-omnicompany`
+      `E:\\WindowsWorkspace\\omnicompany` → `E--WindowsWorkspace-omnicompany`
     Rule: colon → `--`, backslash/slash → `-`, no leading marker.
     """
     if not claude_session_id:

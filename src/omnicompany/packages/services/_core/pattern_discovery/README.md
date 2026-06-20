@@ -1,7 +1,12 @@
+<!-- [OMNI] origin=ai-ide domain=services/pattern_discovery ts=2026-05-04T15:45:00Z type=doc status=active agent=ai-ide belongs_to_service=pattern_discovery -->
+<!-- [OMNI] summary="pattern_discovery service 自我叙事 README — 从历史行为压缩摘要发现重复操作模式, 触发 trace-induction 自动沉淀" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §四 模板严格写, 快速推进" -->
+<!-- [OMNI] tags=readme,pattern_discovery,core,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.pattern_discovery.readme.self_narrative.md"-->
 
 # pattern_discovery · 重复模式发现
 
-> 从历史行为压缩摘要 (`compression_summaries`) 自动发现重复操作模式 (LLM 语义聚类), 触发 [trace-induction](../trace_induction/) 自动沉淀. 三节点串行: SummaryReader → PatternClusterer (LLM) → InductionDispatcher (async).
+> 从历史行为压缩摘要 (`compression_summaries`) 自动发现重复操作模式 (LLM 语义聚类), 触发 trace-induction 自动沉淀. 三节点串行: SummaryReader → PatternClusterer (LLM) → InductionDispatcher (async).
 
 ## 这是什么
 
@@ -36,5 +41,5 @@ pattern_discovery 是 omnicompany 的**重复模式发现 service**. 从历史 c
 ## 想了解更多
 
 - [DESIGN.md](DESIGN.md) / [SKILL.md](SKILL.md)
-- 下游被调 → [../trace_induction/](../trace_induction/)
+- 下游被调 → ../trace_induction/
 - 项目根 → [../../../../../README.md](../../../../../../README.md)

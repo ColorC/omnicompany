@@ -31,9 +31,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.runtime.llm.llm import LLMClient
-from omnicompany.runtime.routing.router import Router
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.runtime.llm.llm import LLMClient
+from omnifactory.runtime.routing.router import Router
 
 logger = logging.getLogger(__name__)
 
@@ -346,7 +346,7 @@ OmniCompany LAP 管线 (formats.py / routers.py / pipeline.py / run.py)。
 (3-5 句话描述这条管线做什么, 为什么要有它, 目标 skill 是什么)
 
 ## 新 Package 位置
-(形如 `src/omnicompany/packages/services/<name>/`, 解释为什么是 services 而不是 domains)
+(形如 `src/omnifactory/packages/services/<name>/`, 解释为什么是 services 而不是 domains)
 
 ## 管线节点拓扑
 (markdown 伪代码 + 箭头图, 列出所有节点按顺序, 并标注 kind 和关键特征)
@@ -364,7 +364,7 @@ OmniCompany LAP 管线 (formats.py / routers.py / pipeline.py / run.py)。
 (哪些节点是 SOFT 需要 LLM, 哪些 HARD, 哪些需要 UserInquiry, 哪些需要 AgentNodeLoop)
 
 ## 约束
-(OmniCompany 硬规则: 遵守 omnicompany-dev skill, 禁用 confidence, 经 guarded_write, Guardian 合规)
+(OmniCompany 硬规则: 遵守 omnifactory-dev skill, 禁用 confidence, 经 guarded_write, Guardian 合规)
 
 ## 期望验收
 (能描述 "workflow-factory 跑完之后怎么判断成功" 的硬标准)
@@ -395,10 +395,10 @@ OmniCompany LAP 管线 (formats.py / routers.py / pipeline.py / run.py)。
 {references_digest}
 
 **现有 OmniCompany 代码参考** (workflow-factory 会用到的既有模板):
-- AgentNodeLoop 子类模板: `src/omnicompany/packages/services/absorption/landmark_picker.py`
-- KBLocateRouter / KBWriteRouter: `src/omnicompany/packages/services/knowledge/routers.py`
-- UserInquiry 例子: `src/omnicompany/packages/services/workflow_factory/routers.py`
-- guarded_write: `src/omnicompany/core/guarded_write.py` 的 `write_file()`
+- AgentNodeLoop 子类模板: `src/omnifactory/packages/services/absorption/landmark_picker.py`
+- KBLocateRouter / KBWriteRouter: `src/omnifactory/packages/services/knowledge/routers.py`
+- UserInquiry 例子: `src/omnifactory/packages/services/workflow_factory/routers.py`
+- guarded_write: `src/omnifactory/core/guarded_write.py` 的 `write_file()`
 
 开始生成 markdown 需求稿, 不要前置解释, 直接从 `## 目标` 开始。"""
 
@@ -489,7 +489,7 @@ class RequirementDraftRouter(Router):
 
         # 落盘到 data/absorption/skill_digest/<skill>.md (使用 guarded_write)
         try:
-            from omnicompany.core.config import resolve_db_dir
+            from omnifactory.core.config import resolve_db_dir
 
             digest_dir = resolve_db_dir("absorption") / "skill_digest"
             digest_dir.mkdir(parents=True, exist_ok=True)
@@ -502,7 +502,7 @@ class RequirementDraftRouter(Router):
             )
 
         try:
-            from omnicompany.core.guarded_write import write_file
+            from omnifactory.core.guarded_write import write_file
 
             write_file(
                 str(digest_path),
@@ -690,8 +690,8 @@ class VerifyAgainstSkillRouter(Router):
 
         # 落盘到 data/absorption/skill_digest/<skill>.compliance.md
         try:
-            from omnicompany.core.config import resolve_db_dir
-            from omnicompany.core.guarded_write import write_file
+            from omnifactory.core.config import resolve_db_dir
+            from omnifactory.core.guarded_write import write_file
 
             digest_dir = resolve_db_dir("absorption") / "skill_digest"
             digest_dir.mkdir(parents=True, exist_ok=True)

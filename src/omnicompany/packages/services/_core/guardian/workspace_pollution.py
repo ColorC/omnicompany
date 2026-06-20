@@ -6,7 +6,7 @@
 本模块作为**事后清理**安全网, 周期性扫顶层非白名单项 → 备份后删除 + 罚单.
 
 设计原则:
-  - 只扫顶层 (depth=1), 不深入子目录 (scm 等大目录扫不动)
+  - 只扫顶层 (depth=1), 不深入子目录 (P4 等大目录扫不动)
   - 白名单驱动: 列在白名单内的合法, 未列的全部按污染处理
   - 备份不留告示牌 (跟拖车 quarantine 不同: 那是"提醒写入者"语义, 这里是"用户工作区不被污染")
   - 罚单 + 审计落盘, 后续可查"谁清了什么"
@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 
 # D 盘根白名单
 _D_DRIVE_ROOT_WHITELIST: frozenset[str] = frozenset({
-    "scm",
+    "P4",
     "WSL",
     "$RECYCLE.BIN",
     "System Volume Information",
@@ -46,7 +46,7 @@ _D_DRIVE_ROOT_WHITELIST: frozenset[str] = frozenset({
 })
 
 
-# 工作区根 (/workspace/) 白名单
+# 工作区根 (e:/WindowsWorkspace/) 白名单
 _WORKSPACE_ROOT_WHITELIST: frozenset[str] = frozenset({
     ".claude",
     ".omni",
@@ -58,8 +58,8 @@ _WORKSPACE_ROOT_WHITELIST: frozenset[str] = frozenset({
     "demoworkspace",
     "figma-to-html",
     "hypothesis-workspace",
-    "gameplay_system-knowledge-base",
-    "gameplay_system-learn",
+    "demogame-knowledge-base",
+    "demogame-learn",
     "language-anchoring-protocol",
     "node_modules",
     "omnicompany",
@@ -83,7 +83,7 @@ _WINDOWS_DEVICE_NAMES: frozenset[str] = frozenset({
 
 # 默认扫描根 (相对路径自动展开为绝对)
 _DEFAULT_SCAN_TARGETS = (
-    ("workspace_root", Path("/workspace"), _WORKSPACE_ROOT_WHITELIST),
+    ("workspace_root", Path("e:/WindowsWorkspace"), _WORKSPACE_ROOT_WHITELIST),
     ("d_drive_root", Path("d:/"), _D_DRIVE_ROOT_WHITELIST),
 )
 
@@ -184,7 +184,7 @@ def scan_pollution(
         logger.debug("[workspace_pollution] 扫描根不存在: %s", scan_root)
         return []
 
-    omni_root = omni_root or Path("/workspace/omnicompany")
+    omni_root = omni_root or Path("e:/WindowsWorkspace/omnicompany")
     backup_root = _quarantine_dir(omni_root)
     now = datetime.now(timezone.utc).isoformat()
     tickets: list[PollutionTicket] = []

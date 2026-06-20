@@ -1,7 +1,9 @@
+<!-- [OMNI] origin=claude-code domain=domains/software_engineering ts=2026-04-17T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:domains.software_engineering.domain_index.design_doc.md" -->
 
 # software_engineering · 域索引
 
-> **命名兼容注**（2026-04-20）：本文中 `Router` / `Format` / `PipelineSpec` 按 [`terminology.md`](../../../../../docs/standards/terminology.md) 对照读作 `Worker` / `Material` / `Team`。protocol 层类名保留原名（契约不变），新代码 import 请用 `from omnicompany.packages.services.omnicompany import Worker, Material, Team`。
+> **命名兼容注**（2026-04-20）：本文中 `Router` / `Format` / `PipelineSpec` 按 `terminology.md` 对照读作 `Worker` / `Material` / `Team`。protocol 层类名保留原名（契约不变），新代码 import 请用 `from omnicompany.packages.services.omnicompany import Worker, Material, Team`。
 
 ## 状态
 - **版本**: V1（11 个子包按软件工程阶段聚类；本文件是顶层导航）
@@ -192,4 +194,4 @@ lang_rewrite_verifier/ (RULE)
 - 关联 memory：`project_rust_translation_progress.md`（Rust 翻译 Phase 2）
 - 关联 memory：`project_ts_translation_status.md`（TS 翻译 Phase 3 tsc PASS）
 - 关联 memory：`project_pain_evolution_workflow_status.md`（pattern_discovery / trace_induction 相关）
-- 关联 domain：[../gameplay_system/DESIGN.md](../gameplay_system/DESIGN.md)（gameplay_system 的 produce 本质也是"代码生成"，可交叉参考）
+- 关联 domain：../demogame/DESIGN.md（demogame 的 produce 本质也是"代码生成"，可交叉参考）

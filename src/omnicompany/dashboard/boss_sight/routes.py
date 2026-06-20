@@ -374,7 +374,7 @@ def _scan_session_activity() -> tuple[list[dict], dict, bool]:
         return sessions, totals, True
     last_overall: datetime | None = None
     for f in files:
-        # cwd 推断: 父目录名形如 "E--workspace-omnicompany" → "/workspace/omnicompany"
+        # cwd 推断: 父目录名形如 "E--WindowsWorkspace-omnicompany" → "E:/WindowsWorkspace/omnicompany"
         parent_name = f.parent.name
         cwd_guess = parent_name.replace("--", ":/", 1).replace("-", "/") if "--" in parent_name else parent_name
         first_ts: datetime | None = None
@@ -778,7 +778,7 @@ async def list_plans() -> dict[str, Any]:
 
     返回值字段贴 PlanIndexEntry.to_dict(), 关键字段:
     - plan_id        (category/[ts]ID)
-    - category       (顶层分组, 如 dashboard / voxel_engine / cli)
+    - category       (顶层分组, 如 dashboard / voxelcraft / cli)
     - project_path   (关联的 docs/plans/<category>/project.md 相对路径; 给前端做 cwd→plan 推断时, 用 category 段)
     - title / status / todo_done / todo_total / last_modified_ts
     """

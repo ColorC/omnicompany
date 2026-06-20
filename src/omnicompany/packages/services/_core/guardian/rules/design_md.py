@@ -3,7 +3,7 @@
 """Guardian 规则 — DESIGN.md 结构合规 (OMNI-034 家族)。
 
 本规则扫所有 `DESIGN.md`，按自我叙事三件套规范
-`docs/standards/protocol/self_creative_content_three_files.md` §五 检查
+`docs/standards/protocol/self_narrative_three_files.md` §五 检查
 （2026-06-13 用户裁决"规范冲突以新的为准"后从旧七节模板切换:
 "核心目的"段归 README 承载, 不再是 DESIGN 必需节; 存量含核心目的不违规）。
 模板细则见 `docs/standards/protocol/design_md_template.md`（从属于三件套规范）。
@@ -218,7 +218,7 @@ RULES: list[GuardianRule] = [
         message_template=(
             "{path} 首行应为: "
             "<!-- [OMNI] origin=... domain=... ts=... type=doc status=... --> "
-            "见 docs/standards/protocol/self_creative_content_three_files.md"
+            "见 docs/standards/protocol/self_narrative_three_files.md"
         ),
     ),
     GuardianRule(
@@ -243,7 +243,7 @@ RULES: list[GuardianRule] = [
             "{path} 缺必需二级标题。需齐全: "
             "## 状态 / ## 核心接口 / ## 架构决策 / "
             "## 数据流 / 拓扑 / ## 已知局限 / ## 参考资料"
-            "（核心目的归 README; 见 self_creative_content_three_files.md §五）"
+            "（核心目的归 README; 见 self_narrative_three_files.md §五）"
         ),
     ),
     # ─── OMNI-034d / OMNI-034e：语义判断规则已禁用 ──────────────────────────

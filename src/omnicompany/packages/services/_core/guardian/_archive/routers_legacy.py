@@ -1,4 +1,4 @@
-# [OMNI] origin=omnicompany domain=omnicompany/guardian ts=2026-04-05T17:04:51Z
+# [OMNI] origin=omnifactory domain=omnifactory/guardian ts=2026-04-05T17:04:51Z
 # [OMNI] material_id="material:core.guardian.fs_scanner_arch_auditor_health_reporter.routers_legacy.py"
 """guardian.routers — 守护检查管线的 Router 实现
 
@@ -16,17 +16,17 @@ import os
 from pathlib import Path
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.runtime.agent.agent_loop_config import LoopConfig, CompactConfig, PermissionConfig, PRESET_LIGHTWEIGHT
-from omnicompany.runtime.agent.agent_loop_tools import ReadFileTool, GrepTool, GlobTool, ListDirTool, ThinkTool
-from omnicompany.runtime.agent.agent_node_loop import AgentNodeLoop
-from omnicompany.runtime.routing.router import Router
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.runtime.agent.agent_loop_config import LoopConfig, CompactConfig, PermissionConfig, PRESET_LIGHTWEIGHT
+from omnifactory.runtime.agent.agent_loop_tools import ReadFileTool, GrepTool, GlobTool, ListDirTool, ThinkTool
+from omnifactory.runtime.agent.agent_node_loop import AgentNodeLoop
+from omnifactory.runtime.routing.router import Router
 
 logger = logging.getLogger(__name__)
 
 # ── 默认配置 ──
 
-_DEFAULT_PROJECT_ROOT = Path("/workspace/omnicompany")
+_DEFAULT_PROJECT_ROOT = Path("e:/WindowsWorkspace/omnifactory")
 
 # 项目根目录下允许的合法条目
 _ALLOWED_ROOT_ENTRIES = frozenset({
@@ -37,7 +37,7 @@ _ALLOWED_ROOT_ENTRIES = frozenset({
 
 # data/ 下允许的顶级子目录
 _ALLOWED_DATA_DIRS = frozenset({
-    "rewrite", "feishu_data", "gameplay_system_data", "debug", "test",
+    "rewrite", "feishu_data", "demogame_data", "debug", "test",
     "autonomous", "sw", "workflow", "predicted_164",
     "_archive_agent_loop", "_archive", "guardian", "equiv",
 })
@@ -67,7 +67,7 @@ class FsScannerRouter(Router):
     1. 项目根目录下的非法条目（不在白名单中的文件/目录）
     2. data/ 下的散落 db/临时文件
     3. 类型命名的临时文件（bash.stdout.* 等）
-    4. 盘根目录（C:/E:/D:/ 等）是否有 omnicompany 产生的散落文件
+    4. 盘根目录（C:/E:/D:/ 等）是否有 omnifactory 产生的散落文件
     """
 
     INPUT_KEYS = ["project_root"]
@@ -184,9 +184,9 @@ class FsScannerRouter(Router):
             })
 
     def _check_drive_roots(self, issues: list[dict]) -> None:
-        """检查盘根目录是否有 omnicompany/agent 产出的散落文件。"""
+        """检查盘根目录是否有 omnifactory/agent 产出的散落文件。"""
         suspect_patterns = (
-            "omnicompany", "semantic_network", "evolution",
+            "omnifactory", "semantic_network", "evolution",
             "trace", "pain", "repair", "embedding",
         )
         for drive in _DRIVE_ROOTS_TO_CHECK:
@@ -195,14 +195,14 @@ class FsScannerRouter(Router):
             try:
                 for entry in drive.iterdir():
                     name_lower = entry.name.lower()
-                    # 只关注疑似 omnicompany 产出的
+                    # 只关注疑似 omnifactory 产出的
                     if any(p in name_lower for p in suspect_patterns):
                         issues.append({
                             "category": "drive_root_contamination",
                             "severity": "high",
                             "path": str(entry),
-                            "detail": f"盘根目录出现疑似 omnicompany 产出: {entry.name}",
-                            "suggestion": "清理或移动到 omnicompany/data/ 下",
+                            "detail": f"盘根目录出现疑似 omnifactory 产出: {entry.name}",
+                            "suggestion": "清理或移动到 omnifactory/data/ 下",
                         })
                     # tmp 目录在 E 盘根
                     if drive == Path("e:/") and name_lower == "tmp":
@@ -210,7 +210,7 @@ class FsScannerRouter(Router):
                             "category": "drive_root_contamination",
                             "severity": "medium",
                             "path": str(entry),
-                            "detail": "E 盘根目录的 tmp/ 应在 omnicompany/tmp/ 下",
+                            "detail": "E 盘根目录的 tmp/ 应在 omnifactory/tmp/ 下",
                             "suggestion": "确认内容后移动或删除",
                         })
             except PermissionError:
@@ -241,7 +241,7 @@ class ArchAuditorRouter(Router):
             input_data = {}
 
         project_root = Path(input_data.get("project_root", str(_DEFAULT_PROJECT_ROOT)))
-        src_root = project_root / "src" / "omnicompany"
+        src_root = project_root / "src" / "omnifactory"
         fs_issues = input_data.get("fs_issues", [])
 
         arch_issues: list[dict[str, str]] = []

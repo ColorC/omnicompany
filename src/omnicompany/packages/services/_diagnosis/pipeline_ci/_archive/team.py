@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from omnicompany.protocol.anchor import (
+from omnifactory.protocol.anchor import (
     AnchorSpec,
     Route,
     RouteAction,
@@ -14,7 +14,7 @@ from omnicompany.protocol.anchor import (
     ValidatorSpec,
     VerdictKind,
 )
-from omnicompany.protocol.team import (
+from omnifactory.protocol.team import (
     NodeKind,
     NodeMaturity,
     TeamEdge,

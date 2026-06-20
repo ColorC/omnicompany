@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=standards/protocol ts=2026-05-05T23:55:00Z type=doc status=active agent=ai-ide -->
+<!-- [OMNI] summary="plan.md 标准模板 — 给 PlanDiagnosticAgent 读的'应满足什么'参考. 核心三块: 需求 / 产物 / 验收. 不达标处置走技术债不阻断" -->
+<!-- [OMNI] why="诊断重制阶段 2 后续 2: PlanDiagnosticAgent 需要一份'plan.md 应长什么样'的标准, 不抽硬规则枚举, 让 agent 读模板 + 实际 plan.md 自然语言判完成度" -->
+<!-- [OMNI] tags=standards,protocol,plan,template,doctor -->
+<!-- [OMNI] material_id="material:standards.protocol.plan_template.md" -->
 
 # plan.md 标准模板
 
@@ -5,7 +10,7 @@
 > **头部字段**: 按 concepts/plan.md §三 — 文件顶部唯一 yaml frontmatter（平铺字段 + binding 块同居一块），之后才是 OmniMark 头注释. 改本文件前必同步看 concepts/plan.md 是否一致 (元规范第 1 条违例自查)
 > **相关**: [`distributed-docs.md`](../_global/distributed-docs.md) (位置), [`design_md_template.md`](design_md_template.md) (DESIGN 模板), [doctor 计划型诊断](../../../src/omnicompany/packages/services/_diagnosis/doctor/DESIGN.md), [`standards_meta.md`](../_global/standards_meta.md) (立规范的元规范)
 > **位置**: `docs/plans/<topic>/[YYYY-MM-DD]<plan-name>/plan.md`
-> **设施统一计划**: 若计划目标是消灭二重权威/统一核心设施, 必须补 `authority-confirmation.md` 与 `autonomous-execution-rules.md` 两个同目录文件; 当前样例见 [authority-confirmation.md](../../plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/authority-confirmation.md) / [autonomous-execution-rules.md](../../plans/agent-framework/[2026-06-13]LLM-CALL-UNIFICATION/autonomous-execution-rules.md)。
+> **设施统一计划**: 若计划目标是消灭二重权威/统一核心设施, 必须补 `authority-confirmation.md` 与 `autonomous-execution-rules.md` 两个同目录文件; 当前样例见 authority-confirmation.md / autonomous-execution-rules.md。
 
 ---
 
@@ -41,7 +46,7 @@ docs/plans/<topic>/[YYYY-MM-DD]<plan-name>/
 - **plan.md 始终是入口**, 包含需求清单和产物清单 — 这是 plan 的核心身份, 不可拆出
 - **brief.md 必须存在** — 这是防遗忘机制的载体 (见 concepts/plan.md §4.3), compact 后首先载入这个文件
 - **其余文件按需拆分** — 内容少时可以全写在 plan.md 里不拆, 内容多时按上面的职责边界拆
-- 每个拆出的文件在 plan.md 中用相对链接引用: `[路线图](roadmap.md)` / `[决策日志](decisions.md)`
+- 每个拆出的文件在 plan.md 中用相对链接引用: `路线图` / `决策日志`
 - OmniMark 头只在 plan.md 上写, 拆出的子文件不重复写头
 
 **不拆的情况**: 需求 ≤ 5 条 + 阶段 ≤ 3 个的小计划, 全写 plan.md 一个文件即可.
@@ -66,6 +71,11 @@ applicable_standards: []
 expected_completion: <YYYY-MM-DD>
 ---
 
+<!-- [OMNI] origin=<origin> domain=plans/<topic> ts=<ISO8601> type=plan status=<draft|active|done|archived> -->
+<!-- [OMNI] summary="<本计划 1 句话总结>" -->
+<!-- [OMNI] why="<立这计划为啥, 解决什么问题>" -->
+<!-- [OMNI] tags=plan,<topic>,<其他相关>... -->
+<!-- [OMNI] material_id="material:plans.<topic>.<plan-name>.plan.md" -->
 
 # <计划主题> · <计划名> 计划书
 
@@ -106,7 +116,7 @@ expected_completion: <YYYY-MM-DD>
 
 - [ ] 全部产物清单 (二节) 文件存在
 - [ ] 关键 class / 函数 / Material 常量按描述存在
-- [ ] OMNI 头齐 (按 [`omni-header.md`](../_global/omni-header.md) 规范)
+- [ ] OMNI 头齐 (按 `omni-header.md` 规范)
 - [ ] 文档章节齐 (按 [`design_md_template.md`](design_md_template.md) 等模板)
 
 ### 3.2 动态验收 (能跑 / 能复现)
@@ -149,7 +159,7 @@ expected_completion: <YYYY-MM-DD>
 ## 七 · 决策日志
 
 > 计划立时跟用户互动的拍板记录, 改路线时回写.
-> 内容多时拆到 `decisions.md`, 此处保留链接: [决策日志](decisions.md)
+> 内容多时拆到 `decisions.md`, 此处保留链接: 决策日志
 
 - <YYYY-MM-DD> · <决策内容> (用户拍板 / agent 自提议)
 
@@ -225,7 +235,7 @@ PlanDiagnosticAgent 看这些点判 finding:
 
 > 跟元规范 v1 ([`standards_meta.md`](../_global/standards_meta.md)) 第 2 条配套立的真合规样本. 本样本逐条符合本模板 (一-七节齐 + OMNI 头齐 + 产物清单 + 静态/动态验收 + 三档处置), **修本模板前必同步改样本**, 不一致是本模板出问题信号.
 
-> 注: 本模板 2026-05-05 立, 历史 plan.md 可能不全合本模板 (如 [`本计划自己 plan.md`](../../plans/diagnosis/[2026-05-05]DIAGNOSIS-RECONSOLIDATION/plan.md)). PlanDiagnosticAgent 看历史 plan 时按 finding 标差异, 不阻断不重写历史.
+> 注: 本模板 2026-05-05 立, 历史 plan.md 可能不全合本模板 (如 `本计划自己 plan.md`). PlanDiagnosticAgent 看历史 plan 时按 finding 标差异, 不阻断不重写历史.
 
 > **历史教训** (元规范触发): 本模板 v1 立时 §五 错指"本计划用的 plan.md" 作合格例, 实测它不合规 (PlanDiagnosticAgent dogfood 找 6 处 finding). 这促成元规范 v1 把"必有真合规样本" 上升为立规范者硬底线. 见 [`standards_meta.md` §五 反例](../_global/standards_meta.md).
 

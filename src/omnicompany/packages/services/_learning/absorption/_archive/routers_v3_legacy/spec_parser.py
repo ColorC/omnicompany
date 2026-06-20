@@ -78,7 +78,7 @@ _SPEC_SYSTEM = """你是 OmniCompany 改进提案分析师。
   "proposal_id": "PRO-001",
   "title": "≤20字简洁标题",
   "summary": "2-3句：做什么 + 为什么值得",
-  "omnicompany_status": "缺失 | 部分存在 | 已有可改进",
+  "omnifactory_status": "缺失 | 部分存在 | 已有可改进",
   "source": {
     "repo": "repo名称",
     "finding": "对应发现标题",
@@ -283,7 +283,7 @@ Repo: {repo_name}
 
 1. **先扫一遍完整 findings 列表**（含 DETAIL 区的每条详解），**识别跨 finding 的系统性主题** —— 几个看似独立的 finding 合起来是否构成一个更大的系统（例如"轨迹记录 + 会话分析 + 技能沉淀"合起来是"自学习闭环"）。
 2. **若外部 repo 报告里有明确宣称的主卖点（project_thesis / §一 概览段 / 标题副标题）**，必须至少有 1 条提案直接对应该主卖点 —— 不只是相关功能域，而是直接回应宣称。
-3. **对照能力清单**，已有的标 'omnicompany_status: 已有可改进'，不要重复提案。
+3. **对照能力清单**，已有的标 'omnifactory_status: 已有可改进'，不要重复提案。
 4. **对应已知 gap** 的填 'source.gap_id'（G1~G7）。
 5. **宁多勿少**：原料里有 20+ findings 时，预期至少 8-12 条提案，否则说明综合过度。
 """
@@ -308,12 +308,12 @@ Repo: {repo_name}
             return []
 
 
-def _build_omnicompany_summary() -> str:
+def _build_omnifactory_summary() -> str:
     """构建 OmniCompany 自知识摘要（2026-04-18：改为从 wiki 动态加载）。
 
     取代原硬编码字符串，读：
-    - src/omnicompany/README.md 的能力五分类表
-    - src/omnicompany/**/DESIGN.md 里 status=active|design 的核心目的节
+    - src/omnifactory/README.md 的能力五分类表
+    - src/omnifactory/**/DESIGN.md 里 status=active|design 的核心目的节
     - docs/gaps/INDEX.md + G1~G7.md 的缺口档案
 
     失败时走 wiki_loader 内部兜底字符串。
@@ -419,7 +419,7 @@ def _normalize_proposal(raw: dict, index: int, repo_name: str, highlights: list[
         # 从 location 字段推断
         location = raw.get("location", "")
         if location:
-            target_changes = [{"path": f"src/omnicompany/{location}", "action": "create", "description": summary}]
+            target_changes = [{"path": f"src/omnifactory/{location}", "action": "create", "description": summary}]
 
     risk_level = raw.get("risk_level") or _infer_risk_level(target_changes)
 

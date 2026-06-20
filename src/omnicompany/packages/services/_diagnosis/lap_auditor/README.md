@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/lap_auditor ts=2026-05-05T19:30:00Z type=doc status=archived belongs_to_service=lap_auditor -->
+<!-- [OMNI] material_id="material:diagnosis.lap_auditor.archive_pointer.md" -->
+<!-- [OMNI] summary="lap_auditor 整体归档 (2026-05-05). 概念并入 doctor _spec/ 子域. 历史代码在 _archive/" -->
+<!-- [OMNI] why="诊断重制 plan 阶段 1 step 3: lap_auditor 三件套合规审计跟新 doctor 规范子域同源, 旧实现归档让位" -->
+<!-- [OMNI] tags=archived,pointer,lap_auditor,diagnosis-reconsolidation -->
 
 # lap_auditor · 已归档
 

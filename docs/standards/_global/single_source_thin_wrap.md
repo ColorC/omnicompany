@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards/_global ts=2026-05-02T10:00:00Z type=doc status=active agent=ai-ide-current -->
+<!-- [OMNI] summary="唯一源 + 薄包装铁律 - 规则 / 工作顺序源在 docs/standards/, .claude/skills/ 跟 .omni/sandbox/guides/ 是薄包装不重复写" -->
+<!-- [OMNI] why="用户 2026-05-02 立铁律 - .claude/skills 修改起来麻烦因为内容跟 docs/ 重复维护. 应该单源 + 自动同步 / 薄包装" -->
+<!-- [OMNI] tags=standard,single-source,thin-wrapper,foundation,maintenance -->
+<!-- [OMNI] material_id="material:standards.global.single_source_thin_wrapper_rule.md" -->
 
 # 唯一源 + 薄包装铁律
 
@@ -45,8 +50,8 @@ user-invocable: true
 
 你正在 <场景>. 完整规则跟工作顺序请读源:
 
-- 入口: [`docs/standards/cli/<X>.md`](../../../docs/standards/cli/<X>.md)
-- 概念: [`docs/standards/concepts/<kind>.md`](../../../docs/standards/concepts/<kind>.md)
+- 入口: `docs/standards/cli/<X>.md`
+- 概念: `docs/standards/concepts/<kind>.md`
 - 工作流: 跑 `omni <command> --help` 看 CLI 子命令
 
 本 Skill 不复述规则 — 改规则改 docs.
@@ -108,7 +113,7 @@ user-invocable: true
 - 概念定义 — 严格唯一源
 - 命名约定 — 严格唯一源 (terminology.md)
 - API 契约 — 严格唯一源 (各 service DESIGN.md 跟 protocol/)
-- 但**业务事实数据** (例 gameplay_system 业务字段语义) 不在本规范范围 (那是 data 类, 走 data 注册中心)
+- 但**业务事实数据** (例 demogame 业务字段语义) 不在本规范范围 (那是 data 类, 走 data 注册中心)
 
 ## 六、 反模式
 

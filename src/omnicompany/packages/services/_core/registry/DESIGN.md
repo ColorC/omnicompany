@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/registry ts=2026-05-04T10:00:00Z type=doc status=active belongs_to_service=registry -->
+<!-- [OMNI] material_id="material:core.registry.system_design.document.md" -->
 
 # registry · 设计文档
 
@@ -93,4 +95,4 @@ registry 不是数据流 Team, 没有 FORMAT_IN → FORMAT_OUT 管线。属于**
   - [format.md F-16 Material kind](../../../../../../docs/standards/concepts/material.md)
   - [router.md R-18 Worker 粒度 / R-19 Agent Worker](../../../../../../docs/standards/concepts/worker.md)
 - **Agent Worker 迁移**: 当前 `agent_loop` 类型保留; Phase 1 runtime/agent 重构后新增 `agent_worker` 类型
-- **migration_log**: [Team 3 registry](../../../../../../docs/plans/format-material/[2026-04-19]BLACKBOARD-ARCHITECTURE/migration_log.md)
+- **migration_log**: Team 3 registry

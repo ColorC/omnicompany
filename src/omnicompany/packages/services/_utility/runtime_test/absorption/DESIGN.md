@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/absorption_runtime_test ts=2026-04-27T00:00:00Z type=design status=active -->
+<!-- [OMNI] material_id="material:utility.runtime_test.absorption.design_specification.md" -->
 
 # absorption_runtime_test · absorption 类工作的特化测试团队
 
@@ -5,12 +7,12 @@
 
 `absorption_runtime_test` 是 **absorption 类目标团队** (例: `repo-absorption` 产代码改进提案 + 报告) 的特化测试团队.
 
-> ⚠️ **不是知识产物通用模板**. 2026-04-26 L1 审视后明示: 测试本质是**假设法**, 通用假设很少, 大多数有效假设领域+工作特化. 本团队的 3 路验证只覆盖 absorption 一类工作, 不可硬套到其他知识产物 (故事/config_table/UI/决策类等).
+> ⚠️ **不是知识产物通用模板**. 2026-04-26 L1 审视后明示: 测试本质是**假设法**, 通用假设很少, 大多数有效假设领域+工作特化. 本团队的 3 路验证只覆盖 absorption 一类工作, 不可硬套到其他知识产物 (故事/配表/UI/决策类等).
 > 详细推演见 `docs/plans/[2026-04-26]VERIFICATION-AS-HYPOTHESIS-METHOD/plan.md`. 通用层假设构建在 Phase B/C 立 (真 meta 层).
 
 它不是契约扫描 (那是 team_supervisor 干的事), 而是**真跑 + 多路逼近**: 取样跑目标团队多次, 用 3 条独立路径产证据, 汇总成画像.
 
-立项: 2026-04-26 (旧名 `knowledge_runtime_test`, 2026-04-27 改名 absorption 特化). 沉淀自 [data/domains/test_team/scratch/](../../../../data/domains/test_team/scratch/) 三个 scratch 实验. 完整历程: [journey.md](../../../../../../../data/domains/test_team/scratch/journey.md).
+立项: 2026-04-26 (旧名 `knowledge_runtime_test`, 2026-04-27 改名 absorption 特化). 沉淀自 data/domains/test_team/scratch/ 三个 scratch 实验. 完整历程: journey.md.
 
 ## 2 · 职责
 
@@ -20,7 +22,7 @@
 1. 装载 target 元数据
 2. 用 sample_input 真跑 target N 次 (subprocess 隔离避嵌套 dispatch async loop 冲突)
 3. **路 1 跨次稳定性**: N 次产物文件层 + 主题层重叠 (通用假设, 但 LLM 主题判得严控)
-4. **路 3 抽样落地** (absorption 特化): 挑 1-2 条提案, 让 LLM 真写实施代码, 判是否解决 problem. **此路仅适用代码改进提案类**, 套到非可实施产物 (故事/config_table/UI 等) 错
+4. **路 3 抽样落地** (absorption 特化): 挑 1-2 条提案, 让 LLM 真写实施代码, 判是否解决 problem. **此路仅适用代码改进提案类**, 套到非可实施产物 (故事/配表/UI 等) 错
 5. **路 4 源覆盖** (absorbing 类特化): 扫 target 输入源仓库, 对照"程序化关键模块清单"看哪些目标团队漏没. 关键模块识别**减少 LLM 自评成分**, 用引用数 + 文件大小作机械排名, LLM 仅在 top-K 候选里选语义关键的子集
 6. 装画像: 多维证据汇总 + 自然语言段落 + "做得好/做得不好"两段句子列表
 
@@ -37,7 +39,7 @@
 
 ### 3.2 输出 `absorption_runtime_test.portrait`
 
-按 [feedback_semantic_sentences_not_classification](C:/Users/user/.claude/projects/e--workspace/memory/feedback_semantic_sentences_not_classification.md) 规约: 自然语言句子承载语义证据, 禁打分 / 标签.
+按 feedback_semantic_sentences_not_classification 规约: 自然语言句子承载语义证据, 禁打分 / 标签.
 
 字段:
 - `verdict` (协议层硬枚举): PASS / PARTIAL / FAIL
@@ -91,17 +93,17 @@ SampleRunsExecutorWorker (HARD · subprocess 嵌套 dispatch · 跑 N 次)
 
 ### 6.3 反模式禁令
 
-按 [feedback_semantic_sentences_not_classification](C:/Users/user/.claude/projects/e--workspace/memory/feedback_semantic_sentences_not_classification.md):
+按 feedback_semantic_sentences_not_classification:
 - 画像字段全自然语言句子
 - 禁 score / level / tier / tags 字段
 - 仅允许物理度量 (count / pct / time)
 
-按 [feedback_validation_calibration_red_green_gradient](C:/Users/user/.claude/projects/e--workspace/memory/feedback_validation_calibration_red_green_gradient.md):
+按 feedback_validation_calibration_red_green_gradient:
 - 测试团队必须自带红绿基线 (放在 scratch 校准脚本里, 不阻塞主路)
 
-按 [feedback_test_is_hypothesis_method](C:/Users/user/.claude/projects/e--workspace/memory/feedback_test_is_hypothesis_method.md):
+按 feedback_test_is_hypothesis_method:
 - 本团队 3 路 = 3 个针对 absorption 特化的假设打包, **不是知识产物通用模板**
-- 路 3 (可执行) 只适用代码改进提案. 套到故事/config_table/UI 等非可实施产物, 是错的抽象层级
+- 路 3 (可执行) 只适用代码改进提案. 套到故事/配表/UI 等非可实施产物, 是错的抽象层级
 - 路 4 (源覆盖) 只适用 absorbing 类 (从外部源仓库提产物). 适用面比路 1/3 都窄
 - 真通用层在 hypothesis_library + 真 meta 层 (Phase B/C)
 
@@ -116,7 +118,7 @@ SampleRunsExecutorWorker (HARD · subprocess 嵌套 dispatch · 跑 N 次)
 - ⚠️ repo_architect (仓库架构报告 · 部分适用 — 路 3 大概率不适用)
 - ❌ csv_to_md (代码产物 · 有 ground truth · 走 byte-diff)
 - ❌ team_builder (代码产物 · 走编译跑测试)
-- ❌ 故事生成 / config_table / UI / 决策类 (无 ground truth 但路 3 不适用)
+- ❌ 故事生成 / 配表 / UI / 决策类 (无 ground truth 但路 3 不适用)
 
 非 absorption 的"知识产物"测试待真 meta 层针对生成假设 (Phase B/C).
 
@@ -125,7 +127,7 @@ SampleRunsExecutorWorker (HARD · subprocess 嵌套 dispatch · 跑 N 次)
 | 路 | 假设 | 怎么验 (本团队当前实施) | 通用性 |
 |---|---|---|---|
 | 路 1 | 同输入跨次产物 (文件层 + 主题层) 高重叠 → 团队稳定 | 文件 set 真重叠 (程序化) + LLM 判主题层 | **通用** (大多数产物适用) |
-| 路 3 | 提案可被 LLM 真写出实施代码 → 提案具体 | LLM 读源码写实施 + 二轮 LLM 判 truly_solves | **absorption 特化** (代码改进提案适用; 套故事/config_table错) |
+| 路 3 | 提案可被 LLM 真写出实施代码 → 提案具体 | LLM 读源码写实施 + 二轮 LLM 判 truly_solves | **absorption 特化** (代码改进提案适用; 套故事/配表错) |
 | 路 4 | target 摸过的关键模块 / 程序化排名候选关键模块 重叠高 → 视野全 | 引用数 + LOC 排名 top-K (程序化) → LLM 在候选里选 5-10 → 对照 target 摸过 | **absorbing 特化** (target 必须消费 repo_path; 不消费时 applicable=false) |
 
 3 条假设独立, 任一通过不能证明 target 健康, 任一失败给信号. 综合 portrait 装配规则 ≥2/3 路过 → PARTIAL, 3/3 → PASS.

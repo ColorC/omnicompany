@@ -25,7 +25,7 @@ _KNOWN_CHECK_KEYS = [
     "check_format_contract",
     "check_maturity",
     "check_soft_hard",
-    "check_creative_content",
+    "check_narrative",
 ]
 
 
@@ -42,7 +42,7 @@ class TeamTopoHealthWriter(Worker):
     """Pipeline 拓扑诊断健康档案汇总 (v2 · 不打分 · 不产 grade)."""
 
     DESCRIPTION = (
-        "Pipeline 拓扑诊断汇总: 从 5 个检查器 (structural/format_contract/maturity/soft_hard/creative_content) "
+        "Pipeline 拓扑诊断汇总: 从 5 个检查器 (structural/format_contract/maturity/soft_hard/narrative) "
         "fan-in 收集 Finding, Finding.level 归一到 critical/major/minor, 产 v2 health-record "
         "(不含 grade, 不打分)."
     )

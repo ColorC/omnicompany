@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=docs/standards ts=2026-05-02T00:00:00Z type=standard status=active -->
+<!-- [OMNI] material_id="material:standards.global.wysiwyg_drag_drop_coordinate_invariant.md" -->
 
 # 玩家视角拖拽不变量铁律 · WYSIWYG Drag-Drop
 

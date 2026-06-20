@@ -4,13 +4,13 @@
 
 from __future__ import annotations
 
-from omnicompany.packages.services._diagnosis.cleanup_bot.routers import (
+from omnifactory.packages.services._diagnosis.cleanup_bot.routers import (
     AnomalyDetectorRouter,
     EvidenceGathererRouter,
     RollbackPlannerRouter,
 )
-from omnicompany.runtime.llm.llm import LLMClient
-from omnicompany.runtime.routing.router import Router
+from omnifactory.runtime.llm.llm import LLMClient
+from omnifactory.runtime.routing.router import Router
 
 
 def build_bindings(input_dict: dict | None = None) -> dict[str, Router]:

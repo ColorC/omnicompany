@@ -19,9 +19,9 @@ import json
 import logging
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.runtime.routing.router import Router
-from omnicompany.runtime.exec.sub_pipeline import SubPipelineRouter
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.runtime.routing.router import Router
+from omnifactory.runtime.exec.sub_pipeline import SubPipelineRouter
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ class SummaryReaderRouter(Router):
         min_k = input_data.get("min_cluster_size", 3)
         threshold = input_data.get("similarity_threshold", 0.85)
 
-        from omnicompany.runtime.storage.db_access import open_db
+        from omnifactory.runtime.storage.db_access import open_db
 
         try:
             with open_db(db_path, readonly=True) as conn:
@@ -320,8 +320,8 @@ class InductionDispatcherRouter(SubPipelineRouter):
 
             # 调用 trace-induction
             try:
-                from omnicompany.core.dispatch import dispatch
-                from omnicompany.core.registry import discover
+                from omnifactory.core.dispatch import dispatch
+                from omnifactory.core.registry import discover
                 discover()
                 result = await dispatch(
                     "trace-induction", sub_input, max_steps=50,
@@ -343,7 +343,7 @@ class InductionDispatcherRouter(SubPipelineRouter):
         db_path = input_data.get("db_path", "")
         if db_path:
             try:
-                from omnicompany.runtime.storage.db_access import open_db
+                from omnifactory.runtime.storage.db_access import open_db
                 with open_db(db_path) as conn:
                     conn.execute("UPDATE compression_summaries SET checked = 1 WHERE checked = 0")
             except Exception:
@@ -364,7 +364,7 @@ def _validate_trace_ids(ids: list[str], db_path: str) -> list[str]:
     """验证 trace_ids 在 intent_steps 表中存在，返回有效的子集。"""
     if not ids:
         return []
-    from omnicompany.runtime.storage.db_access import open_db
+    from omnifactory.runtime.storage.db_access import open_db
     try:
         with open_db(db_path, readonly=True) as conn:
             placeholders = ",".join("?" * len(ids))
@@ -380,7 +380,7 @@ def _validate_trace_ids(ids: list[str], db_path: str) -> list[str]:
 def _search_traces_by_purpose(purpose: str, db_path: str, limit: int = 3) -> list[str]:
     """从 intent_steps 表按 purpose 关键词搜索相关 trace_id。"""
     import re as _re
-    from omnicompany.runtime.storage.db_access import open_db
+    from omnifactory.runtime.storage.db_access import open_db
 
     # 提取关键词
     words = _re.findall(r'[A-Za-z]{3,}', purpose)

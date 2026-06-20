@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=docs/standards ts=2026-05-02T00:00:00Z type=standard status=active -->
+<!-- [OMNI] material_id="material:standards.global.test_pyramid_statemachine_invariant.md" -->
 
 # 三层测试金字塔铁律 · Test Pyramid
 

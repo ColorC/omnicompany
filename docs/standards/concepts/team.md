@@ -12,7 +12,7 @@
 
 本规范主体叙述用 **Team** 表达一组 Worker 的协作单位。`Pipeline` / `PipelineSpec` 是 protocol 层 Python 类名, 在本规范中等同于 Team — 仅代码引用场景保留 `Pipeline` 名字。
 
-下文条款（P-01~P-17）的 "Pipeline" / "管线" 字样请读作 Team; "节点" 字样读作 Worker。完整对照见 [`terminology.md §6`](terminology.md)。
+下文条款（P-01~P-17）的 "Pipeline" / "管线" 字样请读作 Team; "节点" 字样读作 Worker。完整对照见 `terminology.md §6`。
 
 ---
 
@@ -218,7 +218,7 @@ RETRY 必须设 `max_retries` 防死循环.
 
 ### P-14 · Workspace = Team 的工作空间（material 本体存储层）
 
-**Workspace** 是一个 Team（或一组 Team 协作时）的**物理工作空间**, 以目录形式落在磁盘, 保存大明文 material 的本体（详见 [`format.md` F-17](format.md)）。
+**Workspace** 是一个 Team（或一组 Team 协作时）的**物理工作空间**, 以目录形式落在磁盘, 保存大明文 material 的本体（详见 `format.md` F-17）。
 
 **命名规范**（硬规则）:
 
@@ -253,7 +253,7 @@ workspace_id 格式: workspace.<team_name>.<session_kind>[.<job_id>]
 
 ### P-16 · Workspace 读写契约（对齐 R-22）
 
-- **写**: 仅 `WorkspaceWriterWorker` 子类可写（见 [`router.md` R-22](router.md)）。任何业务 Worker 发起写入 → 产 `workspace.write_request` material → Workspace Writer Worker 订阅落盘
+- **写**: 仅 `WorkspaceWriterWorker` 子类可写（见 `router.md` R-22）。任何业务 Worker 发起写入 → 产 `workspace.write_request` material → Workspace Writer Worker 订阅落盘
 - **读**: 任意 Worker 可通过 material 指针读, 建议用 Tool Script Worker 封装
 - **删**: 走 GC / 归档策略, 不允许运行时删除（sink material 不可变, 参考 Q3）
 

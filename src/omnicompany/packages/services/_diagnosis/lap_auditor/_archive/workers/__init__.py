@@ -1,4 +1,4 @@
-# [OMNI] origin=claude-code domain=omnicompany/lap_auditor ts=2026-04-21T00:00:00Z type=config
+# [OMNI] origin=claude-code domain=omnifactory/lap_auditor ts=2026-04-21T00:00:00Z type=config
 # [OMNI] material_id="material:diagnosis.lap_auditor.worker_registry.python"
 """lap_auditor Team · 3 Worker 清单 (Stage 3 Clean Migration 2026-04-21).
 
@@ -10,7 +10,7 @@
 """
 from __future__ import annotations
 
-from omnicompany.packages.services._core.omnicompany import Worker
+from omnifactory.packages.services._core.omnicompany import Worker
 
 from .context_getter_worker import ContextGetterWorker
 from .report_formatter_worker import ReportFormatterWorker

@@ -209,8 +209,8 @@ _EXTERNAL_POINTER_DIR = "data/services/registry/external_pointers"
 def _encode_target_path_for_filename(target: str) -> str:
     """编码 target path 作 sidecar 文件名 (跨 OS 安全).
 
-    'D:\\scm\\main\\PlannerTools\\gameplay_systemAgentClient\\figma_cli\\client.py'
-      → 'D--scm-main-PlannerTools-gameplay_systemAgentClient-figma_cli-client.py'
+    'D:\\P4\\main\\PlannerTools\\IGameAgentClient\\figma_cli\\client.py'
+      → 'D--P4-main-PlannerTools-IGameAgentClient-figma_cli-client.py'
     """
     s = target.replace("\\", "/").replace(":", "--")
     s = re.sub(r"[/\\]+", "-", s)
@@ -735,7 +735,7 @@ def cmd_register_batch(manifest, continue_on_error, as_json):
 @click.option("--kind", default=None,
               help="按 kind 过滤 (material / worker / team / agent / hook / tool / data / plan)")
 @click.option("--id", "id_filter", default=None,
-              help="按 entity_id 精确查 (例: format:gameplay_system.season_book)")
+              help="按 entity_id 精确查 (例: format:demogame.season_book)")
 @click.option("--package", "pkg_filter", default=None, help="按 package 过滤")
 @click.option("--trace-id", default=None,
               help="按 trace_id 过滤 (查某 session 注册的内容)")

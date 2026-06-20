@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/agent_migration ts=2026-05-04T16:05:00Z type=doc status=active agent=ai-ide belongs_to_service=agent_migration -->
+<!-- [OMNI] summary="agent_migration service 自我叙事 README — 单 agent dogfood 自动迁旧 runtime.agent.AgentNodeLoop 子类到新 packages.services._core.agent. 一次性工作, 11 P1 子类跑完归档" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §四 模板严格写. 注意: DESIGN 用非标 YAML frontmatter + 中文数字节, 不强改" -->
+<!-- [OMNI] tags=readme,agent_migration,core,dogfood,self-narrative,one-shot -->
+<!-- [OMNI] material_id="material:services._core.agent_migration.readme.self_narrative.md"-->
 
 # agent_migration · 旧 AgentNodeLoop 自动迁移
 

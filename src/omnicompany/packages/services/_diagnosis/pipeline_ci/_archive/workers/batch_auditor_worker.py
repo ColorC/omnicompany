@@ -7,8 +7,8 @@ import importlib
 import logging
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.packages.services._core.omnicompany import Worker
 
 logger = logging.getLogger(__name__)
 
@@ -35,9 +35,9 @@ class BatchAuditorWorker(Worker):
     FORMAT_OUT = "pipeline_ci.ci-report"
 
     def run(self, input_data: Any) -> Verdict:
-        from omnicompany.packages.services._core.team_builder.routers import ErrorRouteAuditorRouter
-        from omnicompany.protocol.format import create_builtin_registry
-        from omnicompany.protocol.team import TeamChecker
+        from omnifactory.packages.services._core.team_builder.routers import ErrorRouteAuditorRouter
+        from omnifactory.protocol.format import create_builtin_registry
+        from omnifactory.protocol.team import TeamChecker
 
         domains: list[dict] = input_data.get("domains", [])
         auditor = ErrorRouteAuditorRouter()

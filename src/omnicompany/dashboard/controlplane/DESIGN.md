@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=ai-ide domain=dashboard/controlplane ts=2026-05-09T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:dashboard.controlplane.design_doc.architecture.markdown" -->
 
 # controlplane · 设计文档
 

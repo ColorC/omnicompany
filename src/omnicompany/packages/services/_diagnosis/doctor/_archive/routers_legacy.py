@@ -1,4 +1,4 @@
-# [OMNI] origin=omnicompany domain=omnicompany/doctor ts=2026-04-10T00:00:00Z
+# [OMNI] origin=omnifactory domain=omnifactory/doctor ts=2026-04-10T00:00:00Z
 # [OMNI] material_id="material:diagnosis.doctor.router.business_logic.legacy.py"
 # OMNI-024 ALLOW: _archive/ 归档文件, Router 类不在标准位置属预期 (Phase D 历史参考, Stage 3 已迁完)
 # [OMNI] DEPRECATED 2026-04-22 — Stage 3 Clean Migration 完成, 全部 22 个 Router 已迁到
@@ -32,8 +32,8 @@ from omnicompany.runtime.routing.router import Router
 
 logger = logging.getLogger(__name__)
 
-# 默认 source root（omnicompany 项目的 src/omnicompany/）
-_DEFAULT_SOURCE_ROOT = Path("/workspace/omnicompany/src/omnicompany")
+# 默认 source root（omnifactory 项目的 src/omnifactory/）
+_DEFAULT_SOURCE_ROOT = Path("e:/WindowsWorkspace/omnifactory/src/omnifactory")
 
 # ── HealthArchive 可选集成 ──────────────────────────────────────────────────
 try:
@@ -906,10 +906,10 @@ class FormatContextualAuditRouter(Router):
                 continue
             seen_files.add(file_rel)
             try:
-                # file_rel 形如 "src/omnicompany/packages/services/doctor/routers.py"
-                # source_root 是 "/workspace/omnicompany/src/omnicompany"
+                # file_rel 形如 "src/omnifactory/packages/services/doctor/routers.py"
+                # source_root 是 "e:/WindowsWorkspace/omnifactory/src/omnifactory"
                 # file_rel 由 FormatExtractorRouter 生成：相对于 source_root.parent（即 src/）
-                # 例: "omnicompany/packages/services/.../routers.py"
+                # 例: "omnifactory/packages/services/.../routers.py"
                 full_path = source_root.resolve().parent / file_rel
                 content = full_path.read_text(encoding="utf-8", errors="ignore")
             except Exception:
@@ -3571,7 +3571,7 @@ class PipelineTopoHealthWriterRouter(Router):
     输出 diag.pipeline.health-record 格式的健康档案。
     """
     DESCRIPTION = (
-        "Pipeline 拓扑诊断汇总：从 5 个并行检查器（structural/format_contract/maturity/soft_hard/creative_content）"
+        "Pipeline 拓扑诊断汇总：从 5 个并行检查器（structural/format_contract/maturity/soft_hard/narrative）"
         "的 fan-in 输入中收集所有 Finding，计算健康等级（PASS/INFO/WARN/FAIL），输出健康档案。"
         "blocking → FAIL，degrading → WARN，advisory-only → INFO，无 Finding → PASS。"
     )
@@ -3583,7 +3583,7 @@ class PipelineTopoHealthWriterRouter(Router):
         "check_format_contract",
         "check_maturity",
         "check_soft_hard",
-        "check_creative_content",
+        "check_narrative",
     ]
 
     def run(self, input_data: dict) -> Verdict:
@@ -3689,10 +3689,10 @@ class PipelineNarrativeCheckerRouter(Router):
         "L4 整管线叙事审计（LLM）：给定完整 Format 链 + 所有节点 DESCRIPTION + purpose/design_rationale，"
         "评估叙事连贯性（信息增量是否可解释）、语义跳跃（哪条边信息差距过大）、意图对齐（结构是否服务业务目标）。"
         "LLM 失败时降级为 SKIP（passed=None），不阻断管线。"
-        "输出 check_creative_content 字段，advisory 级别 Finding。"
+        "输出 check_narrative 字段，advisory 级别 Finding。"
     )
     FORMAT_IN  = "diag.pipeline.extracted"
-    FORMAT_OUT = "diag.pipeline.check.creative_content"
+    FORMAT_OUT = "diag.pipeline.check.narrative"
 
     _MODEL = "qwen3.6-plus"
 
@@ -3721,7 +3721,7 @@ class PipelineNarrativeCheckerRouter(Router):
 严格输出合法 JSON（不要 markdown 代码块）：
 
 {
-  "creative_content_coherent": true/false,
+  "narrative_coherent": true/false,
   "has_semantic_jump": true/false,
   "semantic_jump_locations": ["edge:node_a→node_b（跳跃描述）"],
   "purpose_aligned": true/false,
@@ -3749,8 +3749,8 @@ class PipelineNarrativeCheckerRouter(Router):
 
         if not specs_data:
             output = dict(input_data)
-            output["check_creative_content"] = {
-                "check": "creative_content",
+            output["check_narrative"] = {
+                "check": "narrative",
                 "passed": None,
                 "severity": "INFO",
                 "detail": "无 PipelineSpec 数据，跳过叙事审计",
@@ -3775,7 +3775,7 @@ class PipelineNarrativeCheckerRouter(Router):
                 for loc in r.get("semantic_jump_locations", []):
                     findings.append({
                         "pipeline_id": pid,
-                        "check_id": "creative_content_semantic_jump",
+                        "check_id": "narrative_semantic_jump",
                         "level": "advisory",
                         "location": loc,
                         "observation": f"语义跳跃：{loc}",
@@ -3783,7 +3783,7 @@ class PipelineNarrativeCheckerRouter(Router):
             if not r.get("purpose_aligned"):
                 findings.append({
                     "pipeline_id": pid,
-                    "check_id": "creative_content_purpose_misalign",
+                    "check_id": "narrative_purpose_misalign",
                     "level": "advisory",
                     "location": f"pipeline:{pid}",
                     "observation": f"意图不对齐：{r.get('purpose_alignment_notes', '')}",
@@ -3791,15 +3791,15 @@ class PipelineNarrativeCheckerRouter(Router):
             for vn in r.get("violation_nodes", []):
                 findings.append({
                     "pipeline_id": pid,
-                    "check_id": "creative_content_node_overload",
+                    "check_id": "narrative_node_overload",
                     "level": "advisory",
                     "location": f"node:{vn.split('（')[0]}",
                     "observation": f"节点职责过重：{vn}",
                 })
 
         output = dict(input_data)
-        output["check_creative_content"] = {
-            "check": "creative_content",
+        output["check_narrative"] = {
+            "check": "narrative",
             "passed": not any_fail,
             "severity": "MEDIUM" if any_fail else "INFO",
             "audit_results": all_audit_results,
@@ -3903,7 +3903,7 @@ class PipelineNarrativeCheckerRouter(Router):
             return {
                 "pipeline_id": spec.id,
                 "overall_grade": "?",
-                "creative_content_coherent": None,
+                "narrative_coherent": None,
                 "has_semantic_jump": False,
                 "semantic_jump_locations": [],
                 "purpose_aligned": None,

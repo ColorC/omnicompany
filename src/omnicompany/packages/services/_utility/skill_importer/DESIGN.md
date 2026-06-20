@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/skill_importer ts=2026-04-20T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:utility.skill_importer.design_specification.md" -->
 
 # skill_importer · 设计文档
 
@@ -108,4 +110,4 @@ skill_importer.compliance_check_request (source)
 - [workers/](workers/) — 5 个 Worker (Diamond shortcut)
 - [formats.py](formats.py) — 7 个 Material
 - [_archive/routers_legacy.py](_archive/routers_legacy.py) — 原 Router 实现
-- [../workflow_factory/](../workflow_factory/) — RequirementDraft 的下游消费者
+- ../workflow_factory/ — RequirementDraft 的下游消费者

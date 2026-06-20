@@ -3,7 +3,7 @@
 #
 # ⚠ DEPRECATED (2026-04-18) — 继承旧 runtime.agent.agent_node_loop.AgentNodeLoop。阶段 C 会迁到 packages.services.agent.AgentNodeLoop
 # 违规：LLMClient/ToolDefinition.call 直调 + 内存 list[dict] 传参（非 Format+bus）。
-# 重构计划：omnicompany/docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md
+# 重构计划：omnifactory/docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md
 # 禁止基于本类新增实现；Guardian 会监控违规。
 """module_explorer — V3 ModuleExplorerRouter（AgentNodeLoop）
 

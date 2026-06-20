@@ -70,7 +70,7 @@ class DescriptionRefiner:
         return CrystallizerObservation(
             crystallizer=self.name,
             facts=facts,
-            creative_content=f"采集 {trace.router_class} 的 agent trace 用于 DESCRIPTION 精化.",
+            narrative=f"采集 {trace.router_class} 的 agent trace 用于 DESCRIPTION 精化.",
         )
 
     def propose(

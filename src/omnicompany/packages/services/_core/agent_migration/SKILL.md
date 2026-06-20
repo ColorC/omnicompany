@@ -5,6 +5,10 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/agent_migration ts=2026-05-04T16:07:00Z type=doc status=active agent=ai-ide belongs_to_service=agent_migration -->
+<!-- [OMNI] summary="agent_migration 操作手册 — 跑迁移 agent 的步骤 + 入口清单 + 故障排查" -->
+<!-- [OMNI] tags=skill,agent_migration,how-to,one-shot -->
+<!-- [OMNI] material_id="material:services._core.agent_migration.skill.operations_manual.md"-->
 
 # agent_migration · 操作手册
 

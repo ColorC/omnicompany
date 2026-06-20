@@ -1,3 +1,7 @@
+<!-- [OMNI] origin=ai-ide agent=codex domain=root ts=2026-06-19T00:00:00Z type=doc status=active -->
+<!-- [OMNI] summary="omnicompany 仓库安全报告与密钥管理指南" -->
+<!-- [OMNI] why="补齐 GitHub 社区健康文件, 给漏洞报告、版本支持和密钥处理提供公开入口" -->
+<!-- [OMNI] tags=community-health,security,secrets,disclosure -->
 
 # Security Policy
 

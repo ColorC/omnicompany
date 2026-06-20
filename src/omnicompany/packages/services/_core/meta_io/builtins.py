@@ -13,7 +13,7 @@
   - 网络 (http):  get / post / put / delete
   - git:          read_log / read_diff / commit_local / push_remote
 
-业务工具如有特殊 IO (例 chat_platform.read_doc / xlsm.read_sheet) 走 业务包的 meta_io.py 自己注册.
+业务工具如有特殊 IO (例 lark.read_doc / xlsm.read_sheet) 走 业务包的 meta_io.py 自己注册.
 """
 from __future__ import annotations
 

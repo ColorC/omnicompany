@@ -18,8 +18,8 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.packages.services._core.omnicompany import Worker
 
 
 # 单次审的 user task 模板（复杂字段走 task，避开 NODE_PROMPT 的 str.format）

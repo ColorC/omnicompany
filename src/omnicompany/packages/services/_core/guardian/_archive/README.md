@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=omnifactory/guardian ts=2026-04-20T00:00:00Z type=doc status=deprecated -->
+<!-- [OMNI] material_id="material:services.guardian.archive.migration_log.readme.md" -->
 
 # Guardian Legacy Archive
 
@@ -14,7 +16,7 @@
 ### Clean Migration (Stage 2, 2026-04-20) 补充
 
 本次 Stage 2 迁移针对 health-check 管线 (fs_scanner → arch_auditor → health_reporter)
-三个旧 Router 做清理, 标准见 [migration_log.md · 完全迁移标准 Stage 2](../../../../../../docs/plans/[2026-04-19]BLACKBOARD-ARCHITECTURE/migration_log.md):
+三个旧 Router 做清理, 标准见 migration_log.md · 完全迁移标准 Stage 2:
 
 - ✅ FsScannerRouter → FsScannerWorker (extends Worker, workers/fs_scanner_worker.py)
 - ✅ ArchAuditorRouter → ArchAuditorWorker (extends Worker, workers/arch_auditor_worker.py)
@@ -34,15 +36,15 @@
 外部调用原 `patrol_runner.run_patrol` / `patrol.RuleEngine` 的 6 处 import 已全部改为:
 
 ```python
-from omnicompany.packages.services.guardian import run_patrol, RuleEngine, FileContext, Violation
+from omnifactory.packages.services.guardian import run_patrol, RuleEngine, FileContext, Violation
 ```
 
 涉及文件:
-- `src/omnicompany/cli/commands/guardian.py`
-- `src/omnicompany/cli/commands/debt.py`
-- `src/omnicompany/packages/services/guardian/sentinel.py`
-- `src/omnicompany/packages/services/guardian/patrol_hook.py` (2 处)
-- `src/omnicompany/packages/services/guardian/auto_check.py`
+- `src/omnifactory/cli/commands/guardian.py`
+- `src/omnifactory/cli/commands/debt.py`
+- `src/omnifactory/packages/services/guardian/sentinel.py`
+- `src/omnifactory/packages/services/guardian/patrol_hook.py` (2 处)
+- `src/omnifactory/packages/services/guardian/auto_check.py`
 - `tests/guardian/test_patrol_rules.py`
 
 ## 不要恢复此目录文件到原位置
@@ -52,4 +54,4 @@ from omnicompany.packages.services.guardian import run_patrol, RuleEngine, FileC
 ## 相关文档
 
 - [`../../../../../docs/plans/[2026-04-19]BLACKBOARD-ARCHITECTURE/migration_log.md`](../../../../../docs/plans/[2026-04-19]BLACKBOARD-ARCHITECTURE/migration_log.md) — Team 1 guardian 迁移坑 + 心智修订
-- [`../../../../../docs/standards/terminology.md`](../../../../../docs/standards/terminology.md) §6 两层命名 / §6.5 Worker 粒度原则
+- `../../../../../docs/standards/terminology.md` §6 两层命名 / §6.5 Worker 粒度原则

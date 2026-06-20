@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/agent ts=2026-05-04T15:05:00Z type=doc status=active agent=ai-ide belongs_to_service=agent -->
+<!-- [OMNI] summary="agent service 自我叙事 README — AgentNodeLoop Routerization 新家. 把原 686 行单体 _run_loop 拆 6 子 Router (PromptBuilder/ContextCompact/LLMCall/ToolDispatch/SingleTool/ExtractResult), 必接 bus" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §四 模板严格写. 抽核心目的到 README, DESIGN 留架构性内容" -->
+<!-- [OMNI] tags=readme,agent,core,agent-loop,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.agent.readme.self_narrative.md"-->
 
 # agent · AgentNodeLoop 现代版
 
@@ -7,7 +12,7 @@
 
 ## 这是什么
 
-agent 是 omnicompany 的 **AgentNodeLoop Routerization 新家**. 它是 [`AGENT-NODE-LOOP-ROUTERIZATION` plan](../../../../../../docs/plans/agent-framework/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md) 的实施 — 把旧 [`runtime/agent/agent_node_loop.py`](../../../../runtime/agent/) 单体 loop 重构成可观测 / 可落盘 / 可 replay 的 Router 组合.
+agent 是 omnicompany 的 **AgentNodeLoop Routerization 新家**. 它是 `AGENT-NODE-LOOP-ROUTERIZATION` plan 的实施 — 把旧 [`runtime/agent/agent_node_loop.py`](../../../../runtime/agent/) 单体 loop 重构成可观测 / 可落盘 / 可 replay 的 Router 组合.
 
 形态: **薄调度器 + 6 子 Router**:
 - `AgentNodeLoop` ([loop.py](loop.py)) 是 Router, < 100 行, 只做轮次调度
@@ -35,7 +40,7 @@ agent 是 omnicompany 的 **AgentNodeLoop Routerization 新家**. 它是 [`AGENT
 
 **不解决**:
 - 旧 `runtime/agent` 13 子类的迁移 (阶段 C 计划)
-- 业务逻辑 (各业务子类自己实现, 例 [hypothesis](../../_diagnosis/hypothesis/) / gameplay_system_kb_storywiki)
+- 业务逻辑 (各业务子类自己实现, 例 hypothesis / demogame_kb_storywiki)
 - 跨 Team 协作 (单个 agent loop 内的事, 跨 Team 走 MaterialDispatcher)
 
 ## 设计目的与最终目标
@@ -73,7 +78,7 @@ agent 是 omnicompany 的 **AgentNodeLoop Routerization 新家**. 它是 [`AGENT
   - [routers/bash.py](routers/bash.py) — `BashRouter` 通用 Bash 工具 (走 BashBus + workspace + 危险命令 + 审计)
   - [routers/extract_result.py](routers/extract_result.py) — `ExtractResultRouter`
 - Workers (12 个 = 5 主 + 7 SingleTool) → [workers/](workers/) (Phase D 封装)
-- 调用样例 → [../../_diagnosis/hypothesis/routers.py](../../_diagnosis/cleanup_bot/routers.py)
+- 调用样例 → ../../_diagnosis/hypothesis/routers.py
 
 技术架构详述见 [DESIGN.md](DESIGN.md), 操作手册见 [SKILL.md](SKILL.md).
 

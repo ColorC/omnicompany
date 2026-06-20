@@ -191,7 +191,7 @@ meta_registry.register_type(EntityTypeDef(
         "has_error_handling": "是否有明确的错误处理",
     },
     registration_criteria=(
-        "Tool 是外部能力适配器（文件写入、scm、LLM API 等），被 Router/AgentLoop 调用。"
+        "Tool 是外部能力适配器（文件写入、P4、LLM API 等），被 Router/AgentLoop 调用。"
         "有独立的可靠性/延迟/授权范围质量面，随外部接口变化而演变。"
     ),
 ))
@@ -307,12 +307,12 @@ meta_registry.register_type(EntityTypeDef(
         "target_existence_check": "是否检查 target 真存在 (file_exists / dir_exists / skip_check)",
         "kind_inner": "目标内容的真实 omnicompany kind (worker / tool / data / 等), 跟外层 type=external_pointer 区分",
         "is_binary": "目标是否二进制 (true 不可读 / false 可读但是外部项目不能改)",
-        "is_external_project": "是否在 omnicompany 项目根之外 (例 D:\\scm\\... / 其他 git repo)",
+        "is_external_project": "是否在 omnicompany 项目根之外 (例 D:\\P4\\... / 其他 git repo)",
         "trace_id": "首次注册 session 的 trace_id",
     },
     registration_criteria=(
         "External Pointer 是不能写头文件类内容的指针注册. 适用: (1) 二进制 (.png / .pyc / .so / .xlsx), "
-        "(2) 外部项目文件 (D:\\scm\\... 不能侵入修改), (3) 第三方依赖 (vendors/). "
+        "(2) 外部项目文件 (D:\\P4\\... 不能侵入修改), (3) 第三方依赖 (vendors/). "
         "稳定身份 = sidecar 路径 + target_path; 独立质量面 = sidecar JSON 完整 + target 仍存在; "
         "演变主体 = target 路径变 / target 内容变 (sidecar 不跟着改, 但要重新指); "
         "依赖表面 = sidecar 内 omnimark.tags 跟 deps 列出该 target 关联的其他 material."

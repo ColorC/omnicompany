@@ -5,6 +5,11 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/omnicompany ts=2026-05-04T14:20:00Z type=doc status=active agent=ai-ide belongs_to_service=omnicompany -->
+<!-- [OMNI] summary="omnicompany 操作手册 — 建新 Team 的步骤 + MaterialDispatcher 用法 + Q4 诊断 + 入口清单 + 故障排查" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §六 模板严格写. omnicompany 是中心承载, SKILL 主要是'怎么从 import Worker 起手到跑通 Team' 的工程指引" -->
+<!-- [OMNI] tags=skill,omnicompany,how-to,core,blackboard -->
+<!-- [OMNI] material_id="material:services._core.omnicompany.skill.operations_manual.md"-->
 
 # omnicompany · 操作手册
 
@@ -22,7 +27,7 @@ disable-model-invocation: false
 
 **不用我**:
 - 想跑业务 Team → 直接 `omni run <team_id>` (业务 Team 用 omnicompany 的基类, 但跑由 PipelineRunner / dispatcher 触发)
-- 想看文档层三件套规范 → 找 [self_creative_content_three_files.md](../../../../../../docs/standards/protocol/self_creative_content_three_files.md)
+- 想看文档层三件套规范 → 找 [self_narrative_three_files.md](../../../../../../docs/standards/protocol/self_narrative_three_files.md)
 - 想看命名迁移进度 → 找 [terminology.md](../../../../../../docs/standards/_global/terminology.md)
 - 想看 Worker / Material 设计单 → 找 [worker.md](../../../../../../docs/standards/concepts/worker.md) / [material.md](../../../../../../docs/standards/concepts/material.md)
 
@@ -42,8 +47,8 @@ disable-model-invocation: false
 2. **加 7 个文件**:
    - `__init__.py` (re-export 主 API + 兼容 shim)
    - `DESIGN.md` (七节, 见 [design_md_template.md](../../../../../../docs/standards/protocol/design_md_template.md))
-   - `README.md` (语境 / 目的 / 规划, 见 [self_creative_content_three_files.md §四](../../../../../../docs/standards/protocol/self_creative_content_three_files.md))
-   - `SKILL.md` (操作手册, 见 [self_creative_content_three_files.md §六](../../../../../../docs/standards/protocol/self_creative_content_three_files.md))
+   - `README.md` (语境 / 目的 / 规划, 见 [self_narrative_three_files.md §四](../../../../../../docs/standards/protocol/self_narrative_three_files.md))
+   - `SKILL.md` (操作手册, 见 [self_narrative_three_files.md §六](../../../../../../docs/standards/protocol/self_narrative_three_files.md))
    - `formats.py` (Material 定义, 含 kind.* tag)
    - `workers/__init__.py` + `workers/<worker_n>.py` (每个 Worker 一个文件)
    - `run.py` (可选, 提供 `run_<team>(job_spec)` 入口)
@@ -143,9 +148,9 @@ from omnicompany.packages.services._core.omnicompany import agent_team_demo
 
 - 设计目的 → [README.md](README.md)
 - 内部架构 + Team 新建硬规则 → [DESIGN.md](DESIGN.md)
-- 文档层三件套规范 → [self_creative_content_three_files.md](../../../../../../docs/standards/protocol/self_creative_content_three_files.md)
+- 文档层三件套规范 → [self_narrative_three_files.md](../../../../../../docs/standards/protocol/self_narrative_three_files.md)
 - 命名迁移 → [terminology.md](../../../../../../docs/standards/_global/terminology.md)
 - Worker 设计单 R-01~R-25 → [worker.md](../../../../../../docs/standards/concepts/worker.md)
 - Material 五要素 F-01~F-19 → [material.md](../../../../../../docs/standards/concepts/material.md)
 - Team 新建参考样本 → [../guardian/workers/](../guardian/workers/)
-- 黑板架构 plan → [BLACKBOARD-ARCHITECTURE/plan.md](../../../../../../docs/plans/format-material/[2026-04-19]BLACKBOARD-ARCHITECTURE/plan.md)
+- 黑板架构 plan → BLACKBOARD-ARCHITECTURE/plan.md

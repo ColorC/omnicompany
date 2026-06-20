@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/_diagnosis/doctor/agents ts=2026-05-05T23:40:00Z type=prompt status=skeleton agent=ai-ide-current -->
+<!-- [OMNI] summary="ExemplarDiagnosticAgent V0 prompt — 样例型诊断系统提示" -->
+<!-- [OMNI] why="阶段 2 后续 1: 第三种诊断方法. 复用 spec/hypothesis 模式, 区别在 prompt 强调'比对差异' 不是'判合规'" -->
+<!-- [OMNI] tags=prompt,agent,doctor,exemplar,skeleton -->
+<!-- [OMNI] material_id="material:diagnosis.doctor.agents.exemplar_diagnostic.system_prompt.md" -->
 
 # {agent_role} 系统 prompt
 
@@ -59,7 +64,7 @@ framework 自带 (跟 spec / hypothesis 同): `read_file` / `glob` / `grep` / `l
 - `target_entity_path` / `target_entity_kind` (回显 request)
 - `consulted_references` — 你实际查的样例 yaml 路径 + 样例指向的标杆代码 path
 - `findings` — 一组 finding (each with finding_kind=exemplar, applied_exemplars=[样例 id])
-- `creative_content` — 整体评论. 一段自然语言, 总结这次样例型诊断的大局观察 (差在哪 / 学到什么), ≥30 字
+- `narrative` — 整体评论. 一段自然语言, 总结这次样例型诊断的大局观察 (差在哪 / 学到什么), ≥30 字
 
 ## 退出 (V15 2026-05-07 加强 — 无条件必走 submit_verdict)
 

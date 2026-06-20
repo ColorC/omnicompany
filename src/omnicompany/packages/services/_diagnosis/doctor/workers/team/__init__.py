@@ -4,7 +4,7 @@
 
 订阅拓扑 (详见 ../../team.py build_team_topology_pipeline):
   spec_loader ─(PASS fan-out)→ 5 个 check: structural / material_contract /
-                                            maturity / soft_hard / creative_content (LLM)
+                                            maturity / soft_hard / narrative (LLM)
               └─(FAIL EMIT)→ 最小档案
   → fan-in → topo_health_writer
 
@@ -28,7 +28,7 @@ from .material_contract_check import TeamMaterialContractCheck
 from .maturity_check import TeamMaturityCheck
 from .soft_hard_check import TeamSoftHardCheck
 from .topo_health_writer import TeamTopoHealthWriter
-from .creative_content_checker import TeamNarrativeChecker
+from .narrative_checker import TeamNarrativeChecker
 from .topology_check import TeamTopologyCheck
 from .lineage_extractor import TeamLineageExtractor
 

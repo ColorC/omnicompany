@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=packages/domains/software_engineering/design ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:domains.software_engineering.design.design_specification.md" -->
 
 # design · 设计文档
 

@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=runtime/info_audit ts=2026-04-17T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:runtime.info_audit.module_spec.design.md" -->
 
 # runtime/info_audit · 设计文档
 
@@ -164,7 +166,7 @@ _验证来源: [code] `src/omnicompany/core/dispatch.py::maybe_probe_baseline` +
 - 关联 crystallize：[runtime/agent_crystallize/DESIGN.md](../agent_crystallize/DESIGN.md)（第四层）
 - 关联 plan：`docs/plans/[2026-04-14]INFO-SUFFICIENCY/FOUR_TIER_PLAN.md`（全部机制的实施计划）
 - 关联 plan：`docs/plans/[2026-04-14]INFO-SUFFICIENCY/EXPERIMENT_REPORT.md`（13 章实验报告 + 对比矩阵）
-- 关联 standards：[docs/standards/information_sufficiency.md](../../../../docs/standards/information_sufficiency.md)
+- 关联 standards：docs/standards/information_sufficiency.md
 
 ## 接收意愿
 

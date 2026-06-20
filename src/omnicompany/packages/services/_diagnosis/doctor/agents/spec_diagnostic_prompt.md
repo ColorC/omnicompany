@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/_diagnosis/doctor/agents ts=2026-05-05T22:05:00Z type=prompt status=skeleton agent=ai-ide-current -->
+<!-- [OMNI] summary="SpecDiagnosticAgent V0 prompt — 规范型诊断系统提示. 拒打分拥评论, 通过 submit_verdict 出口结束" -->
+<!-- [OMNI] why="step 8 修 dogfood 暴露 (LLM 直接 JSON 嵌入不调业务工具). 用户铁律: 拒数字打分要来龙去脉; 堵不如疏 给出口检查工具不靠 prompt 强迫" -->
+<!-- [OMNI] tags=prompt,agent,doctor,spec,skeleton -->
+<!-- [OMNI] material_id="material:diagnosis.doctor.agents.spec_diagnostic.system_prompt.md" -->
 
 # {agent_role} 系统 prompt
 
@@ -54,8 +59,8 @@ framework 自带:
 - `target_entity_path` (回显 request 给的)
 - `target_entity_kind` (回显)
 - `consulted_references` (你实际查了哪些规范文档, 一组 path)
-- `findings` — 一组 finding. 每条含 entity_id / entity_kind / finding_kind / evidence / commentary / concern (跟 write_finding INPUT_SCHEMA 同). findings 可空 (确认零问题), 但要在 creative_content 里说明
-- `creative_content` — 整体评论. 一段自然语言. 引规范跟代码位置, 写大局观察 (不要简单复述 finding 数), 至少 30 字
+- `findings` — 一组 finding. 每条含 entity_id / entity_kind / finding_kind / evidence / commentary / concern (跟 write_finding INPUT_SCHEMA 同). findings 可空 (确认零问题), 但要在 narrative 里说明
+- `narrative` — 整体评论. 一段自然语言. 引规范跟代码位置, 写大局观察 (不要简单复述 finding 数), 至少 30 字
 
 ## 退出 (V15 2026-05-07 加强 — 无条件必走 submit_verdict)
 

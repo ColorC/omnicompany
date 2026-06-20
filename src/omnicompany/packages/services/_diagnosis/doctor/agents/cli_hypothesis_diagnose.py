@@ -65,18 +65,18 @@ def main(argv: list[str] | None = None) -> int:
     # 抽 verdict + findings
     verdict = None
     findings: list = []
-    creative_content = ""
+    narrative = ""
     for ev in events:
         if "verdict" in getattr(ev, "event_type", ""):
             payload = getattr(ev, "payload", None)
             if isinstance(payload, dict):
                 verdict = payload
                 findings = payload.get("findings", [])
-                creative_content = payload.get("creative_content", "") or ""
+                narrative = payload.get("narrative", "") or ""
 
     print(f"events: {len(events)}")
     print(f"findings: {len(findings)}")
-    print(f"creative_content ({len(creative_content)} chars): {creative_content[:300]}")
+    print(f"narrative ({len(narrative)} chars): {narrative[:300]}")
 
     if findings:
         print()
@@ -99,7 +99,7 @@ def main(argv: list[str] | None = None) -> int:
             "hypothesis_yaml": args.hypothesis_yaml,
             "events_count": len(events),
             "findings_count": len(findings),
-            "creative_content": creative_content,
+            "narrative": narrative,
             "findings": findings,  # 完整含 evidence/commentary/concern/applied_*
         }
         with out.open("w", encoding="utf-8") as f:

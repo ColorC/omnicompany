@@ -103,7 +103,7 @@ def _check_required_surface_missing_authority(ctx: FileContext) -> bool:
 
 
 # 注(2026-06-13 裁决): 原 OMNI-093d `_check_unanchored_convergence_authority` 用字符串启发式
-# 判"文档是否另立权威", 在 plan.md/project_index.md/self_creative_content 等正当规范上误报 5 条 HIGH。
+# 判"文档是否另立权威", 在 plan.md/project_index.md/self_narrative 等正当规范上误报 5 条 HIGH。
 # 按 governance_semantic_first.md, 这种语义判断改由 doc_steward 的 competing_authority 语义类承担,
 # 不再作为阻断规则。保留 093a/b/c 三条确定性检查。
 

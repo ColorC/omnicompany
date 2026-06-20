@@ -162,7 +162,7 @@ M_SPOT_IMPL_EVIDENCE = Material(
     name="absorption_runtime_test.spot_impl_evidence",
     description=(
         "路 3 抽样落地证据. 挑 spot_impl_count 条提案, 让另一 LLM 读完整源码 + 写实施代码, 然后用第二轮 LLM 判是否真解决 problem.\n\n"
-        "absorption 特化: 仅适用代码改进提案类工作. 套故事/config_table/UI 等非可实施产物错.\n\n"
+        "absorption 特化: 仅适用代码改进提案类工作. 套故事/配表/UI 等非可实施产物错.\n\n"
         "字段:\n"
         "- attempts (list[obj]): 每条 {proposal_id, title, implementable (bool), reason_if_not (str), implementation_excerpt (str), truly_solves (bool), judge_reason (str)}\n"
         "- implementable_pct (number): 多少比例提案 LLM 写得出实施代码\n"

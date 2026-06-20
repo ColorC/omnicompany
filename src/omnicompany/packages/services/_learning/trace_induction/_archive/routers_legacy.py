@@ -27,9 +27,9 @@ import re
 from dataclasses import asdict
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.runtime.routing.router import Router
-from omnicompany.runtime.exec.sub_pipeline import SubPipelineRouter
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.runtime.routing.router import Router
+from omnifactory.runtime.exec.sub_pipeline import SubPipelineRouter
 
 logger = logging.getLogger(__name__)
 
@@ -72,7 +72,7 @@ class TraceReaderRouter(Router):
                 diagnosis="purpose 和 trace_ids 不能为空",
             )
 
-        from omnicompany.packages.services._learning.trace_induction.sop_extractor import read_trace_steps
+        from omnifactory.packages.services._learning.trace_induction.sop_extractor import read_trace_steps
         traces_raw = read_trace_steps(db_path, trace_ids)
 
         # 转为 plain dict（TraceStep dataclass → dict）
@@ -329,7 +329,7 @@ class ReqWriterRouter(Router):
             )
 
         # 从 sop dict 重建 SOP 对象
-        from omnicompany.packages.services._learning.trace_induction.sop_extractor import SOP, SOPStep, SOPErrorHandler, _build_sop_from_json
+        from omnifactory.packages.services._learning.trace_induction.sop_extractor import SOP, SOPStep, SOPErrorHandler, _build_sop_from_json
         sop_obj = _build_sop_from_json(sop_dict, derived_from, sop_dict.get("extraction_method", ""))
 
         # 生成需求文档
@@ -339,7 +339,7 @@ class ReqWriterRouter(Router):
                 resp = self._client.call(messages=messages, system=system)
                 return resp.content[0].text
 
-        from omnicompany.packages.services._learning.trace_induction.requirement_writer import generate_requirement_with_llm
+        from omnifactory.packages.services._learning.trace_induction.requirement_writer import generate_requirement_with_llm
         req_doc = await generate_requirement_with_llm(
             sop_obj, llm_call=llm_call, domain_knowledge=domain,
         )
@@ -451,7 +451,7 @@ class RegistrarRouter(Router):
                 diagnosis="pipeline_name 为空，无法注册",
             )
 
-        from omnicompany.runtime.storage.experience_search import register_pipeline_to_index
+        from omnifactory.runtime.storage.experience_search import register_pipeline_to_index
         try:
             register_pipeline_to_index(
                 db_path,

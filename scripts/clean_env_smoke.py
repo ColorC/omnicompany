@@ -86,11 +86,11 @@ def head(text: str, n: int = 12) -> str:
 def clean_env() -> dict:
     """构造一个尽量干净、不指向开发仓的子进程环境。
 
-    关键: 不继承 OMNICOMPANY_DB_DIR / OMNI_WORKSPACE_ROOT / gameplay_system_SDK_DIR 等
+    关键: 不继承 OMNICOMPANY_DB_DIR / OMNI_WORKSPACE_ROOT / demogame_SDK_DIR 等
     会把命令导回开发仓的变量; 也不带 THE_COMPANY_API_KEY (验证不需要 LLM)。
     """
     keep = {}
-    # 保留系统运行必需变量, 其余 OMNI*/gameplay_system*/THE_COMPANY* 一律剔除。
+    # 保留系统运行必需变量, 其余 OMNI*/demogame*/THE_COMPANY* 一律剔除。
     passthrough = {
         "PATH", "SYSTEMROOT", "WINDIR", "TEMP", "TMP", "COMSPEC",
         "PATHEXT", "NUMBER_OF_PROCESSORS", "PROCESSOR_ARCHITECTURE",
@@ -244,7 +244,7 @@ def main() -> int:
         smoke = [
             ("omni --help", vomni_py + ["--help"]),
             ("omni health", vomni_py + ["health"]),
-            # 第 3 条挑纯本地、不需要 LLM key、不碰 scm/协作平台的命令。
+            # 第 3 条挑纯本地、不需要 LLM key、不碰 P4/collab platform的命令。
             # refs catalog 读本地引用目录 (语义检索可关), 候选; 退化到 --help 列表自检。
             ("omni refs --help", vomni_py + ["refs", "--help"]),
         ]
@@ -298,7 +298,7 @@ def main() -> int:
 
         # ── 步骤 4c: 根硬编码探针 (会踩"原仓根硬编码"的命令) ───────
         # debt/guardian 这类命令历史上把默认 --root 写死成
-        # "/workspace/omnicompany"。修好后默认根应由
+        # "e:/WindowsWorkspace/omnicompany"。修好后默认根应由
         # omni_workspace_root() 从安装位置解析, 干净环境里绝不该指回开发机真仓。
         # 这些命令在干净环境通常"找不到 REGISTRY.md/git 仓"而非 0 退出, 属预期,
         # 故按"是否泄漏开发机真仓路径"判定, 不以退出码作阻断。
@@ -320,7 +320,7 @@ def main() -> int:
                 # 干净环境本就没有 REGISTRY.md / git 仓)。
                 repo_str_l = str(repo).replace("\\", "/").lower()
                 low = out.replace("\\", "/").lower()
-                leaked_here = ("/workspace" in low) or (repo_str_l in low)
+                leaked_here = ("e:/windowsworkspace" in low) or (repo_str_l in low)
                 rep.add(f"root-probe: {label}", not leaked_here,
                         f"rc={r.returncode}; " +
                         ("默认根指向开发机真仓 (泄漏!)" if leaked_here
@@ -333,7 +333,7 @@ def main() -> int:
         # ── 步骤 5: 硬编码路径泄漏检测 ─────────────────────────────
         print("\n[5] 硬编码路径泄漏检测 (是否偷读开发机真仓)")
         repo_str = str(repo).replace("\\", "/").lower()
-        leak_markers = ["/workspace", repo_str]
+        leak_markers = ["e:/windowsworkspace", repo_str]
         leaked: list[str] = []
         for label, out in outputs.items():
             low = out.replace("\\", "/").lower()

@@ -5,6 +5,7 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/identity ts=2026-05-04T17:12:00Z type=doc status=active agent=ai-ide belongs_to_service=identity -->
 
 # identity · 操作手册
 

@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/team_builder ts=2026-05-04T16:30:00Z type=doc status=active agent=ai-ide belongs_to_service=team_builder -->
+<!-- [OMNI] summary="team_builder service 自我叙事 README — Team of Teams 元 Team. agent-first 设计, 输入自然语言需求 → 产出合规 L3.5 Team 包 (DESIGN+Worker+Material+Workspace+契约审计+代码生成+注册)" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §四 模板严格写, 快速推进" -->
+<!-- [OMNI] tags=readme,team_builder,core,meta-team,agent-first,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.team_builder.readme.self_narrative.md"-->
 
 # team_builder · Team of Teams (元 Team)
 
@@ -5,7 +10,7 @@
 
 ## 这是什么
 
-team_builder 是 omnicompany 的**元 Team** — **产出其他 Team 包的 Team**. 用户给自然语言需求 (例 "我要给 gameplay_system 加一个赛季手册自动生成 Team"), team_builder 跑 11 阶段 agent-first 工作流, 产出 L3.5 合规的 Team 包 (DESIGN.md 七节 + Workers + Materials + Workspace + 契约审计 + 代码 + 注册).
+team_builder 是 omnicompany 的**元 Team** — **产出其他 Team 包的 Team**. 用户给自然语言需求 (例 "我要给 demogame 加一个赛季手册自动生成 Team"), team_builder 跑 11 阶段 agent-first 工作流, 产出 L3.5 合规的 Team 包 (DESIGN.md 七节 + Workers + Materials + Workspace + 契约审计 + 代码 + 注册).
 
 跟其他元 service 的边界:
 - **team_builder** 产 Team 包 (业务 Team)
@@ -50,8 +55,8 @@ agent-first 哲学 (`docs/standards/concepts/agent_first.md`): **先搭完整 wo
   - Phase 9 Doctor 三套自检 (既有 L3 组件, ✅)
   - Phase 10 Registrar (V3 ⏳)
 - Materials (V1 9 类 → V2 16 类) → [formats.py](formats.py)
-- workflow 详述 → [.omni/build_workflow.md](.omni/build_workflow.md)
-- workspace → [.omni/workspace.yaml](.omni/workspace.yaml)
+- workflow 详述 → .omni/build_workflow.md
+- workspace → .omni/workspace.yaml
 - 旧 workflow_factory 实现归档 → [_archive/](_archive/) (Stage 2 · 3076 行 Diamond 实现, 用户明示**不拆 Stage 3**, 作回退路径 + 观测对照组)
 - compat shim → [../workflow_factory/](../workflow_factory/) (deprecated, import 路径兼容)
 

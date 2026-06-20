@@ -25,8 +25,8 @@ captures_router = APIRouter(prefix="/api/boss-sight/captures", tags=["captures"]
 
 
 def _captures_root() -> Path:
-    # 用户明示 2026-06-04: 路径太长, 在 workspace 下放一个专门文件夹。
-    # omni_workspace_root() = .../workspace/omnicompany → .parent = .../workspace。
+    # 用户明示 2026-06-04: 路径太长, 在 WindowsWorkspace 下放一个专门文件夹。
+    # omni_workspace_root() = .../WindowsWorkspace/omnicompany → .parent = .../WindowsWorkspace。
     # 复制文件直接落根(最短路径); 提交进 pending/ 子目录; dispatch 批次 batch_<ts>/。
     from omnicompany.core.config import omni_workspace_root
     return omni_workspace_root().parent / "captures"

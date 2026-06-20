@@ -145,7 +145,7 @@ class CapabilityInventoryLoaderRouter(Router):
     """
 
     DESCRIPTION = (
-        "扫 src/omnicompany/**/DESIGN.md，产出 omni.self.capability_inventory。"
+        "扫 src/omnifactory/**/DESIGN.md，产出 omni.self.capability_inventory。"
         "按 query 的 filter_maturity / filter_tags 过滤；include_readme_map 控制是否带 README 表。"
         "数据来自 wiki_loader.load_capability_inventory()（lru_cache 进程级缓存）。"
     )
@@ -229,7 +229,7 @@ class ReceptionIntentsQueryBuilderRouter(Router):
 class ReceptionIntentsLoaderRouter(Router):
     """读 wiki 产出 omni.self.reception_intents。
 
-    扫 src/omnicompany/{runtime|protocol|core|bus|primitives|tools|tracing}/**/DESIGN.md
+    扫 src/omnifactory/{runtime|protocol|core|bus|primitives|tools|tracing}/**/DESIGN.md
     的第 8 节 ## 接收意愿，产出结构化 intents 列表。
     委托 wiki_loader.load_reception_intents()（lru_cache 进程级缓存）。
     HARD 节点：扫盘 + 按 query 过滤，无 LLM。

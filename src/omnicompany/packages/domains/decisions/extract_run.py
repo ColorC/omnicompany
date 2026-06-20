@@ -29,7 +29,7 @@ DEFAULT_MODEL = "gpt-5.5"
 # 领域范围(严格归位;对不上填 needs-review)。与 v2 工作流一致。
 _TAXONOMY = (
     "vilo=个人叙事卡牌游戏(薇洛想知道):世界观/卡牌/recipe/文风/密教式开局/又一天/核心欲望卡。"
-    "gameplay_system=公司日间游戏:GvE/公会对决/沙盘演兵/GRaid/StdLv/战斗公平化/config_table/期数/公会等级/figma工作台。"
+    "demogame=公司日间游戏:GvE/公会对决/沙盘演兵/GRaid/StdLv/战斗公平化/配表/期数/公会等级/figma工作台。"
     "omnicompany=个人实验室/AI编排基建:决策记录系统/dashboard/governance/研究吸收/决策设施/aiworkspace系统组/网页转figma。"
     "tabletop=通用桌游底座/13原型(五件套/golden-layout)。anniv-fest=周年庆Demo3增量游戏(仓鼠/订单/轻工厂)。"
     "aigc=图像生成设施(aigc-lab/gen矩阵/审阅台)。resume=简历与求职管线。web-company=作品集公开发布(colorc.cc)。walker=自走棋/回合战棋。"

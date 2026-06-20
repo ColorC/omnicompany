@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/doctor ts=2026-05-04T11:00:00Z type=doc status=active agent=ai-ide belongs_to_service=doctor -->
+<!-- [OMNI] summary="doctor service 自我叙事 README — 管线级健康诊断, omnicompany 三大主轴能力之一 (诊断修复). 4 子域 30 Worker 三条独立管线 + Blackboard 订阅图诊断" -->
+<!-- [OMNI] why="DESIGN.md 358 行混了核心目的+架构, 对大型 service 试拆三件. README 给 doctor 的语境/远景/规划新视角, DESIGN 收窄到架构性内容" -->
+<!-- [OMNI] tags=readme,doctor,diagnosis,self-narrative -->
+<!-- [OMNI] material_id="material:services._diagnosis.doctor.readme.self_narrative.md"-->
 
 # doctor · 管线级健康诊断
 
@@ -13,7 +18,7 @@ doctor 是 omnicompany 的**管线级健康诊断 service**. 它扫源码 + 调 
 
 - **Format 诊断** (`doctor.material.*`) — 五要素 / tag 规范 / parent_chain / composite 合法性 / 示例质量 / LLM 语义审计
 - **Worker 诊断** (`doctor.router.*`) — Worker signature / context 收集 / 确定性 / LLM 上下文审计
-- **Team 拓扑诊断** (`doctor.pipeline.*`) — no_entry / isolated / format_break / cycle / soft_hard_pairing / maturity / creative_content 叙事连贯
+- **Team 拓扑诊断** (`doctor.pipeline.*`) — no_entry / isolated / format_break / cycle / soft_hard_pairing / maturity / narrative 叙事连贯
 - **Blackboard 订阅图诊断** (新世界 V3) — Material kind 合法性 / FORMAT_IN_MODE / Verdict.output 平铺 / orphan/unconsumed / 子 job 发射规范
 
 每个 Finding 有等级 `blocking` / `degrading` / `advisory` / `info`, **不打分** (打分主观掩盖语义) — 这是 D3 决策, 跟 [feedback_no_score_keep_semantic](../../../../../) 铁律对齐.
@@ -37,21 +42,21 @@ doctor 是 omnicompany 的**管线级健康诊断 service**. 它扫源码 + 调 
 
 **设计目的**: 让 omnicompany 的每个受管对象都能被"独立诊断" — 不用人去 grep 拼凑, 跑诊断管线就拿结构化 Finding. 让"这个 Format/Worker/Team 健康吗" 有真权威源.
 
-**理论锚点**: doctor 体现项目主轴第二件能力 ([PROGRESS.md §一](../../../../../../docs/PROGRESS.md)) — "诊断修复". 没有 doctor 这层独立诊断, omnicompany 的"自维护" 就缺了"自诊断" 这一核心环节.
+**理论锚点**: doctor 体现项目主轴第二件能力 (PROGRESS.md §一) — "诊断修复". 没有 doctor 这层独立诊断, omnicompany 的"自维护" 就缺了"自诊断" 这一核心环节.
 
 **最终目标** (当下能认知的):
 - 接 LAP `crystallize` 回路 — Doctor 的 Finding 自动反哺 SpecPatch 候选, 让"发现问题"自动转"修复建议"
 - `.omni/health/` 就近写盘 (Phase 2 计划) — 健康档案落到所属包的 `.omni/health/`, dashboard 按包聚合
-- 跟 [CORE-SELF-STABILITY 第二阶段](../../../../../../docs/plans/guardian/[2026-05-04]CORE-SELF-STABILITY/plan.md) "诊断 + 分析" 能力对接 — 升级到含语义级 (不光结构) 异常检测
+- 跟 CORE-SELF-STABILITY 第二阶段 "诊断 + 分析" 能力对接 — 升级到含语义级 (不光结构) 异常检测
 
 ## 规划
 
 - **当前 V3** (旧 World V3 active, 2026-04-20 New World Diagnostics Phase B): 30 Worker, 4 子域 (Format/Router/Pipeline/Blackboard), Clean Migration V2 完成
-- **当前假设系统 V12** (active, 2026-05-07): V0→V12 全栈跑通 — 7 agent / 7 builder / 3 scanner / 8 tool / 253+ pytest / 真 LLM 跨 6 阶段实测过. 假设系统这一族在工具+CLI 层面 production-ready. 见 [V7 final 架构汇报](../../../../../../docs/plans/diagnosis/%5B2026-05-05%5DDIAGNOSIS-RECONSOLIDATION/challenge_agent_v7_architecture_final_2026-05-07.md)
+- **当前假设系统 V12** (active, 2026-05-07): V0→V12 全栈跑通 — 7 agent / 7 builder / 3 scanner / 8 tool / 253+ pytest / 真 LLM 跨 6 阶段实测过. 假设系统这一族在工具+CLI 层面 production-ready. 见 V7 final 架构汇报
 - **下一步**: 旧 V3 — Phase 2 backlog .omni/health/ 就近写盘 + LAP crystallize. 假设系统 V13+ — MetaDiagnosticAgent 完整一轮真 LLM (待 token 授权) + Guardian/CI 集成 (架构级)
 - **远景 (CORE-SELF-STABILITY 协作)**: 诊断升级到语义级, 接入自我画像漂移检测
 
-进度细节: [docs/PROGRESS.md](../../../../../../docs/PROGRESS.md) (项目级) + [DESIGN.md `## 状态`](DESIGN.md) (本 service 状态).
+进度细节: docs/PROGRESS.md (项目级) + [DESIGN.md `## 状态`](DESIGN.md) (本 service 状态).
 
 ## 构成
 
@@ -63,9 +68,9 @@ doctor 现含两套并存子域:
 
 | 子域 | Worker 数 | 职责 | 入口 |
 |---|---|---|---|
-| Format 诊断 | 9 | 单 Format 五要素 / 规范 / 语义审计 | [workers/format/](workers/format/) |
-| Worker 诊断 | 6 | 单 Worker signature / context / 确定性 / LLM 审计 | [workers/router/](workers/router/) |
-| Team 拓扑诊断 | 9 | 单 Team 结构 / 契约 / 成熟度 / 叙事 | [workers/pipeline/](workers/pipeline/) |
+| Format 诊断 | 9 | 单 Format 五要素 / 规范 / 语义审计 | workers/format/ |
+| Worker 诊断 | 6 | 单 Worker signature / context / 确定性 / LLM 审计 | workers/router/ |
+| Team 拓扑诊断 | 9 | 单 Team 结构 / 契约 / 成熟度 / 叙事 | workers/pipeline/ |
 | Blackboard 订阅图诊断 | 6 | 新世界订阅图级 (kind / mode / orphan / unconsumed / 子 job) | [workers/blackboard/](workers/blackboard/) |
 
 加 3 个 run.py 内 passthrough Worker (bindings 内部细节).

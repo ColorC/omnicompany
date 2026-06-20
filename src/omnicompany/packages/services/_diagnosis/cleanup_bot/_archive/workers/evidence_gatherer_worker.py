@@ -1,4 +1,4 @@
-# [OMNI] origin=claude-code domain=omnicompany/cleanup_bot ts=2026-04-21T00:00:00Z type=router
+# [OMNI] origin=claude-code domain=omnifactory/cleanup_bot ts=2026-04-21T00:00:00Z type=router
 # [OMNI] material_id="material:diagnosis.cleanup_bot.evidence_gatherer_disk_scanner_worker.py"
 """EvidenceGathererWorker — cleanup_bot 路径扫描 (Stage 3 独立文件).
 
@@ -13,8 +13,8 @@ from __future__ import annotations
 import os
 from typing import Any
 
-from omnicompany.packages.services._core.omnicompany import Worker
-from omnicompany.protocol.anchor import Verdict, VerdictKind
+from omnifactory.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
 
 
 class EvidenceGathererWorker(Worker):

@@ -125,7 +125,7 @@ def _classify_changed_files(
 
     Returns:
         router_targets: [{"router_class": str, "source_file": str, "entity_id": str}]
-        format_ids:     [format_id_str, ...]  (e.g. "gameplay_system.table_schema")
+        format_ids:     [format_id_str, ...]  (e.g. "demogame.table_schema")
     """
     from .instance import InstanceRegistry
     from .scanner import scan_file

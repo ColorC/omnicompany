@@ -5,6 +5,11 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/workflow_factory ts=2026-05-04T13:35:00Z type=doc status=deprecated agent=ai-ide belongs_to_service=workflow_factory -->
+<!-- [OMNI] summary="workflow_factory 操作手册 — 实际是'别用我, 用 team_builder' 的 deprecated 提示" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §六 模板严格写. 验证 deprecated service 的 SKILL 形态 (大部分内容是'别用'+'去哪')" -->
+<!-- [OMNI] tags=skill,workflow_factory,deprecated,shim -->
+<!-- [OMNI] material_id="material:services._core.workflow_factory.skill.deprecation_redirect.md"-->
 
 # workflow_factory · 操作手册 (deprecated)
 

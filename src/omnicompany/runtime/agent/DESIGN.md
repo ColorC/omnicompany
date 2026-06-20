@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=runtime/agent ts=2026-04-17T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:runtime.agent.subsystem.design_doc.md" -->
 
 # runtime/agent · 设计文档
 
@@ -193,13 +195,13 @@ Router 管线调度到 AgentNodeLoop 子类实例
 
 本目录下所有 `AgentNodeLoop` 及子类**已全部标 DEPRECATED**（2026-04-18 立档, 阶段 D 删除）。
 
-**新实现位置**: [`src/omnicompany/packages/services/agent/`](../../packages/services/agent/)
+**新实现位置**: `src/omnicompany/packages/services/agent/`
 - 阶段 A 骨架 2026-04-18 完成
 - 重构完整计划: [`docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md`](../../../../docs/plans/[2026-04-18]AGENT-NODE-LOOP-ROUTERIZATION/plan.md)
 
 ### Agent Worker 回映射（对齐 R-19 新标准）
 
-新架构下, AgentNodeLoop 的 while 循环 = **Agent Worker 迷你 team**（[router.md R-19](../../../../docs/standards/worker.md)）:
+新架构下, AgentNodeLoop 的 while 循环 = **Agent Worker 迷你 team**（router.md R-19）:
 
 | 旧 AgentNodeLoop 内部职责 | 新 Agent Worker 子 Worker |
 |---|---|
@@ -213,11 +215,11 @@ Router 管线调度到 AgentNodeLoop 子类实例
 
 ### LLM Worker → Agent Worker 升级规则
 
-对齐 [`router.md` R-20](../../../../docs/standards/worker.md) — LLM Worker 不确定需要哪些 material 时（初始 material 难穷举）, **默认升级为 Agent Worker**, 开放相关 workspace 供其 Tool Script Worker 自由读取。
+对齐 `router.md` R-20 — LLM Worker 不确定需要哪些 material 时（初始 material 难穷举）, **默认升级为 Agent Worker**, 开放相关 workspace 供其 Tool Script Worker 自由读取。
 
 ### Diagnosis Agent Worker 变体
 
-对齐 [`router.md` R-21](../../../../docs/standards/worker.md) — 当 Agent Worker 产出异常或拿不到 material 时, **尽量少归因于 LLM 幻觉**。替换为 Diagnosis Agent Worker 重试, 使用 `trace_back_tool` / `material_assertion_tool` 沿 trace 上查。
+对齐 `router.md` R-21 — 当 Agent Worker 产出异常或拿不到 material 时, **尽量少归因于 LLM 幻觉**。替换为 Diagnosis Agent Worker 重试, 使用 `trace_back_tool` / `material_assertion_tool` 沿 trace 上查。
 
 ### 过渡期规则
 

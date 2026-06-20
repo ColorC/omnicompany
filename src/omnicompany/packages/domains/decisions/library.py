@@ -1,6 +1,6 @@
 # [OMNI] origin=ai-ide domain=decisions ts=2026-06-18T00:00:00Z type=library status=active
 # [OMNI] summary="统一决策库:决策/猜想/评论的唯一落点。append-only jsonl + fold 取最新 + 按 id 增量合并 + 墓碑软删 + 落库校验。"
-# [OMNI] why="主线=决策记录。所有源(对话/协作平台/策划文档/札记)和手记都汇进这一个库,成可搜索的决策树。照 research/library 范式,但去重键=显式 id(决策有稳定身份)而非题目归一。"
+# [OMNI] why="主线=决策记录。所有源(对话/collab platform/策划文档/札记)和手记都汇进这一个库,成可搜索的决策树。照 research/library 范式,但去重键=显式 id(决策有稳定身份)而非题目归一。"
 # [OMNI] tags=decisions,library,decision-record,dedup
 """统一决策库 —— 决策/猜想/评论的累积存储。
 

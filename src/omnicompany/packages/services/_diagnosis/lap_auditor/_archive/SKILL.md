@@ -5,6 +5,11 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+<!-- [OMNI] origin=ai-ide domain=services/lap_auditor ts=2026-05-04T12:05:00Z type=doc status=active agent=ai-ide belongs_to_service=lap_auditor -->
+<!-- [OMNI] summary="lap_auditor 操作手册 — 跑 LAP 审计的操作步骤 + 入口清单 + 故障排查" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §六 模板严格写. DESIGN 偏架构, 缺'怎么用'段, 抽出独立 SKILL 让操作可定位" -->
+<!-- [OMNI] tags=skill,lap_auditor,how-to,diagnosis -->
+<!-- [OMNI] material_id="material:services._diagnosis.lap_auditor.skill.operations_manual.md"-->
 
 # lap_auditor · 操作手册
 
@@ -21,13 +26,13 @@ disable-model-invocation: false
 
 **不用我**:
 - 自动修代码 → 找 [services/repair/](../../) (lap_auditor 只产报告不动代码)
-- 看单个 Format/Worker 健康 → 找 [doctor service](../doctor/)
-- 看源码静态合规 (位置/命名/头) → 找 [guardian service](../../_core/guardian/)
+- 看单个 Format/Worker 健康 → 找 doctor service
+- 看源码静态合规 (位置/命名/头) → 找 guardian service
 - 审计非 Python 代码 → 当前不支持
 
 ## 前置条件
 
-- omnicompany 已装 (`omni --help` 确认)
+- omnifactory 已装 (`omni --help` 确认)
 - 有 `THE_COMPANY_API_KEY` (SpecAuditorWorker 调 qwen-3.6-plus 走 the_company 聚合 API)
 - target_path 是合法目录或 `.py` 文件 (相对项目根)
 - 大目录 (千+ `.py`) 注意 LLM context 窗口
@@ -37,7 +42,7 @@ disable-model-invocation: false
 ### 场景 A · 审计单个目录的 LAP 合规
 
 ```bash
-omni run lap_auditor -i target_path="src/omnicompany/packages/services/_authoring/docauthor"
+omni run lap_auditor -i target_path="src/omnifactory/packages/services/_authoring/docauthor"
 ```
 
 **验证**: Verdict.PASS + report 字段含 Markdown 文本, 内容按四大红线分类 (规范 LAP / 有缺陷 LAP / 绕过 LAP / 基础设施代码).
@@ -45,7 +50,7 @@ omni run lap_auditor -i target_path="src/omnicompany/packages/services/_authorin
 ### 场景 B · 审计单个 .py 文件
 
 ```bash
-omni run lap_auditor -i target_path="src/omnicompany/packages/services/_authoring/docauthor/run.py"
+omni run lap_auditor -i target_path="src/omnifactory/packages/services/_authoring/docauthor/run.py"
 ```
 
 **用途**: 单文件粒度审计, 适合 git diff 后只审改动文件.
@@ -53,12 +58,12 @@ omni run lap_auditor -i target_path="src/omnicompany/packages/services/_authorin
 ### 场景 C · 库调用 (作为其他 service 的依赖)
 
 ```python
-from omnicompany.packages.services._diagnosis.lap_auditor.team import build_team
-from omnicompany.runtime.exec import PipelineRunner
+from omnifactory.packages.services._diagnosis.lap_auditor.team import build_team
+from omnifactory.runtime.exec import PipelineRunner
 
 team = build_team()
 runner = PipelineRunner(team)
-result = runner.run({"target_path": "src/omnicompany/packages/..."})
+result = runner.run({"target_path": "src/omnifactory/packages/..."})
 report = result.outputs["lap_auditor.report"]["report"]  # Markdown
 ```
 
@@ -70,7 +75,7 @@ report = result.outputs["lap_auditor.report"]["report"]  # Markdown
 | `build_team()` (Python) | 库调用 | 见 `team.py` |
 | `ContextGetterWorker` / `SpecAuditorWorker` / `ReportFormatterWorker` | 单 Worker 调用 (测试用) | 见 `workers/` |
 
-详细 CLI 规范: [docs/standards/cli/omnicompany_cli.md](../../../../../../docs/standards/cli/omnicompany_cli.md)
+详细 CLI 规范: docs/standards/cli/omnicompany_cli.md
 
 ## 故障排查
 
@@ -87,6 +92,6 @@ report = result.outputs["lap_auditor.report"]["report"]  # Markdown
 
 - 设计目的 → [README.md](README.md)
 - 内部架构 (D1-D5 决策 / 数据流) → [DESIGN.md](DESIGN.md)
-- LAP 规范权威 → [docs/standards/pipeline.md](../../../../../docs/standards/pipeline.md)
-- 跟 repair 互补 → [../../repair/](../../repair/)
-- 跟 doctor / guardian 分工 → [../doctor/SKILL.md](../doctor/SKILL.md) / [../../_core/guardian/SKILL.md](../../_core/guardian/SKILL.md)
+- LAP 规范权威 → docs/standards/pipeline.md
+- 跟 repair 互补 → ../../repair/
+- 跟 doctor / guardian 分工 → ../doctor/SKILL.md / ../../_core/guardian/SKILL.md

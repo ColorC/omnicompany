@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=protocol ts=2026-04-17T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:protocol.layer_design.documentation.md" -->
 
 # protocol · 设计文档
 
@@ -159,7 +161,7 @@ post_hoc 可在 ia is None 时触发独立 probe 补审计
 
 ## 参考资料
 
-- 关联标准：[docs/standards/material.md](../../../docs/standards/material.md) / [router.md](../../../docs/standards/worker.md) / [pipeline.md](../../../docs/standards/team.md)
+- 关联标准：docs/standards/material.md / router.md / pipeline.md
 - runtime 对应：[runtime/exec/DESIGN.md](../runtime/exec/DESIGN.md)（PipelineRunner 消费这些 spec）
 - InfoAudit 说明：[runtime/info_audit/DESIGN.md](../runtime/info_audit/DESIGN.md)
 - 历史 plan：`docs/plans/` 下多个 Format composition / Router audit 相关计划
@@ -170,4 +172,4 @@ protocol/ 是**架构契约的类型定义层** (Format / Router / Pipeline / Ve
 
 - **接收**: 新的**架构级协议类型**提案 (如新的 SubPipeline 类型、新的 Route 动作、新的 Material kind). 新协议类型必须先在此定义后再实装
 - **不接收**: 具体服务或 domain 的类型 (它们用本 protocol 的类型但不反向扩展); runtime 的执行逻辑 (归 runtime/exec); 业务 enum (归对应 service)
-- **边界信号**: 若某 protocol 类型只被一个 service 使用, 疑似过度泛化; 若 protocol 字段含业务字面量 (如 `"gameplay_system"`, `"voxel_engine"`), 属违规 — 协议必须是**结构性**的
+- **边界信号**: 若某 protocol 类型只被一个 service 使用, 疑似过度泛化; 若 protocol 字段含业务字面量 (如 `"demogame"`, `"voxelcraft"`), 属违规 — 协议必须是**结构性**的

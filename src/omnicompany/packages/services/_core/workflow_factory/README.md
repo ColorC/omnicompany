@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/workflow_factory ts=2026-05-04T13:30:00Z type=doc status=deprecated agent=ai-ide belongs_to_service=workflow_factory -->
+<!-- [OMNI] summary="workflow_factory service 自我叙事 README — DEPRECATED shim, 真实逻辑已迁到 team_builder. 仅保过渡期 import 路径兼容, Track B3 命名迁移完成时整体删" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §四 模板严格写. 验证 deprecated service 三件套形态 — README 警示+指向真实位置, 不写新功能远景" -->
+<!-- [OMNI] tags=readme,workflow_factory,deprecated,shim,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.workflow_factory.readme.deprecation_notice.md"-->
 
 # workflow_factory · DEPRECATED Import Path Shim
 

@@ -208,7 +208,7 @@ class ArchMap:
                     False,
                     f"{p} 是 protected_key_file 且 require_purpose=true。"
                     f"必须传非空 purpose 说明这次 meta config 修改的原因(会进 audit log)。"
-                    f"例如: write_file(..., purpose='S3f: 加 data/domains/gameplay_system/ 子目录')",
+                    f"例如: write_file(..., purpose='S3f: 加 data/domains/demogame/ 子目录')",
                     drawer="(key_file)", drawer_layer="repo_root",
                 )
             return WriteCheck(

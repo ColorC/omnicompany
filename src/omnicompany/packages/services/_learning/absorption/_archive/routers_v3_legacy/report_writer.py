@@ -190,7 +190,7 @@ def _build_finding_with_code(
     priority = finding.get("priority", "?")
     title = finding.get("title", "?")
     what = finding.get("what_it_does", "")
-    delta = finding.get("omnicompany_delta", "")
+    delta = finding.get("omnifactory_delta", "")
     action = finding.get("action", "")
     portability = finding.get("portability", "?")
     evidence = finding.get("evidence") or []
@@ -198,7 +198,7 @@ def _build_finding_with_code(
     lines = [
         f"### [{priority}][{gap_id}] {title} (portability={portability})",
         f"**what_it_does**: {what}",
-        f"**omnicompany_delta**: {delta}",
+        f"**omnifactory_delta**: {delta}",
         f"**action**: {action}",
         "",
     ]

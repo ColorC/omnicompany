@@ -191,7 +191,7 @@ _BLACKLISTED_BASH_PATTERNS = [
     "apt ", "apt-get", "yum ", "brew ",
     "git add", "git commit", "git push", "git reset", "git checkout",
     "git merge", "git rebase", "git restore", "git rm", "git mv",
-    "scm edit", "scm submit", "scm revert", "scm add",
+    "p4 edit", "p4 submit", "p4 revert", "p4 add",
     "sudo ", "su ",
 ]
 

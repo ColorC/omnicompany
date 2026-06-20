@@ -248,21 +248,21 @@ def cmd_decisions_run(model: str | None, reextract: bool) -> None:
 @cmd_governance.command("resume-run")
 @external_or_controller
 @click.option("--model", default=None, show_default=f"{DEFAULT_STRUCTURED_MODEL_ENV} or {DEFAULT_STRUCTURED_MODEL}")
-@click.option("--sources", default="scm,git", show_default=True, help="逗号分隔: scm,git,internal_tracker,chat_platform")
-@click.option("--scm-limit", type=int, default=None, help="scm changelist 上限(冒烟用)")
+@click.option("--sources", default="p4,git", show_default=True, help="逗号分隔: p4,git,meego,lark")
+@click.option("--p4-limit", type=int, default=None, help="P4 changelist 上限(冒烟用)")
 @click.option("--git-limit-per-repo", type=int, default=None, help="每个 git 仓 commit 上限")
-@click.option("--scm-since", default=None, help="scm 起始日期, 形如 2026/01/01")
+@click.option("--p4-since", default=None, help="P4 起始日期, 形如 2026/01/01")
 @click.option("--stage-tag", default="full", show_default=True, help="staging 文件标签")
 @click.option("--workers", type=int, default=4, show_default=True)
 @click.option("--dry-run", is_flag=True, help="不落 findings/run 文件")
-def cmd_resume_run(model: str | None, sources: str, scm_limit: int | None,
-                   git_limit_per_repo: int | None, scm_since: str | None,
+def cmd_resume_run(model: str | None, sources: str, p4_limit: int | None,
+                   git_limit_per_repo: int | None, p4_since: str | None,
                    stage_tag: str, workers: int, dry_run: bool) -> None:
     """简历资料库: 多源采集 → 归属闸 → 泛化摘要 → 能力矩阵+成就时间线。"""
     from omnicompany.packages.services._governance.resume_steward import run_resume
     srcs = tuple(s.strip() for s in sources.split(",") if s.strip())
-    res = run_resume(sources=srcs, model=model, scm_limit=scm_limit,
-                     git_limit_per_repo=git_limit_per_repo, scm_since=scm_since,
+    res = run_resume(sources=srcs, model=model, p4_limit=p4_limit,
+                     git_limit_per_repo=git_limit_per_repo, p4_since=p4_since,
                      stage_tag=stage_tag, workers=workers, dry_run=dry_run, echo=click.echo)
     click.echo(json.dumps(res, ensure_ascii=False, indent=2))
 
@@ -326,7 +326,7 @@ def cmd_resume_report() -> None:
 @click.option("--model", default=None, show_default="qwen3.6-plus")
 @click.option("--workers", type=int, default=12, show_default=True)
 def cmd_job_run(model: str | None, workers: int) -> None:
-    """求职 Phase 0: 大厂官网公开 API 抓岗 → 按画像匹配排序 → 招聘策划可投清单。"""
+    """求职 Phase 0: 大厂官网公开 API 抓岗 → 按画像匹配排序 → job applications可投清单。"""
     from omnicompany.packages.services._governance.job_steward import run_discovery
     res = run_discovery(model=model, workers=workers, echo=click.echo)
     click.echo(json.dumps(res, ensure_ascii=False, indent=2))
@@ -341,8 +341,8 @@ _GOVERNANCE_CATALOG = [
     {"verb": "commit-run", "what": "性价比模型严格分批 git 提交", "cadence": "定时/大改后", "kind": "语义+确定性"},
     {"verb": "decisions-run", "what": "标记 llm_input 的札记 → 结构化决策(进总控 ctx)", "cadence": "每日", "kind": "语义"},
     {"verb": "actions-check", "what": "PROJECT_INDEX quick_actions 的 skill 存在性体检", "cadence": "按需", "kind": "确定性"},
-    {"verb": "resume-run", "what": "多源(scm/git/internal_tracker/chat_platform)采集 → 归属+泛化摘要 → 简历资料库", "cadence": "按需", "kind": "语义"},
-    {"verb": "job-run", "what": "大厂官网公开API抓岗 → 按画像匹配 → 招聘策划可投清单(Phase 0)", "cadence": "按需/每日", "kind": "语义"},
+    {"verb": "resume-run", "what": "多源(P4/git/Meego/Lark)采集 → 归属+泛化摘要 → 简历资料库", "cadence": "按需", "kind": "语义"},
+    {"verb": "job-run", "what": "大厂官网公开API抓岗 → 按画像匹配 → job applications可投清单(Phase 0)", "cadence": "按需/每日", "kind": "语义"},
 ]
 
 

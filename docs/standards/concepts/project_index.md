@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=claude-code domain=standards/concepts ts=2026-06-13T03:00:00Z type=standard status=active -->
+<!-- [OMNI] summary="PROJECT_INDEX.md 契约 — 每个项目唯一的元数据权威源, frontmatter 必填四键 + 可选字段, 被 projects_registry / dashboard / omni project CLI 消费" -->
+<!-- [OMNI] why="契约此前只活在代码常量 (projects_registry.INDEX_REQUIRED_KEYS) 和 5 个实例里, docs/standards 无条目, 违反元规范'唯一权威源'要求 (2026-06-13 二重权威调研坐实'缺权威')" -->
+<!-- [OMNI] tags=standards,concepts,project,index,registry -->
+<!-- [OMNI] material_id="material:standards.concepts.project_index_contract.md" -->
 
 # PROJECT_INDEX.md 规范
 
@@ -26,7 +31,7 @@
 |---|---|---|
 | `omni_project` | str | 项目唯一 id, 与 projects.json 的 id 一致 |
 | `name` | str | 人类可读项目名 |
-| `group` | str | 分组: omnicompany / gameplay_system / indie-game / other（可扩展） |
+| `group` | str | 分组: omnicompany / demogame / indie-game / other（可扩展） |
 | `roots` | list[{path, note}] | 项目根目录列表, 每条带用途说明 |
 
 **可选推荐键**:

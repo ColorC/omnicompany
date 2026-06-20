@@ -65,7 +65,7 @@ class ReadImageRouter(SingleToolRouter):
     PRODUCED_META_IO: ClassVar[tuple[str, ...]] = ()
     DESCRIPTION: ClassVar[str] = (
         "直接把一张图塞进你的下一轮 user message, 让你 (多模态主 agent) 自己看. "
-        "适合: 看 figma frame 截图 / chat_platform 内嵌策划图 / 协作平台画板预览 等需要多模态上下文连续的场景. "
+        "适合: 看 figma frame 截图 / lark 内嵌策划图 / collab platform画板预览 等需要多模态上下文连续的场景. "
         "跟 screenshot_inspect 的区别: 后者调子模型转译成文字给你; 本工具让你直接看原图. "
         "图必须 ≤ 4 MB, 路径在 allowed_image_roots 下. 单轮累计 ≤ 12 MB."
     )
@@ -102,7 +102,7 @@ class ReadImageRouter(SingleToolRouter):
         if not path.is_file():
             raise ToolExecutionError(f"非文件: {path_arg}")
 
-        # 路径白名单 (复用 screenshot 同字段; 业务侧把 _test_assets / _scratch / gameplay_system-knowledge-base 加进去)
+        # 路径白名单 (复用 screenshot 同字段; 业务侧把 _test_assets / _scratch / demogame-knowledge-base 加进去)
         roots = (
             getattr(ctx, "allowed_image_roots", None)
             or getattr(ctx, "allowed_screenshot_roots", None)

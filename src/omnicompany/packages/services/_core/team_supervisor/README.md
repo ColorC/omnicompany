@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/team_supervisor ts=2026-05-04T16:35:00Z type=doc status=active agent=ai-ide belongs_to_service=team_supervisor -->
+<!-- [OMNI] summary="team_supervisor service 自我叙事 README — 通用 Team 健康监督设施. 给定任意 Team 自动回答 3 问 (产物形式/设计目的/健康判据), 产假设设计测试输出健康报告. 不修复只发信号" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §四 模板严格写, 快速推进. DESIGN 用非标中文数字结构, 不强改" -->
+<!-- [OMNI] tags=readme,team_supervisor,core,health-supervision,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.team_supervisor.readme.self_narrative.md"-->
 
 # team_supervisor · 通用 Team 健康监督
 

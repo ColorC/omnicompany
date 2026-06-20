@@ -38,7 +38,7 @@
 - 研究库先 JSONL+倒排,不上向量;库大了(几百条+)再加语义近邻。
 - 顺藤多轮**有界**(默认深度上限 + 收益递减),不做无界收敛。
 - 独立 research domain,不塞进 absorption(那个学 AI 编码工具,定位不同)。
-- 发布走 curated + **用户自己的云服务器**,不用 GitHub Pages。
+- 发布走 curated + **用户自己的a cloud provider服务器**,不用 GitHub Pages。
 
 ## 待加(下一刀,按序)
 

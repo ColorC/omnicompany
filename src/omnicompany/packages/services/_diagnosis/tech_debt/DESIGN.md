@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/tech_debt ts=2026-05-04T12:15:00Z type=doc status=active belongs_to_service=tech_debt -->
+<!-- [OMNI] material_id="material:diagnosis.tech_debt.service_design_documentation.md" -->
 
 # tech_debt · 设计文档
 
@@ -146,9 +148,9 @@ guardian + semantic_auditor 保留原外部函数签名不变，内部循环调 
 
 ## 参考资料
 
-- 关联数据源：[`docs/tech_debt/REGISTRY.md`](../../../../../../docs/tech_debt/REGISTRY.md)
+- 关联数据源：`docs/tech_debt/REGISTRY.md`
 - 关联 producer（guardian）：[`../guardian/registry_updater.py`](../../_core/guardian/registry_updater.py)
-- 关联 producer（semantic_auditor）：[`../semantic_auditor/routers.py`](../semantic_auditor/routers.py)（`FindingWriterRouter`）
-- 关联事件流：[`docs/ARCH-CHANGES.jsonl`](../../../../../../docs/ARCH-CHANGES.jsonl)
+- 关联 producer（semantic_auditor）：`../semantic_auditor/routers.py`（`FindingWriterRouter`）
+- 关联事件流：`docs/ARCH-CHANGES.jsonl`
 - 关联 CLI：[`../../../cli/commands/debt.py`](../../../../cli/commands/debt.py)
 - 关联计划：[`docs/plans/[2026-04-18]TECH-DEBT-AND-SEMANTIC-AUDIT/plan.md`](../../../../../docs/plans/[2026-04-18]TECH-DEBT-AND-SEMANTIC-AUDIT/plan.md)

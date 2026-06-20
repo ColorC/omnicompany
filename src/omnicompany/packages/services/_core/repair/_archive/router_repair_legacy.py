@@ -38,7 +38,7 @@ from omnicompany.runtime.routing.router import Router
 
 logger = logging.getLogger(__name__)
 
-_DEFAULT_SOURCE_ROOT = Path(__file__).parents[4]  # omnicompany/src/omnicompany
+_DEFAULT_SOURCE_ROOT = Path(__file__).parents[4]  # omnifactory/src/omnifactory
 _REPAIR_PENDING_DIR = Path(__file__).parents[5] / "data" / "doctor" / "repair" / "pending"
 _MODEL = "qwen3.6-plus"
 
@@ -401,7 +401,7 @@ class RouterSourceLoaderRouter(Router):
 # DescriptionPlannerRouter — R-01 专属：只补 DESCRIPTION
 # ════════════════════════════════════════════════════════════════
 
-_DESC_PROMPT = """你是 omnicompany LAP 协议专家。任务：只补全 Router 类的 DESCRIPTION 字段，不改任何其他内容。
+_DESC_PROMPT = """你是 omnifactory LAP 协议专家。任务：只补全 Router 类的 DESCRIPTION 字段，不改任何其他内容。
 
 # 目标 Router: {router_class}
 
@@ -524,7 +524,7 @@ class DescriptionPlannerRouter(Router):
             client = LLMClient(model=self._model)
             resp = client.call(
                 messages=[{"role": "user", "content": prompt}],
-                system="你是 omnicompany LAP 协议专家。只输出 unified diff，不输出任何解释。",
+                system="你是 omnifactory LAP 协议专家。只输出 unified diff，不输出任何解释。",
             )
             raw = resp.content[0].text if resp and resp.content else ""
             return _extract_diff(raw)
@@ -537,7 +537,7 @@ class DescriptionPlannerRouter(Router):
 # FailPathPlannerRouter — R-05 专属：只补 FAIL 路径
 # ════════════════════════════════════════════════════════════════
 
-_FAIL_PROMPT = """你是 omnicompany LAP 协议专家。任务：根据 R-05 问题类型修复 run() 方法的 Verdict 路径，不改其他内容。
+_FAIL_PROMPT = """你是 omnifactory LAP 协议专家。任务：根据 R-05 问题类型修复 run() 方法的 Verdict 路径，不改其他内容。
 
 # 目标 Router: {router_class}
 
@@ -665,7 +665,7 @@ class FailPathPlannerRouter(Router):
             client = LLMClient(model=self._model)
             resp = client.call(
                 messages=[{"role": "user", "content": prompt}],
-                system="你是 omnicompany LAP 协议专家。只输出 unified diff，不输出任何解释。",
+                system="你是 omnifactory LAP 协议专家。只输出 unified diff，不输出任何解释。",
             )
             raw = resp.content[0].text if resp and resp.content else ""
             return _extract_diff(raw)
@@ -678,7 +678,7 @@ class FailPathPlannerRouter(Router):
 # GrantedTagsPlannerRouter — R-07 专属：只补 granted_tags
 # ════════════════════════════════════════════════════════════════
 
-_TAGS_PROMPT = """你是 omnicompany LAP 协议专家。任务：只为 PASS Verdict 的 output 添加 granted_tags 字段。
+_TAGS_PROMPT = """你是 omnifactory LAP 协议专家。任务：只为 PASS Verdict 的 output 添加 granted_tags 字段。
 
 # 目标 Router: {router_class}
 
@@ -693,7 +693,7 @@ _TAGS_PROMPT = """你是 omnicompany LAP 协议专家。任务：只为 PASS Ver
 ## granted_tags 规范
 - 格式：`"granted_tags": ["tag1", "tag2", ...]`，加到 PASS Verdict 的 output dict 中
 - 常用命名空间：domain.xxx / content.xxx / state.xxx / lap.output.xxx / lap.analyst.xxx
-- domain.xxx: FORMAT_OUT 前缀（gameplay_system→domain.gameplay_system）
+- domain.xxx: FORMAT_OUT 前缀（demogame→domain.demogame）
 - content.xxx: FORMAT_OUT 描述的内容类型（schema/diff/report/script...）
 - state.xxx: 数据经过本节点后的状态（classified/analyzed/validated/generated...）
 - lap.output.xxx: 本节点输出给下一阶段什么（classifier/analyzer/validator/generator...）
@@ -784,7 +784,7 @@ class GrantedTagsPlannerRouter(Router):
             client = LLMClient(model=self._model)
             resp = client.call(
                 messages=[{"role": "user", "content": prompt}],
-                system="你是 omnicompany LAP 协议专家。只输出 unified diff，不输出任何解释。",
+                system="你是 omnifactory LAP 协议专家。只输出 unified diff，不输出任何解释。",
             )
             raw = resp.content[0].text if resp and resp.content else ""
             return _extract_diff(raw)

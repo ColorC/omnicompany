@@ -145,8 +145,8 @@ _CONTROLPLANE_ROUTERS: list[tuple[str, str, str | None]] = [
     ("omnicompany.dashboard.controlplane.health",      "health_router",      "/api"),
     ("omnicompany.dashboard.controlplane.evolution",   "evolution_router",   "/api"),
     ("omnicompany.dashboard.controlplane.semantic",    "semantic_router",    "/api"),
-    # voxel_engine NPC dialog (跨 packages/domains/, 但挂 dashboard 进程上)
-    ("omnicompany.packages.domains.voxel_engine.dialog.route", "voxel_engine_dialog_router", "/api"),
+    # voxelcraft NPC dialog (跨 packages/domains/, 但挂 dashboard 进程上)
+    ("omnicompany.packages.domains.voxelcraft.dialog.route", "voxelcraft_dialog_router", "/api"),
 ]
 
 for _mod_path, _attr, _prefix in _CONTROLPLANE_ROUTERS:

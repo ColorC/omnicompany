@@ -18,7 +18,7 @@
 设计:
 - 输入: doctor.exemplar_diagnosis.request (target_entity_path / target_entity_kind / applicable_exemplar_paths)
 - 工作: agent 用 read_file 读样例 yaml + 读样例指向的代码 + 读待诊断对象代码, 自然语言对照
-- 输出: doctor.exemplar_diagnosis.verdict (含 list[finding finding_kind=exemplar] + creative_content)
+- 输出: doctor.exemplar_diagnosis.verdict (含 list[finding finding_kind=exemplar] + narrative)
 
 工具集 = SpecDiagnosticAgent / HypothesisDiagnosticAgent 同 (read_file/glob/grep/list_dir/write_finding/submit_verdict).
 共用 submit_verdict 通用工具 (consulted_references 字段填样例 yaml path + 样例指向的代码 path).
@@ -148,7 +148,7 @@ EXEMPLAR_DIAGNOSTIC_SPEC = AgentSpec(
         ),
         "gradient_samples": (),
         # 红绿对比脚本: _scratch/dogfood_red_green_exemplar.py
-        # 实测 (2026-05-06): GREEN finding 1 (parity), RED finding 4 (gap), creative_content 双向区分
+        # 实测 (2026-05-06): GREEN finding 1 (parity), RED finding 4 (gap), narrative 双向区分
         "_baseline_validated_at": "2026-05-06",
         "_baseline_overall": "PASS",
     },

@@ -1,4 +1,4 @@
-# [OMNI] origin=claude-code domain=omnicompany/guardian ts=2026-04-28T00:00:00Z type=router
+# [OMNI] origin=claude-code domain=omnifactory/guardian ts=2026-04-28T00:00:00Z type=router
 # [OMNI] material_id="material:guardian.prompt_antipattern.scanner.worker.py"
 """PromptAntiPatternScanWorker — Guardian AI 指令(prompt)反模式 LLM 巡查 (OMNI-090/091/092).
 
@@ -27,7 +27,7 @@ reviewer prompt 自身严守 3 原则 (self-referential):
   本 Worker 实施完后必须扫自己一遍, 若违规则修自己.
 
 输入 (guardian.prompt-scan-request):
-  - scope: str | None — 扫描根 (默认 src/omnicompany/packages/services)
+  - scope: str | None — 扫描根 (默认 src/omnifactory/packages/services)
   - rule_filter: list[str] | None — 限定 ["OMNI-090"] 等子集
   - force_rescan: bool — 绕过 audit 缓存 (默认 False)
 
@@ -51,8 +51,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional
 
-from omnicompany.packages.services._core.omnicompany import Worker
-from omnicompany.protocol.anchor import Verdict, VerdictKind
+from omnifactory.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
 
 from ..audit_store import (
     AuditRecord,
@@ -407,7 +407,7 @@ def _call_reviewer_llm(prompt_text: str, file_path: str, prompt_name: str) -> tu
 
     走 LLMClient(role='runtime_main') — 跟 patrol_worker 同构.
     """
-    from omnicompany.runtime.llm.llm import LLMClient
+    from omnifactory.runtime.llm.llm import LLMClient
 
     user_payload = (
         f"待审 prompt 来自: {file_path} 中的 `{prompt_name}` 常量.\n\n"
@@ -460,13 +460,13 @@ class PromptAntiPatternScanWorker(Worker):
         force_rescan = bool(payload.get("force_rescan", False))
 
         # ── 1. 解析项目根 + 扫描根 ──
-        from omnicompany.core.config import _project_root
+        from omnifactory.core.config import _project_root
         project_root = _project_root()
 
         if scope:
             scan_root = (project_root / scope).resolve() if not Path(scope).is_absolute() else Path(scope)
         else:
-            scan_root = project_root / "src" / "omnicompany" / "packages" / "services"
+            scan_root = project_root / "src" / "omnifactory" / "packages" / "services"
 
         if not scan_root.exists():
             return Verdict(kind=VerdictKind.FAIL, diagnosis=f"scan_root 不存在: {scan_root}")
@@ -645,7 +645,7 @@ class PromptAntiPatternScanWorker(Worker):
             by_verdict[r.verdict] = by_verdict.get(r.verdict, 0) + 1
 
         # ── 7. 落盘 markdown 报告 ──
-        from omnicompany.core.config import resolve_service_data_dir
+        from omnifactory.core.config import resolve_service_data_dir
         rep_dir = resolve_service_data_dir("guardian") / "prompt-scan"
         rep_dir.mkdir(parents=True, exist_ok=True)
         ts = datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
@@ -662,7 +662,7 @@ class PromptAntiPatternScanWorker(Worker):
         )
         rep_path.write_text(rep_md, encoding="utf-8")
         try:
-            from omnicompany.core.omnimark import write_data_sidecar
+            from omnifactory.core.omnimark import write_data_sidecar
             write_data_sidecar(
                 rep_path,
                 written_by=f"{self.__class__.__module__}.{self.__class__.__name__}",

@@ -12,7 +12,7 @@ Phase B2 (LLM + 落盘)：
   FindingWriterRouter     验证 Finding 字段 → append REGISTRY.md §语义合规待审
 
 约定：
-  - 所有 Router 继承 omnicompany.runtime.routing.router.Router
+  - 所有 Router 继承 omnifactory.runtime.routing.router.Router
   - HARD Router run() 同步；LLMAuditRouter run() 异步（await AuditAgent）
   - 返回 Verdict(kind=PASS, output={...}) / FAIL 当输入不合规
   - 事件流：HARD Router 不自己 publish bus（PipelineRunner 负责）；
@@ -26,8 +26,8 @@ import re
 from pathlib import Path
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.runtime.routing.router import Router
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.runtime.routing.router import Router
 
 from .standards_loader import (
     StandardsIndex,
@@ -745,7 +745,7 @@ class FindingWriterRouter(Router):
         if not new_rows:
             return 0
 
-        from omnicompany.packages.services._diagnosis.tech_debt import append_event
+        from omnifactory.packages.services._diagnosis.tech_debt import append_event
 
         # arch_path = root/docs/ARCH-CHANGES.jsonl → parents[1] = root
         try:

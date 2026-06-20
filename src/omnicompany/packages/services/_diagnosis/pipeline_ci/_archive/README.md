@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/pipeline_ci ts=2026-05-04T14:30:00Z type=doc status=active agent=ai-ide belongs_to_service=pipeline_ci -->
+<!-- [OMNI] summary="pipeline_ci service 自我叙事 README — 自动审计 packages 下所有管线包, PR 合并前发现 critical 阻断 CI. 三节点全确定性串行, ErrorRouteAuditor + PipelineChecker 双检" -->
+<!-- [OMNI] why="按 self_narrative_three_files.md §四 模板严格写. 抽核心目的到 README, DESIGN 留架构性内容" -->
+<!-- [OMNI] tags=readme,pipeline_ci,diagnosis,ci,self-narrative -->
+<!-- [OMNI] material_id="material:services._diagnosis.pipeline_ci.readme.self_narrative.md"-->
 
 # pipeline_ci · 管线 CI 审计
 
@@ -36,11 +41,11 @@ pipeline_ci 是 omnicompany 的**管线 CI 审计 service**. 它扫所有含 `ro
 
 **设计目的**: 给 omnicompany 一个**最浅最快** 的 CI gate. 不能依赖 doctor 的 LLM 检查器 (慢 + 贵, CI 跑不起), 也不能完全没 gate (PR 合并后才发现 critical 太晚). pipeline_ci 是介于"无 gate" 跟"全语义检查" 之间的折中 — 只看明显错, 跑 30 秒以内.
 
-**理论锚点**: 跟 [Guardian](../../_core/guardian/) 的 pre-commit hook 同思路 — 浅 + 快 + 阻断 critical. 但 Guardian 看源码静态合规, pipeline_ci 看管线结构, 维度不同.
+**理论锚点**: 跟 Guardian 的 pre-commit hook 同思路 — 浅 + 快 + 阻断 critical. 但 Guardian 看源码静态合规, pipeline_ci 看管线结构, 维度不同.
 
 **最终目标** (当下能认知的):
 - 扩更多 Auditor (例新世界 Worker / Material 合规检查)
-- 跟 [doctor blackboard 子域](../doctor/) 协作分工: pipeline_ci 跑确定性快检, blackboard 子域跑语义级 + LLM 深检
+- 跟 doctor blackboard 子域 协作分工: pipeline_ci 跑确定性快检, blackboard 子域跑语义级 + LLM 深检
 - 把 ErrorRouteAuditor 从 workflow_factory 跨 Team 直调改为 Material 订阅消费 (待新 Runtime)
 
 ## 规划
@@ -61,7 +66,7 @@ pipeline_ci 是 omnicompany 的**管线 CI 审计 service**. 它扫所有含 `ro
   - `BatchAuditorWorker` — 调 ErrorRouteAuditor + PipelineChecker 双检, 聚合 issue
   - `CIGateWorker` — critical_count > 0 → FAIL 阻断 CI
 - 旧名 compat shim → [routers.py](routers.py)
-- 归档 → [_archive/routers_legacy.py](_archive/)
+- 归档 → _archive/routers_legacy.py
 
 技术架构详述见 [DESIGN.md](DESIGN.md), 操作手册见 [SKILL.md](SKILL.md).
 
@@ -69,7 +74,7 @@ pipeline_ci 是 omnicompany 的**管线 CI 审计 service**. 它扫所有含 `ro
 
 - 架构 → [DESIGN.md](DESIGN.md)
 - 操作手册 → [SKILL.md](SKILL.md)
-- 跟 doctor 关系 (语义检查 vs CI gate) → [../doctor/README.md](../doctor/README.md)
-- 跟 guardian 关系 (源码合规 vs 管线结构) → [../../_core/guardian/README.md](../../_core/guardian/README.md)
-- 跨 Team 依赖 → [../../_core/workflow_factory/README.md](../../_core/workflow_factory/README.md) (其中的 ErrorRouteAuditor)
-- 项目根叙事 → [../../../../../README.md](../../../../../../README.md)
+- 跟 doctor 关系 (语义检查 vs CI gate) → ../doctor/README.md
+- 跟 guardian 关系 (源码合规 vs 管线结构) → ../../_core/guardian/README.md
+- 跨 Team 依赖 → ../../_core/workflow_factory/README.md (其中的 ErrorRouteAuditor)
+- 项目根叙事 → ../../../../../README.md

@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards ts=2026-05-01T00:00:00Z type=doc status=active agent=ai-ide-bd9cde92 -->
+<!-- [OMNI] summary="omnicompany 沙盒目录规范 — 自由写入的草稿区, 定期归档, 预置规范向导" -->
+<!-- [OMNI] why="为防修改锁开启之后, 写入者仍有一个不需要预先注册的草稿空间反复试错, 想清楚再走注册流程转正式区" -->
+<!-- [OMNI] tags=sandbox,standard,registry,sessions,omnicompany -->
+<!-- [OMNI] material_id="material:standards.cli.sandbox_directory_specification.md" -->
 
 # omnicompany 沙盒目录规范
 

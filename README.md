@@ -1,3 +1,4 @@
+<!-- [OMNI] origin=ai-ide domain=root type=doc status=active -->
 
 # omnicompany
 
@@ -33,7 +34,8 @@ pip install -e .
 ```bash
 omni --help              # 命令总览
 omni health              # 系统自检
-omni governance catalog  # 列出内置的治理管线
+omni guardian patrol     # 目录健康巡逻(结构/头注释漂移扫描)
+omni research --help     # 看一个内置域(公开调研管线)
 ```
 
 需要 LLM 的命令，在仓库根目录建一个 `.env`（见 [.env.example](.env.example)）配好 API key 即可；纯本地命令不需要。
@@ -62,19 +64,19 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1  # Windows
 
 ## 项目结构
 
-按层组织，代码层的详细导航见 [src/omnicompany/README.md](src/omnicompany/README.md)：
+按层组织：
 
 - **核心层** —— `core/` / `bus/` / `protocol/` / `runtime/` / `tracing/`
-- **接口层** —— `cli/`（命令入口） / `dashboard/`（Web UI）
-- **业务层** —— `packages/domains/`（具体业务） / `packages/services/`（基础设施服务）
+- **接口层** —— `cli/`（命令入口） / `dashboard/`（Web UI，可选 `pip install -e ".[dashboard]"`）
+- **业务层** —— `packages/domains/`（一个个领域，自带电池：内置 `research` / `decisions` / `software_engineering` / `publish`） / `packages/services/`（基础设施服务）
 
-架构地图见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)，各类规范见 [docs/standards/](docs/standards/)。
+整体架构见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)，各类规范见 [docs/standards/](docs/standards/)。
 
 ## 了解更多
 
 | 想知道 | 看 |
 |---|---|
-| 代码怎么组织 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
+| 整体架构 / 怎么加你自己的领域 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
 | 命令行用法 | `omni --help` |
 | 各种规范（Material / Worker / Team / 头注释等） | [docs/standards/](docs/standards/) |
 | 怎么贡献 | [CONTRIBUTING.md](CONTRIBUTING.md) |

@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/knowledge ts=2026-04-21T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:learning.knowledge.design_specification.md" -->
 
 # knowledge · 设计文档
 

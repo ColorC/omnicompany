@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=runtime/exec ts=2026-04-17T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:runtime.exec.pipeline_engine.design_documentation.md" -->
 
 # runtime/exec · 设计文档
 
@@ -169,7 +171,7 @@ run(initial_input)
 - 关联 info_audit：[runtime/info_audit/DESIGN.md](../info_audit/DESIGN.md)（post_hoc / pipeline_health）
 - 关联 agent_crystallize：[runtime/agent_crystallize/DESIGN.md](../agent_crystallize/DESIGN.md)（N≥3 trigger）
 - 关联 plan：`docs/plans/[2026-04-14]INFO-SUFFICIENCY/FOUR_TIER_PLAN.md`（runner 的四层机制接入）
-- 关联规范：[docs/standards/team.md](../../../../docs/standards/team.md)
+- 关联规范：docs/standards/team.md
 
 ## 接收意愿
 

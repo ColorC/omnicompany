@@ -1,4 +1,4 @@
-# [OMNI] origin=omnicompany domain=omnicompany/repair ts=2026-04-10T00:00:00Z
+# [OMNI] origin=omnifactory domain=omnifactory/repair ts=2026-04-10T00:00:00Z
 # [OMNI] material_id="material:core.repair.repair_planner_format_patcher_format_repair_agent.routers_legacy.py"
 """repair.routers — Format 自动修复管线的 Router 实现
 
@@ -21,7 +21,7 @@ from omnicompany.runtime.routing.router import Router
 
 logger = logging.getLogger(__name__)
 
-_DEFAULT_SOURCE_ROOT = Path("/workspace/omnicompany/src/omnicompany")
+_DEFAULT_SOURCE_ROOT = Path("e:/WindowsWorkspace/omnifactory/src/omnifactory")
 
 
 # ════════════════════════════════════════════════════════════════
@@ -371,7 +371,7 @@ class FormatPatcherRouter(Router):
             write_file(
                 target_path,
                 patched,
-                origin="omnicompany",
+                origin="omnifactory",
                 domain="repair",
                 node="format-patcher",
                 purpose=f"LLM 修复 {format_id} Format 字段: {applied}",

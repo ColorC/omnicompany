@@ -27,7 +27,7 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-_DEFAULT_ROOT = Path("/workspace/omnicompany")
+_DEFAULT_ROOT = Path("e:/WindowsWorkspace/omnicompany")
 
 # 可被 OmniEvolve 追溯的内部管线来源
 INTERNAL_PIPELINE_ORIGINS = frozenset({

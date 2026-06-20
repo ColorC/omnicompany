@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards ts=2026-05-02T05:00:00Z type=doc status=active agent=ai-ide-current -->
+<!-- [OMNI] summary="G2 注册中心规范 - omni register/lookup, 八种 kind 显式注册 + 跟 G1 trace_id 联动" -->
+<!-- [OMNI] why="services/_core/registry 已实施 6 种 AST 扫描型, 加 data + plan 凑 omnicompany 8 种 + 显式注册入口让 AI IDE/agent 主动绑身份到内容" -->
+<!-- [OMNI] tags=cli,register,registry,standard,G2 -->
+<!-- [OMNI] material_id="material:standards.cli.registry_registration_protocol.md" -->
 
 # G2 注册中心规范 (omni register / lookup)
 
@@ -37,8 +42,8 @@ omnicompany 八种基础概念全部支持注册. 别名映射 (omnicompany 名 
 `{type}:{package}.{name}`
 
 例:
-- `router:gameplay_system.team_table.SchemaAssembler`
-- `format:gameplay_system.season_book`
+- `router:demogame.team_table.SchemaAssembler`
+- `format:demogame.season_book`
 - `data:.omni.sandbox.drafts.data.season_research.season_research`
 - `plan:docs.plans._infra.[2026-04-30]OMNICOMPANY-FORMAT-STANDARDIZATION.plan`
 
@@ -91,8 +96,8 @@ omni register --kind=data --content=... --force
 
 ```bash
 omni lookup --kind=plan                       # 列所有 plan
-omni lookup --id=router:gameplay_system.foo.Bar         # 精确查
-omni lookup --package=gameplay_system                   # 按 package
+omni lookup --id=router:demogame.foo.Bar         # 精确查
+omni lookup --package=demogame                   # 按 package
 omni lookup --trace-id=cc_xxx                 # 跟 G1 联动 - 看某 session 注册的
 omni lookup --source=explicit                 # 只看显式注册
 omni lookup --source=ast_scan                 # 只看 AST 扫描发现的

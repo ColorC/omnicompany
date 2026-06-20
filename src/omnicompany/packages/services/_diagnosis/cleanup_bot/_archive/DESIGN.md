@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/cleanup_bot ts=2026-05-04T13:00:00Z type=doc status=active belongs_to_service=cleanup_bot -->
+<!-- [OMNI] material_id="material:diagnosis.cleanup_bot.design_specification.md" -->
 
 # cleanup_bot · 设计文档
 

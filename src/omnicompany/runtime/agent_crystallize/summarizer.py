@@ -54,30 +54,30 @@ class TraceSummarizer:
             },
         }
 
-        creative_content_parts = [
+        narrative_parts = [
             f"Agent {trace.router_class} (node={trace.node_id}) 跑了 {trace.total_turns} 轮, "
             f"终止于 {trace.finished_reason}.",
         ]
         if tool_counter:
             top3 = tool_counter.most_common(3)
-            creative_content_parts.append(
+            narrative_parts.append(
                 "Top tool 使用: " + ", ".join(f"{n}×{c}" for n, c in top3) + "."
             )
         if repeated_args:
-            creative_content_parts.append(
+            narrative_parts.append(
                 f"重复参数签名 {len(repeated_args)} 个 (>=2 次), 可能提示反复查同类信息."
             )
         if trace.external_node_accesses:
-            creative_content_parts.append(
+            narrative_parts.append(
                 f"访问了其他节点输出: {trace.external_node_accesses}."
             )
         if err_calls:
-            creative_content_parts.append(f"{len(err_calls)} 次工具调用出错.")
+            narrative_parts.append(f"{len(err_calls)} 次工具调用出错.")
 
         return CrystallizerObservation(
             crystallizer=self.name,
             facts=facts,
-            creative_content=" ".join(creative_content_parts),
+            narrative=" ".join(narrative_parts),
         )
 
     def propose(

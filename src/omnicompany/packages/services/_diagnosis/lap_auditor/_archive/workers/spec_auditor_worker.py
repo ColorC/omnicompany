@@ -1,4 +1,4 @@
-# [OMNI] origin=claude-code domain=omnicompany/lap_auditor ts=2026-04-21T00:00:00Z type=router
+# [OMNI] origin=claude-code domain=omnifactory/lap_auditor ts=2026-04-21T00:00:00Z type=router
 # [OMNI] material_id="material:diagnosis.lap_auditor.llm_compliance_auditor.worker.python"
 """SpecAuditorWorker — lap_auditor LLM 合规审计 (Stage 3 独立文件).
 
@@ -13,9 +13,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from omnicompany.packages.services._core.omnicompany import Worker
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.runtime.routing.router import LLMRouter
+from omnifactory.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.runtime.routing.router import LLMRouter
 
 
 _AUDITOR_SYSTEM_PROMPT = """\

@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=claude-code domain=standards/concepts ts=2026-06-13T08:00:00Z type=standard status=active -->
+<!-- [OMNI] summary="治理方法原则 — 语义判断优先用性价比模型 agent, 规则脚本是批量规律的结晶, 不是语义判断的首选" -->
+<!-- [OMNI] why="2026-06-13 用户裁决: OMNI-093 用脆弱字符串匹配做语义判断(权威漂移), 措辞一变就漏/无关文档误报。规则不该承担语义判断; 那是性价比模型 agent 的活" -->
+<!-- [OMNI] tags=standards,governance,agent_first,llm_first,rules,semantic -->
+<!-- [OMNI] material_id="material:standards.concepts.governance_semantic_first.md" -->
 
 # 治理方法: 语义判断优先用性价比模型 agent
 

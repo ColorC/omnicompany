@@ -27,7 +27,7 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from omnicompany.packages.services._core.agent import (
+from omnifactory.packages.services._core.agent import (
     AgentNodeLoop,
     ReadFileRouter,
     GrepRouter,

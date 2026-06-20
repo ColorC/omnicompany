@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=docs/standards/_global ts=2026-05-01T00:00:00Z type=standard status=active agent=ai-ide-current -->
+<!-- [OMNI] summary="目录结构规范, 立同级判定 / 收纳触发器 / 命名约定 / 反模式, 让目录组织有判定标准而不是凭感觉" -->
+<!-- [OMNI] why="项目目录长期凭感觉组织 (services 38 个平铺) 边界不明, 立规范让'什么应同级 / 什么应收起来 / 什么时候多级化' 都有可判定的特征" -->
+<!-- [OMNI] tags=directory,organization,naming,layering,foundation -->
+<!-- [OMNI] material_id="material:standards.global.directory_organization_rules.md" -->
 
 # 目录结构规范
 
@@ -94,10 +99,10 @@ N 个元素属于同一语义类别 (即使前缀不同), 触发收子目录:
 | `_graveyard/` | 已废弃, 不让 import / 引用 | `src/omnicompany/_graveyard/` |
 | ~~`_infra/`~~ | (2026-05-15 撤) plans/ 跨服务的中间层, 已替换为主题区单轴 + `omnicompany-` 前缀 | — |
 | ~~`_cross/`~~ | (2026-05-15 撤) plans/ 跨多 package 中间层, 已撤; 新模型取主导一个主题区, 多 package 时按改动量取最大 | — |
-| `_domain_specific/` | 特定 domain 的子内容 | `docs/standards/_domain_specific/gameplay_system/` |
+| `_domain_specific/` | 特定 domain 的子内容 | `docs/standards/_domain_specific/demogame/` |
 | `_experimental/` | 实验性 / 临时, 可能废弃 | `services/_experimental/` |
 
-~~`_scratch/`~~ — **2026-05-02 撤规范**. 跟 `.omni/sandbox/drafts/` 功能重叠 (都是注册前临时草稿区), 但 sandbox 有明确 lifecycle (drafts → check → promote / archive) 而 _scratch 是松散临时. 用户拍板归并: 临时工作走 `.omni/sandbox/drafts/`, 不立 `_scratch/`. 详 [feedback_no_dir_creation_without_approval](../../../C:\Users\user\.claude\projects\e--workspace\memory\feedback_no_dir_creation_without_approval.md).
+~~`_scratch/`~~ — **2026-05-02 撤规范**. 跟 `.omni/sandbox/drafts/` 功能重叠 (都是注册前临时草稿区), 但 sandbox 有明确 lifecycle (drafts → check → promote / archive) 而 _scratch 是松散临时. 用户拍板归并: 临时工作走 `.omni/sandbox/drafts/`, 不立 `_scratch/`. 详 feedback_no_dir_creation_without_approval.
 
 下划线前缀的目录在排序时排在前面 (lexicographic), 自然区别于业务子目录.
 
@@ -137,12 +142,12 @@ N 个元素属于同一语义类别 (即使前缀不同), 触发收子目录:
 这是判 `services/` vs `domains/` 顶层的硬规则:
 
 - **service**: 抽象框架 / 跨业务复用 / 给系统跑业务用. 例如 agent / guardian / registry / docauthor / csv_to_md (csv 是通用格式, 跨业务用)
-- **domain**: 具体业务领域 / 私域 / 不跨业务. 例如 gameplay_system (具体游戏) / voxel_engine (具体 mod) / personal_site (个人站, 私域) / business_explorer (具体业务探索, 跟 gameplay_system 关联)
+- **domain**: 具体业务领域 / 私域 / 不跨业务. 例如 demogame (具体游戏) / voxelcraft (具体 mod) / personal_site (个人站, 私域) / business_explorer (具体业务探索, 跟 demogame 关联)
 
 判定办法 (按用户原话"核心层和具体业务私域的区别"):
 
 - 这个东西的代码可能被另一个不同的业务复用吗? 是 → service. 不是 → domain.
-- 这个东西的 material schema 含具体业务实体名 (gameplay_system.season_book / voxel_engine.entity_spec) 吗? 是 → domain. 不是 → service.
+- 这个东西的 material schema 含具体业务实体名 (demogame.season_book / voxelcraft.entity_spec) 吗? 是 → domain. 不是 → service.
 - 这个东西的产出是给具体某个客户 / 项目 / 业务用的吗? 是 → domain. 通用 → service.
 
 ## 五、 反模式
@@ -193,7 +198,7 @@ N 个元素属于同一语义类别 (即使前缀不同), 触发收子目录:
 本规范立后, omnicompany 项目里几个已经按规范多级化的实例:
 
 - `docs/standards/`: _global / concepts / cli / protocol / _meta / _domain_specific 6 子目录, 25 份规范分类
-- `docs/plans/`: _infra / _cross / domain/gameplay_system / domain/voxel_engine / _archive 5 子目录, 73 份 plan 分类
+- `docs/plans/`: _infra / _cross / domain/demogame / domain/voxelcraft / _archive 5 子目录, 73 份 plan 分类
 - `src/omnicompany/_graveyard/primitives/`: 旧 primitives 归档区, 含原 DESIGN.md + __init__.py.archived
 
 待按规范多级化的:
@@ -211,7 +216,7 @@ N 个元素属于同一语义类别 (即使前缀不同), 触发收子目录:
 4. _前缀的目录不当业务子目录用 (4.1 约定)
 5. service 跟 domain 边界判定按 4.3 (服务跨业务 vs 业务私域)
 6. 每个目录回答一个清晰的语义问题 (一、 根本)
-7. **新目录创建经审批** — AI IDE / agent 不擅自新建目录, 必须先经用户批准 (跨项目铁律 2026-05-02 立, 详 [feedback_no_dir_creation_without_approval](../../../C:\Users\user\.claude\projects\e--workspace\memory\feedback_no_dir_creation_without_approval.md))
+7. **新目录创建经审批** — AI IDE / agent 不擅自新建目录, 必须先经用户批准 (跨项目铁律 2026-05-02 立, 详 feedback_no_dir_creation_without_approval)
 8. **不擅自立新 bucket** — `services/` 下 `_authoring / _core / _diagnosis / _learning / _utility` 5 个 bucket 是固定清单, 新 bucket 必先改本规范 §4.2.1 加范围 + 用户批准
 
 ## 八、 修订协议

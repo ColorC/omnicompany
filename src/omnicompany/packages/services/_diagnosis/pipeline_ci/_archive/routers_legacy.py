@@ -17,8 +17,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.runtime.routing.router import Router
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.runtime.routing.router import Router
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ class DomainScannerRouter(Router):
     """扫描 packages/ 下所有含 routers.py + pipeline.py 的子包。"""
 
     DESCRIPTION = (
-        "扫描 project_root/src/omnicompany/packages/ 下的所有子包（包括嵌套包如 sw/plan），"
+        "扫描 project_root/src/omnifactory/packages/ 下的所有子包（包括嵌套包如 sw/plan），"
         "收集同时包含 routers.py 和 pipeline.py 的目录，读取文件内容供后续审计使用。"
     )
     FORMAT_IN = "pipeline_ci.scan-request"
@@ -37,7 +37,7 @@ class DomainScannerRouter(Router):
         project_root = input_data.get("project_root", ".")
         domain_filter: list[str] | None = input_data.get("domains")  # 可选白名单
 
-        pkg_root = Path(project_root) / "src" / "omnicompany" / "packages"
+        pkg_root = Path(project_root) / "src" / "omnifactory" / "packages"
         if not pkg_root.exists():
             return Verdict(
                 kind=VerdictKind.FAIL,
@@ -75,7 +75,7 @@ def _collect_domains(
     domain_filter: list[str] | None,
     result: list,
 ) -> None:
-    """递归收集包（包括嵌套子包如 sw/plan, omnicompany/guardian）。"""
+    """递归收集包（包括嵌套子包如 sw/plan, omnifactory/guardian）。"""
     routers_file = directory / "routers.py"
     pipeline_file = directory / "pipeline.py"
 
@@ -83,7 +83,7 @@ def _collect_domains(
         rel = directory.relative_to(pkg_root)
         domain_name = str(rel).replace("\\", "/")
         if domain_filter is None or domain_name in domain_filter:
-            package_path = "omnicompany.packages." + ".".join(rel.parts)
+            package_path = "omnifactory.packages." + ".".join(rel.parts)
             result.append({
                 "domain_name": domain_name,
                 "package_path": package_path,
@@ -110,9 +110,9 @@ class BatchAuditorRouter(Router):
     FORMAT_OUT = "pipeline_ci.ci-report"
 
     def run(self, input_data: Any) -> Verdict:
-        from omnicompany.packages.services._core.workflow_factory.routers import ErrorRouteAuditorRouter
-        from omnicompany.protocol.format import create_builtin_registry
-        from omnicompany.protocol.pipeline import PipelineChecker
+        from omnifactory.packages.services._core.workflow_factory.routers import ErrorRouteAuditorRouter
+        from omnifactory.protocol.format import create_builtin_registry
+        from omnifactory.protocol.pipeline import PipelineChecker
 
         domains: list[dict] = input_data.get("domains", [])
         auditor = ErrorRouteAuditorRouter()

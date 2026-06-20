@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=runtime/agent_crystallize ts=2026-04-17T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:runtime.agent_crystallize.package_design.document.md" -->
 
 # runtime/agent_crystallize · 设计文档
 
@@ -151,7 +153,7 @@ _验证来源: [code] ModuleExplorerRouter / LearningExtractorRouter 等多处 `
 - 关联 info_audit：[runtime/info_audit/DESIGN.md](../info_audit/DESIGN.md)（crystallize 是第 4 层）
 - 关联 plan：`docs/plans/[2026-04-14]INFO-SUFFICIENCY/FOUR_TIER_PLAN.md`（M3 设计）
 - 关联 plan：`docs/plans/[2026-04-14]INFO-SUFFICIENCY/EXPERIMENT_REPORT.md`（Exp B/F 实验结果）
-- 关联 gap：[docs/gaps/G2_learning_distill.md](../../../../docs/gaps/G2_learning_distill.md)
+- 关联 gap：docs/gaps/G2_learning_distill.md
 
 ## 接收意愿
 

@@ -2,7 +2,7 @@
 # [OMNI] material_id="material:learning.absorption.agent_session_toolset.py"
 """absorption.tools — LandmarkPicker AgentNodeLoop 的会话级工具集。
 
-设计模仿 packages/domains/voxel_engine/routers/mod_explorer_agent.py:
+设计模仿 packages/domains/voxelcraft/routers/mod_explorer_agent.py:
 - 工具是"会话绑定闭包", 每次 run 重建一组 ToolDefinition
 - 会话状态放模块级 dict, 按 session_id 索引
 - 结束后 extract_result() 从 state 提取 landmarks/sketches/gaps

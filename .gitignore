@@ -115,14 +115,14 @@ src/**/.omni/
 src/omnicompany/dashboard/extensions/*/out/
 src/omnicompany/dashboard/extensions/**/*.vsix
 
-# Domains (gitignore local only; gameplay_system is config)
+# Domains (gitignore local only; demogame is config)
 domains/local/
 
 # Autonomous runtime logs
 data/autonomous/*.log
-# gameplay_system learned scripts (generated per table, should not be committed)
-data/gameplay_system/learned_scripts/
-data/gameplay_system/logs/
+# demogame learned scripts (generated per table, should not be committed)
+data/demogame/learned_scripts/
+data/demogame/logs/
 token_data.json
 *.token.json
 scripts/extract_appsecret.py

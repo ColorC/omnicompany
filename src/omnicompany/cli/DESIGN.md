@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=cli ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:cli.subsystem_design.documentation.md" -->
 
 # cli · 设计文档
 

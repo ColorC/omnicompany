@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=docs/standards ts=2026-05-02T00:00:00Z type=standard status=active -->
+<!-- [OMNI] material_id="material:standards.global.user_action_driven_testing_invariant.md" -->
 
 # 用户操作驱动测试铁律 · User-Action-Driven Testing
 

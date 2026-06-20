@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=ai-ide domain=services/protection ts=2026-05-04T17:16:00Z type=doc status=active agent=ai-ide belongs_to_service=protection -->
+<!-- [OMNI] material_id="material:services._core.protection.design.md"-->
 
 # protection · 设计文档
 

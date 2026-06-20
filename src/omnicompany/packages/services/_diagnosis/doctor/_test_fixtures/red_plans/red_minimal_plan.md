@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=services/_diagnosis/doctor/_test_fixtures ts=2026-05-06T03:10:00Z type=fixture status=active agent=ai-ide -->
+<!-- [OMNI] summary="红样本 plan fixture: 故意违反 plan_template 5 节硬下限, PlanDiagnosticAgent 跑应至少产 4 finding" -->
+<!-- [OMNI] why="self_audit B-2 PlanDiagnosticAgent 红绿基线" -->
+<!-- [OMNI] tags=test-fixture,red-sample,plan,non-compliant -->
+<!-- [OMNI] material_id="material:diagnosis.doctor.test_fixtures.red_plans.red_minimal_plan.md" -->
 
 # 一个糟糕计划
 

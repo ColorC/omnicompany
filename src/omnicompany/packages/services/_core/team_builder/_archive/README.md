@@ -14,7 +14,7 @@
 
 ## 原因
 
-Clean Migration 硬规则 (见 [`migration_log.md` · 完全迁移标准](../../../../../../docs/plans/[2026-04-19]BLACKBOARD-ARCHITECTURE/migration_log.md)):
+Clean Migration 硬规则 (见 `migration_log.md` · 完全迁移标准):
 
 - ≥ 3 Worker 的 Team 必须拆 `workers/` 子目录
 - 类继承必须从 `omnicompany.Worker` (非 `runtime.routing.router.Router`)
@@ -42,6 +42,6 @@ Clean Migration 硬规则 (见 [`migration_log.md` · 完全迁移标准](../../
 ## 不要直接使用
 
 不要从 `_archive/` import. 使用:
-- 新代码: `from omnicompany.packages.services.workflow_factory.workers import ReqAnalyzerWorker`
-- 兼容路径: `from omnicompany.packages.services.workflow_factory.routers import ReqAnalyzerRouter` (旧名自动 alias 到新名)
-- AgentNodeLoop: `from omnicompany.packages.services.workflow_factory.routers_codegen import CodeGenLoop` (路径不变, 逻辑未动)
+- 新代码: `from omnifactory.packages.services.workflow_factory.workers import ReqAnalyzerWorker`
+- 兼容路径: `from omnifactory.packages.services.workflow_factory.routers import ReqAnalyzerRouter` (旧名自动 alias 到新名)
+- AgentNodeLoop: `from omnifactory.packages.services.workflow_factory.routers_codegen import CodeGenLoop` (路径不变, 逻辑未动)

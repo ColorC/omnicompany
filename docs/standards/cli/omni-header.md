@@ -1,3 +1,8 @@
+<!-- [OMNI] origin=ai-ide domain=omnicompany/standards ts=2026-05-01T00:00:00Z type=doc status=active -->
+<!-- [OMNI] summary="OmniMark 文件头规范权威文档, v3 加 summary/why/tags 三字段" -->
+<!-- [OMNI] why="给所有受管文件提供统一的身份标记格式, 让出问题时能追溯到是谁/什么时候/为什么写的" -->
+<!-- [OMNI] tags=omnimark,header,standard,registry,provenance -->
+<!-- [OMNI] material_id="material:standards.omnimark_header.spec.md" -->
 
 # OmniMark 文件头规范 v3
 
@@ -31,6 +36,10 @@
 Markdown 和 HTML 文件使用 HTML 注释格式:
 
 ```markdown
+<!-- [OMNI] origin=<origin> domain=<domain> ts=<ISO8601> type=<type> -->
+<!-- [OMNI] summary="..." -->
+<!-- [OMNI] why="..." -->
+<!-- [OMNI] tags=... -->
 ```
 
 YAML 文件用 # 注释 (跟 Python 同):
@@ -108,35 +117,39 @@ YAML 文件用 # 注释 (跟 Python 同):
 **Python 工人文件** (人类编写):
 
 ```python
-# [OMNI] origin=human domain=gameplay_system/table_learning ts=2026-04-12T00:00:00Z type=router status=active
+# [OMNI] origin=human domain=demogame/table_learning ts=2026-04-12T00:00:00Z type=router status=active
 # [OMNI] summary="从 CSV 头两行抽取表结构, 不带语义判定"
-# [OMNI] why="gameplay_system 服务包需要把表结构作为材料独立暴露, 给下游字段语义工人消费"
-# [OMNI] tags=gameplay_system,table,schema,extractor
+# [OMNI] why="demogame 服务包需要把表结构作为材料独立暴露, 给下游字段语义工人消费"
+# [OMNI] tags=demogame,table,schema,extractor
 ```
 
 **管线自动生成的 Python 工人**:
 
 ```python
-# [OMNI] origin=workflow-factory domain=gameplay_system/table_learning ts=2026-04-12T08:30:00Z
+# [OMNI] origin=workflow-factory domain=demogame/table_learning ts=2026-04-12T08:30:00Z
 # [OMNI] type=router agent=qwen3.6-plus trace=01ABC123 node=router_writer
-# [OMNI] summary="自动生成的 gameplay_system 表语义抽取工人"
-# [OMNI] why="补 gameplay_system 表学习管线缺失的语义抽取节点, 由 workflow-factory 在 trace 01ABC123 自动产出"
-# [OMNI] tags=gameplay_system,table,semantic,auto-generated
+# [OMNI] summary="自动生成的 demogame 表语义抽取工人"
+# [OMNI] why="补 demogame 表学习管线缺失的语义抽取节点, 由 workflow-factory 在 trace 01ABC123 自动产出"
+# [OMNI] tags=demogame,table,semantic,auto-generated
 ```
 
 **Markdown 文档** (废弃状态):
 
 ```markdown
+<!-- [OMNI] origin=human domain=doctor ts=2026-03-01T00:00:00Z type=doc status=deprecated -->
+<!-- [OMNI] summary="旧的诊断者设计文档, 已被新版取代" -->
+<!-- [OMNI] why="保留作历史参考, 新设计见 docs/standards/cli/omni-header.md" -->
+<!-- [OMNI] tags=doctor,deprecated,history -->
 <!-- 替代文档: docs/standards/cli/omni-header.md -->
 ```
 
 **临时脚本** (只允许在 `data/*/scratch/`):
 
 ```python
-# [OMNI] origin=human domain=gameplay_system ts=2026-04-12T00:00:00Z type=scratch status=draft
-# [OMNI] summary="临时跑数脚本, 验证 gameplay_system config_table LineGroup 字段差异"
+# [OMNI] origin=human domain=demogame ts=2026-04-12T00:00:00Z type=scratch status=draft
+# [OMNI] summary="临时跑数脚本, 验证 demogame 配表 LineGroup 字段差异"
 # [OMNI] why="跑数验证用, 跑完结果进 absorption 后此脚本应清理"
-# [OMNI] tags=scratch,gameplay_system,linegroup,one-shot
+# [OMNI] tags=scratch,demogame,linegroup,one-shot
 ```
 
 ---
@@ -204,7 +217,7 @@ YAML 文件用 # 注释 (跟 Python 同):
 ## 文档就近存放约定
 
 ```
-packages/domains/gameplay_system/table_learning/
+packages/domains/demogame/table_learning/
   ├── table_learning_pipeline.py      # type=pipeline
   ├── formats.py                      # type=format (多个 Format 对象)
   ├── routers/

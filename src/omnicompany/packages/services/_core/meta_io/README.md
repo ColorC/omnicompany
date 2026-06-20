@@ -1,3 +1,7 @@
+<!-- [OMNI] origin=ai-ide domain=services/meta_io ts=2026-05-04T17:14:00Z type=doc status=active agent=ai-ide belongs_to_service=meta_io -->
+<!-- [OMNI] summary="meta_io service - 元 IO 工具操作 + 状态绑定. 用户原始需求 6.6 — tool 操作可观测 + 状态可绑. 含 audit/builtins/definitions/registry/state_check 5 模块" -->
+<!-- [OMNI] tags=readme,meta_io,core,tools,audit,self-narrative -->
+<!-- [OMNI] material_id="material:services._core.meta_io.readme.md"-->
 
 # meta_io · 元 IO 工具操作
 

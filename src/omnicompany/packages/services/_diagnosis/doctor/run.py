@@ -89,13 +89,13 @@ class _NarrativePassthroughWorker(Worker):
     """Hard 诊断模式下替代 TeamNarrativeChecker 的直通 Worker。"""
     DESCRIPTION = "Hard 诊断模式下的叙事审计跳过占位（passed=None，不调用 LLM）"
     FORMAT_IN = "diag.team.extracted"
-    FORMAT_OUT = "diag.team.check.creative_content"
+    FORMAT_OUT = "diag.team.check.narrative"
 
     def run(self, input_data: Any) -> Any:
         from omnicompany.protocol.anchor import Verdict, VerdictKind
         output = dict(input_data)
-        output["check_creative_content"] = {
-            "check": "creative_content",
+        output["check_narrative"] = {
+            "check": "narrative",
             "passed": None,
             "severity": "INFO",
             "detail": "L4 叙事审计已跳过（hard 诊断模式）",
@@ -362,7 +362,7 @@ def build_pipeline_topo_bindings(run_llm: bool = False) -> dict[str, Worker]:
         "pipeline_format_contract":   TeamMaterialContractCheck(),
         "pipeline_maturity_check":    TeamMaturityCheck(),
         "pipeline_soft_hard_check":   TeamSoftHardCheck(),
-        "pipeline_creative_content_check":   TeamNarrativeChecker() if run_llm else _NarrativePassthroughWorker(),
+        "pipeline_narrative_check":   TeamNarrativeChecker() if run_llm else _NarrativePassthroughWorker(),
         "pipeline_topo_health_writer": TeamTopoHealthWriter(),
     }
 

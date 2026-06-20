@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=ai-ide domain=services/identity ts=2026-05-04T17:12:00Z type=doc status=active agent=ai-ide belongs_to_service=identity -->
+<!-- [OMNI] material_id="material:services._core.identity.design.md"-->
 
 # identity · 设计文档
 

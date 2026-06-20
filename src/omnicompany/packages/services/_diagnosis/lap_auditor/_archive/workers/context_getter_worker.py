@@ -1,4 +1,4 @@
-# [OMNI] origin=claude-code domain=omnicompany/lap_auditor ts=2026-04-21T00:00:00Z type=router
+# [OMNI] origin=claude-code domain=omnifactory/lap_auditor ts=2026-04-21T00:00:00Z type=router
 # [OMNI] material_id="material:diagnosis.lap_auditor.code_context_collector.worker.python"
 """ContextGetterWorker — lap_auditor 代码上下文采集 (Stage 3 独立文件).
 
@@ -13,8 +13,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from omnicompany.packages.services._core.omnicompany import Worker
-from omnicompany.protocol.anchor import Verdict, VerdictKind
+from omnifactory.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
 
 
 class ContextGetterWorker(Worker):

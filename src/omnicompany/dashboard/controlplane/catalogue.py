@@ -14477,7 +14477,7 @@ def _team_builder_llm_replay_execution_preflight(actions: list[dict[str, Any]]) 
         "status": status,
         "enabled": enabled,
         "can_execute": status == "ready_to_execute",
-        "has_the_company_***": has_the_company_key,
+        "has_the_company_api_key": has_the_company_key,
         "models": models,
         "summary": summary,
         "next_action": next_action,
@@ -14574,7 +14574,7 @@ def _team_builder_latest_llm_replay_plan() -> dict[str, Any]:
             execution_preflight["summary"],
             [
                 f"enabled={execution_preflight['enabled']}",
-                f"has_the_company_***={execution_preflight['has_the_company_***']}",
+                f"has_the_company_api_key={execution_preflight['has_the_company_api_key']}",
                 f"models={','.join(execution_preflight['models'])}",
             ],
         ),

@@ -7,13 +7,13 @@ Worker 协议:
   FORMAT_OUT = absorption.omnicompany_snapshot
 
 职责: ANCHOR + HARD. 扫本仓自身能力 (packages/core/runtime), 产 snapshot.
-实现继承自 _archive/routers_v1v2_legacy.omnicompanySnapshotFetcherRouter.
+实现继承自 _archive/routers_v1v2_legacy.OmnifactorySnapshotFetcherRouter.
 """
 from __future__ import annotations
 
 from omnicompany.packages.services._core.omnicompany import Worker
 from omnicompany.packages.services._learning.absorption._archive.routers_v1v2_legacy import (
-    omnicompanySnapshotFetcherRouter as _Legacy,
+    OmnifactorySnapshotFetcherRouter as _Legacy,
 )
 
 

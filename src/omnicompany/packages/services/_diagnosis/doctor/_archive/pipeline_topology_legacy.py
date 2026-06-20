@@ -1,4 +1,4 @@
-# [OMNI] origin=omnicompany domain=services/doctor ts=2026-04-12T00:00:00Z
+# [OMNI] origin=omnifactory domain=services/doctor ts=2026-04-12T00:00:00Z
 # [OMNI] material_id="material:diagnosis.doctor.pipeline_topology.check_engine.legacy.py"
 # OMNI-024 ALLOW: PipelineTopologyCheckRouter 是拓扑检查引擎的公共接口，与检查逻辑同文件是正确设计
 # [OMNI] PARTIALLY-DEPRECATED 2026-04-22 — 2 个 Router 类 (PipelineTopologyCheckRouter/PipelineLineageRouter)
@@ -1098,7 +1098,7 @@ class PipelineLineageRouter(Router):
     def run(self, input_data: dict) -> "Verdict":  # type: ignore[name-defined]
         from omnicompany.protocol.anchor import Verdict, VerdictKind
 
-        source_root   = input_data.get("source_root", "src/omnicompany")
+        source_root   = input_data.get("source_root", "src/omnifactory")
         filter_format = input_data.get("format_id")
         filter_pip    = input_data.get("pipeline_id")
 

@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=runtime/routing ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:routing.package_design.specification.md" -->
 
 # routing · 设计文档
 
@@ -10,7 +12,7 @@
 本包是 OmniCompany 运行时**节点执行与路径寻址的绑定层**，解决“声明式图结构 (GraphSpec) 如何映射为实际执行逻辑”的问题。
 提供 `Router` 抽象契约、全局注册发现、基于历史记忆的语义检索、以及玻尔兹曼退火选路引擎。
 **不解决**：
-- 不负责业务领域逻辑（如 gameplay_system/Absorption 解析器，应下沉至 `packages/domains|services`）
+- 不负责业务领域逻辑（如 demogame/Absorption 解析器，应下沉至 `packages/domains|services`）
 - 不管理 LLM 底层连接/重试/限流（委托 `runtime/llm`）
 - 不负责状态持久化与 DB 建表（委托 `runtime/storage`）
 - 不替代 `AgentNodeLoop` 的循环控制与 Prompt 拼接主干（仅作为循环内的执行单元）
@@ -85,5 +87,5 @@ Greedy Topology Expand ───▶ Format System Prompt ───▶ 注入 Age
 
 ## 接收意愿
 - **接收**: 新 Router 子类实现（遵循 `run() -> Verdict` 契约 + 明确 `FORMAT_IN/OUT`）；针对特定协议的路由检索器扩展（需继承 `RouteRetriever` 基类）；选路算法变体（如 Thompson Sampling / UCB 替换玻尔兹曼，需附带 `ConvergenceAuditor` 适配）
-- **不接收**: 业务领域特定逻辑（如 gameplay_system 表格处理、Absorption 解析器应下沉至 `packages/domains|services`）；跨层干预（如直接修改 DB schema、在 Router 内部硬编码 LLM retry 策略）；破坏 `FORMAT_IN/OUT` 隐式契约的透传修改或 Side-effect 落盘行为（未走 `runtime/storage`）
+- **不接收**: 业务领域特定逻辑（如 demogame 表格处理、Absorption 解析器应下沉至 `packages/domains|services`）；跨层干预（如直接修改 DB schema、在 Router 内部硬编码 LLM retry 策略）；破坏 `FORMAT_IN/OUT` 隐式契约的透传修改或 Side-effect 落盘行为（未走 `runtime/storage`）
 - **边界信号**: 若新增模块需直接 import `omnicompany.runtime.llm.llm` 内部私有类或绕过 `ToolExecutor`，说明应归属 `exec/` 或 `agent/`；若路由逻辑强依赖特定业务 YAML/Config，说明应下沉至 domain 子包而非留在核心 routing 基建

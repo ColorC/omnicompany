@@ -20,8 +20,8 @@ import re
 from pathlib import Path
 from typing import Any
 
-from omnicompany.protocol.anchor import Verdict, VerdictKind
-from omnicompany.packages.services._core.omnicompany import Worker
+from omnifactory.protocol.anchor import Verdict, VerdictKind
+from omnifactory.packages.services._core.omnicompany import Worker
 
 from ..standards_loader import load_standards_index
 
@@ -298,7 +298,7 @@ class FindingWriterWorker(Worker):
         if not new_rows:
             return 0
 
-        from omnicompany.packages.services._diagnosis.tech_debt import append_event
+        from omnifactory.packages.services._diagnosis.tech_debt import append_event
 
         # arch_path = root/docs/ARCH-CHANGES.jsonl → parents[1] = root
         try:

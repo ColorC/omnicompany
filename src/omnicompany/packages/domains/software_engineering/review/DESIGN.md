@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=packages/domains/software_engineering/review ts=2026-04-25T00:00:00Z type=doc status=active -->
+<!-- [OMNI] material_id="material:domains.software_engineering.review.design_spec.md" -->
 
 # review · 设计文档
 
@@ -77,7 +79,7 @@ test_searcher (HARD) → 检索关联测试与覆盖缺口 → 产出 sw_review.
 - 关联路由实现: [routers.py](routers.py)
 - 关联拓扑构建: [team.py](team.py)
 - 关联运行时绑定: [run.py](run.py)
-- 关联数据清单与老化策略: [.omni/manifest.yaml](.omni/manifest.yaml)
+- 关联数据清单与老化策略: .omni/manifest.yaml
 - 兄弟包边界: [design/DESIGN.md](../design/DESIGN.md) (架构设计) / [implement/DESIGN.md](../implement/DESIGN.md) (自动修复) / [tdd/DESIGN.md](../tdd/DESIGN.md) (测试覆盖增强)
 - 框架规范: `docs/standards/distributed-docs.md` (§三 内容类型矩阵, §四 放置规则)
 - 协议层规范: `omnicompany/protocol/format.py`, `omnicompany/protocol/team.py`, `omnicompany/protocol/anchor.py`

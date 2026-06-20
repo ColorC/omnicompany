@@ -1,3 +1,5 @@
+<!-- [OMNI] origin=claude-code domain=services/omnicompany ts=2026-05-04T14:15:00Z type=doc status=active belongs_to_service=omnicompany -->
+<!-- [OMNI] material_id="material:omnicompany.design_document.specification.md" -->
 
 # omnicompany · 设计文档
 
@@ -211,10 +213,10 @@ MaterialDispatcher.run_job()
   - [guardian/workers/](../guardian/workers/) — 类 A 迁移 4 Worker 样本
   - [agent_team_demo.py](agent_team_demo.py) — Agent Team 4 Worker 样本
 - **Plan**:
-  - [MATERIAL-UNIFICATION/plan.md](../../../../../../docs/plans/format-material/[2026-06-13]MATERIAL-UNIFICATION/plan.md)
-  - [BLACKBOARD-ARCHITECTURE/plan.md](../../../../../../docs/plans/format-material/[2026-04-19]BLACKBOARD-ARCHITECTURE/plan.md)
-  - [migration_log.md](../../../../../../docs/plans/format-material/[2026-04-19]BLACKBOARD-ARCHITECTURE/migration_log.md)
-- **SKILL**: [`.claude/skills/omnicompany-dev/SKILL.md` §2.10 / §2.11](../../../../../../.claude/skills/omnicompany-dev/SKILL.md)
+  - MATERIAL-UNIFICATION/plan.md
+  - BLACKBOARD-ARCHITECTURE/plan.md
+  - migration_log.md
+- **SKILL**: `.claude/skills/omnicompany-dev/SKILL.md` §2.10 / §2.11
 
 ## 接收意愿
 
