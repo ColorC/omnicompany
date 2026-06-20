@@ -116,7 +116,7 @@ expected_completion: <YYYY-MM-DD>
 
 - [ ] 全部产物清单 (二节) 文件存在
 - [ ] 关键 class / 函数 / Material 常量按描述存在
-- [ ] OMNI 头齐 (按 `omni-header.md` 规范)
+- [ ] OMNI 头齐 (按 [`omni-header.md`](../cli/omni-header.md) 规范)
 - [ ] 文档章节齐 (按 `design_md_template.md` 等模板)
 
 ### 3.2 动态验收 (能跑 / 能复现)

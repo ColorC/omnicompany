@@ -21,7 +21,7 @@
 
 ### 1.2 典型声明 (package 级)
 
-`.omni/` 目录**不是 Python 包** (故意设计, 只存元数据), 所以 workspace 声明走 yaml, 不走 py:
+`.omni/` 目录存放 workspace 元数据。声明方式以 §3.1「声明位置」为准 (推荐 `<pkg>/.omni/workspace.py` 独立文件导出 `workspace` 变量; 也支持 `workspace.yaml` 声明式配置)。下面先用 yaml 形式展示字段含义:
 
 ```yaml
 # <pkg>/.omni/workspace.yaml

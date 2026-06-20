@@ -219,7 +219,7 @@ MAY 用旧名：
 
 **Patch-7 pilot 实现**: `packages/services/omnicompany/agent_team_demo.py` 4 Worker mock · 6 测试全过。
 
-**详见**: `router.md` R-19 (修正) / R-20 / R-24 FORMAT_IN_MODE / R-25 子 job。
+**详见**: [`router.md` R-19 (修正) / R-20 / R-24 FORMAT_IN_MODE / R-25 子 job](../concepts/worker.md)。
 
 ---
 
@@ -235,7 +235,7 @@ MAY 用旧名：
 
 **大明文判定**: ≥ 10 KB 建议走 workspace, ≥ 1 MB 或二进制强制走 workspace。
 
-**详见**: `pipeline.md` P-14 / P-15 / P-16 + `router.md` R-22 + `format.md` F-17。
+**详见**: [`pipeline.md` P-14 / P-15 / P-16](../concepts/team.md) + [`router.md` R-22](../concepts/worker.md) + [`format.md` F-17](../concepts/material.md)。
 
 ---
 
@@ -253,7 +253,7 @@ MAY 用旧名：
 - `diagnosis.material_dispute` → 路由 validator, 可能发新 job 修上游
 - 正常 FORMAT_OUT → 说明原 LLM Worker 是被劣质 material 拖累, 非幻觉
 
-**详见**: `router.md` R-21。
+**详见**: [`router.md` R-21](../concepts/worker.md)。
 
 ---
 
@@ -270,7 +270,7 @@ MAY 用旧名：
 
 **parent_job_id 链**: 通过 `payload._parent_job_id` 记录, Q4 诊断追溯 agent 内部因果。
 
-**详见**: `router.md` R-25 + `packages/services/omnicompany/material_dispatcher.py`。
+**详见**: [`router.md` R-25](../concepts/worker.md) + `packages/services/omnicompany/material_dispatcher.py`。
 
 ---
 
@@ -321,4 +321,4 @@ MAY 用旧名：
 
 - **Plan**: [`docs/plans/[2026-04-19]BLACKBOARD-ARCHITECTURE/plan.md`](../plans/[2026-04-19]BLACKBOARD-ARCHITECTURE/plan.md) §五（迁移与反倒退协议）
 - **Guardian 规则**: OMNI-036（草案在本文 §4 · 代码实现待 Phase A 开启时落地）
-- **F-15 承接**: `Material 禁搭便车` = 原 `Format 禁搭便车`（`format.md` F-15）
+- **F-15 承接**: `Material 禁搭便车` = 原 `Format 禁搭便车`（[`format.md`](../concepts/material.md) F-15）

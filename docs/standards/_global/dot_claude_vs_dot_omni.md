@@ -102,7 +102,7 @@ trace_id 跨 `.claude` 跟 `.omni`:
 - **`.claude/settings.json` 不可避免** — Claude Code 平台强制位置, cc_wrapper 必须写这
 - **`.claude/skills/` 是薄包装** — 详 [single_source_thin_wrap.md](single_source_thin_wrap.md). 当前两个 skill (omnicompany-dev / omnicompany-use) 还是厚副本形态, 待治理
 - **`.claude/agents/` 不复用** — 我们用 `services/_core/agent/` + `templates/agent/`
-- **`.omni/` 持续扩展** — 但每加一个 `.omni/<sub>/` 必先经用户批准 (跟 feedback_no_dir_creation_without_approval 一致)
+- **`.omni/` 持续扩展** — 但每加一个 `.omni/<sub>/` 必先经用户批准 (跟 auto-memory `feedback_no_dir_creation_without_approval` 一致)
 
 ## 六、 反模式
 

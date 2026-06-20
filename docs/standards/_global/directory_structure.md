@@ -102,7 +102,7 @@ N 个元素属于同一语义类别 (即使前缀不同), 触发收子目录:
 | `_domain_specific/` | 特定 domain 的子内容 | `docs/standards/_domain_specific/demogame/` |
 | `_experimental/` | 实验性 / 临时, 可能废弃 | `services/_experimental/` |
 
-~~`_scratch/`~~ — **2026-05-02 撤规范**. 跟 `.omni/sandbox/drafts/` 功能重叠 (都是注册前临时草稿区), 但 sandbox 有明确 lifecycle (drafts → check → promote / archive) 而 _scratch 是松散临时. 用户拍板归并: 临时工作走 `.omni/sandbox/drafts/`, 不立 `_scratch/`. 详 feedback_no_dir_creation_without_approval.
+~~`_scratch/`~~ — **2026-05-02 撤规范**. 跟 `.omni/sandbox/drafts/` 功能重叠 (都是注册前临时草稿区), 但 sandbox 有明确 lifecycle (drafts → check → promote / archive) 而 _scratch 是松散临时. 用户拍板归并: 临时工作走 `.omni/sandbox/drafts/`, 不立 `_scratch/`. 详 auto-memory `feedback_no_dir_creation_without_approval`.
 
 下划线前缀的目录在排序时排在前面 (lexicographic), 自然区别于业务子目录.
 
@@ -216,7 +216,7 @@ N 个元素属于同一语义类别 (即使前缀不同), 触发收子目录:
 4. _前缀的目录不当业务子目录用 (4.1 约定)
 5. service 跟 domain 边界判定按 4.3 (服务跨业务 vs 业务私域)
 6. 每个目录回答一个清晰的语义问题 (一、 根本)
-7. **新目录创建经审批** — AI IDE / agent 不擅自新建目录, 必须先经用户批准 (跨项目铁律 2026-05-02 立, 详 feedback_no_dir_creation_without_approval)
+7. **新目录创建经审批** — AI IDE / agent 不擅自新建目录, 必须先经用户批准 (跨项目铁律 2026-05-02 立, 详 auto-memory `feedback_no_dir_creation_without_approval`)
 8. **不擅自立新 bucket** — `services/` 下 `_authoring / _core / _diagnosis / _learning / _utility` 5 个 bucket 是固定清单, 新 bucket 必先改本规范 §4.2.1 加范围 + 用户批准
 
 ## 八、 修订协议

@@ -2,7 +2,7 @@
 
 > **状态**：奠基规范（2026-04-18 立档，由 `prefab_semantic_loop` 从 bash+AST 防护迭代到结构化工具套件驱动）
 > **范围**：所有 OmniCompany 里的 `AgentNodeLoop` 子类工具设计
-> **关系**：llm_first.md 原则 2（全量可达 + Agent Loop + 安全网）的**工具层落地规范**
+> **关系**：[llm_first.md](../_global/llm_first.md) 原则 2（全量可达 + Agent Loop + 安全网）的**工具层落地规范**
 
 ---
 

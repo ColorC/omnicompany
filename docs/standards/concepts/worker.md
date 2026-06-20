@@ -12,7 +12,7 @@
 
 本规范主体叙述用 **Worker** 表达数据转换执行单元。`Router` 是 protocol 层的 Python 类名, 在本规范中等同于 Worker — 仅代码引用 / class 继承场景保留 `Router` 名字。
 
-下文条款（R-01~R-22）的 "Router" 字样请读作 Worker; "节点" 字样同理。完整对照见 `terminology.md §6`。
+下文条款（R-01~R-22）的 "Router" 字样请读作 Worker; "节点" 字样同理。完整对照见 [`terminology.md §6`](../_global/terminology.md)。
 
 ---
 
@@ -320,7 +320,7 @@ Agent Worker (FORMAT_IN / FORMAT_OUT 一套)
 - FORMAT_OUT: `workspace_file_stock.persisted`（sink material, 含落盘确认）
 - 内部用 `core.guarded_write.write_file`（对齐 OMNI-013）
 
-详见 `pipeline.md` omnicompany 扩展 · P-14 Workspace 定义。
+详见 [`team.md` omnicompany 扩展 · P-14 Workspace 定义](team.md)。
 
 ### R-23 · Worker.run() verdict.output 平铺约定（2026-04-20 Patch-6 · 硬规则）
 

@@ -13,7 +13,7 @@
 
 本规范主体叙述用 **Material** 表达数据契约。`Format` 是 protocol 层的 Python 类名, 在本规范中等同于 Material — 仅代码引用 / class 继承场景保留 `Format` 名字。
 
-下文条款（F-01~F-18）的 "Format" 字样请读作 Material。完整对照见 `terminology.md §6`。
+下文条款（F-01~F-18）的 "Format" 字样请读作 Material。完整对照见 [`terminology.md §6`](../_global/terminology.md)。
 
 ---
 
