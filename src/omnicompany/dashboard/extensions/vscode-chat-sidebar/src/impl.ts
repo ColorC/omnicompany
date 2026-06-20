@@ -244,6 +244,7 @@ class BackendSupervisor {
   private starting: Promise<void> | null = null;
   private monitor: NodeJS.Timeout | null = null;
   private disposed = false;
+  private healthFailStreak = 0;  // 连续健康探测失败次数; 容忍瞬时抖动, 别一抖就掀掉已就绪面板触发重载
 
   constructor(private readonly host: ImplHost, private readonly renderAll: () => void) {
     this.statusBar.command = 'omniChat.backendStatus';
@@ -293,13 +294,26 @@ class BackendSupervisor {
   async refreshStatus(showOutput: boolean): Promise<void> {
     if (this.disposed) return;
     const daemonReady = await httpOk(`http://127.0.0.1:${daemonPort()}/cc/chat/health`);
-    const dashboardReady = await dashboardOk();
-    const phase: BackendPhase = dashboardReady && daemonReady ? 'ready' : 'idle';
+    // dashboard `/` 在高负载下偶尔几秒才回(SPA 启动 fan-out 抢资源), 给宽松超时, 别误判没就绪。
+    const dashboardReady = await httpOk(`http://127.0.0.1:${dashboardPort()}/`, 5000);
+    const healthy = dashboardReady && daemonReady;
+    this.healthFailStreak = healthy ? 0 : this.healthFailStreak + 1;
+    // 关键: 已 ready 的面板, 单次/少数几次探测失败不降级(不掀掉 iframe → 不重载)。
+    // 只有连续 STREAK 次(≈15s)都失败 = 后端真挂了, 才降级。瞬时抖动一律维持 ready。
+    const STREAK_TO_DEGRADE = 3;
+    let phase: BackendPhase;
+    if (healthy) {
+      phase = 'ready';
+    } else if (this.status.phase === 'ready' && this.healthFailStreak < STREAK_TO_DEGRADE) {
+      phase = 'ready';  // 维持就绪, 不重载
+    } else {
+      phase = 'idle';
+    }
     this.update({
       phase,
       dashboardReady,
       daemonReady,
-      message: dashboardReady && daemonReady ? 'OmniChat backend is ready.' : 'OmniChat backend is not fully ready.',
+      message: healthy ? 'OmniChat backend is ready.' : 'OmniChat backend is not fully ready.',
     });
     if (showOutput) this.showStatusOutput();
   }
