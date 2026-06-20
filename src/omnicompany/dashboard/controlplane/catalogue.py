@@ -3273,6 +3273,32 @@ def _team_builder_material_read_group_findings(material_report: dict[str, Any]) 
     return findings
 
 
+# services 树 basename->[paths] 索引(按 services 根 mtime 缓存)。取代每次 rglob 整棵树:
+# team-builder closure 状态会按每条工具事件反复调用候选路径解析, 原来每次都 rglob 整个 services
+# 包树, 是事件循环上的头号 CPU 占用源(stackdump 5 次抓到 3 次)。建一次索引, 后续 O(1) 查。
+_SERVICES_FILE_INDEX: dict[str, tuple[float, dict[str, list[Path]]]] = {}
+
+
+def _services_file_index() -> tuple[Path, dict[str, list[Path]]]:
+    services_root = _repo_root() / "src" / "omnicompany" / "packages" / "services"
+    try:
+        token = services_root.stat().st_mtime
+    except OSError:
+        return services_root, {}
+    key = str(services_root)
+    hit = _SERVICES_FILE_INDEX.get(key)
+    if hit is not None and hit[0] == token:
+        return services_root, hit[1]
+    index: dict[str, list[Path]] = {}
+    if services_root.is_dir():
+        for path in services_root.rglob("*"):
+            if _is_skipped(path) or not path.is_file():
+                continue
+            index.setdefault(path.name, []).append(path)
+    _SERVICES_FILE_INDEX[key] = (token, index)
+    return services_root, index
+
+
 def _team_builder_target_candidate_paths(target: str) -> list[Path]:
     normalized = _materialization_normalized_target(target)
     direct = _materialization_workspace_path(target, normalized)
@@ -3298,9 +3324,8 @@ def _team_builder_target_candidate_paths(target: str) -> list[Path]:
             suffix = tail.removeprefix("team_builder/")
             tail_candidates.append(f"_core/team_builder/{suffix}")
         if services_root.is_dir() and tail:
-            for path in services_root.rglob(Path(tail).name):
-                if _is_skipped(path) or not path.is_file():
-                    continue
+            _idx_root, _idx = _services_file_index()
+            for path in _idx.get(Path(tail).name, []):
                 rel = path.relative_to(services_root).as_posix()
                 if any(rel.endswith(candidate) for candidate in tail_candidates):
                     candidates.append(path)
